@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Raylane Express — Uganda's premier intercity transport platform. Book seats, send parcels, track coaches live.">
+<meta name="theme-color" content="#0B2FA0">
+<meta property="og:title" content="Raylane Express — Tusimbudde!">
+<meta property="og:description" content="Book bus seats across Uganda in 60 seconds. MTN MoMo, Airtel Money, Visa accepted.">
+<title>Raylane Express</title>
+
+<!-- Fonts: NBA Shop precision meets Brussels Airlines sophistication -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════
+   RAYLANE EXPRESS v2 — DESIGN SYSTEM
+   Aesthetic: Megabus utility × Brussels Airlines 
+   sophistication × NBA Shop energy
+   ══════════════════════════════════════════════ */
+:root {
+  /* Brand — extracted from logo */
+  --rl-blue:        #0B2FA0;   /* primary royal blue from logo */
+  --rl-blue-dark:   #071E6B;   /* nav, hero */
+  --rl-blue-mid:    #1a45c0;   /* hover states */
+  --rl-blue-deep:   #040E35;   /* footer, dark sections */
+  --rl-gold:        #E8A800;   /* logo gold */
+  --rl-gold-bright: #FFC72C;   /* CTAs, highlights */
+  --rl-gold-dark:   #C48C00;   /* hover */
+  --rl-grey-text:   #6B7280;   /* "EXPRESS" grey from logo */
+  --off-white:      #F8FAFD;
+  --surface:        #EEF2FA;
+  --border:         #DDE3F0;
+  --text:           #0A0F1E;
+  --text-mid:       #4B5563;
+  --text-light:     #9CA3AF;
+  --success:        #059669;
+  --warning:        #D97706;
+  --danger:         #DC2626;
+
+  /* NBA Shop type scale */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-ui:      'Inter', sans-serif;
+
+  /* Spacing */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;
+  --s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;--s20:80px;
+
+  /* Radii */
+  --r-none:0;--r-sm:4px;--r-md:8px;--r-lg:16px;--r-xl:24px;--r-full:9999px;
+
+  /* Shadows */
+  --sh-sm: 0 1px 4px rgba(11,47,160,.08);
+  --sh-md: 0 4px 20px rgba(11,47,160,.12);
+  --sh-lg: 0 12px 48px rgba(11,47,160,.18);
+  --sh-gold: 0 6px 24px rgba(232,168,0,.35);
+  --sh-xl: 0 24px 64px rgba(4,14,53,.3);
+
+  --t: 220ms cubic-bezier(.4,0,.2,1);
+  --t-fast: 140ms ease;
+  --safe-b: env(safe-area-inset-bottom,0px);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;font-size:16px}
+body{
+  font-family:var(--font-body);
+  background:var(--off-white);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.55;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select,textarea{font-family:inherit;outline:none}
+ul{list-style:none}
+
+/* ── Typography ── */
+.t-display{
+  font-family:var(--font-display);
+  font-weight:900;
+  font-style:italic; /* NBA Shop italic energy */
+  line-height:.95;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+}
+.t-heading{font-family:var(--font-display);font-weight:800;line-height:1.05;letter-spacing:-.01em;text-transform:uppercase;}
+.t-subheading{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;text-transform:uppercase;}
+.t-label{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);}
+
+/* ── Buttons: Megabus precision pill ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  font-family:var(--font-display);font-weight:700;font-style:italic;
+  letter-spacing:.02em;text-transform:uppercase;
+  padding:13px 28px;border-radius:var(--r-full);
+  transition:all var(--t);white-space:nowrap;
+  position:relative;overflow:hidden;user-select:none;
+  font-size:15px;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.1);opacity:0;
+  transition:opacity var(--t-fast);
+}
+.btn:hover::before{opacity:1}
+.btn:active{transform:scale(.975)}
+
+.btn-gold{background:var(--rl-gold);color:var(--rl-blue-dark);}
+.btn-gold:hover{background:var(--rl-gold-bright);box-shadow:var(--sh-gold);transform:translateY(-2px);}
+.btn-blue{background:var(--rl-blue);color:#fff;}
+.btn-blue:hover{background:var(--rl-blue-mid);box-shadow:var(--sh-md);transform:translateY(-2px);}
+.btn-outline-white{border:2px solid rgba(255,255,255,.4);color:#fff;}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+.btn-outline-blue{border:2px solid var(--rl-blue);color:var(--rl-blue);}
+.btn-outline-blue:hover{background:var(--rl-blue);color:#fff;}
+.btn-ghost-dark{background:rgba(11,47,160,.08);color:var(--rl-blue);}
+.btn-ghost-dark:hover{background:var(--rl-blue);color:#fff;}
+.btn-sm{padding:9px 18px;font-size:13px;}
+.btn-lg{padding:17px 38px;font-size:18px;}
+.btn-xl{padding:20px 44px;font-size:20px;}
+
+/* ── Container ── */
+.container{width:min(100%,1320px);margin:0 auto;padding:0 var(--s6);}
+@media(min-width:768px){.container{padding:0 var(--s8);}}
+@media(min-width:1200px){.container{padding:0 var(--s12);}}
+
+/* ── Cards ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;}
+.card-blue-top{border-top:3px solid var(--rl-blue);}
+.card-gold-top{border-top:3px solid var(--rl-gold);}
+
+/* ── Badge ── */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:var(--r-full);
+  font-family:var(--font-ui);font-size:11px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.badge-green{background:#D1FAE5;color:#065F46;}
+.badge-amber{background:#FEF3C7;color:#92400E;}
+.badge-red{background:#FEE2E2;color:#991B1B;}
+.badge-blue{background:#DBEAFE;color:var(--rl-blue);}
+.badge-gold{background:#FEF9C3;color:#854D0E;}
+
+/* ── Live dot ── */
+.live{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-ui);font-size:12px;font-weight:700;
+  color:var(--success);text-transform:uppercase;letter-spacing:.06em;
+}
+.live::before{
+  content:'';width:8px;height:8px;border-radius:50%;
+  background:var(--success);flex-shrink:0;
+  animation:livepulse 2s ease infinite;
+}
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(5,150,105,.5);}60%{box-shadow:0 0 0 6px rgba(5,150,105,0);}}
+
+/* ── Section ── */
+section{scroll-margin-top:72px;}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-ui);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(11,47,160,.07);color:var(--rl-blue);
+  padding:6px 14px;border-radius:var(--r-full);margin-bottom:var(--s4);
+}
+.section-eyebrow.gold{background:rgba(232,168,0,.12);color:var(--rl-gold-dark);}
+
+/* ── Reveal animations ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.show{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal-left.show{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal-right.show{opacity:1;transform:none;}
+
+/* ═══════════════════════════════
+   ANNOUNCEMENT BAR
+   ═══════════════════════════════ */
+.ann-bar{
+  background:var(--rl-blue);color:rgba(255,255,255,.9);
+  font-family:var(--font-ui);font-size:13px;font-weight:500;
+  padding:10px var(--s6);
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  position:relative;
+}
+.ann-bar strong{color:var(--rl-gold-bright);}
+.ann-x{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,.4);font-size:18px;padding:4px;
+  transition:color var(--t-fast);
+}
+.ann-x:hover{color:#fff;}
+
+/* ═══════════════════════════════
+   NAVIGATION — Megabus flat bar
+   ═══════════════════════════════ */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:var(--rl-blue-dark);
+  border-bottom:3px solid var(--rl-gold);
+}
+.nav-inner{
+  display:flex;align-items:center;height:68px;gap:var(--s6);
+}
+
+/* Logo */
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-logo img{height:36px;width:auto;}
+.nav-logo-fallback{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:20px;color:#fff;letter-spacing:-.01em;
+}
+.nav-logo-fallback span{color:var(--rl-gold);}
+
+/* Links */
+.nav-links{display:none;flex:1;align-items:center;gap:2px;}
+@media(min-width:768px){.nav-links{display:flex;}}
+.nav-link{
+  font-family:var(--font-ui);font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.7);padding:8px 14px;border-radius:var(--r-sm);
+  transition:all var(--t-fast);
+}
+.nav-link:hover,.nav-link.on{color:#fff;background:rgba(255,255,255,.1);}
+
+/* Portals highlight */
+.nav-portal{
+  font-family:var(--font-ui);font-size:12px;font-weight:700;
+  color:var(--rl-gold);border:1px solid rgba(232,168,0,.4);
+  padding:6px 12px;border-radius:var(--r-sm);
+  transition:all var(--t-fast);
+}
+.nav-portal:hover{background:var(--rl-gold);color:var(--rl-blue-dark);}
+
+.nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto;}
+
+.hamburger{
+  display:flex;flex-direction:column;gap:5px;
+  width:42px;height:42px;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);border-radius:var(--r-sm);
+  transition:background var(--t-fast);
+}
+@media(min-width:768px){.hamburger{display:none;}}
+.hamburger:hover{background:rgba(255,255,255,.16);}
+.hamburger span{width:20px;height:2px;background:#fff;border-radius:1px;transition:all var(--t);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile menu */
+.mob-menu{
+  display:none;position:fixed;inset:0;top:0;z-index:190;
+  background:var(--rl-blue-deep);padding-top:71px;
+  overflow-y:auto;
+}
+.mob-menu.open{display:flex;flex-direction:column;}
+.mob-link{
+  font-family:var(--font-display);font-weight:700;font-style:italic;
+  font-size:22px;text-transform:uppercase;color:rgba(255,255,255,.8);
+  padding:18px var(--s6);border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:color var(--t-fast);
+}
+.mob-link:hover{color:var(--rl-gold);}
+.mob-actions{padding:var(--s6);display:flex;flex-direction:column;gap:12px;margin-top:auto;}
+.mob-portal-section{
+  padding:var(--s4) var(--s6);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.mob-portal-label{
+  font-family:var(--font-ui);font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);
+  margin-bottom:12px;
+}
+
+/* ═══════════════════════════════
+   HERO — Brussels Airlines effect
+   Interactive parallax + particles
+   ═══════════════════════════════ */
+.hero{
+  position:relative;min-height:100svh;
+  background:var(--rl-blue-deep);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+
+/* Road particle canvas */
+#heroCanvas{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:.4;
+}
+
+/* Gradient mesh layers (Brussels Airlines depth) */
+.hero-mesh{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+}
+.hero-mesh::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 60% at 20% 30%, rgba(11,47,160,.7) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 80% 70%, rgba(7,30,107,.5) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(4,14,53,.8) 0%, transparent 60%);
+}
+.hero-mesh::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(4,14,53,0) 0%,rgba(4,14,53,.85) 100%);
+}
+
+/* Sliding background panels */
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 1.4s cubic-bezier(.4,0,.6,1);
+  background-size:cover;background-position:center;
+}
+.hero-slide.on{opacity:1;}
+/* Gradient panels since we don't have real photos */
+.hero-slide:nth-child(1){
+  background:
+    linear-gradient(135deg,#071E6B 0%,#0B2FA0 35%,#1a45c0 65%,#071E6B 100%);
+}
+.hero-slide:nth-child(2){
+  background:
+    linear-gradient(150deg,#040E35 0%,#0B2FA0 40%,#E8A80020 70%,#040E35 100%);
+}
+.hero-slide:nth-child(3){
+  background:
+    linear-gradient(120deg,#0B2FA0 0%,#071E6B 40%,#1a45c0 80%,#071E6B 100%);
+}
+
+/* Hero content */
+.hero-body{
+  position:relative;z-index:10;flex:1;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:var(--s10);
+  padding-top:var(--s20);
+}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,168,0,.15);border:1px solid rgba(232,168,0,.25);
+  color:var(--rl-gold-bright);
+  font-family:var(--font-ui);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 16px;border-radius:var(--r-full);
+  margin-bottom:var(--s6);
+}
+
+.hero-title{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  text-transform:uppercase;
+  font-size:clamp(3rem,10vw,7.5rem);
+  line-height:.9;letter-spacing:-.02em;
+  color:#fff;margin-bottom:var(--s6);
+}
+.hero-title .accent{
+  display:block;color:var(--rl-gold-bright);
+  text-shadow:0 0 80px rgba(232,168,0,.4);
+}
+
+.hero-sub{
+  font-family:var(--font-body);font-size:clamp(1rem,2.5vw,1.25rem);
+  font-weight:400;color:rgba(255,255,255,.65);
+  max-width:580px;line-height:1.6;margin-bottom:var(--s8);
+}
+
+.hero-trust{
+  display:flex;flex-wrap:wrap;gap:var(--s6);margin-bottom:var(--s8);
+}
+.hero-trust-item{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-ui);font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.6);
+}
+.hero-trust-item svg{color:var(--rl-gold);}
+
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;}
+
+/* Slide dots */
+.hero-dots{
+  position:absolute;bottom:var(--s6);right:var(--s6);
+  z-index:10;display:flex;gap:8px;align-items:center;
+}
+.hero-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.3);border:none;
+  transition:all var(--t);
+}
+.hero-dot.on{background:var(--rl-gold);transform:scale(1.3);}
+
+/* Scrolling urgency ticker (Brussels Airlines departure board feel) */
+.hero-ticker{
+  position:absolute;bottom:0;left:0;right:0;z-index:10;
+  background:rgba(11,47,160,.7);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(232,168,0,.2);
+  overflow:hidden;height:42px;display:flex;align-items:center;
+}
+.ticker-label{
+  font-family:var(--font-display);font-weight:700;font-style:italic;
+  font-size:12px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--rl-gold);padding:0 var(--s4);
+  background:var(--rl-gold);color:var(--rl-blue-dark);
+  height:100%;display:flex;align-items:center;flex-shrink:0;
+}
+.ticker-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:ticker 40s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-item{
+  font-family:var(--font-ui);font-size:12px;font-weight:600;
+  color:rgba(255,255,255,.8);padding:0 var(--s6);
+  display:flex;align-items:center;gap:8px;
+}
+.ticker-item::after{content:'·';color:rgba(255,255,255,.3);}
+.ticker-dot-green{width:7px;height:7px;border-radius:50%;background:var(--success);flex-shrink:0;}
+.ticker-dot-amber{width:7px;height:7px;border-radius:50%;background:var(--warning);flex-shrink:0;}
+.ticker-dot-red{width:7px;height:7px;border-radius:50%;background:var(--danger);flex-shrink:0;}
+
+/* ═══════════════════════════════
+   SEARCH WIDGET (Megabus style)
+   ═══════════════════════════════ */
+.search-section{
+  background:#fff;
+  box-shadow:var(--sh-lg);
+  border-bottom:1px solid var(--border);
+  position:relative;z-index:50;
+}
+
+.search-tabs{
+  display:flex;border-bottom:1px solid var(--border);
+  overflow-x:auto;scrollbar-width:none;
+}
+.search-tabs::-webkit-scrollbar{display:none;}
+.stab{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-ui);font-size:13px;font-weight:700;
+  color:var(--text-mid);padding:14px 22px;
+  border-bottom:3px solid transparent;
+  white-space:nowrap;flex-shrink:0;transition:all var(--t-fast);
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.stab:hover{color:var(--rl-blue);}
+.stab.on{color:var(--rl-blue);border-bottom-color:var(--rl-gold);background:rgba(11,47,160,.04);}
+
+.search-form{padding:var(--s6) var(--s6) var(--s4);}
+.search-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:640px){.search-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.search-grid{grid-template-columns:1.4fr 44px 1.4fr 1fr 1fr auto;}align-items:end;}
+
+.field{display:flex;flex-direction:column;gap:5px;}
+.field-label{
+  font-family:var(--font-ui);font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);
+}
+.field-input{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-md);padding:12px 14px;
+  transition:all var(--t-fast);
+}
+.field-input:focus-within{
+  border-color:var(--rl-blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(11,47,160,.1);
+}
+.field-input svg{color:var(--rl-blue);flex-shrink:0;}
+.field-input input,.field-input select{
+  background:none;border:none;flex:1;min-width:0;
+  font-family:var(--font-body);font-size:15px;font-weight:500;
+  color:var(--text);
+}
+.field-input input::placeholder,.field-input select{color:var(--text-mid);}
+
+.swap-col{display:flex;align-items:flex-end;justify-content:center;}
+.swap-btn{
+  width:44px;height:47px;border-radius:var(--r-md);
+  background:var(--surface);border:1.5px solid var(--border);
+  color:var(--rl-blue);display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);flex-shrink:0;
+}
+.swap-btn:hover{background:var(--rl-blue);color:#fff;border-color:var(--rl-blue);}
+
+/* Boarding option — NEW FEATURE */
+.boarding-opts{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:var(--s3) var(--s6) var(--s4);
+  border-top:1px solid var(--surface);
+}
+.boarding-opt{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:var(--r-full);
+  border:1.5px solid var(--border);background:#fff;
+  cursor:pointer;transition:all var(--t-fast);
+  font-family:var(--font-ui);font-size:13px;font-weight:600;
+}
+.boarding-opt:hover{border-color:var(--rl-blue);}
+.boarding-opt.on{border-color:var(--rl-blue);background:var(--rl-blue);color:#fff;}
+.boarding-opt input{display:none;}
+.boarding-opt-icon{width:20px;height:20px;flex-shrink:0;}
+.boarding-loc{
+  display:none;padding:var(--s3) var(--s6) var(--s4);
+  border-top:1px solid var(--surface);
+}
+.boarding-loc.show{display:block;}
+.loc-note{
+  background:#FEF9C3;border:1px solid #FDE68A;border-radius:var(--r-md);
+  padding:10px 14px;font-size:13px;color:#78350F;
+  display:flex;align-items:flex-start;gap:8px;
+}
+
+/* Location finder */
+.loc-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:var(--s3) var(--s6) var(--s4);
+  border-top:1px solid var(--surface);
+  flex-wrap:wrap;gap:8px;
+}
+.loc-btn{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-ui);font-size:13px;font-weight:700;
+  color:var(--rl-blue);background:none;border:none;
+  padding:7px 14px;border-radius:var(--r-full);
+  background:rgba(11,47,160,.06);
+  transition:all var(--t-fast);
+}
+.loc-btn:hover{background:var(--rl-blue);color:#fff;}
+
+/* ═══════════════════════════════
+   STATS BAR (Megabus style)
+   ═══════════════════════════════ */
+.stats-bar{background:var(--rl-blue-dark);}
+.stats-inner{
+  display:flex;flex-wrap:wrap;justify-content:center;
+}
+.stat-item{
+  display:flex;align-items:center;gap:14px;
+  padding:var(--s5) var(--s8);
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:30px;color:var(--rl-gold-bright);line-height:1;
+}
+.stat-lbl{font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.5);font-weight:500;margin-top:2px;max-width:80px;}
+
+/* ═══════════════════════════════
+   DEPARTURES STRIP
+   ═══════════════════════════════ */
+.dep-section{padding:var(--s16) 0;background:#fff;}
+.section-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:var(--s8);flex-wrap:wrap;gap:12px;
+}
+.section-title{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:clamp(1.8rem,4vw,3rem);text-transform:uppercase;
+  color:var(--text);letter-spacing:-.01em;
+}
+
+.dep-scroll{
+  display:flex;gap:16px;overflow-x:auto;
+  padding:4px 0 12px;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+}
+.dep-scroll::-webkit-scrollbar{display:none;}
+.dep-card{
+  flex-shrink:0;width:290px;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:var(--s5);
+  scroll-snap-align:start;transition:all var(--t);
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.dep-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--rl-blue);
+}
+.dep-card:hover{border-color:var(--rl-blue);box-shadow:var(--sh-md);transform:translateY(-3px);}
+.dep-op{font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--text-light);margin-bottom:6px;}
+.dep-route{
+  font-family:var(--font-display);font-weight:800;font-style:italic;
+  font-size:20px;text-transform:uppercase;color:var(--text);
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.dep-route svg{color:var(--rl-gold);}
+.dep-departs{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:28px;color:var(--rl-blue);
+}
+.dep-bar{height:4px;background:var(--surface);border-radius:2px;margin:10px 0;overflow:hidden;}
+.dep-fill{height:100%;border-radius:2px;background:var(--success);transition:width .5s ease;}
+.dep-fill.amber{background:var(--warning);}
+.dep-fill.red{background:var(--danger);}
+.dep-footer{display:flex;align-items:center;justify-content:space-between;}
+.dep-price{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:22px;color:var(--text);
+}
+.dep-price small{font-size:12px;font-weight:400;font-style:normal;color:var(--text-light);}
+
+/* ═══════════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════════ */
+.how-section{padding:var(--s20) 0;background:var(--off-white);}
+.how-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s4);
+  margin-top:var(--s12);
+}
+@media(min-width:640px){.how-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.how-grid{grid-template-columns:repeat(4,1fr);}}
+.how-card{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:var(--s6);
+  position:relative;overflow:hidden;transition:all var(--t);
+}
+.how-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--rl-blue);transform:scaleX(0);transform-origin:left;
+  transition:transform var(--t);
+}
+.how-card:hover::after{transform:scaleX(1);}
+.how-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);}
+.how-num{
+  font-family:var(--font-display);font-size:56px;font-weight:900;font-style:italic;
+  color:var(--surface);line-height:1;margin-bottom:var(--s3);
+}
+.how-icon{
+  width:48px;height:48px;border-radius:var(--r-md);
+  background:rgba(11,47,160,.08);color:var(--rl-blue);
+  display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);
+}
+.how-title{
+  font-family:var(--font-display);font-weight:800;font-style:italic;
+  font-size:20px;text-transform:uppercase;margin-bottom:8px;
+}
+.how-desc{font-size:14px;color:var(--text-mid);line-height:1.6;}
+
+/* ═══════════════════════════════
+   UGANDA MAP
+   ═══════════════════════════════ */
+.map-section{
+  padding:var(--s20) 0;
+  background:var(--rl-blue-deep);
+  position:relative;overflow:hidden;
+}
+.map-section::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 50% 70% at 80% 50%, rgba(11,47,160,.5) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 50% at 10% 20%, rgba(232,168,0,.04) 0%, transparent 50%);
+}
+.map-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr;gap:var(--s10);align-items:center;
+}
+@media(min-width:900px){.map-inner{grid-template-columns:1fr 1.2fr;}}
+.map-text-title{
+  font-family:var(--font-display);font-weight:900;font-style:italic;
+  font-size:clamp(2.2rem,5vw,4rem);text-transform:uppercase;
+  color:#fff;margin-bottom:var(--s4);
+}
+.map-text p{color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:var(--s6);}
+.map-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:var(--s6);}
+.map-stat{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r-lg);padding:var(--s4) var(--s5);
+}
+.map-stat-n{font-family:var(--font-display);font-size:26px;font-weight:900;font-style:italic;color:var(--rl-gold-bright);}
+.map-stat-l{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;}
+
+/* City panel */
+.city-panel{
+  position:absolute;right:0;bottom:0;
+  background:#fff;border-radius:var(--r-lg);
+  box-shadow:var(--sh-xl);padding:var(--s5);
+  min-width:190px;display:none;z-index:20;
+}
+.city-panel.on{display:block;animation:panelIn .25s ease;}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.city-panel-name{font-family:var(--font-display);font-size:18px;font-weight:900;font-style:italic;text-transform:uppercase;color:var(--rl-blue-dark);margin-bottom:2px;}
+.city-panel-desc{font-size:12px;color:var(--text-mid);margin-bottom:10px;}
+.city-panel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.city-panel-stat{text-align:center;}
+.city-panel-stat-n{font-family:var(--font-display);font-size:16px;font-weight:900;font-style:italic;color:var(--rl-blue);}
+.city-panel-stat-l{font-size:10px;color:var(--text-light);}
+
+/* ═══════════════════════════════
+   SERVICES
+   ═══════════════════════════════ */
+.svc-section{padding:var(--s20) 0;background:#fff;}
+.svc-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s4);
+  margin-top:var(--s12);
+}
+@media(min-width:640px){.svc-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.svc-grid{grid-template-columns:repeat(3,1fr);}}
+.svc-card{
+  border:1.5px solid var(--border);border-radius:var(--r-lg);
+  padding:var(--s6);transition:all var(--t);
+  display:flex;flex-direction:column;gap:14px;
+}
+.svc-card:hover{border-color:var(--rl-blue);box-shadow:var(--sh-md);transform:translateY(-3px);}
+.svc-card.dark{background:var(--rl-blue-dark);border-color:transparent;}
+.svc-card.dark .svc-title{color:#fff;}
+.svc-card.dark .svc-desc{color:rgba(255,255,255,.6);}
+.svc-icon{
+  width:52px;height:52px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(11,47,160,.08);color:var(--rl-blue);
+}
+.svc-card.dark .svc-icon{background:rgba(232,168,0,.15);color:var(--rl-gold-bright);}
+.svc-title{font-family:var(--font-display);font-weight:800;font-style:italic;font-size:22px;text-transform:uppercase;}
+.svc-desc{font-size:14px;color:var(--text-mid);line-height:1.6;flex:1;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.svc-tag{
+  font-size:11px;font-family:var(--font-ui);font-weight:700;
+  padding:4px 10px;border-radius:var(--r-full);
+  background:var(--surface);color:var(--text-mid);
+}
+.svc-card.dark .svc-tag{background:rgba(255,255,255,.1);color:rgba(255,255,255,.65);}
+
+/* ═══════════════════════════════
+   PORTALS SECTION
+   ═══════════════════════════════ */
+.portals-section{padding:var(--s20) 0;background:var(--off-white);}
+.portals-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s6);
+  margin-top:var(--s12);
+}
+@media(min-width:768px){.portals-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.portals-grid{grid-template-columns:repeat(3,1fr);}}
+.portal-card{
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--r-xl);padding:var(--s8);
+  display:flex;flex-direction:column;gap:var(--s5);
+  transition:all var(--t);position:relative;overflow:hidden;
+}
+.portal-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+}
+.portal-admin::before{background:var(--danger);}
+.portal-operator::before{background:var(--rl-blue);}
+.portal-partner::before{background:var(--rl-gold);}
+.portal-card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);}
+.portal-icon{
+  width:56px;height:56px;border-radius:var(--r-lg);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+}
+.portal-admin .portal-icon{background:#FEE2E2;color:var(--danger);}
+.portal-operator .portal-icon{background:rgba(11,47,160,.08);color:var(--rl-blue);}
+.portal-partner .portal-icon{background:#FEF9C3;color:#92400E;}
+.portal-title{font-family:var(--font-display);font-weight:900;font-style:italic;font-size:24px;text-transform:uppercase;}
+.portal-desc{font-size:14px;color:var(--text-mid);line-height:1.6;}
+.portal-features{display:flex;flex-direction:column;gap:7px;margin-top:auto;}
+.portal-feature{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--text-mid);
+}
+.portal-feature svg{color:var(--success);flex-shrink:0;}
+
+/* ═══════════════════════════════
+   OPERATOR / PARTNER SECTION
+   ═══════════════════════════════ */
+.ops-section{
+  padding:var(--s20) 0;
+  background:linear-gradient(135deg,var(--rl-blue) 0%,var(--rl-blue-dark) 100%);
+  position:relative;overflow:hidden;
+}
+.ops-section::after{
+  content:'';position:absolute;right:-80px;top:-80px;
+  width:360px;height:360px;border-radius:50%;
+  background:rgba(232,168,0,.06);pointer-events:none;
+}
+.ops-inner{
+  display:grid;grid-template-columns:1fr;gap:var(--s10);align-items:center;
+}
+@media(min-width:900px){.ops-inner{grid-template-columns:1fr 1fr;}}
+.ops-title{font-family:var(--font-display);font-weight:900;font-style:italic;font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase;color:#fff;margin-bottom:var(--s4);}
+.ops-sub{color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:var(--s6);}
+.plan-stack{display:flex;flex-direction:column;gap:10px;}
+.plan-row{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r-lg);padding:var(--s4) var(--s5);
+  transition:all var(--t-fast);
+}
+.plan-row.pop{border-color:var(--rl-gold);}
+.plan-row:hover{background:rgba(255,255,255,.11);}
+.plan-ico{
+  width:40px;height:40px;border-radius:var(--r-md);flex-shrink:0;
+  background:rgba(255,255,255,.08);color:var(--rl-gold-bright);
+  display:flex;align-items:center;justify-content:center;
+}
+.plan-info{flex:1;}
+.plan-name{font-family:var(--font-display);font-weight:800;font-style:italic;font-size:16px;text-transform:uppercase;color:#fff;}
+.plan-price{font-family:var(--font-ui);font-size:12px;color:var(--rl-gold-bright);font-weight:700;}
+.plan-feat{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.pop-badge{
+  font-family:var(--font-display);font-style:italic;font-size:10px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.05em;
+  background:var(--rl-gold);color:var(--rl-blue-dark);
+  padding:3px 9px;border-radius:var(--r-full);flex-shrink:0;
+}
+
+/* ═══════════════════════════════
+   PARCEL
+   ═══════════════════════════════ */
+.parcel-section{padding:var(--s20) 0;background:var(--off-white);}
+.parcel-inner{
+  display:grid;grid-template-columns:1fr;gap:var(--s10);align-items:start;
+}
+@media(min-width:900px){.parcel-inner{grid-template-columns:1fr 1fr;}}
+.parcel-cats{display:flex;flex-direction:column;gap:12px;}
+.pcat{
+  display:flex;align-items:center;gap:14px;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:var(--s4) var(--s5);
+  transition:all var(--t-fast);cursor:pointer;
+}
+.pcat:hover{border-color:var(--rl-blue);background:rgba(11,47,160,.02);}
+.pcat-icon{
+  width:44px;height:44px;border-radius:var(--r-md);
+  background:rgba(11,47,160,.08);color:var(--rl-blue);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.pcat-info{flex:1;}
+.pcat-name{font-family:var(--font-display);font-weight:700;font-style:italic;font-size:16px;text-transform:uppercase;}
+.pcat-desc{font-size:13px;color:var(--text-mid);}
+.pcat-price{font-family:var(--font-display);font-weight:900;font-size:18px;color:var(--rl-blue);}
+
+/* Tracking card */
+.track-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-xl);padding:var(--s6);}
+
+/* ═══════════════════════════════
+   LOYALTY
+   ═══════════════════════════════ */
+.loyalty-section{padding:var(--s20) 0;background:#fff;}
+.tier-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s12);
+}
+@media(min-width:768px){.tier-grid{grid-template-columns:repeat(3,1fr);}}
+.tier-card{
+  border-radius:var(--r-xl);padding:var(--s6);
+  border:2px solid var(--border);background:#fff;
+  transition:all var(--t);text-align:center;
+}
+.tier-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.tier-card.gold{border-color:var(--rl-gold);}
+.tier-emoji{font-size:44px;margin-bottom:10px;}
+.tier-name{font-family:var(--font-display);font-weight:900;font-style:italic;font-size:26px;text-transform:uppercase;margin-bottom:4px;}
+.tier-pts{font-size:13px;color:var(--text-light);margin-bottom:var(--s4);}
+.tier-bens{text-align:left;display:flex;flex-direction:column;gap:9px;}
+.tier-ben{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:var(--text-mid);}
+.tier-ben svg{color:var(--success);flex-shrink:0;margin-top:2px;}
+
+/* ═══════════════════════════════
+   TRUST
+   ═══════════════════════════════ */
+.trust-section{padding:var(--s20) 0;background:var(--rl-blue-deep);}
+.trust-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s12);
+}
+@media(min-width:640px){.trust-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.trust-grid{grid-template-columns:repeat(3,1fr);}}
+.trust-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r-xl);padding:var(--s6);transition:all var(--t);
+}
+.trust-card:hover{background:rgba(255,255,255,.09);border-color:rgba(232,168,0,.2);}
+.trust-icon{
+  width:48px;height:48px;border-radius:var(--r-md);
+  background:rgba(232,168,0,.12);color:var(--rl-gold-bright);
+  display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);
+}
+.trust-title{font-family:var(--font-display);font-weight:800;font-style:italic;font-size:19px;text-transform:uppercase;color:#fff;margin-bottom:8px;}
+.trust-desc{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;}
+
+/* ═══════════════════════════════
+   TERMINAL FINDER
+   ═══════════════════════════════ */
+.term-section{padding:var(--s16) 0;background:var(--off-white);}
+.term-card{
+  border-radius:var(--r-xl);overflow:hidden;
+  box-shadow:var(--sh-lg);background:#fff;
+}
+.term-header{
+  background:var(--rl-blue);padding:var(--s5) var(--s6);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.term-header h3{
+  font-family:var(--font-display);font-weight:800;font-style:italic;
+  font-size:20px;text-transform:uppercase;color:#fff;
+}
+.term-map{height:300px;background:var(--surface);position:relative;}
+#termMapEl{width:100%;height:100%;}
+.term-list{padding:var(--s4);display:flex;flex-direction:column;gap:10px;}
+.term-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;background:var(--surface);border-radius:var(--r-lg);
+  cursor:pointer;transition:all var(--t-fast);
+}
+.term-item:hover{background:rgba(11,47,160,.06);}
+.tdot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.tdot.g{background:var(--success);}
+.tdot.a{background:var(--warning);}
+.tinfo{flex:1;}
+.tname{font-family:var(--font-display);font-weight:700;font-style:italic;font-size:15px;text-transform:uppercase;}
+.taddr{font-size:12px;color:var(--text-light);}
+.tmeta{text-align:right;}
+.tdist{font-family:var(--font-display);font-size:14px;font-weight:800;font-style:italic;color:var(--rl-blue);}
+.tbuses{font-size:11px;color:var(--text-light);}
+
+/* ═══════════════════════════════
+   FAQ
+   ═══════════════════════════════ */
+.faq-section{padding:var(--s20) 0;background:#fff;}
+.faq-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s6);
+  margin-top:var(--s12);
+}
+@media(min-width:900px){.faq-grid{grid-template-columns:1fr 2fr;}}
+.faq-cats{display:flex;flex-direction:column;gap:4px;}
+.faq-cat-btn{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-ui);font-size:13px;font-weight:700;
+  color:var(--text-mid);padding:12px 16px;border-radius:var(--r-md);
+  text-align:left;transition:all var(--t-fast);
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.faq-cat-btn:hover{background:var(--surface);color:var(--rl-blue);}
+.faq-cat-btn.on{background:var(--rl-blue);color:#fff;}
+.faq-cat-btn svg{width:18px;height:18px;flex-shrink:0;}
+.faq-panel{display:none;}
+.faq-panel.on{display:block;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-body);font-size:15px;font-weight:600;
+  padding:16px 0;cursor:pointer;gap:12px;
+  transition:color var(--t-fast);
+}
+.faq-q:hover{color:var(--rl-blue);}
+.faq-q svg{flex-shrink:0;transition:transform var(--t);}
+.faq-item.open .faq-q{color:var(--rl-blue);}
+.faq-item.open .faq-q svg{transform:rotate(180deg);}
+.faq-a{
+  font-size:14px;color:var(--text-mid);line-height:1.7;
+  padding:0 0 16px;display:none;
+}
+.faq-a a{color:var(--rl-blue);font-weight:600;text-decoration:underline;}
+.faq-item.open .faq-a{display:block;}
+
+/* ═══════════════════════════════
+   FOOTER
+   ═══════════════════════════════ */
+.footer{background:var(--rl-blue-deep);padding:var(--s16) 0 0;}
+.footer-grid{
+  display:grid;grid-template-columns:1fr;gap:var(--s10);
+  padding-bottom:var(--s12);
+}
+@media(min-width:640px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr 1fr;}}
+.footer-brand p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.7;margin:14px 0 var(--s4);}
+.footer-social{display:flex;gap:10px;}
+.footer-social a{
+  width:36px;height:36px;border-radius:var(--r-sm);
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);
+}
+.footer-social a:hover{background:var(--rl-blue);color:#fff;}
+.footer-col h4{
+  font-family:var(--font-display);font-size:13px;font-weight:800;font-style:italic;
+  color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.footer-links{display:flex;flex-direction:column;gap:9px;}
+.footer-links a{
+  font-size:14px;color:rgba(255,255,255,.55);
+  transition:color var(--t-fast);display:flex;align-items:center;gap:6px;
+}
+.footer-links a:hover{color:var(--rl-gold-bright);}
+.footer-links a svg{width:12px;height:12px;opacity:.5;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:var(--s5) 0 calc(var(--s5) + var(--safe-b));
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;
+}
+.footer-bottom p{color:rgba(255,255,255,.25);font-size:12px;}
+.pay-logos{display:flex;gap:10px;flex-wrap:wrap;}
+.pay-logo{
+  font-family:var(--font-ui);font-size:11px;font-weight:700;
+  color:rgba(255,255,255,.2);padding:4px 10px;
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--r-sm);
+}
+
+/* ═══════════════════════════════
+   STICKY BOTTOM BAR (Mobile)
+   ═══════════════════════════════ */
+.stick-bottom{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:#fff;border-top:1px solid var(--border);
+  padding:10px var(--s4) calc(10px + var(--safe-b));
+  display:flex;gap:10px;
+  box-shadow:0 -4px 20px rgba(11,47,160,.1);
+}
+@media(min-width:768px){.stick-bottom{display:none;}}
+
+/* ═══════════════════════════════
+   TOAST
+   ═══════════════════════════════ */
+.toasts{
+  position:fixed;top:84px;right:var(--s4);z-index:300;
+  display:flex;flex-direction:column;gap:8px;max-width:320px;
+}
+.toast{
+  background:#fff;border-radius:var(--r-lg);box-shadow:var(--sh-lg);
+  padding:14px 16px;display:flex;align-items:flex-start;gap:10px;
+  border-left:3px solid var(--rl-blue);
+  animation:toastIn .3s cubic-bezier(.4,0,.2,1);
+}
+.toast.ok{border-left-color:var(--success);}
+.toast.err{border-left-color:var(--danger);}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:none;}}
+.toast-t{font-family:var(--font-ui);font-weight:700;font-size:13px;}
+.toast-m{font-size:12px;color:var(--text-mid);margin-top:2px;}
+
+/* ═══════════════════════════════
+   UTILITIES
+   ═══════════════════════════════ */
+.text-center{text-align:center;}
+.text-white{color:#fff;}
+.hide-mob{display:none!important;}
+@media(min-width:768px){.hide-mob{display:initial!important;}.show-mob{display:none!important;}}
+.mt-4{margin-top:var(--s4);}
+.mt-6{margin-top:var(--s6);}
+.mt-8{margin-top:var(--s8);}
+.mt-12{margin-top:var(--s12);}
+.flex-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+
+/* Smooth page transitions */
+@media(prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth;}
+}
+</style>
+</head>
+<body>
+
+<!-- Toasts -->
+<div class="toasts" id="toasts"></div>
+
+<!-- Announcement bar -->
+<div class="ann-bar" id="annBar">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+  <span><strong>Flash Deal:</strong> Kampala → Mbarara from <strong>UGX 19,000</strong> tonight only — book in the next <span id="countdown">14:52</span></span>
+  <button class="ann-x" onclick="this.parentElement.style.display='none'">✕</button>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="/" class="nav-logo">
+        <img src="/assets/logo.png" alt="Raylane Express" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="nav-logo-fallback" style="display:none">
+          <span>Raylane</span>Express
+        </div>
+      </a>
+
+      <!-- Links -->
+      <div class="nav-links">
+        <a href="#search" class="nav-link">Book</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#routes" class="nav-link">Routes</a>
+        <a href="#parcels" class="nav-link">Parcels</a>
+        <a href="#faq" class="nav-link">Help</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+
+      <!-- Portal links -->
+      <div class="nav-actions">
+        <a href="/pages/admin.html" class="nav-portal hide-mob">Admin</a>
+        <a href="/pages/operator.html" class="nav-portal hide-mob">Operator</a>
+        <a href="/pages/partner.html" class="nav-portal hide-mob" style="background:var(--rl-gold);color:var(--rl-blue-dark);border-color:var(--rl-gold);">Join as Operator</a>
+        <a href="/pages/account.html" class="btn btn-outline-white btn-sm hide-mob">My Account</a>
+        <button class="hamburger" id="ham" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#search" class="mob-link" onclick="toggleMenu()">Book a Seat <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <a href="#parcels" class="mob-link" onclick="toggleMenu()">Send a Parcel <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <a href="#routes" class="mob-link" onclick="toggleMenu()">Our Routes <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <a href="#faq" class="mob-link" onclick="toggleMenu()">FAQ & Help <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <div class="mob-portal-section">
+    <div class="mob-portal-label">Portals</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a href="/pages/admin.html" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+        Super Admin Console
+      </a>
+      <a href="/pages/operator.html" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>
+        Operator Dashboard
+      </a>
+      <a href="/pages/partner.html" class="btn btn-gold btn-lg" style="justify-content:center;">Apply to Join Platform</a>
+    </div>
+  </div>
+  <div class="mob-actions">
+    <a href="/pages/account.html" class="btn btn-outline-white btn-lg">My Account</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     HERO
+     ═══════════════════════════════ -->
+<section class="hero" id="hero">
+  <!-- Background slides -->
+  <div class="hero-bg">
+    <div class="hero-slide on"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+
+  <!-- Particle canvas -->
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-mesh"></div>
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="hero-tag">
+        <div class="live"></div>
+        Live Seat Availability Across Uganda
+      </div>
+      <h1 class="hero-title">
+        Travel Uganda.
+        <span class="accent">Without the Queue.</span>
+      </h1>
+      <p class="hero-sub">Book confirmed seats, send parcels, track your coach in real time. Pay with MTN MoMo, Airtel Money or Visa — in under 60 seconds.</p>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          500K+ Journeys Booked
+        </div>
+        <div class="hero-trust-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          150+ Verified Operators
+        </div>
+        <div class="hero-trust-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          No App Required
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#search" class="btn btn-gold btn-xl">Book a Seat Now</a>
+        <button onclick="openWhatsApp()" class="btn btn-outline-white btn-xl">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Book via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live departure ticker -->
+  <div class="hero-ticker">
+    <div class="ticker-label">Live</div>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- Slide dots -->
+  <div class="hero-dots">
+    <button class="hero-dot on" onclick="goSlide(0)"></button>
+    <button class="hero-dot" onclick="goSlide(1)"></button>
+    <button class="hero-dot" onclick="goSlide(2)"></button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     SEARCH
+     ═══════════════════════════════ -->
+<section class="search-section" id="search">
+  <!-- Tabs -->
+  <div class="search-tabs" style="padding:0 24px;">
+    <button class="stab on" onclick="switchTab('seat',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>
+      Bus Seat
+    </button>
+    <button class="stab" onclick="switchTab('return',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      Return Trip
+    </button>
+    <button class="stab" onclick="switchTab('parcel',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Send Parcel
+    </button>
+    <button class="stab" onclick="switchTab('hire',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      Private Hire
+    </button>
+    <button class="stab" onclick="switchTab('corporate',this)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16"/><path d="M3 21h18M10 10h4M10 14h4"/></svg>
+      Corporate
+    </button>
+  </div>
+
+  <!-- Form -->
+  <div class="search-form">
+    <div class="search-grid">
+      <div class="field">
+        <label class="field-label">From</label>
+        <div class="field-input">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+          <select id="fromCity" onchange="updateSearch()">
+            <option value="">Departure city</option>
+            <option>Kampala</option><option>Entebbe</option><option>Jinja</option>
+            <option>Mbale</option><option>Tororo</option><option>Soroti</option>
+            <option>Lira</option><option>Gulu</option><option>Arua</option>
+            <option>Fort Portal</option><option>Kasese</option><option>Mbarara</option>
+            <option>Masaka</option><option>Kabale</option><option>Kisoro</option>
+            <option>Hoima</option><option>Masindi</option><option>Kotido</option>
+            <option>Moroto</option><option>Nairobi (Kenya)</option><option>Kigali (Rwanda)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="swap-col">
+        <button class="swap-btn" onclick="swapCities()" title="Swap">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+        </button>
+      </div>
+
+      <div class="field">
+        <label class="field-label">To</label>
+        <div class="field-input">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          <select id="toCity" onchange="updateSearch()">
+            <option value="">Destination</option>
+            <option>Kampala</option><option>Entebbe</option><option>Jinja</option>
+            <option>Mbale</option><option>Tororo</option><option>Soroti</option>
+            <option>Lira</option><option>Gulu</option><option>Arua</option>
+            <option>Fort Portal</option><option>Kasese</option><option>Mbarara</option>
+            <option>Masaka</option><option>Kabale</option><option>Kisoro</option>
+            <option>Hoima</option><option>Masindi</option><option>Kotido</option>
+            <option>Moroto</option><option>Nairobi (Kenya)</option><option>Kigali (Rwanda)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Date</label>
+        <div class="field-input">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <input type="date" id="tDate">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Passengers</label>
+        <div class="field-input">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 20c0-4-3.6-7-8-7s-8 3-8 7"/></svg>
+          <select id="passengers">
+            <option value="1">1 Passenger</option>
+            <option value="2">2 Passengers</option>
+            <option value="3">3 Passengers</option>
+            <option value="4">4 Passengers</option>
+            <option value="5">5 Passengers</option>
+            <option value="6">6+ (Group)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn btn-blue" style="height:47px;width:100%;font-size:16px;" onclick="doSearch()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search Trips
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ★ BOARDING PREFERENCE — NEW FEATURE ★ -->
+  <div class="boarding-opts">
+    <span style="font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;align-self:center;margin-right:4px;">Board at:</span>
+    <label class="boarding-opt on" id="bopt-terminal">
+      <input type="radio" name="boarding" value="terminal" checked onchange="setBoardingOpt(this)">
+      <svg class="boarding-opt-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Terminal / Bus Park
+    </label>
+    <label class="boarding-opt" id="bopt-enroute">
+      <input type="radio" name="boarding" value="enroute" onchange="setBoardingOpt(this)">
+      <svg class="boarding-opt-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      Pick Me Up Enroute
+    </label>
+    <label class="boarding-opt" id="bopt-dropoff">
+      <input type="radio" name="boarding" value="dropoff" onchange="setBoardingOpt(this)">
+      <svg class="boarding-opt-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Drop Me Off Enroute
+    </label>
+  </div>
+
+  <!-- Enroute location input (shown when selected) -->
+  <div class="boarding-loc" id="boardingLocField">
+    <div class="loc-note">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Tell us your roadside location and the operator will confirm if there is a designated stop near you. Additional fee of <strong>UGX 2,000–5,000</strong> applies for enroute boarding/alighting.</span>
+    </div>
+    <div class="search-grid" style="margin-top:12px;grid-template-columns:1fr auto;">
+      <div class="field-input">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input type="text" id="enrouteLocation" placeholder="Enter your roadside location or landmark…">
+      </div>
+      <button class="btn btn-ghost-dark btn-sm" onclick="useMyLocation()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
+        Use GPS
+      </button>
+    </div>
+  </div>
+
+  <!-- Location finder -->
+  <div class="loc-row">
+    <button class="loc-btn" onclick="findTerminal()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      Find Nearest Terminal
+    </button>
+    <div class="flex-row" style="gap:var(--s4);">
+      <div class="live">Live Availability</div>
+      <div style="font-family:var(--font-ui);font-size:12px;color:var(--text-light);">Quick:
+        <button onclick="quickSearch('Kampala','Mbarara')" style="color:var(--rl-blue);font-weight:700;font-size:12px;background:none;border:none;cursor:pointer;padding:0 4px;">KLA→MBR</button>
+        <button onclick="quickSearch('Kampala','Gulu')" style="color:var(--rl-blue);font-weight:700;font-size:12px;background:none;border:none;cursor:pointer;padding:0 4px;">KLA→GUL</button>
+        <button onclick="quickSearch('Kampala','Mbale')" style="color:var(--rl-blue);font-weight:700;font-size:12px;background:none;border:none;cursor:pointer;padding:0 4px;">KLA→MBL</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     STATS BAR
+     ═══════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item"><div><div class="stat-num">500K+</div><div class="stat-lbl">Passengers Served</div></div></div>
+      <div class="stat-item"><div><div class="stat-num">150+</div><div class="stat-lbl">Verified Operators</div></div></div>
+      <div class="stat-item"><div><div class="stat-num">21</div><div class="stat-lbl">Cities & Destinations</div></div></div>
+      <div class="stat-item"><div><div class="stat-num">60s</div><div class="stat-lbl">Average Booking Time</div></div></div>
+      <div class="stat-item"><div><div class="stat-num">99.1%</div><div class="stat-lbl">On-Time Rate</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     LIVE DEPARTURES
+     ═══════════════════════════════ -->
+<section class="dep-section" id="departures">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Real-Time</div>
+        <h2 class="section-title">Today's Departures</h2>
+      </div>
+      <div class="flex-row">
+        <div class="live">Live Updates</div>
+        <a href="/pages/book.html" class="btn btn-outline-blue btn-sm">View All →</a>
+      </div>
+    </div>
+    <div class="dep-scroll" id="depScroll"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     HOW IT WORKS
+     ═══════════════════════════════ -->
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Simple Process</div>
+      <h2 class="section-title">Book in 4 Steps</h2>
+      <p style="color:var(--text-mid);max-width:520px;margin:var(--s3) auto 0;">No app. No account. Works on any phone — 2G to 5G.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <div class="how-num">01</div>
+        <div class="how-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <h3 class="how-title">Search Your Route</h3>
+        <p class="how-desc">Select departure city, destination, date and passenger count. Choose whether you'll board at a terminal or be picked up enroute.</p>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">02</div>
+        <div class="how-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3 class="how-title">Pick Your Seat</h3>
+        <p class="how-desc">Interactive seat map. Window, aisle, front, back — your exact seat is locked for 10 minutes while you pay. No surprises at the bus.</p>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">03</div>
+        <div class="how-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3 class="how-title">Pay Instantly</h3>
+        <p class="how-desc">MTN MoMo USSD push — works on feature phones without data. Or Airtel Money, Visa, or Mastercard. Payment confirmed in ~8 seconds.</p>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">04</div>
+        <div class="how-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3 class="how-title">Board with QR Code</h3>
+        <p class="how-desc">QR ticket sent via SMS immediately. Show at boarding — driver scans and you're on. No printing needed, no account required.</p>
+      </div>
+    </div>
+    <!-- Payment methods -->
+    <div class="text-center reveal mt-8">
+      <p class="t-label" style="margin-bottom:12px;">Accepted payment methods</p>
+      <div class="flex-row" style="justify-content:center;">
+        <span class="pay-logo" style="color:var(--text-mid);border-color:var(--border);background:var(--surface);font-family:var(--font-ui);font-size:12px;padding:6px 14px;border-radius:var(--r-full);font-weight:700;">📱 MTN MoMo</span>
+        <span class="pay-logo" style="color:var(--text-mid);border-color:var(--border);background:var(--surface);font-family:var(--font-ui);font-size:12px;padding:6px 14px;border-radius:var(--r-full);font-weight:700;">📱 Airtel Money</span>
+        <span class="pay-logo" style="color:var(--text-mid);border-color:var(--border);background:var(--surface);font-family:var(--font-ui);font-size:12px;padding:6px 14px;border-radius:var(--r-full);font-weight:700;">💳 Visa / Mastercard</span>
+        <span class="pay-logo" style="color:var(--text-mid);border-color:var(--border);background:var(--surface);font-family:var(--font-ui);font-size:12px;padding:6px 14px;border-radius:var(--r-full);font-weight:700;">🔒 DPO Group</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     SERVICES
+     ═══════════════════════════════ -->
+<section class="svc-section" id="services">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-eyebrow" style="justify-content:center;">What We Offer</div>
+      <h2 class="section-title">Everything You Need to Move</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card dark reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg></div>
+        <h3 class="svc-title">Intercity Coach</h3>
+        <p class="svc-desc">67-seater coaches and 14-seater minivans on all major Uganda corridors. Book single, return, or advance trips with guaranteed numbered seats.</p>
+        <div class="svc-tags"><span class="svc-tag">Numbered Seats</span><span class="svc-tag">AC Available</span><span class="svc-tag">WiFi Select Routes</span></div>
+        <a href="#search" class="btn btn-gold btn-sm" style="align-self:flex-start;">Book Now</a>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <h3 class="svc-title">Parcel Delivery</h3>
+        <p class="svc-desc">Send packages on the next available coach. Documents to heavy cargo — real-time SMS tracking from pickup to signature delivery.</p>
+        <div class="svc-tags"><span class="svc-tag">SMS Tracking</span><span class="svc-tag">Insurance Available</span><span class="svc-tag">Same-Day Available</span></div>
+        <a href="#parcels" class="btn btn-outline-blue btn-sm" style="align-self:flex-start;">Send Now</a>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3 class="svc-title">Private Charter</h3>
+        <p class="svc-desc">Hire a full bus for weddings, corporate events, school trips, or tourist groups. Full logistics coordination and driver briefing via WhatsApp.</p>
+        <div class="svc-tags"><span class="svc-tag">Flexible Schedule</span><span class="svc-tag">Corporate Invoicing</span><span class="svc-tag">WhatsApp Coord</span></div>
+        <a href="#contact" class="btn btn-outline-blue btn-sm" style="align-self:flex-start;">Request Quote</a>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20H7m10 0v-2a3 3 0 00-5.356-1.857M17 20c0-1.656-3.6-3-8-3s-8 1.344-8 3m15-9a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+        <h3 class="svc-title">Group Bookings</h3>
+        <p class="svc-desc">10+ passengers? One payment link, one group QR code, all seats confirmed together. Special group rates available on high-volume routes.</p>
+        <div class="svc-tags"><span class="svc-tag">Group QR Code</span><span class="svc-tag">Group Discounts</span><span class="svc-tag">One Payment</span></div>
+        <a href="#search" class="btn btn-outline-blue btn-sm" style="align-self:flex-start;">Book Group</a>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16"/><path d="M3 21h18M10 10h4M10 14h4M10 6h4"/></svg></div>
+        <h3 class="svc-title">Corporate Accounts</h3>
+        <p class="svc-desc">Monthly billing for NGOs, embassies, banks, and corporations. No per-trip payment friction. Full trip reporting for finance departments.</p>
+        <div class="svc-tags"><span class="svc-tag">Monthly Invoice</span><span class="svc-tag">Multi-Traveller</span><span class="svc-tag">Priority Support</span></div>
+        <a href="#contact" class="btn btn-outline-blue btn-sm" style="align-self:flex-start;">Enquire</a>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <h3 class="svc-title">Advance Booking</h3>
+        <p class="svc-desc">Lock in your seat up to 30 days ahead with a 20% deposit. Price frozen at booking date. Balance collected automatically 24hrs before departure.</p>
+        <div class="svc-tags"><span class="svc-tag">Price Lock</span><span class="svc-tag">20% Deposit</span><span class="svc-tag">Full Refund Option</span></div>
+        <a href="#search" class="btn btn-outline-blue btn-sm" style="align-self:flex-start;">Book Ahead</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     PORTALS SECTION
+     ═══════════════════════════════ -->
+<section class="portals-section" id="portals">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Platform Access</div>
+      <h2 class="section-title">Three Portals. One Platform.</h2>
+      <p style="color:var(--text-mid);max-width:540px;margin:var(--s3) auto 0;">Every stakeholder has a dedicated, purpose-built interface. Secure, role-based, and always in sync.</p>
+    </div>
+    <div class="portals-grid">
+      <!-- Admin -->
+      <div class="portal-card portal-admin reveal">
+        <div class="portal-icon">🛡️</div>
+        <h3 class="portal-title">Super Admin</h3>
+        <p class="portal-desc">Full platform control. Approve trips, release payouts, manage operators and the internal Raylane fleet. GAAP/IFRS financial reporting.</p>
+        <div class="portal-features">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Trip approval queue</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>MTN MoMo payout releases</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Full audit trail & logs</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Platform-wide financials</div>
+        </div>
+        <a href="/pages/admin.html" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Enter Admin Console →</a>
+      </div>
+      <!-- Operator -->
+      <div class="portal-card portal-operator reveal">
+        <div class="portal-icon">🚌</div>
+        <h3 class="portal-title">Operator Dashboard</h3>
+        <p class="portal-desc">Complete bus business management. Bookings, fleet, drivers, parcels, payroll, compliance, insurance, P&L — all in one place. Customise with your branding.</p>
+        <div class="portal-features">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Your logo & company colors</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Real-time booking feed</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Driver & fleet management</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>IFRS P&L & URA VAT exports</div>
+        </div>
+        <a href="/pages/operator.html" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Operator Login →</a>
+      </div>
+      <!-- Partner -->
+      <div class="portal-card portal-partner reveal">
+        <div class="portal-icon">🤝</div>
+        <h3 class="portal-title">Partner Portal</h3>
+        <p class="portal-desc">New to Raylane? Apply here. Three-step onboarding, document upload, subscription plan selection — and you're live in 48 hours.</p>
+        <div class="portal-features">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Free Starter plan available</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Revenue calculator included</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Live in 48 hours</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>14-day free trial on paid plans</div>
+        </div>
+        <a href="/pages/partner.html" class="btn btn-gold btn-sm" style="align-self:flex-start;margin-top:auto;">Apply to Join →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     UGANDA MAP
+     ═══════════════════════════════ -->
+<section class="map-section" id="routes">
+  <div class="container">
+    <div class="map-inner">
+      <div class="reveal-left">
+        <div class="section-eyebrow gold">Our Network</div>
+        <h2 class="map-text-title">Where We Go</h2>
+        <p>From Kampala to Kisoro, Arua to Moroto — Raylane Express connects every corner of Uganda, with international routes to Nairobi, Kenya and Kigali, Rwanda.</p>
+        <div class="map-stats">
+          <div class="map-stat"><div class="map-stat-n">21</div><div class="map-stat-l">Destinations</div></div>
+          <div class="map-stat"><div class="map-stat-n">5</div><div class="map-stat-l">Hub Cities</div></div>
+          <div class="map-stat"><div class="map-stat-n">3</div><div class="map-stat-l">Countries</div></div>
+          <div class="map-stat"><div class="map-stat-n">200+</div><div class="map-stat-l">Daily Departures</div></div>
+        </div>
+        <div class="flex-row">
+          <a href="/pages/book.html" class="btn btn-gold">View All Routes</a>
+          <button onclick="openGMaps()" class="btn btn-outline-white">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </button>
+        </div>
+      </div>
+
+      <div class="reveal-right" style="position:relative;">
+        <!-- Uganda SVG Map -->
+        <svg viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;margin:0 auto;filter:drop-shadow(0 20px 50px rgba(0,0,0,.5));">
+          <path d="M160 20 L230 18 L280 35 L310 60 L320 90 L330 130 L335 170 L325 210 L330 250 L310 290 L290 320 L270 350 L240 370 L200 390 L175 400 L150 385 L120 360 L100 330 L80 300 L65 270 L60 240 L55 200 L60 170 L70 140 L80 110 L95 80 L120 50 L145 30 Z" fill="#1a3a6b" stroke="#2a5aab" stroke-width="1.5"/>
+          <ellipse cx="260" cy="390" rx="55" ry="40" fill="#1e5fc2" opacity=".3"/>
+          <ellipse cx="78" cy="200" rx="18" ry="55" fill="#1e5fc2" opacity=".3"/>
+          <ellipse cx="90" cy="340" rx="14" ry="24" fill="#1e5fc2" opacity=".3"/>
+          <path d="M240 370 Q180 320 160 270 Q145 220 160 170 Q175 130 170 100" stroke="#1e5fc2" stroke-width="2" stroke-dasharray="4,4" opacity=".35"/>
+          <g stroke="rgba(232,168,0,.18)" stroke-width="1" stroke-dasharray="4,3">
+            <line x1="210" y1="300" x2="162" y2="248"/><line x1="210" y1="300" x2="160" y2="360"/>
+            <line x1="210" y1="300" x2="275" y2="280"/><line x1="210" y1="300" x2="205" y2="195"/>
+            <line x1="210" y1="300" x2="230" y2="328"/><line x1="210" y1="300" x2="245" y2="315"/>
+            <line x1="210" y1="300" x2="225" y2="270"/><line x1="210" y1="300" x2="186" y2="278"/>
+          </g>
+          <g stroke="rgba(232,168,0,.12)" stroke-width="1.5" stroke-dasharray="6,4">
+            <line x1="210" y1="300" x2="320" y2="420"/><line x1="160" y1="360" x2="110" y2="440"/>
+          </g>
+          <!-- Hub cities -->
+          <g onclick="showCity('Kampala','Capital &amp; main hub','45','250K+','UGX 0')" style="cursor:pointer"><circle cx="210" cy="300" r="10" fill="rgba(232,168,0,.15)" stroke="rgba(232,168,0,.5)" stroke-width="1.5"/><circle cx="210" cy="300" r="6" fill="#E8A800"/><text x="222" y="303" fill="white" font-size="10" font-family="Barlow Condensed,sans-serif" font-weight="700" font-style="italic">Kampala</text></g>
+          <g onclick="showCity('Gulu','Northern hub','12','45K+','UGX 28,000')" style="cursor:pointer"><circle cx="205" cy="185" r="8" fill="rgba(232,168,0,.12)" stroke="rgba(232,168,0,.3)" stroke-width="1"/><circle cx="205" cy="185" r="5" fill="#E8A800"/><text x="215" y="188" fill="rgba(255,255,255,.8)" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="700">Gulu</text></g>
+          <g onclick="showCity('Mbale','Eastern gateway','8','32K+','UGX 22,000')" style="cursor:pointer"><circle cx="278" cy="278" r="8" fill="rgba(232,168,0,.12)" stroke="rgba(232,168,0,.3)" stroke-width="1"/><circle cx="278" cy="278" r="5" fill="#E8A800"/><text x="288" y="281" fill="rgba(255,255,255,.8)" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="700">Mbale</text></g>
+          <g onclick="showCity('Mbarara','Western hub','10','58K+','UGX 24,000')" style="cursor:pointer"><circle cx="160" cy="360" r="8" fill="rgba(232,168,0,.12)" stroke="rgba(232,168,0,.3)" stroke-width="1"/><circle cx="160" cy="360" r="5" fill="#E8A800"/><text x="170" y="363" fill="rgba(255,255,255,.8)" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="700">Mbarara</text></g>
+          <g onclick="showCity('Fort Portal','Tourism capital','6','18K+','UGX 30,000')" style="cursor:pointer"><circle cx="120" cy="258" r="8" fill="rgba(232,168,0,.12)" stroke="rgba(232,168,0,.3)" stroke-width="1"/><circle cx="120" cy="258" r="5" fill="#E8A800"/><text x="128" y="250" fill="rgba(255,255,255,.8)" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="700">Fort Portal</text></g>
+          <!-- Regular cities -->
+          <g onclick="showCity('Arua','West Nile border town','4','12K+','UGX 35,000')" style="cursor:pointer"><circle cx="115" cy="150" r="5" fill="white" opacity=".65"/><text x="122" y="153" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Arua</text></g>
+          <g onclick="showCity('Lira','Northern commercial city','5','15K+','UGX 25,000')" style="cursor:pointer"><circle cx="230" cy="220" r="5" fill="white" opacity=".65"/><text x="237" y="223" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Lira</text></g>
+          <g onclick="showCity('Jinja','Source of the Nile','6','22K+','UGX 10,000')" style="cursor:pointer"><circle cx="248" cy="305" r="5" fill="white" opacity=".65"/><text x="255" y="308" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Jinja</text></g>
+          <g onclick="showCity('Masaka','Lake Victoria hub','4','12K+','UGX 15,000')" style="cursor:pointer"><circle cx="195" cy="338" r="5" fill="white" opacity=".65"/><text x="202" y="341" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Masaka</text></g>
+          <g onclick="showCity('Kabale','Uganda Highlands','3','8K+','UGX 28,000')" style="cursor:pointer"><circle cx="145" cy="388" r="5" fill="white" opacity=".65"/><text x="106" y="391" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Kabale</text></g>
+          <g onclick="showCity('Hoima','Oil city','3','8K+','UGX 22,000')" style="cursor:pointer"><circle cx="148" cy="245" r="5" fill="white" opacity=".65"/><text x="110" y="240" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Hoima</text></g>
+          <g onclick="showCity('Soroti','Eastern gateway','4','10K+','UGX 20,000')" style="cursor:pointer"><circle cx="268" cy="238" r="5" fill="white" opacity=".65"/><text x="275" y="241" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Soroti</text></g>
+          <g onclick="showCity('Entebbe','Airport city','8','5K+','UGX 5,000')" style="cursor:pointer"><circle cx="213" cy="322" r="5" fill="white" opacity=".65"/><text x="220" y="325" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Entebbe</text></g>
+          <g onclick="showCity('Tororo','Eastern border town','3','8K+','UGX 22,000')" style="cursor:pointer"><circle cx="298" cy="295" r="5" fill="white" opacity=".65"/><text x="305" y="298" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Tororo</text></g>
+          <g onclick="showCity('Kisoro','Gorilla trek base','2','4K+','UGX 35,000')" style="cursor:pointer"><circle cx="120" cy="410" r="5" fill="white" opacity=".65"/><text x="127" y="413" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Kisoro</text></g>
+          <g onclick="showCity('Kasese','Rwenzori base','3','6K+','UGX 30,000')" style="cursor:pointer"><circle cx="108" cy="300" r="5" fill="white" opacity=".65"/><text x="68" y="303" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Kasese</text></g>
+          <g onclick="showCity('Masindi','Murchison gateway','3','5K+','UGX 20,000')" style="cursor:pointer"><circle cx="168" cy="198" r="5" fill="white" opacity=".65"/><text x="175" y="201" fill="rgba(255,255,255,.55)" font-size="8" font-family="Barlow Condensed,sans-serif">Masindi</text></g>
+          <!-- International -->
+          <text x="300" y="435" fill="rgba(232,168,0,.5)" font-size="8" font-family="Barlow Condensed,sans-serif">🇰🇪 Nairobi</text>
+          <text x="85" y="455" fill="rgba(232,168,0,.5)" font-size="8" font-family="Barlow Condensed,sans-serif">🇷🇼 Kigali</text>
+        </svg>
+
+        <!-- City panel -->
+        <div class="city-panel" id="cityPanel">
+          <div class="city-panel-name" id="cpName">Kampala</div>
+          <div class="city-panel-desc" id="cpDesc">Capital city & main hub</div>
+          <div class="city-panel-grid">
+            <div class="city-panel-stat"><div class="city-panel-stat-n" id="cpTrips">45</div><div class="city-panel-stat-l">Trips/day</div></div>
+            <div class="city-panel-stat"><div class="city-panel-stat-n" id="cpPax">250K+</div><div class="city-panel-stat-l">Pax/year</div></div>
+            <div class="city-panel-stat"><div class="city-panel-stat-n" id="cpPrice">UGX 0</div><div class="city-panel-stat-l">From</div></div>
+          </div>
+          <button class="btn btn-blue btn-sm" style="width:100%" onclick="bookToCity()">Book to <span id="cpBtn">This City</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     OPERATOR SECTION
+     ═══════════════════════════════ -->
+<section class="ops-section" id="operator">
+  <div class="container">
+    <div class="ops-inner">
+      <div class="reveal-left">
+        <div class="section-eyebrow gold">For Operators</div>
+        <h2 class="ops-title">Run Your Bus Business on One Platform.</h2>
+        <p class="ops-sub">Stop managing bookings in WhatsApp groups. Raylane Express gives you a complete SaaS dashboard — bookings, fleet, drivers, payroll, compliance, GAAP P&L, and weekly MTN MoMo payouts. Plus: full white-label branding with your company logo and colours.</p>
+        <div class="flex-row">
+          <a href="/pages/partner.html" class="btn btn-gold btn-lg">Apply to Join</a>
+          <a href="/pages/operator.html" class="btn btn-outline-white btn-lg">Operator Login</a>
+        </div>
+      </div>
+      <div class="plan-stack reveal-right">
+        <div class="plan-row">
+          <div class="plan-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div class="plan-info"><div class="plan-name">Starter</div><div class="plan-price">Free to join</div><div class="plan-feat">8% commission · Bookings + Parcels + Seat Map</div></div>
+        </div>
+        <div class="plan-row">
+          <div class="plan-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="plan-info"><div class="plan-name">Standard</div><div class="plan-price">UGX 200,000/mo</div><div class="plan-feat">8% commission · + Cost Center + Vendors</div></div>
+        </div>
+        <div class="plan-row pop">
+          <div class="plan-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+          <div class="plan-info"><div class="plan-name">Professional</div><div class="plan-price">UGX 450,000/mo</div><div class="plan-feat">6% commission · + Fleet + Drivers + P&L + Branding</div></div>
+          <span class="pop-badge">Popular</span>
+        </div>
+        <div class="plan-row">
+          <div class="plan-ico"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"/></svg></div>
+          <div class="plan-info"><div class="plan-name">Enterprise</div><div class="plan-price">UGX 900,000/mo</div><div class="plan-feat">5% commission · + HR/Payroll + Insurance + API</div></div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(255,255,255,.05);border-radius:var(--r-lg);border:1px solid rgba(255,255,255,.08);">
+          <p style="color:rgba(255,255,255,.55);font-size:13px;line-height:1.6;">All plans include real-time booking alerts, weekly MoMo payouts, QR ticket issuance, and 24/7 platform support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     PARCELS
+     ═══════════════════════════════ -->
+<section class="parcel-section" id="parcels">
+  <div class="container">
+    <div class="parcel-inner">
+      <div class="reveal-left">
+        <div class="section-eyebrow">Parcel Delivery</div>
+        <h2 class="section-title">Send Anything, Anywhere in Uganda</h2>
+        <p style="color:var(--text-mid);margin-bottom:var(--s6);line-height:1.7;">Every Raylane coach carries parcels. Drop off before 10AM for same-day delivery. Track your parcel in real time via SMS link.</p>
+        <div class="parcel-cats">
+          <div class="pcat"><div class="pcat-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="pcat-info"><div class="pcat-name">Envelope / Documents</div><div class="pcat-desc">IDs, contracts, certificates — up to 0.5kg</div></div><div class="pcat-price">UGX 5K</div></div>
+          <div class="pcat"><div class="pcat-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><div class="pcat-info"><div class="pcat-name">Small Parcel</div><div class="pcat-desc">Clothes, books, shoes — up to 2kg</div></div><div class="pcat-price">UGX 12K</div></div>
+          <div class="pcat"><div class="pcat-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div><div class="pcat-info"><div class="pcat-name">Large Parcel</div><div class="pcat-desc">Household items, appliances — up to 10kg</div></div><div class="pcat-price">UGX 20K</div></div>
+          <div class="pcat"><div class="pcat-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3M9 21H21a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg></div><div class="pcat-info"><div class="pcat-name">Heavy Cargo</div><div class="pcat-desc">Commercial freight — up to 50kg+</div></div><div class="pcat-price">UGX 30K+</div></div>
+        </div>
+        <div class="flex-row mt-6">
+          <a href="/pages/book.html?tab=parcel" class="btn btn-blue">Send a Parcel Now</a>
+          <a href="#faq" class="btn btn-outline-blue">Parcel FAQ</a>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="track-card">
+          <h3 style="font-family:var(--font-display);font-size:20px;font-weight:800;font-style:italic;text-transform:uppercase;margin-bottom:var(--s5);">Track Your Parcel</h3>
+          <div class="field-input" style="margin-bottom:12px;">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" placeholder="Enter tracking code e.g. PKL-382910">
+          </div>
+          <button class="btn btn-blue" style="width:100%" onclick="trackParcel()">Track Now</button>
+          <div style="margin-top:var(--s6);display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;gap:12px;padding-bottom:14px;">
+              <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div><div style="width:2px;flex:1;background:var(--border);margin-top:4px;"></div></div>
+              <div><div style="font-weight:700;font-size:14px;">Picked Up</div><div style="font-size:12px;color:var(--text-mid);">Collected, labeled with QR code</div></div>
+            </div>
+            <div style="display:flex;gap:12px;padding-bottom:14px;">
+              <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg></div><div style="width:2px;flex:1;background:var(--border);margin-top:4px;"></div></div>
+              <div><div style="font-weight:700;font-size:14px;">Verified & Loaded</div><div style="font-size:12px;color:var(--text-mid);">Driver signed, insurance active</div></div>
+            </div>
+            <div style="display:flex;gap:12px;padding-bottom:14px;">
+              <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:28px;height:28px;border-radius:50%;background:var(--rl-blue);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-size:12px;">→</div><div style="width:2px;flex:1;background:var(--border);margin-top:4px;"></div></div>
+              <div><div style="font-weight:700;font-size:14px;">In Transit</div><div style="font-size:12px;color:var(--text-mid);">Live GPS — ETA updated every 15 min</div></div>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--surface);border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);flex-shrink:0;font-size:16px;">✓</div>
+              <div><div style="font-weight:700;font-size:14px;color:var(--text-light);">Delivered</div><div style="font-size:12px;color:var(--text-light);">Recipient confirms via SMS OTP</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     TERMINAL FINDER
+     ═══════════════════════════════ -->
+<section class="term-section" id="terminal">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:var(--s10);">
+      <div class="section-eyebrow" style="justify-content:center;">Near You</div>
+      <h2 class="section-title">Find Your Nearest Terminal</h2>
+      <p style="color:var(--text-mid);max-width:500px;margin:var(--s3) auto 0;">We detect your current location and show loading bays with buses departing right now.</p>
+    </div>
+    <div class="term-card">
+      <div class="term-header">
+        <h3>Nearby Loading Bays</h3>
+        <button class="btn btn-outline-white btn-sm" onclick="findTerminal()">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
+          Use My Location
+        </button>
+      </div>
+      <div class="term-map">
+        <div id="termMapEl" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:var(--surface);">
+          <svg width="40" height="40" fill="none" stroke="var(--rl-blue)" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          <p style="font-size:14px;color:var(--text-light);">Click "Use My Location" to find nearby terminals</p>
+        </div>
+      </div>
+      <div class="term-list" id="termList">
+        <div class="term-item"><div class="tdot g"></div><div class="tinfo"><div class="tname">Kampala Coach Park</div><div class="taddr">Ben Kiwanuka St, Kampala Central</div></div><div class="tmeta"><div class="tdist">~0.4km</div><div class="tbuses">12 buses loading</div></div></div>
+        <div class="term-item"><div class="tdot g"></div><div class="tinfo"><div class="tname">Nakawa Bus Terminal</div><div class="taddr">Nakawa, Kampala</div></div><div class="tmeta"><div class="tdist">~2.1km</div><div class="tbuses">6 buses loading</div></div></div>
+        <div class="term-item"><div class="tdot a"></div><div class="tinfo"><div class="tname">Kibuye Taxi & Bus Park</div><div class="taddr">Kibuye, Kampala</div></div><div class="tmeta"><div class="tdist">~3.8km</div><div class="tbuses">4 buses loading</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     LOYALTY
+     ═══════════════════════════════ -->
+<section class="loyalty-section" id="loyalty">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Rewards</div>
+      <h2 class="section-title">Travel More, Earn More</h2>
+      <p style="color:var(--text-mid);max-width:500px;margin:var(--s3) auto 0;">No membership fee. Earn points from your first booking. Redeem for discounts and perks.</p>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card reveal"><div class="tier-emoji">🥉</div><h3 class="tier-name" style="color:#92400E;">Bronze</h3><div class="tier-pts">0 – 1,999 points</div><div class="tier-bens"><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>QR e-ticket on every booking</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>30-day booking history</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>1 point per UGX 100 spent</div></div></div>
+      <div class="tier-card reveal"><div class="tier-emoji">🥈</div><h3 class="tier-name" style="color:#6B7280;">Silver</h3><div class="tier-pts">2,000 – 9,999 points</div><div class="tier-bens"><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Priority boarding</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>5% discount on all bookings</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>1 free upgrade per quarter</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>1.5× points earn rate</div></div></div>
+      <div class="tier-card gold reveal"><div class="tier-emoji">🥇</div><h3 class="tier-name" style="color:var(--rl-gold-dark);">Gold</h3><div class="tier-pts">10,000+ points</div><div class="tier-bens"><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>10% off every booking</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Free parcel delivery once/month</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Dedicated WhatsApp support</div><div class="tier-ben"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>2× points + early route access</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     TRUST
+     ═══════════════════════════════ -->
+<section class="trust-section" id="trust">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="section-eyebrow gold" style="justify-content:center;">Safety & Reliability</div>
+      <h2 class="section-title text-white">Built for Uganda's Reality</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div><h3 class="trust-title">Server-Locked Seats</h3><p class="trust-desc">Your selected seat is database-locked the moment you start checkout. Zero double-bookings, guaranteed.</p></div>
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.18 2 2 0 015 5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 12a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 20v.92z"/></svg></div><h3 class="trust-title">Works on 2G Phones</h3><p class="trust-desc">MTN MoMo USSD push works on any mobile — even basic feature phones with no data connection.</p></div>
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622C17.176 19.29 21 14.591 21 9c0-1.02-.12-2.014-.382-2.962z"/></svg></div><h3 class="trust-title">Verified Operators Only</h3><p class="trust-desc">Valid URA TIN, PSV licence, insured vehicles, licensed PSV drivers — all verified before any operator goes live.</p></div>
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div><h3 class="trust-title">Instant MoMo Refunds</h3><p class="trust-desc">Policy-compliant cancellations receive refunds to the original MoMo number within 15 minutes — automatically.</p></div>
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h3 class="trust-title">Parcel Insurance</h3><p class="trust-desc">Underwritten by UAP Old Mutual Uganda. Loss, damage, and theft covered. Claims settled in 5 business days.</p></div>
+      <div class="trust-card reveal"><div class="trust-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h3 class="trust-title">PCI-DSS Card Security</h3><p class="trust-desc">Card payments processed by DPO Group on Level 1 PCI-DSS infrastructure with 3D Secure authentication.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FAQ — COMPREHENSIVE
+     ═══════════════════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:var(--s12);">
+      <div class="section-eyebrow">Help Centre</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p style="color:var(--text-mid);max-width:520px;margin-top:var(--s3);">Everything you need to know about booking, payments, cancellations, parcels, and more.</p>
+    </div>
+    <div class="faq-grid">
+      <!-- Categories -->
+      <div>
+        <div class="faq-cats">
+          <button class="faq-cat-btn on" onclick="showFaqCat('booking',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Booking & Payment
+          </button>
+          <button class="faq-cat-btn" onclick="showFaqCat('boarding',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>
+            Boarding & Travel
+          </button>
+          <button class="faq-cat-btn" onclick="showFaqCat('cancel',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            Cancellations & Refunds
+          </button>
+          <button class="faq-cat-btn" onclick="showFaqCat('parcel',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            Parcels & Delivery
+          </button>
+          <button class="faq-cat-btn" onclick="showFaqCat('operator',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M8 4v4M16 4v4"/></svg>
+            For Operators
+          </button>
+          <button class="faq-cat-btn" onclick="showFaqCat('account',this)">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 20c0-4-3.6-7-8-7s-8 3-8 7"/></svg>
+            Account & Loyalty
+          </button>
+        </div>
+        <div style="margin-top:var(--s6);padding:var(--s5);background:var(--rl-blue);border-radius:var(--r-xl);">
+          <p style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:12px;">Can't find your answer?</p>
+          <a href="https://wa.me/256700000000" target="_blank" class="btn btn-gold btn-sm" style="width:100%;justify-content:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp Support
+          </a>
+        </div>
+      </div>
+
+      <!-- FAQ Content -->
+      <div>
+        <!-- BOOKING -->
+        <div class="faq-panel on" id="faq-booking">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need to create an account to book?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">No account is required. You only need your mobile number. After payment, your QR ticket is sent via SMS. An account is optional — create one to earn loyalty points and view booking history.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What payment methods are accepted?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">We accept MTN Mobile Money (USSD push — works on any phone including 2G feature phones), Airtel Money, Visa, and Mastercard. All card payments go through DPO Group's PCI-DSS Level 1 payment gateway with 3D Secure.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does MTN MoMo payment work?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">After confirming your booking, enter your MTN number (0771, 0701, or 0750). You'll receive a USSD prompt on your phone asking you to approve the payment with your MoMo PIN. Confirmation arrives in approximately 8 seconds. No internet or smartphone needed.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long is my seat held before payment?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Your selected seat is locked in our database for 10 minutes from the moment you proceed to payment. If payment is not received within 10 minutes, the seat is automatically released back to available inventory.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I book for someone else?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Enter the traveller's name and phone number during booking. The QR ticket will be sent to the phone number provided. Any valid MTN, Airtel, or card can be used for payment regardless of whose name is on the ticket.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is advance booking?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Advance booking lets you reserve a seat up to 30 days ahead by paying a 20% commitment deposit. Your price is locked at booking date. The remaining 80% is collected via SMS payment link 24 hours before departure. Cancel 48+ hours before for a full deposit refund.</div></div>
+        </div>
+        <!-- BOARDING -->
+        <div class="faq-panel" id="faq-boarding">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be picked up along the route instead of at the terminal?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Select "Pick Me Up Enroute" in the boarding preference when searching. Enter your landmark or location on the route. The operator will confirm if there is a designated enroute stop near you — not all stops are guaranteed. An additional fee of UGX 2,000–5,000 applies. The driver will contact you 30 minutes before passing your location.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be dropped off before the final destination?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Select "Drop Me Off Enroute" during booking. Specify your alighting point. This is subject to the operator confirming the drop point is on their route. The price reflects the full route fare — partial route discounts are at the operator's discretion.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I board the bus at the terminal?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Show the QR code from your SMS ticket to the driver or conductor. They scan it with the Raylane driver app — green screen confirms valid, red screen indicates an issue. You'll be assigned your exact seat number as shown on your ticket.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if my coach is delayed?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">You will receive an SMS notification if your coach is delayed by more than 30 minutes. The updated ETA will be in the message. You can also track your coach live on our website using your booking reference.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is luggage included in my ticket?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">One medium bag in the luggage hold and one small bag in the cabin are included. Excess luggage or oversized items may be charged separately by the operator at the terminal. Heavy cargo must be pre-booked as a Parcel.</div></div>
+        </div>
+        <!-- CANCELLATIONS -->
+        <div class="faq-panel" id="faq-cancel">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the cancellation and refund policy?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Standard bookings: Cancel 6+ hours before departure for an 80% refund to your original payment method. Cancellations within 6 hours of departure are non-refundable. Advance bookings: Cancel 48+ hours before departure for a full commitment fee refund. Refunds are processed within 15 minutes for MoMo and within 5-7 business days for card payments.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What happens if the operator cancels the trip?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">If an operator cancels a trip, you receive a 100% refund automatically to your original payment method, plus an SMS notification with full details. You also receive a voucher code for UGX 5,000 off your next booking as a goodwill gesture.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I cancel my booking?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Log in to My Account and click "Cancel" on your booking. Alternatively, reply CANCEL to your booking confirmation SMS, or contact us on WhatsApp with your booking reference. Refunds are processed immediately upon cancellation if within policy.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I change the date or seat after booking?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Date changes are available up to 24 hours before departure for a UGX 3,000 change fee, subject to seat availability. Seat changes on the same trip are free if done more than 2 hours before departure. Contact our WhatsApp support for all changes.</div></div>
+        </div>
+        <!-- PARCELS -->
+        <div class="faq-panel" id="faq-parcel">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I send a parcel with Raylane?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Book online or visit any Raylane terminal. Select "Send Parcel" tab, choose the parcel category, enter sender and recipient details, pay via MoMo or card. Your parcel receives a unique tracking code (PKL-xxxxxx). Drop off at the terminal before the bus departs, or add the Pickup Rider option for UGX 5,000 and we collect from your location.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I track my parcel?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Enter your PKL tracking code in the Track Your Parcel section on this page, or reply TRACK to any SMS from us. Both the sender and recipient receive live SMS updates at each status change. The ETA is updated every 15 minutes while in transit.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is parcel insurance available?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Add Parcel Insurance during booking at 3% of the declared item value. Coverage includes loss, theft, and damage in transit. Underwritten by UAP Old Mutual Uganda. Claims require: tracking number, item description, police report for theft, and photos. Average settlement is 5 business days.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What items cannot be sent as parcels?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Prohibited items include: cash or bearer instruments, firearms and ammunition, flammable or explosive materials, illegal substances, live animals, perishable food without special arrangement, and items over 50kg (requires special cargo booking). Raylane reserves the right to inspect parcels at any point during transit.</div></div>
+        </div>
+        <!-- OPERATOR -->
+        <div class="faq-panel" id="faq-operator">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I apply to become a Raylane operator?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/pages/partner.html">raylaneexpress.com/partner</a> and complete the three-step application form. You'll need: company name, contact details, URA TIN, PSV operator licence, fleet size, vehicle registration details, and driver licence copies. Applications are reviewed within 48 hours.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I customise the operator dashboard with my company branding?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Professional and Enterprise plan operators can upload their company logo and set a primary brand colour in Settings → Branding. Your custom logo and colours appear throughout your operator dashboard and on passenger-facing booking confirmation pages for trips on your buses.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How and when do I get paid?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Payouts are processed weekly every Friday. Admin reviews and releases payment to your MTN MoMo merchant code via B2B transfer. You receive an SMS receipt from Raylane detailing the route, gross amount, commission deducted, and net paid. You can also see the full payout breakdown in your Payments tab before release.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the commission rate?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Starter and Standard plans: 8% on all confirmed bookings. Professional plan: 6%. Enterprise plan: 5%. Commission is calculated on the gross booking value before any promotions. Parcel revenue shares the same commission rate as seat bookings.</div></div>
+        </div>
+        <!-- ACCOUNT -->
+        <div class="faq-panel" id="faq-account">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do loyalty points work?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Earn 1 point per UGX 100 spent on Standard bookings. Silver members earn 1.5× and Gold members earn 2×. Points accumulate over time and unlock tier benefits automatically: Silver at 2,000 points, Gold at 10,000 points. Redeem points for discounts on future bookings from your Account page.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I create an account?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/pages/account.html">My Account</a> and enter your mobile number. You'll receive a 6-digit OTP via SMS to verify. No email or password required. Your booking history is linked to your phone number automatically.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my personal data shared with operators?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Operators receive only the information required to process your journey: name, seat number, departure point, and destination. Payment details are never shared. Your phone number is visible to the operator for journey-related communications only. Full details are in our <a href="/pages/privacy.html">Privacy Policy</a>.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FOOTER
+     ═══════════════════════════════ -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="/" style="display:inline-flex;align-items:center;gap:10px;">
+          <img src="/assets/logo.png" alt="Raylane Express" style="height:32px;width:auto;" onerror="this.style.display='none'">
+          <div class="nav-logo-fallback" style="color:#fff;">
+            <span style="color:var(--rl-gold);">Raylane</span>Express
+          </div>
+        </a>
+        <p>Uganda's first vertically integrated transport technology platform. Booking seats, delivering parcels, and powering operators since 2024. <strong style="color:rgba(255,255,255,.5);">Tusimbudde!</strong></p>
+        <div class="footer-social">
+          <a href="https://twitter.com/raylaneexpress" aria-label="Twitter" target="_blank"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+          <a href="https://facebook.com/raylaneexpress" aria-label="Facebook" target="_blank"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://wa.me/256700000000" aria-label="WhatsApp" target="_blank"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+          <a href="https://instagram.com/raylaneexpress" aria-label="Instagram" target="_blank"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        </div>
+      </div>
+      <!-- Travel -->
+      <div class="footer-col">
+        <h4>Travel</h4>
+        <div class="footer-links">
+          <a href="/pages/book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Book a Seat</a>
+          <a href="/pages/book.html?tab=return"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Return Trips</a>
+          <a href="/pages/book.html?tab=parcel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Send a Parcel</a>
+          <a href="/pages/book.html?tab=hire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Private Charter</a>
+          <a href="/pages/book.html?tab=group"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Group Bookings</a>
+          <a href="/pages/account.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Track My Booking</a>
+          <a href="/pages/routes.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>All Routes & Timetables</a>
+        </div>
+      </div>
+      <!-- Operators -->
+      <div class="footer-col">
+        <h4>Operators</h4>
+        <div class="footer-links">
+          <a href="/pages/partner.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Apply to Join</a>
+          <a href="/pages/operator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator Login</a>
+          <a href="/pages/partner.html#plans"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Subscription Plans</a>
+          <a href="/pages/partner.html#calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Revenue Calculator</a>
+          <a href="/pages/partner.html#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator FAQ</a>
+          <a href="/pages/admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Admin Console</a>
+        </div>
+      </div>
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <div class="footer-links">
+          <a href="/pages/about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>About Raylane Express</a>
+          <a href="/pages/safety.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Safety Standards</a>
+          <a href="/pages/careers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Careers</a>
+          <a href="/pages/press.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Press & Media</a>
+          <a href="/pages/contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Contact Us</a>
+          <a href="https://wa.me/256700000000" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>WhatsApp Support</a>
+        </div>
+      </div>
+      <!-- Legal -->
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <div class="footer-links">
+          <a href="/pages/terms.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Terms & Conditions</a>
+          <a href="/pages/privacy.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Privacy Policy</a>
+          <a href="/pages/refund.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Refund Policy</a>
+          <a href="/pages/cookies.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Cookie Policy</a>
+          <a href="/pages/parcel-terms.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Parcel Conditions</a>
+          <a href="/pages/accessibility.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Accessibility</a>
+        </div>
+      </div>
+    </div>
+    <!-- Contact strip -->
+    <div style="padding:var(--s6) 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s6);">
+      <div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:13px;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.18 2 2 0 015 5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L9.09 12a16 16 0 006.91 6.91l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 20v.92z"/></svg>+256 700 000 000</div>
+      <div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:13px;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@raylaneexpress.com</div>
+      <div style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:13px;"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>Kampala Coach Park, Ben Kiwanuka St, Kampala</div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Raylane Express Ltd · Kampala, Uganda · Reg. No. 80020001491 · Licensed by KCCA & UNRA</p>
+      <div class="pay-logos">
+        <span class="pay-logo">MTN MoMo</span>
+        <span class="pay-logo">Airtel Money</span>
+        <span class="pay-logo">Visa</span>
+        <span class="pay-logo">Mastercard</span>
+        <span class="pay-logo">DPO Group</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky bottom bar (mobile) -->
+<div class="stick-bottom">
+  <a href="#search" class="btn btn-blue" style="flex:1;">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>
+    Book Seat
+  </a>
+  <a href="#parcels" class="btn btn-outline-blue" style="flex:1;">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+    Parcel
+  </a>
+  <a href="https://wa.me/256700000000" class="btn btn-ghost-dark" style="flex:none;width:48px;padding:0;border-radius:50%;" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  </a>
+</div>
+
+<script>
+/* ════════════════════════════════
+   RAYLANE EXPRESS — JS
+   ════════════════════════════════ */
+
+// ── Mobile menu ──
+function toggleMenu(){
+  const m=document.getElementById('mobMenu'),h=document.getElementById('ham');
+  m.classList.toggle('open');h.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+
+// ── Hero slider ──
+let slide=0;
+const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hero-dot');
+function goSlide(n){slides[slide].classList.remove('on');dots[slide].classList.remove('on');slide=n;slides[slide].classList.add('on');dots[slide].classList.add('on');}
+setInterval(()=>goSlide((slide+1)%slides.length),5500);
+
+// ── Hero canvas particles (road lines effect) ──
+(function(){
+  const c=document.getElementById('heroCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let particles=[];
+  function resize(){c.width=innerWidth;c.height=c.parentElement.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  class P{
+    constructor(){this.reset();}
+    reset(){
+      this.x=Math.random()*c.width;this.y=Math.random()*c.height;
+      this.vx=(Math.random()-.5)*.4;this.vy=-Math.random()*.8-.2;
+      this.a=Math.random();this.life=Math.random()*200+100;this.maxLife=this.life;
+      this.r=Math.random()*1.5+.5;
+    }
+    update(){this.x+=this.vx;this.y+=this.vy;this.life--;if(this.life<=0)this.reset();}
+    draw(){
+      const alpha=(this.life/this.maxLife)*this.a*.6;
+      ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,168,0,${alpha})`;ctx.fill();
+    }
+  }
+  for(let i=0;i<80;i++)particles.push(new P());
+  function frame(){ctx.clearRect(0,0,c.width,c.height);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(frame);}
+  frame();
+})();
+
+// ── Countdown timer ──
+(function(){
+  let secs=14*60+52;
+  setInterval(()=>{
+    if(secs<=0)return;secs--;
+    const m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');
+    const el=document.getElementById('countdown');if(el)el.textContent=`${m}:${s}`;
+  },1000);
+})();
+
+// ── Ticker ──
+const DEPS=[
+  {route:'Kampala→Mbarara',time:'06:00',status:'g',lbl:'On Time'},
+  {route:'Kampala→Gulu',time:'07:30',status:'g',lbl:'On Time'},
+  {route:'Kampala→Mbale',time:'08:00',status:'a',lbl:'Filling Fast'},
+  {route:'Kampala→Fort Portal',time:'08:30',status:'g',lbl:'Available'},
+  {route:'Kampala→Kabale',time:'09:00',status:'r',lbl:'Almost Full'},
+  {route:'Kampala→Arua',time:'09:30',status:'g',lbl:'On Time'},
+  {route:'Kampala→Nairobi',time:'10:00',status:'g',lbl:'International'},
+  {route:'Jinja→Kampala',time:'07:00',status:'g',lbl:'On Time'},
+  {route:'Mbarara→Kampala',time:'05:30',status:'a',lbl:'Filling Fast'},
+];
+function buildTicker(){
+  const t=document.getElementById('tickerTrack');if(!t)return;
+  const html=DEPS.map(d=>`<div class="ticker-item"><div class="ticker-dot-${d.status}"></div>${d.route} · <strong>${d.time}</strong> · ${d.lbl}</div>`).join('');
+  t.innerHTML=html+html;// duplicate for infinite scroll
+}
+buildTicker();
+
+// ── Departure cards ──
+const DEP_DATA=[
+  {from:'Kampala',to:'Mbarara',time:'06:00',price:24000,seats:67,booked:58,op:'Global Coaches',tags:['AC','WiFi']},
+  {from:'Kampala',to:'Gulu',time:'07:30',price:28000,seats:67,booked:42,op:'Link Bus',tags:['AC']},
+  {from:'Kampala',to:'Mbale',time:'08:00',price:22000,seats:67,booked:62,op:'YY Coaches',tags:['AC','USB']},
+  {from:'Kampala',to:'Fort Portal',time:'08:30',price:30000,seats:67,booked:30,op:'Raylane Express',tags:['AC','WiFi','USB']},
+  {from:'Kampala',to:'Kabale',time:'09:00',price:28000,seats:67,booked:65,op:'Fast Coaches',tags:['AC']},
+  {from:'Kampala',to:'Arua',time:'09:30',price:35000,seats:67,booked:22,op:'Global Coaches',tags:['AC']},
+  {from:'Kampala',to:'Nairobi',time:'10:00',price:85000,seats:45,booked:38,op:'Raylane Express',tags:['AC','WiFi','USB']},
+];
+function buildDeps(){
+  const el=document.getElementById('depScroll');if(!el)return;
+  el.innerHTML=DEP_DATA.map(d=>{
+    const pct=Math.round((d.booked/d.seats)*100),rem=d.seats-d.booked;
+    let ub='badge-green',ut='Available',bc='';
+    if(pct>85){ub='badge-red';ut='Almost Full';bc='red';}
+    else if(pct>60){ub='badge-amber';ut='Filling Fast';bc='amber';}
+    return `<div class="dep-card" onclick="bookDep('${d.from}','${d.to}','${d.time}')">
+      <div class="dep-op">${d.op}</div>
+      <div class="dep-route">${d.from}<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>${d.to}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <div class="dep-departs">${d.time}</div>
+        <span class="badge ${ub}">${ut}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-light);margin-bottom:4px;">${rem} seats remaining</div>
+      <div class="dep-bar"><div class="dep-fill ${bc}" style="width:${pct}%"></div></div>
+      <div class="dep-footer">
+        <div class="dep-price">UGX ${d.price.toLocaleString()} <small>/seat</small></div>
+        <div style="display:flex;gap:3px;">${d.tags.map(t=>`<span class="badge badge-blue" style="font-size:10px;padding:2px 7px;">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+buildDeps();
+
+// ── Date init ──
+document.addEventListener('DOMContentLoaded',()=>{
+  const d=document.getElementById('tDate');
+  if(d){const t=new Date().toISOString().split('T')[0];d.min=t;d.value=t;}
+  initReveal();
+});
+
+// ── Search ──
+function doSearch(){
+  const f=document.getElementById('fromCity').value,t=document.getElementById('toCity').value;
+  if(!f||!t){showToast('Select cities','Please choose departure and destination cities.','err');return;}
+  if(f===t){showToast('Same city','Departure and destination must be different.','err');return;}
+  showToast('Searching…',`${f} → ${t}`,'ok');
+  setTimeout(()=>location.href=`/pages/book.html?from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`,700);
+}
+function swapCities(){const f=document.getElementById('fromCity'),t=document.getElementById('toCity'),tmp=f.value;f.value=t.value;t.value=tmp;}
+function quickSearch(a,b){
+  const f=document.getElementById('fromCity'),t=document.getElementById('toCity');
+  for(let o of f.options)if(o.text===a)f.value=o.value;
+  for(let o of t.options)if(o.text===b)t.value=o.value;
+  document.getElementById('search').scrollIntoView({behavior:'smooth'});
+}
+function switchTab(type,el){
+  document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+}
+function updateSearch(){}
+function bookDep(f,t,time){showToast('Opening…',`${f}→${t} at ${time}`,'ok');setTimeout(()=>location.href=`/pages/book.html?from=${f}&to=${t}`,500);}
+
+// ── Boarding preference ──
+function setBoardingOpt(input){
+  document.querySelectorAll('.boarding-opt').forEach(o=>o.classList.remove('on'));
+  input.closest('.boarding-opt').classList.add('on');
+  const loc=document.getElementById('boardingLocField');
+  loc.classList.toggle('show',input.value==='enroute'||input.value==='dropoff');
+}
+function useMyLocation(){
+  if(!navigator.geolocation){showToast('Not supported','Geolocation not available on this browser.','err');return;}
+  navigator.geolocation.getCurrentPosition(p=>{
+    document.getElementById('enrouteLocation').value=`${p.coords.latitude.toFixed(5)}, ${p.coords.longitude.toFixed(5)}`;
+    showToast('Location captured','GPS coordinates set as your boarding point.','ok');
+  },()=>showToast('Location denied','Enter your location manually.','err'));
+}
+
+// ── Map ──
+let selCity='';
+function showCity(n,d,tr,px,pr){
+  selCity=n;
+  document.getElementById('cpName').textContent=n;
+  document.getElementById('cpDesc').textContent=d;
+  document.getElementById('cpTrips').textContent=tr;
+  document.getElementById('cpPax').textContent=px;
+  document.getElementById('cpPrice').textContent=pr;
+  document.getElementById('cpBtn').textContent=n;
+  document.getElementById('cityPanel').classList.add('on');
+}
+function bookToCity(){
+  const t=document.getElementById('toCity');
+  for(let o of t.options)if(o.text.includes(selCity.split(' ')[0]))t.value=o.value;
+  document.getElementById('cityPanel').classList.remove('on');
+  document.getElementById('search').scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('click',e=>{if(!e.target.closest('[class*="map"]')&&!e.target.closest('.city-panel'))document.getElementById('cityPanel')?.classList.remove('on');});
+function openGMaps(){window.open('https://www.google.com/maps/search/bus+park+Kampala','_blank');}
+
+// ── Terminal finder ──
+function findTerminal(){
+  if(!navigator.geolocation){showToast('Not supported','Geolocation unavailable.','err');return;}
+  showToast('Detecting…','Allow location access.');
+  navigator.geolocation.getCurrentPosition(
+    p=>showToast('Location found!','Nearest terminals shown below.','ok'),
+    ()=>showToast('Location denied','Showing default Kampala terminals.','err')
+  );
+}
+
+// ── FAQ ──
+function showFaqCat(cat,el){
+  document.querySelectorAll('.faq-cat-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.faq-panel').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('faq-'+cat)?.classList.add('on');
+}
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+// ── WhatsApp ──
+function openWhatsApp(){window.open('https://wa.me/256700000000?text=Hi+Raylane+Express+I+want+to+book+a+seat','_blank');}
+
+// ── Parcel track ──
+function trackParcel(){showToast('Tracking…','Enter a valid PKL code to track your parcel.','ok');}
+
+// ── Toast ──
+function showToast(t,m,type=''){
+  const c=document.getElementById('toasts');
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`<div><div class="toast-t">${t}</div><div class="toast-m">${m}</div></div>`;
+  c.appendChild(el);
+  setTimeout(()=>el.style.opacity='0',3200);
+  setTimeout(()=>el.remove(),3600);
+}
+
+// ── Scroll reveal ──
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target);}});
+  },{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+}
+</script>
+</body>
+</html>
