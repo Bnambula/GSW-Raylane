@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "name": "raylane-express",
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(self)" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/book", "destination": "/pages/book.html" },
+    { "source": "/account", "destination": "/pages/account.html" },
+    { "source": "/partner", "destination": "/pages/partner.html" },
+    { "source": "/operator", "destination": "/pages/operator.html" },
+    { "source": "/admin", "destination": "/pages/admin.html" },
+    { "source": "/routes", "destination": "/pages/routes.html" },
+    { "source": "/parcels", "destination": "/pages/parcels.html" },
+    { "source": "/terms", "destination": "/pages/terms.html" },
+    { "source": "/privacy", "destination": "/pages/privacy.html" },
+    { "source": "/refund", "destination": "/pages/refund.html" },
+    { "source": "/about", "destination": "/pages/about.html" },
+    { "source": "/contact", "destination": "/pages/contact.html" },
+    { "source": "/safety", "destination": "/pages/safety.html" },
+    { "source": "/faq", "destination": "/index.html#faq" }
+  ],
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/apply", "destination": "/partner", "permanent": true },
+    { "source": "/dashboard", "destination": "/operator", "permanent": true },
+    { "source": "/driver/:path*", "destination": "/pages/driver.html", "permanent": false }
+  ]
+}
