@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Join as Operator — Raylane Express</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0B2FA0;--blue-dark:#071E6B;--blue-deep:#040E35;--gold:#E8A800;--gold-b:#FFC72C;--off:#F8FAFD;--surface:#EEF2FA;--border:#DDE3F0;--text:#0A0F1E;--mid:#4B5563;--light:#9CA3AF;--ok:#059669;--fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;--fu:'Inter',sans-serif;--r:8px;--rl:16px;--rx:24px;--rf:9999px;--shm:0 8px 32px rgba(0,0,0,.14);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--off);color:var(--text);line-height:1.55}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select,textarea{font-family:inherit;outline:none}
+/* NAV */
+.nav{background:var(--blue-deep);border-bottom:3px solid var(--gold);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-mark{width:34px;height:34px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:900;font-size:15px;color:var(--blue-deep);}
+.nav-name{font-family:var(--fd);font-weight:900;font-size:18px;color:#fff;font-style:italic;}
+.nav-name span{color:var(--gold);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fd);font-weight:700;font-style:italic;text-transform:uppercase;padding:9px 20px;border-radius:var(--rf);transition:all 200ms;white-space:nowrap;font-size:14px;}
+.btn-gold{background:var(--gold);color:var(--blue-deep)}.btn-gold:hover{background:var(--gold-b)}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dark)}
+.btn-out{border:1.5px solid var(--border);color:var(--mid)}.btn-out:hover{border-color:var(--blue);color:var(--blue)}
+.btn-sm{padding:7px 16px;font-size:13px}
+.btn-lg{padding:16px 36px;font-size:18px}
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue) 60%,var(--blue-dark) 100%);padding:60px 24px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(232,168,0,.07) 0%,transparent 70%);}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(232,168,0,.12);border:1px solid rgba(232,168,0,.25);color:var(--gold-b);font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:var(--rf);margin-bottom:20px;}
+.hero-title{font-family:var(--fd);font-weight:900;font-style:italic;font-size:clamp(2.4rem,7vw,5rem);text-transform:uppercase;color:#fff;line-height:.95;letter-spacing:-.02em;margin-bottom:16px;}
+.hero-title span{display:block;color:var(--gold);}
+.hero-sub{color:rgba(255,255,255,.65);font-size:clamp(1rem,2vw,1.2rem);max-width:580px;margin:0 auto 28px;}
+/* PLANS */
+.plans{padding:64px 24px;max-width:1100px;margin:0 auto;}
+.section-title{font-family:var(--fd);font-weight:900;font-style:italic;font-size:clamp(1.8rem,4vw,3rem);text-transform:uppercase;margin-bottom:8px;}
+.plans-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:36px;}
+@media(min-width:640px){.plans-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.plans-grid{grid-template-columns:repeat(4,1fr)}}
+.plan-card{border:2px solid var(--border);border-radius:var(--rx);padding:24px;background:#fff;position:relative;transition:all 200ms;}
+.plan-card:hover{box-shadow:var(--shm);transform:translateY(-3px);}
+.plan-card.pop{border-color:var(--blue);}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;font-style:italic;text-transform:uppercase;padding:4px 14px;border-radius:var(--rf);white-space:nowrap;}
+.plan-name{font-family:var(--fd);font-weight:900;font-style:italic;font-size:22px;text-transform:uppercase;margin-bottom:4px;}
+.plan-price{font-family:var(--fd);font-size:28px;font-weight:900;color:var(--blue);margin-bottom:4px;}
+.plan-price small{font-size:13px;font-weight:400;font-style:normal;color:var(--light);}
+.plan-comm{font-size:13px;color:var(--mid);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.plan-features{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.plan-feat{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--mid);}
+.plan-feat svg{color:var(--ok);flex-shrink:0;margin-top:2px;width:14px;height:14px;}
+/* CALCULATOR */
+.calc{background:var(--blue-deep);padding:60px 24px;}
+.calc-inner{max-width:800px;margin:0 auto;}
+.calc-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:32px;}
+@media(min-width:700px){.calc-grid{grid-template-columns:1fr 1fr}}
+.calc-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--rl);padding:20px;}
+.fi{width:100%;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--r);padding:10px 13px;font-size:14px;font-family:var(--fb);color:#fff;transition:border-color 140ms;}
+.fi:focus{border-color:var(--gold);outline:none;}
+.fl{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;display:block;}
+.result-num{font-family:var(--fd);font-size:32px;font-weight:900;font-style:italic;color:var(--gold);line-height:1;}
+.result-lbl{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;}
+/* FORM */
+.form-section{padding:64px 24px;max-width:760px;margin:0 auto;}
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:40px;}
+.step{display:flex;align-items:center;gap:8px;font-family:var(--fu);font-size:13px;font-weight:700;}
+.step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+.step.done .step-num{background:var(--ok);color:#fff;}
+.step.active .step-num{background:var(--blue);color:#fff;}
+.step.todo .step-num{background:var(--surface);color:var(--light);}
+.step.active .step-label{color:var(--blue);font-weight:700;}
+.step.todo .step-label{color:var(--light);}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 8px;}
+.step-panel{display:none;}
+.step-panel.on{display:block;}
+.fcard{background:#fff;border:1px solid var(--border);border-radius:var(--rx);padding:28px;}
+.fg{margin-bottom:16px;}
+.fgl{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--light);margin-bottom:5px;display:block;}
+.fgi{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;font-family:var(--fb);color:var(--text);transition:border-color 140ms;}
+.fgi:focus{border-color:var(--blue);background:#fff;outline:none;}
+.fgi.err{border-color:var(--bad,#DC2626);}
+.fgs{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;cursor:pointer;color:var(--text);}
+.fgs:focus{border-color:var(--blue);outline:none;}
+/* Plan radio cards */
+.plan-radio-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px;}
+@media(min-width:500px){.plan-radio-grid{grid-template-columns:1fr 1fr}}
+.plan-radio{border:2px solid var(--border);border-radius:var(--rl);padding:14px;cursor:pointer;transition:all 140ms;position:relative;}
+.plan-radio:hover{border-color:var(--blue);}
+.plan-radio.on{border-color:var(--blue);background:rgba(11,47,160,.04);}
+.plan-radio input{position:absolute;opacity:0;width:0;height:0;}
+.plan-radio-name{font-family:var(--fd);font-weight:800;font-style:italic;font-size:17px;text-transform:uppercase;color:var(--text);}
+.plan-radio-price{font-size:13px;color:var(--blue);font-weight:700;margin-top:2px;}
+.plan-radio-feats{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.plan-radio-feat{font-size:11px;background:var(--surface);color:var(--mid);padding:2px 8px;border-radius:var(--rf);font-family:var(--fu);font-weight:600;}
+/* Review card */
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.review-item{background:var(--surface);border-radius:var(--r);padding:12px;}
+.review-item-label{font-size:11px;color:var(--light);font-family:var(--fu);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.review-item-value{font-size:14px;font-weight:600;color:var(--text);}
+/* Footer */
+.footer{background:var(--blue-deep);color:rgba(255,255,255,.4);text-align:center;padding:24px;font-size:13px;}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/index.html" class="nav-brand">
+    <div class="nav-mark">RL</div>
+    <div class="nav-name"><span>Raylane</span>Express</div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="/pages/operator.html" class="btn btn-out btn-sm">Operator Login</a>
+    <a href="/index.html" class="btn btn-gold btn-sm">Passenger Site</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-tag">🚌 Uganda's #1 Transport Platform</div>
+    <h1 class="hero-title">Grow Your Bus Business.<span>Join Raylane Express.</span></h1>
+    <p class="hero-sub">Get confirmed bookings 24/7, weekly MTN MoMo payouts, complete fleet management, and IFRS-compliant financials — all in one dashboard.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="#apply" class="btn btn-gold btn-lg">Apply Now — It's Free</a>
+      <a href="#calculator" class="btn" style="border:2px solid rgba(255,255,255,.3);color:#fff;padding:16px 36px;font-size:18px;font-family:var(--fd);font-weight:700;font-style:italic;text-transform:uppercase;border-radius:var(--rf);">See Your Earnings</a>
+    </div>
+    <p style="color:rgba(255,255,255,.4);font-size:13px;margin-top:16px;">Free Starter plan available · Live on platform in 48 hours · 14-day free trial on paid plans</p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div style="background:var(--gold);padding:20px 24px;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0;max-width:900px;margin:0 auto;">
+    <div style="padding:8px 32px;border-right:1px solid rgba(10,22,40,.12);text-align:center;"><div style="font-family:var(--fd);font-size:26px;font-weight:900;font-style:italic;color:var(--blue-deep);">UGX 850M+</div><div style="font-size:12px;color:rgba(10,22,40,.5);font-weight:600;">Monthly GMV on platform</div></div>
+    <div style="padding:8px 32px;border-right:1px solid rgba(10,22,40,.12);text-align:center;"><div style="font-family:var(--fd);font-size:26px;font-weight:900;font-style:italic;color:var(--blue-deep);">150+</div><div style="font-size:12px;color:rgba(10,22,40,.5);font-weight:600;">Active operators</div></div>
+    <div style="padding:8px 32px;border-right:1px solid rgba(10,22,40,.12);text-align:center;"><div style="font-family:var(--fd);font-size:26px;font-weight:900;font-style:italic;color:var(--blue-deep);">500K+</div><div style="font-size:12px;color:rgba(10,22,40,.5);font-weight:600;">Bookings processed</div></div>
+    <div style="padding:8px 32px;text-align:center;"><div style="font-family:var(--fd);font-size:26px;font-weight:900;font-style:italic;color:var(--blue-deep);">48hrs</div><div style="font-size:12px;color:rgba(10,22,40,.5);font-weight:600;">Time to go live</div></div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <div class="section-title">Choose Your Plan</div>
+  <p style="color:var(--mid);max-width:560px;">Start free, scale as you grow. All plans include real-time booking notifications, QR ticket issuance, and weekly MoMo payouts.</p>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">Free <small>to join</small></div>
+      <div class="plan-comm">8% commission on all bookings</div>
+      <div class="plan-features">
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Seat booking & management</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Parcel delivery module</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>QR ticket issuance</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Weekly MoMo payouts</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Booking notifications (SMS)</div>
+      </div>
+      <a href="#apply" class="btn btn-out" style="width:100%;justify-content:center;">Get Started Free</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Standard</div>
+      <div class="plan-price">UGX 200K <small>/month</small></div>
+      <div class="plan-comm">8% commission on all bookings</div>
+      <div class="plan-features">
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Everything in Starter</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Payments tracking</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Cost centre & vendors</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Subscription tracker</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Invoice management</div>
+      </div>
+      <a href="#apply" class="btn btn-out" style="width:100%;justify-content:center;">Start 14-Day Trial</a>
+    </div>
+    <div class="plan-card pop">
+      <div class="pop-badge">Most Popular</div>
+      <div class="plan-name">Professional</div>
+      <div class="plan-price">UGX 450K <small>/month</small></div>
+      <div class="plan-comm" style="color:var(--ok);font-weight:700;">Reduced 6% commission</div>
+      <div class="plan-features">
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Everything in Standard</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Driver management (NID tracking)</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Fleet management & compliance</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Full P&L financial statements</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Company branding & colours</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Fuel log tracking</div>
+      </div>
+      <a href="#apply" class="btn btn-blue" style="width:100%;justify-content:center;">Start 14-Day Trial</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">UGX 900K <small>/month</small></div>
+      <div class="plan-comm" style="color:var(--ok);font-weight:700;">Best 5% commission rate</div>
+      <div class="plan-features">
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Everything in Professional</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Staff/HR & payroll (PAYE + NSSF)</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Insurance portal (MTP + claims)</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Analytics dashboard</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>QuickBooks IIF export</div>
+        <div class="plan-feat"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>API webhooks + dedicated manager</div>
+      </div>
+      <a href="#apply" class="btn btn-gold" style="width:100%;justify-content:center;">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc" id="calculator">
+  <div class="calc-inner">
+    <div style="text-align:center;margin-bottom:8px;"><span style="background:rgba(232,168,0,.15);border:1px solid rgba(232,168,0,.25);color:var(--gold-b);font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:var(--rf);">Revenue Calculator</span></div>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;font-style:italic;text-transform:uppercase;color:#fff;text-align:center;margin-bottom:6px;">See What You'll Earn</h2>
+    <p style="color:rgba(255,255,255,.55);text-align:center;margin-bottom:0;">Enter your fleet details to estimate your monthly earnings on Raylane Express.</p>
+    <div class="calc-grid">
+      <div class="calc-card">
+        <div style="margin-bottom:16px;"><label class="fl">Number of Vehicles</label><input class="fi" type="number" id="cVeh" value="3" min="1" oninput="calcRevenue()"></div>
+        <div style="margin-bottom:16px;"><label class="fl">Trips per Vehicle per Day</label><input class="fi" type="number" id="cTrips" value="2" min="1" oninput="calcRevenue()"></div>
+        <div style="margin-bottom:16px;"><label class="fl">Average Seats Sold per Trip</label><input class="fi" type="number" id="cSeats" value="40" min="1" max="67" oninput="calcRevenue()"></div>
+        <div><label class="fl">Average Ticket Price (UGX)</label><input class="fi" type="number" id="cPrice" value="25000" min="5000" oninput="calcRevenue()"></div>
+      </div>
+      <div class="calc-card" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div><div class="result-num" id="rGross">UGX 18M</div><div class="result-lbl">Monthly Gross Revenue</div></div>
+        <div><div class="result-num" id="rNet" style="color:#4ade80;">UGX 16.6M</div><div class="result-lbl">Your Monthly Earnings (after 8% commission)</div></div>
+        <div><div class="result-num" id="rYear" style="font-size:22px;">UGX 199M</div><div class="result-lbl">Estimated Annual Earnings</div></div>
+        <a href="#apply" class="btn btn-gold" style="align-self:flex-start;">Start Earning Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="form-section" id="apply">
+  <div style="margin-bottom:32px;">
+    <h2 class="section-title">Apply to Join</h2>
+    <p style="color:var(--mid);">Complete the three-step form. We review applications within 48 hours and contact you by phone to finalise onboarding.</p>
+  </div>
+
+  <!-- Step indicator -->
+  <div class="step-indicator">
+    <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Business Info</div></div>
+    <div class="step-line"></div>
+    <div class="step todo" id="step2"><div class="step-num">2</div><div class="step-label">Fleet & Plan</div></div>
+    <div class="step-line"></div>
+    <div class="step todo" id="step3"><div class="step-num">3</div><div class="step-label">Review & Submit</div></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-panel on" id="panel1">
+    <div class="fcard">
+      <h3 style="font-family:var(--fd);font-weight:800;font-size:20px;text-transform:uppercase;margin-bottom:20px;">Business Information</h3>
+      <div style="display:grid;grid-template-columns:1fr;gap:0;">
+        <div class="fg"><label class="fgl">Company / Business Name *</label><input class="fgi" id="f-name" placeholder="e.g. Global Coaches Ltd" required></div>
+        <div class="fg"><label class="fgl">Contact Phone Number *</label><input class="fgi" id="f-phone" type="tel" placeholder="0771 xxx xxx" required></div>
+        <div class="fg"><label class="fgl">Email Address *</label><input class="fgi" id="f-email" type="email" placeholder="manager@yourcompany.com" required></div>
+        <div class="fg"><label class="fgl">URA Tax Identification Number (TIN) *</label><input class="fgi" id="f-tin" placeholder="e.g. 1000123456"></div>
+        <div class="fg"><label class="fgl">PSV Operator Licence Number *</label><input class="fgi" id="f-psv" placeholder="e.g. OP/2024/00123"></div>
+        <div class="fg"><label class="fgl">Physical Address / Office Location</label><input class="fgi" id="f-addr" placeholder="e.g. Kampala Coach Park, Bay 14"></div>
+        <div class="fg"><label class="fgl">How did you hear about Raylane Express?</label><select class="fgs" id="f-source"><option value="">Select…</option><option>WhatsApp</option><option>Facebook</option><option>Referred by another operator</option><option>UTODA / industry body</option><option>Radio / TV</option><option>Other</option></select></div>
+        <div class="fg"><label class="fgl">Referral Code (if referred by an operator)</label><input class="fgi" id="f-ref" placeholder="e.g. REF-GLOBALCOACHES"></div>
+      </div>
+      <button class="btn btn-blue" onclick="nextStep(1)">Continue to Fleet & Plan →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-panel" id="panel2">
+    <div class="fcard">
+      <h3 style="font-family:var(--fd);font-weight:800;font-size:20px;text-transform:uppercase;margin-bottom:20px;">Fleet & Plan Selection</h3>
+      <div class="fg"><label class="fgl">Number of Vehicles in Your Fleet *</label><input class="fgi" id="f-fleet" type="number" min="1" placeholder="e.g. 5"></div>
+      <div class="fg"><label class="fgl">Vehicle Types (select all that apply)</label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;"><input type="checkbox" id="ft-67"> 67-Seater Coach</label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;"><input type="checkbox" id="ft-14"> 14-Seater Minivan</label>
+        </div>
+      </div>
+      <div class="fg"><label class="fgl">Main Routes You Operate</label><textarea class="fgi" id="f-routes" rows="2" placeholder="e.g. Kampala-Mbarara, Kampala-Gulu, Kampala-Mbale" style="resize:vertical;"></textarea></div>
+      <div class="fg">
+        <label class="fgl">Select Your Subscription Plan *</label>
+        <div class="plan-radio-grid">
+          <label class="plan-radio on" id="pr-starter" onclick="selectPlan('starter',this)"><input type="radio" name="plan" value="starter" checked><div class="plan-radio-name">Starter</div><div class="plan-radio-price">Free · 8% commission</div><div class="plan-radio-feats"><span class="plan-radio-feat">Bookings</span><span class="plan-radio-feat">Parcels</span><span class="plan-radio-feat">Payouts</span></div></label>
+          <label class="plan-radio" id="pr-standard" onclick="selectPlan('standard',this)"><input type="radio" name="plan" value="standard"><div class="plan-radio-name">Standard</div><div class="plan-radio-price">UGX 200K/mo · 8% commission</div><div class="plan-radio-feats"><span class="plan-radio-feat">+ Cost Centre</span><span class="plan-radio-feat">Vendors</span></div></label>
+          <label class="plan-radio" id="pr-pro" onclick="selectPlan('pro',this)"><input type="radio" name="plan" value="pro"><div class="plan-radio-name">Professional</div><div class="plan-radio-price">UGX 450K/mo · 6% commission</div><div class="plan-radio-feats"><span class="plan-radio-feat">+ Fleet</span><span class="plan-radio-feat">Drivers</span><span class="plan-radio-feat">P&L</span></div></label>
+          <label class="plan-radio" id="pr-ent" onclick="selectPlan('ent',this)"><input type="radio" name="plan" value="enterprise"><div class="plan-radio-name">Enterprise</div><div class="plan-radio-price">UGX 900K/mo · 5% commission</div><div class="plan-radio-feats"><span class="plan-radio-feat">+ HR</span><span class="plan-radio-feat">Insurance</span><span class="plan-radio-feat">API</span></div></label>
+        </div>
+      </div>
+      <div class="fg"><label class="fgl">MTN MoMo Merchant Code (for payouts)</label><input class="fgi" id="f-momo" placeholder="e.g. 256200100200"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-out" onclick="prevStep(2)">← Back</button>
+        <button class="btn btn-blue" onclick="nextStep(2)">Continue to Review →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-panel" id="panel3">
+    <div class="fcard">
+      <h3 style="font-family:var(--fd);font-weight:800;font-size:20px;text-transform:uppercase;margin-bottom:20px;">Review Your Application</h3>
+      <div class="review-grid" id="reviewGrid" style="margin-bottom:20px;"></div>
+
+      <div style="background:var(--surface);border-radius:var(--rl);padding:16px;margin-bottom:20px;">
+        <p style="font-family:var(--fu);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--light);margin-bottom:12px;">Upload Documents</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);">
+            <span style="font-size:13px;font-weight:600;">Business Registration Certificate</span>
+            <label style="cursor:pointer;" class="btn btn-out btn-sm">Upload<input type="file" style="display:none" accept=".pdf,.jpg,.png"></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);">
+            <span style="font-size:13px;font-weight:600;">PSV Operator Licence Copy</span>
+            <label style="cursor:pointer;" class="btn btn-out btn-sm">Upload<input type="file" style="display:none" accept=".pdf,.jpg,.png"></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);">
+            <span style="font-size:13px;font-weight:600;">Fleet Insurance Certificate(s)</span>
+            <label style="cursor:pointer;" class="btn btn-out btn-sm">Upload<input type="file" style="display:none" accept=".pdf,.jpg,.png" multiple></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:#fff;border-radius:var(--r);border:1px solid var(--border);">
+            <span style="font-size:13px;font-weight:600;">Driver Licence Copies</span>
+            <label style="cursor:pointer;" class="btn btn-out btn-sm">Upload<input type="file" style="display:none" accept=".pdf,.jpg,.png" multiple></label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;"><input type="checkbox" id="cb-terms" style="margin-top:3px;">I agree to the <a href="/pages/terms.html" target="_blank" style="color:var(--blue);font-weight:600;text-decoration:underline;">Raylane Express Operator Terms & Conditions</a></label>
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;"><input type="checkbox" id="cb-commission" style="margin-top:3px;">I understand the commission structure and that Raylane Express will deduct commission before releasing my weekly payout.</label>
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;"><input type="checkbox" id="cb-data" style="margin-top:3px;">I consent to Raylane Express collecting and processing my business data as described in the <a href="/pages/privacy.html" target="_blank" style="color:var(--blue);font-weight:600;text-decoration:underline;">Privacy Policy</a>.</label>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-out" onclick="prevStep(3)">← Back</button>
+        <button class="btn btn-gold btn-lg" onclick="submitApp()">Submit Application</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step-panel" id="panelSuccess">
+    <div class="fcard" style="text-align:center;padding:48px 28px;">
+      <div style="font-size:56px;margin-bottom:16px;">🎉</div>
+      <h2 style="font-family:var(--fd);font-size:32px;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Application Submitted!</h2>
+      <p style="color:var(--mid);max-width:420px;margin:0 auto 24px;">We'll review your application within 48 hours. Expect a call from our onboarding team at the phone number you provided. <em>Tusimbudde!</em></p>
+      <div style="background:var(--surface);border-radius:var(--rl);padding:16px;margin-bottom:24px;text-align:left;">
+        <p style="font-weight:700;margin-bottom:8px;">What happens next:</p>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--mid);">
+          <div style="display:flex;gap:8px;"><span style="color:var(--ok);font-weight:700;">1.</span> Raylane reviews your application and documents</div>
+          <div style="display:flex;gap:8px;"><span style="color:var(--ok);font-weight:700;">2.</span> Onboarding team calls to verify your MTN MoMo merchant code</div>
+          <div style="display:flex;gap:8px;"><span style="color:var(--ok);font-weight:700;">3.</span> Your operator dashboard credentials arrive via SMS</div>
+          <div style="display:flex;gap:8px;"><span style="color:var(--ok);font-weight:700;">4.</span> Submit your first trip — it goes live within 2 hours of admin approval</div>
+        </div>
+      </div>
+      <a href="/pages/operator.html" class="btn btn-blue btn-lg">Go to Operator Login</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 Raylane Express Ltd · Kampala, Uganda · <a href="/index.html" style="color:var(--gold);">Back to Passenger Site</a> · <a href="/pages/terms.html" style="color:rgba(255,255,255,.4);">Terms</a> · <a href="/pages/privacy.html" style="color:rgba(255,255,255,.4);">Privacy</a></p>
+</footer>
+
+<script>
+// Revenue calculator
+function calcRevenue(){
+  const v=+document.getElementById('cVeh').value||0;
+  const t=+document.getElementById('cTrips').value||0;
+  const s=+document.getElementById('cSeats').value||0;
+  const p=+document.getElementById('cPrice').value||0;
+  const days=26; // working days
+  const gross=v*t*s*p*days;
+  const net=gross*0.92;
+  const year=net*12;
+  const fmt=n=>n>=1e6?'UGX '+(n/1e6).toFixed(1)+'M':'UGX '+n.toLocaleString();
+  document.getElementById('rGross').textContent=fmt(gross);
+  document.getElementById('rNet').textContent=fmt(net);
+  document.getElementById('rYear').textContent=fmt(year);
+}
+calcRevenue();
+
+// Multi-step form
+let currentStep=1;
+function nextStep(from){
+  // Validate step 1
+  if(from===1){
+    const name=document.getElementById('f-name').value.trim();
+    const phone=document.getElementById('f-phone').value.trim();
+    const email=document.getElementById('f-email').value.trim();
+    if(!name||!phone||!email){
+      document.querySelectorAll('.fgi').forEach(i=>{if(!i.value.trim()&&i.required)i.classList.add('err');});
+      return;
+    }
+  }
+  document.getElementById('panel'+from).classList.remove('on');
+  currentStep=from+1;
+  document.getElementById('panel'+currentStep).classList.add('on');
+  if(currentStep===3)buildReview();
+  updateSteps();
+}
+function prevStep(from){
+  document.getElementById('panel'+from).classList.remove('on');
+  currentStep=from-1;
+  document.getElementById('panel'+currentStep).classList.add('on');
+  updateSteps();
+}
+function updateSteps(){
+  [1,2,3].forEach(n=>{
+    const el=document.getElementById('step'+n);
+    el.className='step '+(n<currentStep?'done':n===currentStep?'active':'todo');
+  });
+}
+function selectPlan(id,el){
+  document.querySelectorAll('.plan-radio').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+}
+function buildReview(){
+  const data={
+    'Company':document.getElementById('f-name').value||'—',
+    'Phone':document.getElementById('f-phone').value||'—',
+    'Email':document.getElementById('f-email').value||'—',
+    'TIN':document.getElementById('f-tin').value||'—',
+    'Fleet Size':document.getElementById('f-fleet').value||'—',
+    'Routes':document.getElementById('f-routes').value||'—',
+    'Plan':document.querySelector('input[name="plan"]:checked')?.value||'Starter',
+    'MoMo Code':document.getElementById('f-momo').value||'—',
+  };
+  const grid=document.getElementById('reviewGrid');
+  grid.innerHTML=Object.entries(data).map(([k,v])=>`<div class="review-item"><div class="review-item-label">${k}</div><div class="review-item-value">${v}</div></div>`).join('');
+}
+function submitApp(){
+  const cbs=[document.getElementById('cb-terms'),document.getElementById('cb-commission'),document.getElementById('cb-data')];
+  if(!cbs.every(c=>c.checked)){alert('Please accept all agreements to proceed.');return;}
+  document.getElementById('panel3').classList.remove('on');
+  document.getElementById('panelSuccess').classList.add('on');
+  document.querySelectorAll('.step').forEach(s=>s.className='step done');
+}
+// Remove err on input
+document.querySelectorAll('.fgi').forEach(i=>i.addEventListener('input',()=>i.classList.remove('err')));
+</script>
+</body>
+</html>
