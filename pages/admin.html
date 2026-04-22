@@ -1,16 +1,438 @@
-><td>UGX 48K</td><td><span class="badge bg">Active</span></td></tr>
-              <tr><td>UFC 100K</td><td>Fast Coaches</td><td>Stanbic Insurance</td><td>MTP</td><td>May 2026</td><td style="color:var(--bad);">31</td><td>UGX 290K</td><td>UGX 29K</td><td><span class="badge ba">Expiring Soon</span></td></tr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Super Admin Console — Raylane Express</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0B2FA0;--blue-dark:#071E6B;--blue-deep:#040E35;
+  --gold:#E8A800;--gold-b:#FFC72C;
+  --surface:#F8FAFD;--border:#DDE3F0;--white:#fff;
+  --text:#0A0F1E;--mid:#4B5563;--light:#9CA3AF;
+  --ok:#059669;--warn:#D97706;--bad:#DC2626;
+  --fd:'Barlow Condensed',sans-serif;
+  --fb:'Barlow',sans-serif;--fu:'Inter',sans-serif;
+  --r:8px;--rl:16px;--rx:24px;--rf:9999px;
+  --sh:0 2px 12px rgba(0,0,0,.08);
+  --shm:0 8px 32px rgba(0,0,0,.14);
+  --t:200ms cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:var(--fb);background:var(--surface);color:var(--text);display:flex;min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select,textarea{font-family:inherit;outline:none}
+
+/* SIDEBAR */
+.sb{width:230px;min-height:100vh;background:var(--blue-deep);display:flex;flex-direction:column;flex-shrink:0;position:fixed;left:0;top:0;bottom:0;z-index:100;overflow-y:auto;scrollbar-width:none}
+.sb::-webkit-scrollbar{display:none}
+@media(max-width:900px){.sb{transform:translateX(-100%);transition:transform var(--t)}.sb.open{transform:none}}
+.sb-hd{padding:18px 14px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-brand{display:flex;align-items:center;gap:10px}
+.sb-mark{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:900;font-size:16px;color:var(--blue-deep);flex-shrink:0}
+.sb-name{font-family:var(--fd);font-weight:900;font-size:16px;color:#fff;line-height:1.1}
+.sb-role{font-size:11px;color:rgba(255,255,255,.35);font-weight:600;font-family:var(--fu);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.sb-alert-strip{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);border-radius:var(--r);padding:8px 12px;margin:12px 14px;font-size:12px;color:#FCA5A5;font-family:var(--fu);font-weight:600;display:flex;align-items:center;gap:6px}
+.sb-nav{padding:10px 10px;flex:1}
+.sb-sec{margin-bottom:18px}
+.sb-sec-lbl{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:0 8px;margin-bottom:6px}
+.sb-lnk{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.6);font-size:13px;font-weight:500;padding:8px 10px;border-radius:var(--r);transition:all 140ms ease;margin-bottom:2px;position:relative}
+.sb-lnk:hover{color:#fff;background:rgba(255,255,255,.08)}
+.sb-lnk.on{color:#fff;background:var(--blue)}
+.sb-lnk svg{width:16px;height:16px;flex-shrink:0}
+.sb-cnt{margin-left:auto;background:var(--bad);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:var(--rf);font-family:var(--fu)}
+.sb-cnt.gold{background:var(--gold);color:var(--blue-deep)}
+.sb-foot{padding:12px 10px;border-top:1px solid rgba(255,255,255,.07)}
+.sb-user{display:flex;align-items:center;gap:9px}
+.sb-av{width:32px;height:32px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.sb-un{font-size:13px;font-weight:600;color:#fff}
+.sb-ur{font-size:10px;color:rgba(255,255,255,.35)}
+
+/* MAIN */
+.main{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+@media(max-width:900px){.main{margin-left:0}}
+
+/* TOPBAR */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:14px}
+.tb-left{display:flex;align-items:center;gap:10px}
+.mob-tog{display:none;width:34px;height:34px;background:var(--surface);border-radius:var(--r);align-items:center;justify-content:center;color:var(--mid)}
+@media(max-width:900px){.mob-tog{display:flex}}
+.tb-title{font-family:var(--fd);font-weight:900;font-size:19px;text-transform:uppercase;letter-spacing:-.01em}
+.tb-right{display:flex;align-items:center;gap:8px}
+.clock{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--mid)}
+.ib{position:relative;width:36px;height:36px;border-radius:var(--r);background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--mid);transition:background 140ms}
+.ib:hover{background:var(--border)}
+.ib-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--bad);border:2px solid var(--white)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fd);font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.02em;padding:9px 18px;border-radius:var(--rf);transition:all var(--t);white-space:nowrap;font-size:14px;cursor:pointer}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dark)}
+.btn-gold{background:var(--gold);color:var(--blue-deep)}.btn-gold:hover{background:var(--gold-b)}
+.btn-ok{background:#D1FAE5;color:#065F46}
+.btn-bad{background:#FEE2E2;color:#991B1B}
+.btn-out{border:1.5px solid var(--border);color:var(--mid)}.btn-out:hover{border-color:var(--blue);color:var(--blue)}
+.btn-sm{padding:7px 14px;font-size:12px}
+.btn-xs{padding:5px 10px;font-size:11px}
+
+/* CONTENT */
+.content{flex:1;padding:20px;overflow-x:hidden}
+
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+@media(min-width:640px){.sg{grid-template-columns:repeat(4,1fr)}}
+.sc{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:16px;border-top:3px solid var(--blue)}
+.sc.gold{border-top-color:var(--gold)}
+.sc.ok{border-top-color:var(--ok)}
+.sc.bad{border-top-color:var(--bad)}
+.sc.purple{border-top-color:#7C3AED}
+.sc-lbl{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--light);margin-bottom:7px}
+.sc-num{font-family:var(--fd);font-size:26px;font-weight:900;font-style:italic;color:var(--text);line-height:1}
+.sc-sub{font-size:11px;color:var(--light);margin-top:4px}
+
+/* CARD */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.card-title{font-family:var(--fd);font-weight:900;font-size:16px;text-transform:uppercase}
+.card-body{padding:18px}
+
+/* TABLE */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--light);padding:9px 14px;background:var(--surface);border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(11,47,160,.025)}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--rf);font-family:var(--fu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.bg{background:#D1FAE5;color:#065F46}
+.ba{background:#FEF3C7;color:#92400E}
+.br{background:#FEE2E2;color:#991B1B}
+.bb{background:#DBEAFE;color:#1E40AF}
+.bw{background:var(--surface);color:var(--mid)}
+.bp{background:#EDE9FE;color:#5B21B6}
+
+/* GRID LAYOUTS */
+.g2{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:900px){.g2{grid-template-columns:1fr 1fr}}
+.g3{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:600px){.g3{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.g3{grid-template-columns:1fr 1fr 1fr}}
+
+/* VIEW PANELS */
+.view{display:none}
+.view.on{display:block}
+
+/* SEARCH */
+.srch{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:8px 12px;transition:border-color 140ms;max-width:360px}
+.srch:focus-within{border-color:var(--blue)}
+.srch input{background:none;border:none;font-size:13px;flex:1;font-family:var(--fb)}
+.srch svg{color:var(--light);flex-shrink:0;width:15px;height:15px}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(4,14,53,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
+.mo.on{display:flex}
+.mo-box{background:#fff;border-radius:var(--rx);box-shadow:var(--shm);max-width:500px;width:100%;max-height:90vh;overflow-y:auto}
+.mo-hd{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mo-title{font-family:var(--fd);font-weight:900;font-size:18px;text-transform:uppercase}
+.mo-x{width:30px;height:30px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--mid);transition:all 140ms}
+.mo-x:hover{background:var(--border)}
+.mo-body{padding:18px 22px}
+.mo-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+
+/* FORM */
+.fg{margin-bottom:14px}
+.fl{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--light);margin-bottom:5px;display:block}
+.fi{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;font-family:var(--fb);color:var(--text);transition:border-color 140ms}
+.fi:focus{border-color:var(--blue);background:#fff;outline:none}
+.fs{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;font-family:var(--fb);color:var(--text);cursor:pointer}
+.fs:focus{border-color:var(--blue);outline:none}
+
+/* PAYOUT PREVIEW */
+.payout-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--surface);font-size:14px}
+.payout-row:last-child{border:none;font-weight:700;font-size:15px}
+.payout-row span:last-child{font-family:var(--fd);font-weight:700;font-style:italic;font-size:16px}
+
+/* LIVE DOT */
+.live{display:inline-flex;align-items:center;gap:6px;font-family:var(--fu);font-size:11px;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.06em}
+.live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0;animation:lp 2s ease infinite}
+@keyframes lp{0%,100%{box-shadow:0 0 0 0 rgba(5,150,105,.5)}60%{box-shadow:0 0 0 5px rgba(5,150,105,0)}}
+
+/* ACTIVITY FEED */
+.feed-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--surface);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.fdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ft{font-size:13px;color:var(--mid)}.ft strong{color:var(--text)}
+.ftime{font-size:11px;color:var(--light);margin-top:1px}
+
+/* AUDIT LOG */
+.audit-row{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--surface);font-size:13px}
+.audit-time{font-family:var(--fu);font-size:11px;color:var(--light);white-space:nowrap;min-width:80px}
+.audit-action{font-weight:600;color:var(--text)}
+.audit-user{color:var(--mid)}
+
+/* TOGGLE */
+.tog{position:relative;width:40px;height:22px;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;inset:0;background:var(--border);border-radius:11px;transition:all var(--t);cursor:pointer}
+.tog-sl::before{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:all var(--t);box-shadow:var(--sh)}
+.tog input:checked + .tog-sl{background:var(--blue)}
+.tog input:checked + .tog-sl::before{transform:translateX(18px)}
+
+/* OVERLAY MOBILE */
+.mob-ov{display:none;position:fixed;inset:0;background:rgba(4,14,53,.55);z-index:99}
+.mob-ov.on{display:block}
+
+/* SYSTEM HEALTH */
+.health-bar{height:6px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:4px}
+.health-fill{height:100%;border-radius:3px;background:var(--ok)}
+.health-fill.warn{background:var(--warn)}
+.health-fill.bad{background:var(--bad)}
+</style>
+</head>
+<body>
+
+<div class="mob-ov" id="mobOv" onclick="closeSB()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sb" id="sb">
+  <div class="sb-hd">
+    <div class="sb-brand">
+      <div class="sb-mark">RL</div>
+      <div>
+        <div class="sb-name">Raylane Express</div>
+        <div class="sb-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-alert-strip">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    5 items need attention
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-sec">
+      <div class="sb-sec-lbl">Platform</div>
+      <a class="sb-lnk on" onclick="show('overview',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</a>
+      <a class="sb-lnk" onclick="show('applications',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Applications<span class="sb-cnt">3</span></a>
+      <a class="sb-lnk" onclick="show('operators',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>Operators</a>
+      <a class="sb-lnk" onclick="show('trips',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><path d="M9 12l2 2 4-4"/></svg>Trip Approvals<span class="sb-cnt gold">2</span></a>
+      <a class="sb-lnk" onclick="show('bookings',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>All Bookings</a>
+      <a class="sb-lnk" onclick="show('fleet',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3M9 21H21a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>Raylane Fleet</a>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-sec-lbl">Finance</div>
+      <a class="sb-lnk" onclick="show('payouts',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Payouts<span class="sb-cnt">4</span></a>
+      <a class="sb-lnk" onclick="show('financials',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Financials</a>
+      <a class="sb-lnk" onclick="show('payments',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Platform Bills</a>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-sec-lbl">Operations</div>
+      <a class="sb-lnk" onclick="show('users',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 20c0-4-3.6-7-8-7s-8 3-8 7"/></svg>Users & Roles</a>
+      <a class="sb-lnk" onclick="show('audit',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>Audit Log</a>
+      <a class="sb-lnk" onclick="show('health',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>System Health</a>
+      <a class="sb-lnk" onclick="show('settings',this)"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 19.07a10 10 0 010-14.14"/></svg>Settings</a>
+    </div>
+  </nav>
+  <div class="sb-foot">
+    <div class="sb-user">
+      <div class="sb-av">RA</div>
+      <div>
+        <div class="sb-un">Raylane Admin</div>
+        <div class="sb-ur">Super Administrator</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="mob-tog" onclick="openSB()"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+      <div class="tb-title" id="vtitle">Overview</div>
+    </div>
+    <div class="tb-right">
+      <div class="clock" id="clk">--:--</div>
+      <button class="ib"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><div class="ib-dot"></div></button>
+      <a href="/index.html" class="btn btn-out btn-sm" style="font-size:11px;">← Public Site</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div class="view on" id="v-overview">
+      <div class="sg">
+        <div class="sc"><div class="sc-lbl">Today's Bookings</div><div class="sc-num">284</div><div class="sc-sub">↑ 18% vs yesterday</div></div>
+        <div class="sc gold"><div class="sc-lbl">Platform Revenue</div><div class="sc-num">UGX 68M</div><div class="sc-sub">This month (est.)</div></div>
+        <div class="sc ok"><div class="sc-lbl">Active Operators</div><div class="sc-num">23</div><div class="sc-sub">3 pending approval</div></div>
+        <div class="sc bad"><div class="sc-lbl">Pending Payouts</div><div class="sc-num">UGX 12.4M</div><div class="sc-sub">4 operators · Due Friday</div></div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="card-hd"><div class="card-title">Live Platform Activity</div><div class="live">Live</div></div>
+          <div class="card-body">
+            <div id="adminFeed">
+              <div class="feed-item"><div class="fdot" style="background:var(--ok)"></div><div><div class="ft"><strong>Booking confirmed:</strong> KLA→MBR · Seat 14A · Global Coaches · UGX 24,000</div><div class="ftime">Just now</div></div></div>
+              <div class="feed-item"><div class="fdot" style="background:var(--warn)"></div><div><div class="ft"><strong>Trip submitted for approval:</strong> YY Coaches · KLA→Arua · 21 Apr 08:00</div><div class="ftime">3 min ago</div></div></div>
+              <div class="feed-item"><div class="fdot" style="background:var(--ok)"></div><div><div class="ft"><strong>Operator application:</strong> Swift Bus Ltd applied to join</div><div class="ftime">22 min ago</div></div></div>
+              <div class="feed-item"><div class="fdot" style="background:var(--ok)"></div><div><div class="ft"><strong>Payout requested:</strong> Link Bus · UGX 2.1M settlement</div><div class="ftime">1h ago</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-title">Pending Actions</div><a class="btn btn-blue btn-sm" onclick="show('trips',null)">Review Trips</a></div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Type</th><th>Item</th><th>Urgency</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge bb">Trip</span></td><td>YY Coaches · KLA→Arua</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-ok btn-xs" onclick="approveTrip(this)">Approve</button><button class="btn btn-bad btn-xs">Reject</button></div></td></tr>
+                <tr><td><span class="badge bb">Trip</span></td><td>Fast Coaches · KLA→Kabale</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-ok btn-xs" onclick="approveTrip(this)">Approve</button><button class="btn btn-bad btn-xs">Reject</button></div></td></tr>
+                <tr><td><span class="badge bp">App</span></td><td>Swift Bus Ltd — Application</td><td><span class="badge ba">Review</span></td><td><button class="btn btn-blue btn-xs" onclick="show('applications',null)">View</button></td></tr>
+                <tr><td><span class="badge" style="background:#FEF3C7;color:#92400E;">Payout</span></td><td>Link Bus · UGX 2.1M</td><td><span class="badge br">Due</span></td><td><button class="btn btn-gold btn-xs" onclick="openPayout()">Release</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLICATIONS -->
+    <div class="view" id="v-applications">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Operator Applications</h2>
+        <div class="live">3 Pending</div>
+      </div>
+      <div class="srch" style="margin-bottom:14px;"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search applications…" oninput="filterTbl(this,'appTbl')"></div>
+      <div class="card">
+        <div class="tw">
+          <table id="appTbl">
+            <thead><tr><th>Company</th><th>Contact</th><th>Fleet</th><th>Plan</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Swift Bus Ltd</strong></td><td>0771 234 567</td><td>5 vehicles</td><td>Professional</td><td>20 Apr 2026</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs" onclick="openAppModal('Swift Bus Ltd')">Review</button><button class="btn btn-ok btn-xs">Approve</button><button class="btn btn-bad btn-xs">Reject</button></div></td></tr>
+              <tr><td><strong>Horizon Transport</strong></td><td>0700 888 123</td><td>3 vehicles</td><td>Starter</td><td>19 Apr 2026</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs" onclick="openAppModal('Horizon Transport')">Review</button><button class="btn btn-ok btn-xs">Approve</button><button class="btn btn-bad btn-xs">Reject</button></div></td></tr>
+              <tr><td><strong>Pearl Coaches</strong></td><td>0752 001 900</td><td>8 vehicles</td><td>Enterprise</td><td>18 Apr 2026</td><td><span class="badge bb">Docs Requested</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs" onclick="openAppModal('Pearl Coaches')">Review</button></div></td></tr>
+              <tr><td><strong>Global Coaches</strong></td><td>0771 100 200</td><td>12 vehicles</td><td>Enterprise</td><td>01 Jan 2026</td><td><span class="badge bg">Approved</span></td><td><span style="color:var(--light);font-size:12px;">Active operator</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ══ USERS ══ -->
+    <!-- TRIP APPROVALS -->
+    <div class="view" id="v-trips">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Trip Approvals</h2>
+        <span class="badge ba" style="font-size:12px;padding:5px 12px;">2 Awaiting Review</span>
+      </div>
+      <div class="srch" style="margin-bottom:14px;"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search trips…" oninput="filterTbl(this,'tripTbl')"></div>
+      <div class="card">
+        <div class="tw">
+          <table id="tripTbl">
+            <thead><tr><th>Operator</th><th>Route</th><th>Date</th><th>Time</th><th>Vehicle</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>YY Coaches</strong></td><td>Kampala → Arua</td><td>21 Apr</td><td>08:00</td><td>UAR 002K</td><td>UGX 35,000</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-ok btn-xs" onclick="approveTrip(this)">Approve</button><button class="btn btn-bad btn-xs" onclick="openRejectModal()">Reject</button></div></td></tr>
+              <tr><td><strong>Fast Coaches</strong></td><td>Kampala → Kabale</td><td>21 Apr</td><td>09:00</td><td>UFC 100K</td><td>UGX 28,000</td><td><span class="badge ba">Pending</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-ok btn-xs" onclick="approveTrip(this)">Approve</button><button class="btn btn-bad btn-xs" onclick="openRejectModal()">Reject</button></div></td></tr>
+              <tr><td><strong>Global Coaches</strong></td><td>Kampala → Mbarara</td><td>20 Apr</td><td>06:00</td><td>UBF 001K</td><td>UGX 24,000</td><td><span class="badge bg">Live</span></td><td><span style="color:var(--light);font-size:12px;">On platform</span></td></tr>
+              <tr><td><strong>Link Bus</strong></td><td>Kampala → Gulu</td><td>20 Apr</td><td>07:30</td><td>ULB 020K</td><td>UGX 28,000</td><td><span class="badge bg">Live</span></td><td><span style="color:var(--light);font-size:12px;">On platform</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATORS -->
+    <div class="view" id="v-operators">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">All Operators</h2>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+        <div class="srch" style="flex:1;max-width:320px;"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search operators…" oninput="filterTbl(this,'opTbl')"></div>
+        <select class="fs" style="max-width:150px;padding:8px 12px;font-size:13px;" onchange="filterByStatus(this,'opTbl',5)"><option value="">All Status</option><option>Active</option><option>Suspended</option><option>Pending</option></select>
+      </div>
+      <div class="card">
+        <div class="tw">
+          <table id="opTbl">
+            <thead><tr><th>Operator</th><th>Contact</th><th>Plan</th><th>Fleet</th><th>Commission</th><th>MTD Revenue</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Global Coaches</strong></td><td>0771 100 200</td><td><span class="badge bp">Enterprise</span></td><td>12</td><td>5%</td><td>UGX 18.2M</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+              <tr><td><strong>YY Coaches</strong></td><td>0700 334 556</td><td><span class="badge bb">Professional</span></td><td>6</td><td>6%</td><td>UGX 9.4M</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+              <tr><td><strong>Link Bus</strong></td><td>0751 220 330</td><td><span class="badge bb">Professional</span></td><td>4</td><td>6%</td><td>UGX 6.1M</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+              <tr><td><strong>Fast Coaches</strong></td><td>0772 445 667</td><td><span class="badge bw">Standard</span></td><td>3</td><td>8%</td><td>UGX 3.8M</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-blue btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUTS -->
+    <div class="view" id="v-payouts">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Operator Payouts</h2>
+        <button class="btn btn-gold" onclick="openPayoutAll()">Release All (4)</button>
+      </div>
+      <div class="card">
+        <div class="tw">
+          <table>
+            <thead><tr><th>Operator</th><th>MoMo Code</th><th>Gross Bookings</th><th>Commission (8%)</th><th>Net Payout</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Global Coaches</strong></td><td>256200100200</td><td>UGX 4,200,000</td><td>UGX 336,000</td><td><strong>UGX 3,864,000</strong></td><td><span class="badge ba">Pending</span></td><td><button class="btn btn-gold btn-xs" onclick="openPayoutModal('Global Coaches','256200100200','4200000','336000','3864000')">Review & Release</button></td></tr>
+              <tr><td><strong>YY Coaches</strong></td><td>256200334556</td><td>UGX 2,100,000</td><td>UGX 168,000</td><td><strong>UGX 1,932,000</strong></td><td><span class="badge ba">Pending</span></td><td><button class="btn btn-gold btn-xs" onclick="openPayoutModal('YY Coaches','256200334556','2100000','168000','1932000')">Review & Release</button></td></tr>
+              <tr><td><strong>Link Bus</strong></td><td>256200220330</td><td>UGX 1,800,000</td><td>UGX 144,000</td><td><strong>UGX 1,656,000</strong></td><td><span class="badge ba">Pending</span></td><td><button class="btn btn-gold btn-xs" onclick="openPayoutModal('Link Bus','256200220330','1800000','144000','1656000')">Review & Release</button></td></tr>
+              <tr><td><strong>Fast Coaches</strong></td><td>256200445667</td><td>UGX 900,000</td><td>UGX 72,000</td><td><strong>UGX 828,000</strong></td><td><span class="badge ba">Pending</span></td><td><button class="btn btn-gold btn-xs" onclick="openPayoutModal('Fast Coaches','256200445667','900000','72000','828000')">Review & Release</button></td></tr>
+              <tr><td><strong>Global Coaches</strong></td><td>—</td><td>UGX 3,100,000</td><td>UGX 248,000</td><td>UGX 2,852,000</td><td><span class="badge bg">Released</span></td><td><span style="font-size:11px;color:var(--light);">18 Apr 2026</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLEET -->
+    <div class="view" id="v-fleet">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Raylane Internal Fleet</h2>
+        <button class="btn btn-blue" onclick="openMo('addVeh')">+ Add Vehicle</button>
+      </div>
+      <div class="g3">
+        <div class="card"><div style="height:4px;background:var(--ok)"></div><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-family:var(--fd);font-size:17px;font-weight:800;text-transform:uppercase;">UBF 001K</div><span class="badge bg">Active</span></div><div style="font-size:13px;color:var(--mid);margin-bottom:4px;">Isuzu NQR · 67-Seater · 2022</div><div style="font-size:13px;">Driver: <strong>James Okello</strong></div><div style="margin-top:10px;font-size:12px;color:var(--light);">Insurance: Dec 2026 ✓</div><div style="display:flex;gap:6px;margin-top:10px;"><button class="btn btn-out btn-xs">Edit</button><button class="btn btn-blue btn-xs">Dispatch</button></div></div></div>
+        <div class="card"><div style="height:4px;background:var(--ok)"></div><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-family:var(--fd);font-size:17px;font-weight:800;text-transform:uppercase;">UBF 002K</div><span class="badge bg">Active</span></div><div style="font-size:13px;color:var(--mid);margin-bottom:4px;">Higer Coach · 67-Seater · 2023</div><div style="font-size:13px;">Driver: <strong>Sarah Nakato</strong></div><div style="margin-top:10px;font-size:12px;color:var(--light);">Insurance: Mar 2027 ✓</div><div style="display:flex;gap:6px;margin-top:10px;"><button class="btn btn-out btn-xs">Edit</button><button class="btn btn-blue btn-xs">Dispatch</button></div></div></div>
+        <div class="card"><div style="height:4px;background:var(--warn)"></div><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-family:var(--fd);font-size:17px;font-weight:800;text-transform:uppercase;">UBF 003K</div><span class="badge ba">Maintenance</span></div><div style="font-size:13px;color:var(--mid);margin-bottom:4px;">Toyota Coaster · 14-Seater · 2021</div><div style="font-size:13px;">Driver: <strong>Unassigned</strong></div><div style="margin-top:10px;font-size:12px;color:var(--bad);">⚠ Insurance: Jun 2026 — 60 days</div><div style="display:flex;gap:6px;margin-top:10px;"><button class="btn btn-out btn-xs">Edit</button><button class="btn btn-bad btn-xs">Renew Insurance</button></div></div></div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div class="view" id="v-bookings">
+      <div style="margin-bottom:18px;"><h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">All Bookings</h2></div>
+      <div class="sg">
+        <div class="sc"><div class="sc-lbl">Total Today</div><div class="sc-num">284</div></div>
+        <div class="sc gold"><div class="sc-lbl">Gross Value</div><div class="sc-num">UGX 6.8M</div></div>
+        <div class="sc ok"><div class="sc-lbl">Confirmed</div><div class="sc-num">271</div></div>
+        <div class="sc bad"><div class="sc-lbl">Cancelled</div><div class="sc-num">13</div></div>
+      </div>
+      <div class="srch" style="margin-bottom:14px;"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Search by booking ID, name, route…" oninput="filterTbl(this,'bkgTbl')"></div>
+      <div class="card">
+        <div class="tw">
+          <table id="bkgTbl">
+            <thead><tr><th>Booking ID</th><th>Passenger</th><th>Route</th><th>Operator</th><th>Seat</th><th>Amount</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:var(--fu);font-size:11px;">RLX-00284</td><td>Sarah Nakato</td><td>KLA → MBR</td><td>Global</td><td>14A</td><td>UGX 24,000</td><td><span class="badge bb">MoMo</span></td><td><span class="badge bg">Confirmed</span></td><td><button class="btn btn-blue btn-xs">View</button></td></tr>
+              <tr><td style="font-family:var(--fu);font-size:11px;">RLX-00283</td><td>Moses Ouma</td><td>KLA → GUL</td><td>Link Bus</td><td>8B</td><td>UGX 28,000</td><td><span class="badge bb">MoMo</span></td><td><span class="badge bg">Confirmed</span></td><td><button class="btn btn-blue btn-xs">View</button></td></tr>
+              <tr><td style="font-family:var(--fu);font-size:11px;">RLX-00282</td><td>Agnes Atim</td><td>KLA → MBL</td><td>YY Coaches</td><td>22C</td><td>UGX 22,000</td><td><span class="badge" style="background:#EDE9FE;color:#5B21B6;">Visa</span></td><td><span class="badge bg">Confirmed</span></td><td><button class="btn btn-blue btn-xs">View</button></td></tr>
+              <tr><td style="font-family:var(--fu);font-size:11px;">RLX-00281</td><td>John Mugisha</td><td>KLA → KBL</td><td>Fast</td><td>5A</td><td>UGX 28,000</td><td><span class="badge bb">Airtel</span></td><td><span class="badge br">Cancelled</span></td><td><button class="btn btn-blue btn-xs">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS -->
     <div class="view" id="v-users">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-        <h2 style="font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;">Users & Roles</h2>
-        <button class="btn btn-blue btn-sm" onclick="openMo('addUser')">+ Create User</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Users & Roles</h2>
+        <button class="btn btn-blue" onclick="openMo('addUser')">+ Create User</button>
       </div>
       <div class="card">
         <div class="tw">
@@ -18,107 +440,143 @@
             <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Operator</th><th>Last Login</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
               <tr><td><strong>Raylane Admin</strong></td><td>admin@raylaneexpress.com</td><td><span class="badge br">Super Admin</span></td><td>Raylane Express</td><td>Today 08:22</td><td><span class="badge bg">Active</span></td><td>—</td></tr>
-              <tr><td><strong>James Kiggundu</strong></td><td>james@globalcoaches.ug</td><td><span class="badge bb">Operator Admin</span></td><td>Global Coaches</td><td>Today 07:15</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:3px;"><button class="btn btn-blue btn-xs" onclick="openMo('editUser')">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
-              <tr><td><strong>Lydia Achen</strong></td><td>lydia@yycoaches.ug</td><td><span class="badge bb">Operator Admin</span></td><td>YY Coaches</td><td>Yesterday</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:3px;"><button class="btn btn-blue btn-xs" onclick="openMo('editUser')">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+              <tr><td><strong>James Kiggundu</strong></td><td>james@globalcoaches.ug</td><td><span class="badge bb">Operator Admin</span></td><td>Global Coaches</td><td>Today 07:15</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-out btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
+              <tr><td><strong>Lydia Achen</strong></td><td>lydia@yycoaches.ug</td><td><span class="badge bb">Operator Admin</span></td><td>YY Coaches</td><td>Yesterday</td><td><span class="badge bg">Active</span></td><td><div style="display:flex;gap:4px;"><button class="btn btn-out btn-xs">Edit</button><button class="btn btn-bad btn-xs">Suspend</button></div></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ══ AUDIT ══ -->
+    <!-- AUDIT LOG -->
     <div class="view" id="v-audit">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-        <h2 style="font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;">Audit Log</h2>
-        <button class="btn btn-out btn-sm" onclick="exportCSV('audit')">Export CSV</button>
-      </div>
+      <div style="margin-bottom:18px;"><h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Audit Log</h2></div>
       <div class="card">
         <div class="card-body" id="auditLog">
-          <div style="font-family:var(--fu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--light);display:grid;grid-template-columns:90px 1fr 120px;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--s2);margin-bottom:8px;"><span>Time</span><span>Action</span><span>User</span></div>
-          <div style="display:flex;flex-direction:column;gap:6px;" id="auditRows">
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--light);font-family:var(--fu);">09:14:22</span><span><strong style="color:var(--ok);">Trip Approved</strong> — Global Coaches · KLA→MBR · 20 Apr 06:00</span><span style="color:var(--mid);">Raylane Admin</span></div>
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--light);font-family:var(--fu);">09:01:05</span><span><strong style="color:var(--gold-dark,#C48C00);">Payout Released</strong> — UGX 3,864,000 to Global Coaches · 256200100200</span><span style="color:var(--mid);">Raylane Admin</span></div>
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--light);font-family:var(--fu);">08:45:30</span><span><strong style="color:var(--blue);">Operator Created</strong> — YY Coaches account activated · Professional plan</span><span style="color:var(--mid);">Raylane Admin</span></div>
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--light);font-family:var(--fu);">08:22:11</span><span><strong>Admin Login</strong> — Successful login from 41.210.xxx.xxx (Kampala)</span><span style="color:var(--mid);">Raylane Admin</span></div>
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--light);font-family:var(--fu);">Yesterday</span><span><strong style="color:var(--bad);">Trip Rejected</strong> — Link Bus · KLA→GUL — reason: Vehicle fitness expired</span><span style="color:var(--mid);">Raylane Admin</span></div>
-            <div style="display:grid;grid-template-columns:90px 1fr 120px;gap:10px;font-size:12px;padding:6px 0;"><span style="color:var(--light);font-family:var(--fu);">Yesterday</span><span><strong style="color:var(--pur);">Insurance Renewed</strong> — UBF 001K · UAP Old Mutual · UGX 380,000</span><span style="color:var(--mid);">Raylane Admin</span></div>
+          <div class="audit-row"><div class="audit-time">09:14:22</div><div><div class="audit-action">Trip Approved</div><div class="audit-user">Admin approved Global Coaches · KLA→MBR · 20 Apr 06:00</div></div></div>
+          <div class="audit-row"><div class="audit-time">09:01:05</div><div><div class="audit-action">Payout Released</div><div class="audit-user">Admin released UGX 3,864,000 to Global Coaches MoMo 256200100200</div></div></div>
+          <div class="audit-row"><div class="audit-time">08:45:30</div><div><div class="audit-action">Operator Created</div><div class="audit-user">Admin created operator account for YY Coaches — Professional plan</div></div></div>
+          <div class="audit-row"><div class="audit-time">08:22:11</div><div><div class="audit-action">Admin Login</div><div class="audit-user">Raylane Admin logged in from 41.210.xxx.xxx (Kampala)</div></div></div>
+          <div class="audit-row"><div class="audit-time">Yesterday 18:33</div><div><div class="audit-action">Trip Rejected</div><div class="audit-user">Admin rejected Link Bus trip — reason: Route not approved for this vehicle class</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM HEALTH -->
+    <div class="view" id="v-health">
+      <div style="margin-bottom:18px;"><h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">System Health</h2></div>
+      <div class="g3">
+        <div class="card card-body" style="padding:18px;">
+          <div style="font-family:var(--fd);font-weight:800;font-size:15px;text-transform:uppercase;margin-bottom:12px;">API Services</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>DPO Payment Gateway</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:99%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>MTN MoMo API</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:97%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>Airtel Money API</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:94%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>Africa's Talking SMS</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:100%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>Supabase Database</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:100%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;"><span>Google Maps API</span><span class="badge bg">Online</span></div><div class="health-bar"><div class="health-fill" style="width:100%"></div></div></div>
+          </div>
+        </div>
+        <div class="card card-body" style="padding:18px;">
+          <div style="font-family:var(--fd);font-weight:800;font-size:15px;text-transform:uppercase;margin-bottom:12px;">Platform Metrics</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Uptime (30 days)</span><strong>99.97%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Avg booking time</span><strong>42 seconds</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">MoMo success rate</span><strong>96.2%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">SMS delivery rate</span><strong>99.1%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Concurrent users</span><strong id="ccUsers">247</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Supabase connections</span><strong>38 / 500</strong></div>
+          </div>
+        </div>
+        <div class="card card-body" style="padding:18px;">
+          <div style="font-family:var(--fd);font-weight:800;font-size:15px;text-transform:uppercase;margin-bottom:12px;">SMS Usage Today</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Sent today</span><strong>1,847</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Delivered</span><strong style="color:var(--ok);">1,830</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Failed</span><strong style="color:var(--bad);">17</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Cost today (UGX)</span><strong>UGX 46,175</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Cost/SMS</span><strong>UGX 25</strong></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ HEALTH ══ -->
-    <div class="view" id="v-health">
-      <h2 style="font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;margin-bottom:16px;">System Health</h2>
-      <div class="g3" style="gap:14px;">
-        <div class="card"><div class="card-hd"><div class="card-title">API Services</div><div class="live">All Systems Go</div></div><div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>DPO Payment Gateway</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:99%;background:var(--ok);"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>MTN MoMo API</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:96%;background:var(--ok);"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>Airtel Money API</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:94%;background:var(--ok);"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>Africa's Talking SMS</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:100%;background:var(--ok);"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>Supabase Database</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:100%;background:var(--ok);"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:12px;"><span>Google Maps API</span><span class="badge bg">Online</span></div><div class="hb" style="margin-top:5px;"><div class="hbf" style="width:100%;background:var(--ok);"></div></div></div>
-        </div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Platform Metrics</div></div><div class="card-body" style="display:flex;flex-direction:column;gap:9px;font-size:13px;">
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Uptime (30 days)</span><strong>99.97%</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Avg booking time</span><strong>42 seconds</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">MoMo success rate</span><strong>96.2%</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">SMS delivery rate</span><strong>99.1%</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Concurrent users</span><strong id="ccU">247</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">DB connections</span><strong>38 / 500</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Cache hit rate</span><strong>94.3%</strong></div>
-        </div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">SMS Usage Today</div></div><div class="card-body" style="display:flex;flex-direction:column;gap:9px;font-size:13px;">
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Sent today</span><strong>1,847</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Delivered</span><strong style="color:var(--ok);">1,830</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Failed</span><strong style="color:var(--bad);">17</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Cost today</span><strong>UGX 46,175</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Rate per SMS</span><strong>UGX 25</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--mid);">Balance remaining</span><strong style="color:var(--ok);">UGX 1.84M</strong></div>
-        </div></div>
+    <!-- FINANCIALS -->
+    <div class="view" id="v-financials">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Platform Financials</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-out btn-sm" onclick="exportCSV('bookings')">Export CSV</button>
+          <button class="btn btn-blue btn-sm">Generate P&L</button>
+        </div>
+      </div>
+      <div class="sg" style="grid-template-columns:repeat(2,1fr);">
+        <div class="sc gold"><div class="sc-lbl">Commission Revenue MTD</div><div class="sc-num">UGX 68M</div><div class="sc-sub">8% avg on UGX 850M GMV</div></div>
+        <div class="sc ok"><div class="sc-lbl">SaaS Subscriptions MTD</div><div class="sc-num">UGX 18.2M</div><div class="sc-sub">23 active paid operators</div></div>
+        <div class="sc purple"><div class="sc-lbl">Insurance Commission</div><div class="sc-num">UGX 3.8M</div><div class="sc-sub">UAP Old Mutual commissions</div></div>
+        <div class="sc bad"><div class="sc-lbl">Total Payouts Released</div><div class="sc-num">UGX 42.1M</div><div class="sc-sub">To operators this month</div></div>
       </div>
     </div>
 
-    <!-- ══ SETTINGS ══ -->
+    <!-- PAYMENTS -->
+    <div class="view" id="v-payments">
+      <div style="margin-bottom:18px;"><h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Platform Bills</h2></div>
+      <div class="card">
+        <div class="tw">
+          <table>
+            <thead><tr><th>Type</th><th>Vendor</th><th>Description</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td>Rent</td><td>Kampala Coach Park</td><td>Bay rental — April 2026</td><td>UGX 800,000</td><td>30 Apr</td><td><span class="badge bg">Paid</span></td><td>—</td></tr>
+              <tr><td>Utility</td><td>UMEME Ltd</td><td>Electricity — March 2026</td><td>UGX 120,000</td><td>15 Apr</td><td><span class="badge br">Overdue</span></td><td><button class="btn btn-ok btn-xs">Mark Paid</button></td></tr>
+              <tr><td>Internet</td><td>MTN Business</td><td>Fibre — April 2026</td><td>UGX 250,000</td><td>28 Apr</td><td><span class="badge ba">Unpaid</span></td><td><button class="btn btn-ok btn-xs">Mark Paid</button></td></tr>
+              <tr><td>SMS</td><td>Africa's Talking</td><td>SMS bundle top-up</td><td>UGX 500,000</td><td>20 Apr</td><td><span class="badge bg">Paid</span></td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
     <div class="view" id="v-settings">
-      <h2 style="font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;margin-bottom:16px;">Platform Settings</h2>
-      <div style="max-width:620px;display:flex;flex-direction:column;gap:14px;">
-        <div class="card"><div class="card-hd"><div class="card-title">Commission Rates</div></div><div class="card-body">
-          <div class="g2"><div class="fg"><label class="fl">Starter (%) </label><input class="fi" type="number" value="8" min="0" max="25"></div><div class="fg"><label class="fl">Standard (%)</label><input class="fi" type="number" value="8" min="0" max="25"></div><div class="fg"><label class="fl">Professional (%)</label><input class="fi" type="number" value="6" min="0" max="25"></div><div class="fg"><label class="fl">Enterprise (%)</label><input class="fi" type="number" value="5" min="0" max="25"></div></div>
-          <button class="btn btn-blue btn-sm" onclick="toastMsg('Commission rates saved')">Save Rates</button>
-        </div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Booking Rules</div></div><div class="card-body">
-          <div class="g2"><div class="fg"><label class="fl">Seat Lock (seconds)</label><input class="fi" type="number" value="600" min="60" max="1800"></div><div class="fg"><label class="fl">Advance Deposit (%)</label><input class="fi" type="number" value="20" min="10" max="50"></div><div class="fg"><label class="fl">Cancellation Window (hrs)</label><input class="fi" type="number" value="6" min="1" max="48"></div><div class="fg"><label class="fl">Refund % (within window)</label><input class="fi" type="number" value="80" min="0" max="100"></div></div>
-          <button class="btn btn-blue btn-sm" onclick="toastMsg('Booking rules saved')">Save Rules</button>
-        </div></div>
-        <div class="card"><div class="card-hd"><div class="card-title">Notification Toggles</div></div><div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>New booking SMS to operator</span><label class="tog"><input type="checkbox" checked><div class="tog-sl"></div></label></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Payout released SMS to operator</span><label class="tog"><input type="checkbox" checked><div class="tog-sl"></div></label></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Trip approval SMS to operator</span><label class="tog"><input type="checkbox" checked><div class="tog-sl"></div></label></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Insurance expiry alerts (60-day)</span><label class="tog"><input type="checkbox" checked><div class="tog-sl"></div></label></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Driver licence expiry alerts</span><label class="tog"><input type="checkbox" checked><div class="tog-sl"></div></label></div>
-        </div></div>
+      <div style="margin-bottom:18px;"><h2 style="font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;">Platform Settings</h2></div>
+      <div style="max-width:600px;display:flex;flex-direction:column;gap:16px;">
+        <div class="card card-body" style="padding:18px;">
+          <div style="font-family:var(--fd);font-weight:800;font-size:16px;text-transform:uppercase;margin-bottom:14px;">Commission Rates</div>
+          <div class="fg"><label class="fl">Starter Plan Commission (%)</label><input class="fi" type="number" value="8" min="0" max="25"></div>
+          <div class="fg"><label class="fl">Standard Plan Commission (%)</label><input class="fi" type="number" value="8" min="0" max="25"></div>
+          <div class="fg"><label class="fl">Professional Plan Commission (%)</label><input class="fi" type="number" value="6" min="0" max="25"></div>
+          <div class="fg"><label class="fl">Enterprise Plan Commission (%)</label><input class="fi" type="number" value="5" min="0" max="25"></div>
+          <button class="btn btn-blue btn-sm" onclick="saveSettings()">Save Commission Rates</button>
+        </div>
+        <div class="card card-body" style="padding:18px;">
+          <div style="font-family:var(--fd);font-weight:800;font-size:16px;text-transform:uppercase;margin-bottom:14px;">Booking Settings</div>
+          <div class="fg"><label class="fl">Seat Lock Duration (seconds)</label><input class="fi" type="number" value="600" min="60" max="1800"></div>
+          <div class="fg"><label class="fl">Advance Booking Deposit (%)</label><input class="fi" type="number" value="20" min="10" max="50"></div>
+          <button class="btn btn-blue btn-sm" onclick="saveSettings()">Save Settings</button>
+        </div>
       </div>
     </div>
 
   </div><!-- /content -->
 </div><!-- /main -->
 
-<!-- ══════ MODALS ══════ -->
-
-<!-- Payout Review -->
+<!-- MODALS -->
+<!-- Payout Modal -->
 <div class="mo" id="mo-payout">
   <div class="mo-box">
     <div class="mo-hd"><div class="mo-title">Review & Release Payout</div><button class="mo-x" onclick="closeMo('payout')">✕</button></div>
     <div class="mo-body">
-      <div style="background:var(--s2);border-radius:var(--rl);padding:14px;margin-bottom:14px;">
-        <div class="po-row"><span>Operator</span><span id="poOp">—</span></div>
-        <div class="po-row"><span>MoMo Business Number</span><span id="poCode" style="font-family:var(--fu);font-size:12px;">—</span></div>
-        <div class="po-row"><span>Gross Bookings</span><span id="poGross">—</span></div>
-        <div class="po-row"><span style="color:var(--bad);">Commission Deducted</span><span id="poComm" style="color:var(--bad);">—</span></div>
-        <div class="po-row" style="border-top:2px solid var(--border);padding-top:10px;"><span>Net Payout</span><span id="poNet" style="color:var(--ok);">—</span></div>
+      <div style="background:var(--surface);border-radius:var(--r);padding:14px;margin-bottom:14px;">
+        <div style="font-size:12px;color:var(--light);margin-bottom:10px;font-family:var(--fu);text-transform:uppercase;letter-spacing:.08em;">Settlement Details</div>
+        <div class="payout-row"><span>Operator</span><span id="poOp">—</span></div>
+        <div class="payout-row"><span>MoMo Merchant Code</span><span id="poCode">—</span></div>
+        <div class="payout-row"><span>Gross Bookings</span><span id="poGross">—</span></div>
+        <div class="payout-row"><span style="color:var(--bad);">Commission Deducted</span><span id="poComm" style="color:var(--bad);">—</span></div>
+        <div class="payout-row" style="border-top:2px solid var(--border);padding-top:9px;"><span>Net Payout</span><span id="poNet" style="color:var(--ok);">—</span></div>
       </div>
-      <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:var(--r);padding:10px;font-size:12px;color:#78350F;">⚠ This initiates a real MTN MoMo B2B transfer. This action cannot be undone once confirmed.</div>
+      <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:var(--r);padding:10px;font-size:13px;color:#78350F;">
+        ⚠ This action initiates an MTN MoMo B2B transfer. This cannot be undone once confirmed.
+      </div>
     </div>
     <div class="mo-ft">
       <button class="btn btn-out btn-sm" onclick="closeMo('payout')">Cancel</button>
@@ -127,321 +585,82 @@
   </div>
 </div>
 
-<!-- Payout All -->
-<div class="mo" id="mo-payoutAll">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Release All Payouts</div><button class="mo-x" onclick="closeMo('payoutAll')">✕</button></div>
-    <div class="mo-body">
-      <div style="background:var(--s2);border-radius:var(--rl);padding:14px;margin-bottom:14px;">
-        <div class="po-row"><span>Global Coaches</span><span style="color:var(--ok);">UGX 3,864,000</span></div>
-        <div class="po-row"><span>YY Coaches</span><span style="color:var(--ok);">UGX 1,932,000</span></div>
-        <div class="po-row"><span>Link Bus</span><span style="color:var(--ok);">UGX 1,656,000</span></div>
-        <div class="po-row"><span>Fast Coaches</span><span style="color:var(--ok);">UGX 828,000</span></div>
-        <div class="po-row" style="border-top:2px solid var(--border);padding-top:10px;"><span>Total Release</span><span style="color:var(--blue);">UGX 8,280,000</span></div>
-      </div>
-      <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:var(--r);padding:10px;font-size:12px;color:#78350F;">⚠ 4 separate B2B MoMo transfers will be initiated simultaneously. All operators will receive SMS confirmation.</div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('payoutAll')">Cancel</button>
-      <button class="btn btn-gold" onclick="closeMo('payoutAll');toastMsg('All 4 payouts released — operators notified via SMS')">Release All Payouts</button>
-    </div>
-  </div>
-</div>
-
-<!-- Application Review (with doc viewer) -->
+<!-- App Review Modal -->
 <div class="mo" id="mo-appReview">
-  <div class="mo-box wide">
-    <div class="mo-hd"><div class="mo-title">Application Review — Swift Bus Ltd</div><button class="mo-x" onclick="closeMo('appReview')">✕</button></div>
+  <div class="mo-box">
+    <div class="mo-hd"><div class="mo-title" id="appRevTitle">Application Review</div><button class="mo-x" onclick="closeMo('appReview')">✕</button></div>
     <div class="mo-body">
-      <div class="g2" style="margin-bottom:14px;">
-        <div>
-          <div style="font-size:11px;color:var(--light);font-family:var(--fu);text-transform:uppercase;margin-bottom:10px;">Business Details</div>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">Company</span><strong>Swift Bus Ltd</strong></div>
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">Contact</span><strong>0771 234 567</strong></div>
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">URA TIN</span><strong>1000399821</strong></div>
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">PSV Ref</span><strong>OP/2024/00891</strong></div>
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">Fleet</span><strong>5 vehicles</strong></div>
-            <div style="display:flex;gap:8px;"><span style="color:var(--mid);min-width:80px;">Plan</span><strong>Professional</strong></div>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:11px;color:var(--light);font-family:var(--fu);text-transform:uppercase;margin-bottom:10px;">Compliance Checklist</div>
-          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
-            <div style="display:flex;justify-content:space-between;"><span>URA TIN verified</span><span class="badge bg">Verified ✓</span></div>
-            <div style="display:flex;justify-content:space-between;"><span>PSV Operator Licence</span><span class="badge bg">Uploaded ✓</span></div>
-            <div style="display:flex;justify-content:space-between;"><span>Vehicle Insurance</span><span class="badge ba">Pending Review</span></div>
-            <div style="display:flex;justify-content:space-between;"><span>Driver Licences</span><span class="badge bg">Uploaded ✓</span></div>
-            <div style="display:flex;justify-content:space-between;"><span>MoMo Merchant Code</span><span class="badge ba">Not Yet Verified</span></div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;">
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--surface);"><span style="color:var(--mid);">URA TIN</span><span class="badge bg">Verified ✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--surface);"><span style="color:var(--mid);">PSV Operator Licence</span><span class="badge bg">Uploaded ✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--surface);"><span style="color:var(--mid);">Vehicle Insurance</span><span class="badge ba">Pending review</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--surface);"><span style="color:var(--mid);">Driver Licences</span><span class="badge bg">Uploaded ✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:var(--mid);">MoMo Test Payment</span><span class="badge ba">Not yet done</span></div>
       </div>
-      <!-- Documents -->
-      <div style="font-size:11px;color:var(--light);font-family:var(--fu);text-transform:uppercase;margin-bottom:8px;">Uploaded Documents</div>
-      <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Business Registration Certificate.pdf</div><div class="doc-meta">Uploaded 20 Apr 2026 · 1.2MB</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('Swift Bus Business Cert')">View in New Tab</button></div></div>
-      <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">PSV Operator Licence.pdf</div><div class="doc-meta">Uploaded 20 Apr 2026 · 0.8MB</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('Swift Bus PSV')">View in New Tab</button></div></div>
-      <div class="doc-item" style="border-color:var(--warn);"><div class="doc-icon">🛡️</div><div class="doc-info"><div class="doc-name">Fleet Insurance Certificate.pdf</div><div class="doc-meta" style="color:var(--warn);">Uploaded 20 Apr 2026 · Needs review — expires soon</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('Swift Bus Insurance')">View in New Tab</button></div></div>
     </div>
     <div class="mo-ft">
-      <button class="btn btn-bad btn-sm" onclick="closeMo('appReview');openMo('reject')">Request Documents</button>
-      <button class="btn btn-ok" onclick="closeMo('appReview');toastMsg('Swift Bus Ltd approved — credentials sent via SMS')">Approve & Create Account</button>
+      <button class="btn btn-bad btn-sm" onclick="closeMo('appReview')">Request More Docs</button>
+      <button class="btn btn-ok" onclick="closeMo('appReview');toast('Operator approved — credentials sent via SMS')">Approve & Create Account</button>
     </div>
   </div>
 </div>
 
-<!-- Reject modal -->
+<!-- Reject Modal -->
 <div class="mo" id="mo-reject">
   <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Rejection Details</div><button class="mo-x" onclick="closeMo('reject')">✕</button></div>
+    <div class="mo-hd"><div class="mo-title">Reject Trip</div><button class="mo-x" onclick="closeMo('reject')">✕</button></div>
     <div class="mo-body">
-      <div class="fg"><label class="fl">Reason</label><select class="fs"><option>Route not approved for this vehicle class</option><option>Insurance expired on assigned vehicle</option><option>Driver licence expired or missing</option><option>Duplicate trip already approved</option><option>Price outside acceptable range</option><option>Missing compliance documents</option><option>Other</option></select></div>
-      <div class="fg"><label class="fl">Message to Operator (sent via SMS)</label><textarea class="fi" rows="3" placeholder="Optional additional context…" style="resize:vertical;"></textarea></div>
+      <div class="fg"><label class="fl">Reason for Rejection</label><select class="fs"><option>Route not approved for this vehicle class</option><option>Insurance expired on assigned vehicle</option><option>Driver licence expired</option><option>Duplicate trip already approved</option><option>Price outside acceptable range</option><option>Other</option></select></div>
+      <div class="fg"><label class="fl">Additional Notes (sent to operator)</label><textarea class="fi" rows="3" placeholder="Optional message to operator…" style="resize:vertical;"></textarea></div>
     </div>
     <div class="mo-ft">
       <button class="btn btn-out btn-sm" onclick="closeMo('reject')">Cancel</button>
-      <button class="btn btn-bad" onclick="closeMo('reject');toastMsg('Rejected — operator notified via SMS')">Confirm Rejection</button>
+      <button class="btn btn-bad" onclick="closeMo('reject');toast('Trip rejected — operator notified via SMS')">Confirm Rejection</button>
     </div>
   </div>
 </div>
 
-<!-- Charter Quote Response -->
-<div class="mo" id="mo-charterResp">
-  <div class="mo-box wide">
-    <div class="mo-hd"><div class="mo-title">Send Charter Quote</div><button class="mo-x" onclick="closeMo('charterResp')">✕</button></div>
-    <div class="mo-body">
-      <div style="background:var(--s2);border-radius:var(--rl);padding:12px;margin-bottom:14px;font-size:13px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div><span style="color:var(--light);">Ref:</span> <strong id="cr-ref">—</strong></div>
-          <div><span style="color:var(--light);">Client:</span> <strong id="cr-client">—</strong></div>
-          <div><span style="color:var(--light);">Route:</span> <strong id="cr-route">—</strong></div>
-          <div><span style="color:var(--light);">Date:</span> <strong id="cr-date">—</strong></div>
-          <div><span style="color:var(--light);">Passengers:</span> <strong id="cr-pax">—</strong></div>
-        </div>
-      </div>
-      <div class="g2">
-        <div class="fg"><label class="fl">Assigned Vehicle</label><select class="fs"><option>UBF 001K — Isuzu NQR 67-Seater</option><option>UBF 002K — Higer Coach 67-Seater</option><option>External Operator Vehicle</option></select></div>
-        <div class="fg"><label class="fl">Assigned Driver</label><select class="fs"><option>James Okello (PSV)</option><option>Sarah Nakato (PSV)</option><option>TBC at departure</option></select></div>
-      </div>
-      <div class="g2">
-        <div class="fg"><label class="fl">Charter Fee (UGX)</label><input class="fi" type="number" id="cr-fee" placeholder="e.g. 450000" oninput="updateCharterTotal()"></div>
-        <div class="fg"><label class="fl">Return Trip Fee (if applicable)</label><input class="fi" type="number" id="cr-return" placeholder="e.g. 180000" oninput="updateCharterTotal()"></div>
-      </div>
-      <div class="fg"><label class="fl">Fuel Included?</label><select class="fs" id="cr-fuel"><option>Yes — fuel included in price</option><option>No — fuel separate, estimated UGX xx</option></select></div>
-      <div class="fg"><label class="fl">Deposit Required</label><select class="fs"><option>30% deposit to confirm</option><option>50% deposit to confirm</option><option>Full payment upfront</option></select></div>
-      <div class="fg"><label class="fl">Additional Notes to Client</label><textarea class="fi" rows="2" placeholder="Any special terms, pickup instructions, etc." style="resize:vertical;"></textarea></div>
-      <div style="background:var(--s2);border-radius:var(--r);padding:12px;margin-top:8px;">
-        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;"><span>Quote Total</span><span id="cr-total" style="font-family:var(--fd);font-size:18px;font-style:italic;color:var(--blue);">UGX —</span></div>
-      </div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('charterResp')">Cancel</button>
-      <button class="btn btn-gold" onclick="sendCharterQuote()">Send Quote to Client</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Vehicle -->
+<!-- Add Vehicle Modal -->
 <div class="mo" id="mo-addVeh">
   <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add Vehicle</div><button class="mo-x" onclick="closeMo('addVeh')">✕</button></div>
+    <div class="mo-hd"><div class="mo-title">Add Vehicle to Raylane Fleet</div><button class="mo-x" onclick="closeMo('addVeh')">✕</button></div>
     <div class="mo-body">
-      <div class="fg"><label class="fl">Registration Plate *</label><input class="fi" placeholder="e.g. UBF 004K"></div>
-      <div class="g2"><div class="fg"><label class="fl">Make</label><input class="fi" placeholder="e.g. Higer"></div><div class="fg"><label class="fl">Year</label><input class="fi" type="number" placeholder="2023"></div></div>
-      <div class="fg"><label class="fl">Vehicle Type</label><select class="fs"><option>67-Seater Coach</option><option>14-Seater Minivan</option></select></div>
-      <div class="fg"><label class="fl">Fleet Owner</label><select class="fs"><option>Raylane Express (Internal)</option><option>Global Coaches</option><option>YY Coaches</option><option>Link Bus</option><option>Fast Coaches</option></select></div>
-      <div class="fg"><label class="fl">Assigned Driver</label><select class="fs"><option>Unassigned</option><option>James Okello</option><option>Sarah Nakato</option><option>Peter Mwesiga</option></select></div>
-      <div class="g2"><div class="fg"><label class="fl">Insurance Expiry</label><input class="fi" type="date"></div><div class="fg"><label class="fl">Fitness Expiry</label><input class="fi" type="date"></div></div>
+      <div class="fg"><label class="fl">Registration Plate</label><input class="fi" placeholder="e.g. UBF 004K"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="fg"><label class="fl">Make</label><input class="fi" placeholder="e.g. Higer"></div>
+        <div class="fg"><label class="fl">Model</label><input class="fi" placeholder="e.g. KLQ6119"></div>
+      </div>
+      <div class="fg"><label class="fl">Type</label><select class="fs"><option>67-Seater Coach</option><option>14-Seater Minivan</option></select></div>
+      <div class="fg"><label class="fl">Assigned Driver</label><select class="fs"><option>James Okello</option><option>Sarah Nakato</option><option>Unassigned</option></select></div>
+      <div class="fg"><label class="fl">Insurance Expiry</label><input class="fi" type="date"></div>
     </div>
     <div class="mo-ft">
       <button class="btn btn-out btn-sm" onclick="closeMo('addVeh')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addVeh');toastMsg('Vehicle added to fleet')">Add Vehicle</button>
+      <button class="btn btn-blue" onclick="closeMo('addVeh');toast('Vehicle added to Raylane fleet')">Add Vehicle</button>
     </div>
   </div>
 </div>
 
-<!-- Add Driver -->
-<div class="mo" id="mo-addDriver">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add Internal Driver</div><button class="mo-x" onclick="closeMo('addDriver')">✕</button></div>
-    <div class="mo-body">
-      <div class="g2"><div class="fg"><label class="fl">Full Name *</label><input class="fi" placeholder="Full name"></div><div class="fg"><label class="fl">Phone *</label><input class="fi" type="tel" placeholder="0771 xxx xxx"></div></div>
-      <div class="fg"><label class="fl">National ID (NID) *</label><input class="fi" placeholder="e.g. CM92000XXXX"></div>
-      <div class="g2"><div class="fg"><label class="fl">Licence Number</label><input class="fi" placeholder="Licence number"></div><div class="fg"><label class="fl">Licence Class</label><select class="fs"><option>PSV / D</option><option>PSV / C</option><option>B</option></select></div></div>
-      <div class="fg"><label class="fl">Licence Expiry</label><input class="fi" type="date"></div>
-      <div class="fg"><label class="fl">Monthly Salary (UGX)</label><input class="fi" type="number" placeholder="600000"></div>
-      <div class="fg"><label class="fl">Assign to Vehicle</label><select class="fs"><option>Unassigned</option><option>UBF 001K</option><option>UBF 002K</option><option>UBF 003K</option></select></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('addDriver')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addDriver');toastMsg('Driver added — credentials sent via SMS')">Add Driver</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add External Driver -->
-<div class="mo" id="mo-addExtDriver">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add External Driver</div><button class="mo-x" onclick="closeMo('addExtDriver')">✕</button></div>
-    <div class="mo-body">
-      <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:var(--r);padding:10px;font-size:12px;color:#78350F;margin-bottom:14px;">External drivers are employed by third-party operators. They are added to the Raylane system for compliance monitoring only.</div>
-      <div class="g2"><div class="fg"><label class="fl">Full Name *</label><input class="fi" placeholder="Full name"></div><div class="fg"><label class="fl">Phone *</label><input class="fi" placeholder="0771 xxx xxx"></div></div>
-      <div class="fg"><label class="fl">National ID (NID) *</label><input class="fi" placeholder="e.g. CM92000XXXX"></div>
-      <div class="fg"><label class="fl">Operator (Employer) *</label><select class="fs"><option>Global Coaches</option><option>YY Coaches</option><option>Link Bus</option><option>Fast Coaches</option></select></div>
-      <div class="g2"><div class="fg"><label class="fl">Licence Class</label><select class="fs"><option>PSV / D</option><option>PSV / C</option></select></div><div class="fg"><label class="fl">Licence Expiry</label><input class="fi" type="date"></div></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('addExtDriver')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addExtDriver');toastMsg('External driver added to system')">Add External Driver</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Expense -->
-<div class="mo" id="mo-addExpense">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add Expense</div><button class="mo-x" onclick="closeMo('addExpense')">✕</button></div>
-    <div class="mo-body">
-      <div class="g2"><div class="fg"><label class="fl">Date *</label><input class="fi" type="date"></div><div class="fg"><label class="fl">Category *</label><select class="fs"><option>Technology</option><option>Rent</option><option>Utility</option><option>Staff</option><option>Insurance</option><option>Internet</option><option>Fuel</option><option>Maintenance</option><option>Other</option></select></div></div>
-      <div class="fg"><label class="fl">Vendor *</label><select class="fs"><option>Africa's Talking</option><option>UMEME Ltd</option><option>Coach Park Authority</option><option>MTN Business</option><option>Anthropic</option><option>Supabase</option><option>Vercel</option><option>Other</option></select></div>
-      <div class="fg"><label class="fl">Description *</label><input class="fi" placeholder="e.g. SMS bundle April 2026"></div>
-      <div class="g2"><div class="fg"><label class="fl">Amount (UGX) *</label><input class="fi" type="number" placeholder="0"></div><div class="fg"><label class="fl">Invoice / Ref Number</label><input class="fi" placeholder="e.g. INV-2026-042"></div></div>
-      <div class="fg"><label class="fl">Status</label><select class="fs"><option>Paid</option><option>Unpaid</option><option>Overdue</option></select></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('addExpense')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addExpense');toastMsg('Expense recorded successfully')">Save Expense</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Vendor -->
-<div class="mo" id="mo-addVendor">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add Vendor</div><button class="mo-x" onclick="closeMo('addVendor')">✕</button></div>
-    <div class="mo-body">
-      <div class="fg"><label class="fl">Company Name *</label><input class="fi" placeholder="Vendor company name"></div>
-      <div class="g2"><div class="fg"><label class="fl">Category</label><select class="fs"><option>Technology</option><option>Utility</option><option>Rent</option><option>Insurance</option><option>Internet</option><option>Fuel</option><option>Other</option></select></div><div class="fg"><label class="fl">Contact Email / Phone</label><input class="fi" placeholder="contact@vendor.com"></div></div>
-      <div class="g2"><div class="fg"><label class="fl">Credit Limit (UGX)</label><input class="fi" type="number" placeholder="0"></div><div class="fg"><label class="fl">Payment Terms</label><select class="fs"><option>Cash</option><option>Net 7</option><option>Net 15</option><option>Net 30</option><option>Monthly</option><option>Annual</option></select></div></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('addVendor')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addVendor');toastMsg('Vendor added successfully')">Add Vendor</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Subscription -->
-<div class="mo" id="mo-addSub">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Add Subscription</div><button class="mo-x" onclick="closeMo('addSub')">✕</button></div>
-    <div class="mo-body">
-      <div class="fg"><label class="fl">Service Name *</label><input class="fi" placeholder="e.g. Zoom, Slack, Figma"></div>
-      <div class="g2"><div class="fg"><label class="fl">Plan</label><input class="fi" placeholder="e.g. Pro, Business"></div><div class="fg"><label class="fl">Monthly Cost</label><input class="fi" placeholder="e.g. $29 or UGX 100,000"></div></div>
-      <div class="fg"><label class="fl">Renewal Date *</label><input class="fi" type="date"></div>
-      <div class="fg"><label class="fl">Payment Card / Method</label><input class="fi" placeholder="e.g. Visa 4242, MTN MoMo, Invoice"></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('addSub')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addSub');toastMsg('Subscription added')">Add Subscription</button>
-    </div>
-  </div>
-</div>
-
-<!-- Insurance Renewal -->
-<div class="mo" id="mo-renewIns">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Renew Insurance — UBF 003K</div><button class="mo-x" onclick="closeMo('renewIns')">✕</button></div>
-    <div class="mo-body">
-      <div style="background:#FEE2E2;border-radius:var(--rl);padding:12px;margin-bottom:14px;font-size:13px;color:#991B1B;">Current policy expires in <strong>58 days</strong> (18 Jun 2026). Renewing now ensures continuous coverage.</div>
-      <div class="fg"><label class="fl">Insurance Provider</label><select class="fs"><option>UAP Old Mutual Uganda (current)</option><option>Stanbic Insurance Uganda</option><option>CIC Insurance Uganda</option></select></div>
-      <div class="fg"><label class="fl">Policy Type</label><select class="fs"><option>Motor Third-Party Only</option><option>Comprehensive</option></select></div>
-      <div class="g2"><div class="fg"><label class="fl">New Start Date</label><input class="fi" type="date"></div><div class="fg"><label class="fl">New End Date</label><input class="fi" type="date"></div></div>
-      <div class="fg"><label class="fl">Annual Premium (UGX)</label><input class="fi" type="number" placeholder="350000"></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('renewIns')">Cancel</button>
-      <button class="btn btn-pur" onclick="closeMo('renewIns');toastMsg('Insurance renewal submitted — certificate will arrive in 24hrs')">Submit Renewal Request</button>
-    </div>
-  </div>
-</div>
-
-<!-- Edit MoMo Number -->
-<div class="mo" id="mo-editMomo">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Edit Payout MoMo Number</div><button class="mo-x" onclick="closeMo('editMomo')">✕</button></div>
-    <div class="mo-body">
-      <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:var(--r);padding:10px;font-size:12px;color:#78350F;margin-bottom:14px;">Changing the MoMo number will affect future payouts. A test micro-payment of UGX 100 will be sent to verify the new number before it is saved.</div>
-      <div class="fg"><label class="fl">Operator</label><input class="fi" value="Global Coaches" disabled style="opacity:.6;"></div>
-      <div class="fg"><label class="fl">Current MoMo Business Number</label><input class="fi" value="256200100200" disabled style="opacity:.6;"></div>
-      <div class="fg"><label class="fl">New MoMo Business Number *</label><input class="fi" id="newMomoNum" placeholder="256200xxxxxx"></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('editMomo')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('editMomo');toastMsg('Verification SMS sent to new number — awaiting confirmation')">Send Verification</button>
-    </div>
-  </div>
-</div>
-
-<!-- Upload Doc -->
-<div class="mo" id="mo-uploadDoc">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Upload Document</div><button class="mo-x" onclick="closeMo('uploadDoc')">✕</button></div>
-    <div class="mo-body">
-      <div class="fg"><label class="fl">Document Type</label><select class="fs"><option>PSV Operator Licence</option><option>Vehicle Insurance Certificate</option><option>Road Fitness Certificate</option><option>Driver Licence</option><option>Business Registration</option><option>URA TIN Certificate</option><option>Other</option></select></div>
-      <div class="fg"><label class="fl">Related To</label><select class="fs"><option>Raylane Express (Internal)</option><option>Global Coaches</option><option>YY Coaches</option><option>Link Bus</option><option>Fast Coaches</option><option>UBF 001K</option><option>UBF 002K</option><option>UBF 003K</option></select></div>
-      <div class="fg"><label class="fl">Expiry Date (if applicable)</label><input class="fi" type="date"></div>
-      <div style="border:2px dashed var(--border);border-radius:var(--rl);padding:24px;text-align:center;margin-top:8px;cursor:pointer;" onclick="document.getElementById('docFileInput').click()">
-        <div style="font-size:24px;margin-bottom:6px;">📎</div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Click to upload or drag & drop</div>
-        <div style="font-size:12px;color:var(--light);">PDF, JPG or PNG · Max 10MB</div>
-        <input type="file" id="docFileInput" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="docFileChosen(this)">
-      </div>
-      <div id="docFileChosen" style="font-size:13px;color:var(--ok);margin-top:8px;display:none;"></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('uploadDoc')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('uploadDoc');toastMsg('Document uploaded to cloud store')">Upload Document</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add User -->
+<!-- Add User Modal -->
 <div class="mo" id="mo-addUser">
   <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Create Platform User</div><button class="mo-x" onclick="closeMo('addUser')">✕</button></div>
+    <div class="mo-hd"><div class="mo-title">Create Operator User</div><button class="mo-x" onclick="closeMo('addUser')">✕</button></div>
     <div class="mo-body">
-      <div class="g2"><div class="fg"><label class="fl">Full Name *</label><input class="fi" placeholder="Full name"></div><div class="fg"><label class="fl">Phone (SMS credentials)</label><input class="fi" type="tel" placeholder="0771 xxx xxx"></div></div>
-      <div class="fg"><label class="fl">Email *</label><input class="fi" type="email" placeholder="user@company.com"></div>
-      <div class="fg"><label class="fl">Operator</label><select class="fs"><option>Raylane Express (Internal)</option><option>Global Coaches</option><option>YY Coaches</option><option>Link Bus</option><option>Fast Coaches</option></select></div>
-      <div class="fg"><label class="fl">Role</label><select class="fs"><option>Operator Admin</option><option>Booking Agent</option><option>Finance Only</option><option>Fleet Manager</option><option>Read Only</option></select></div>
+      <div class="fg"><label class="fl">Full Name</label><input class="fi" placeholder="Full name"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="user@company.com"></div>
+      <div class="fg"><label class="fl">Phone (receives SMS with credentials)</label><input class="fi" type="tel" placeholder="0771 xxx xxx"></div>
+      <div class="fg"><label class="fl">Operator</label><select class="fs"><option>Global Coaches</option><option>YY Coaches</option><option>Link Bus</option><option>Fast Coaches</option><option>Raylane Express (Internal)</option></select></div>
+      <div class="fg"><label class="fl">Role</label><select class="fs"><option>Operator Admin</option><option>Booking Agent</option><option>Finance Only</option><option>Fleet Manager</option></select></div>
     </div>
     <div class="mo-ft">
       <button class="btn btn-out btn-sm" onclick="closeMo('addUser')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('addUser');toastMsg('User created — login credentials sent via SMS')">Create User</button>
+      <button class="btn btn-blue" onclick="closeMo('addUser');toast('User created — credentials sent via SMS')">Create User & Send SMS</button>
     </div>
   </div>
 </div>
 
-<!-- File Claim -->
-<div class="mo" id="mo-fileClaim">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">File Insurance Claim</div><button class="mo-x" onclick="closeMo('fileClaim')">✕</button></div>
-    <div class="mo-body">
-      <div class="fg"><label class="fl">Vehicle</label><select class="fs"><option>UBF 001K</option><option>UBF 002K</option><option>UBF 003K</option></select></div>
-      <div class="fg"><label class="fl">Incident Date *</label><input class="fi" type="date"></div>
-      <div class="fg"><label class="fl">Incident Description *</label><textarea class="fi" rows="3" placeholder="Describe what happened in detail…" style="resize:vertical;"></textarea></div>
-      <div class="fg"><label class="fl">Police Report Number *</label><input class="fi" placeholder="e.g. CRB/2026/00123"></div>
-      <div class="fg"><label class="fl">Estimated Loss Value (UGX)</label><input class="fi" type="number" placeholder="0"></div>
-      <div class="fg"><label class="fl">Passenger Count at Time of Incident</label><input class="fi" type="number" placeholder="0"></div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-out btn-sm" onclick="closeMo('fileClaim')">Cancel</button>
-      <button class="btn btn-pur" onclick="closeMo('fileClaim');toastMsg('Claim filed — insurer notified. Claim ref: CLM-'+Math.floor(10000+Math.random()*90000))">Submit Claim</button>
-    </div>
-  </div>
-</div>
 
-<!-- Edit Operator -->
+<!-- Edit Operator Modal -->
 <div class="mo" id="mo-editOp">
   <div class="mo-box">
     <div class="mo-hd"><div class="mo-title">Edit Operator</div><button class="mo-x" onclick="closeMo('editOp')">✕</button></div>
@@ -449,97 +668,40 @@
       <div class="fg"><label class="fl">Company Name</label><input class="fi" value="Global Coaches"></div>
       <div class="fg"><label class="fl">Contact Phone</label><input class="fi" value="0771 100 200"></div>
       <div class="fg"><label class="fl">Email</label><input class="fi" value="ops@globalcoaches.ug"></div>
-      <div class="fg"><label class="fl">Subscription Plan</label><select class="fs"><option selected>Enterprise</option><option>Professional</option><option>Standard</option><option>Starter</option></select></div>
-      <div class="fg"><label class="fl">Custom Commission Override (%)</label><input class="fi" type="number" value="5" min="0" max="25"></div>
+      <div class="fg"><label class="fl">Subscription Plan</label><select class="fs"><option>Enterprise</option><option>Professional</option><option>Standard</option><option>Starter</option></select></div>
+      <div class="fg"><label class="fl">Commission Override (%)</label><input class="fi" type="number" value="5" min="0" max="25"></div>
       <div class="fg"><label class="fl">MoMo Business Number</label><input class="fi" value="256200100200"></div>
     </div>
     <div class="mo-ft">
       <button class="btn btn-out btn-sm" onclick="closeMo('editOp')">Cancel</button>
-      <button class="btn btn-blue" onclick="closeMo('editOp');toastMsg('Operator updated successfully')">Save Changes</button>
+      <button class="btn btn-blue" onclick="closeMo('editOp');toast('Operator updated successfully')">Save Changes</button>
     </div>
   </div>
 </div>
-
-<!-- Docs view modal -->
-<div class="mo" id="mo-docs">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Operator Documents</div><button class="mo-x" onclick="closeMo('docs')">✕</button></div>
-    <div class="mo-body">
-      <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">PSV Operator Licence.pdf</div><div class="doc-meta">Uploaded 15 Jan 2026 · Expires Dec 2026</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('PSV Licence')">View</button></div></div>
-      <div class="doc-item"><div class="doc-icon">🛡️</div><div class="doc-info"><div class="doc-name">Fleet Insurance Certificate.pdf</div><div class="doc-meta">UAP Old Mutual · All 12 vehicles covered</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('Fleet Insurance')">View</button></div></div>
-      <div class="doc-item"><div class="doc-icon">📋</div><div class="doc-info"><div class="doc-name">Business Registration.pdf</div><div class="doc-meta">URSB · Reg. No. 80020XXXXX</div></div><div class="doc-actions"><button class="btn btn-blue btn-xs" onclick="openDoc('Business Reg')">View</button></div></div>
-    </div>
-    <div class="mo-ft"><button class="btn btn-blue btn-sm" onclick="openMo('uploadDoc');closeMo('docs')">Upload New Doc</button><button class="btn btn-out btn-sm" onclick="closeMo('docs')">Close</button></div>
-  </div>
-</div>
-
-<!-- Booking Detail -->
-<div class="mo" id="mo-bookingDetail">
-  <div class="mo-box">
-    <div class="mo-hd"><div class="mo-title">Booking — RLX-00284</div><button class="mo-x" onclick="closeMo('bookingDetail')">✕</button></div>
-    <div class="mo-body">
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Passenger</span><strong>Sarah Nakato</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Phone</span><strong>0771 234 567</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Route</span><strong>Kampala → Mbarara</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Date / Time</span><strong>20 Apr 2026 · 06:00 AM</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Seat</span><strong>14A</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Operator</span><strong>Global Coaches</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Amount</span><strong>UGX 24,000</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--s2);"><span style="color:var(--mid);">Payment</span><strong>MTN MoMo · 0771234567</strong></div>
-        <div style="display:flex;justify-content:space-between;padding:7px 0;"><span style="color:var(--mid);">Status</span><span class="badge bg">Confirmed</span></div>
-      </div>
-    </div>
-    <div class="mo-ft">
-      <button class="btn btn-bad btn-sm" onclick="closeMo('bookingDetail');toastMsg('Booking cancelled — refund initiated')">Cancel & Refund</button>
-      <button class="btn btn-blue btn-sm" onclick="toastMsg('Ticket resent via SMS')">Resend Ticket SMS</button>
-      <button class="btn btn-out btn-sm" onclick="closeMo('bookingDetail')">Close</button>
-    </div>
-  </div>
-</div>
-
 <!-- TOAST -->
-<div id="toast" style="position:fixed;bottom:20px;right:20px;z-index:600;display:none;padding:11px 18px;border-radius:10px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:340px;animation:fi .3s ease;"></div>
+<div id="toastEl" style="position:fixed;bottom:24px;right:24px;z-index:500;display:none;background:#059669;color:#fff;padding:12px 20px;border-radius:8px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:320px;"></div>
 
-<!-- REVENUE CHART SCRIPT + ALL JS -->
 <script>
-// ── Build revenue chart
-const months=['Oct','Nov','Dec','Jan','Feb','Mar','Apr'];
-const vals=[38,42,55,48,52,61,72];
-const maxV=Math.max(...vals);
-const chartEl=document.getElementById('revenueChart');
-if(chartEl){
-  chartEl.innerHTML=months.map((m,i)=>`
-    <div class="chart-bar" style="background:${i===months.length-1?'var(--blue)':'#c8d5f0'};height:${(vals[i]/maxV)*100}%;" title="${m}: UGX ${vals[i]}M">
-      <div class="chart-bar-label">${m}</div>
-      <div class="chart-bar-val">UGX ${vals[i]}M</div>
-    </div>`).join('');
-}
-
-// ── View switch
-const titles={overview:'Overview',alerts:'Alerts Inbox',applications:'Operator Applications',operators:'All Operators',trips:'Trip Approvals',charter:'Charter Quotes',bookings:'All Bookings',fleet:'Raylane Fleet',drivers:'All Drivers',documents:'Document Store',payouts:'Operator Payouts',financials:'Financials — P&L',expenses:'Costs & Expenses',vendors:'Vendor Management',subscriptions:'Software Subscriptions',insurance:'Insurance Marketplace',users:'Users & Roles',audit:'Audit Log',health:'System Health',settings:'Settings'};
+// View switching
+const viewTitles={overview:'Overview',applications:'Operator Applications',operators:'All Operators',trips:'Trip Approvals',bookings:'All Bookings',fleet:'Raylane Fleet',payouts:'Operator Payouts',financials:'Platform Financials',payments:'Platform Bills',users:'Users & Roles',audit:'Audit Log',health:'System Health',settings:'Platform Settings'};
 function show(id,lnk){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('v-'+id)?.classList.add('on');
-  if(lnk){document.querySelectorAll('.sb-a').forEach(l=>l.classList.remove('on'));lnk.classList.add('on');}
-  document.getElementById('vtitle').textContent=titles[id]||id;
+  if(lnk){document.querySelectorAll('.sb-lnk').forEach(l=>l.classList.remove('on'));lnk.classList.add('on');}
+  document.getElementById('vtitle').textContent=viewTitles[id]||id;
   if(window.innerWidth<900)closeSB();
 }
-
-// ── Sidebar
-function openSB(){document.getElementById('sb').classList.add('open');document.getElementById('mOv').classList.add('on');document.body.style.overflow='hidden';}
-function closeSB(){document.getElementById('sb').classList.remove('open');document.getElementById('mOv').classList.remove('on');document.body.style.overflow='';}
-
-// ── Clock
+// Sidebar mobile
+function openSB(){document.getElementById('sb').classList.add('open');document.getElementById('mobOv').classList.add('on');document.body.style.overflow='hidden';}
+function closeSB(){document.getElementById('sb').classList.remove('open');document.getElementById('mobOv').classList.remove('on');document.body.style.overflow='';}
+// Clock
 setInterval(()=>{const n=new Date();document.getElementById('clk').textContent=n.toLocaleTimeString('en-UG',{hour:'2-digit',minute:'2-digit'});},1000);
-
-// ── Modals
+// Modals
 function openMo(id){document.getElementById('mo-'+id)?.classList.add('on');}
 function closeMo(id){document.getElementById('mo-'+id)?.classList.remove('on');}
 document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
-
-// ── Payout
-function openPayoutMo(op,code,gross,comm,net){
+// Payout
+function openPayoutModal(op,code,gross,comm,net){
   document.getElementById('poOp').textContent=op;
   document.getElementById('poCode').textContent=code;
   document.getElementById('poGross').textContent='UGX '+parseInt(gross).toLocaleString();
@@ -547,156 +709,109 @@ function openPayoutMo(op,code,gross,comm,net){
   document.getElementById('poNet').textContent='UGX '+parseInt(net).toLocaleString();
   openMo('payout');
 }
-function confirmPayout(){closeMo('payout');toastMsg('Payment released — operator notified via SMS');}
-
-// ── Charter response modal
-function openCharterResponse(ref,client,route,date,pax){
-  document.getElementById('cr-ref').textContent=ref;
-  document.getElementById('cr-client').textContent=client;
-  document.getElementById('cr-route').textContent=route;
-  document.getElementById('cr-date').textContent=date;
-  document.getElementById('cr-pax').textContent=pax+' passengers';
-  document.getElementById('cr-fee').value='';
-  document.getElementById('cr-return').value='';
-  document.getElementById('cr-total').textContent='UGX —';
-  openMo('charterResp');
-}
-function updateCharterTotal(){
-  const fee=parseInt(document.getElementById('cr-fee').value)||0;
-  const ret=parseInt(document.getElementById('cr-return').value)||0;
-  document.getElementById('cr-total').textContent='UGX '+(fee+ret).toLocaleString();
-}
-function sendCharterQuote(){
-  const fee=parseInt(document.getElementById('cr-fee').value)||0;
-  if(!fee){toastMsg('Enter the charter fee before sending','#D97706');return;}
-  closeMo('charterResp');
-  toastMsg('Quote sent to client — they can accept via WhatsApp or Account dashboard');
-}
-
-// ── Approve helper
+function openPayout(){openPayoutModal('Link Bus','256200220330','1800000','144000','1656000');}
+function openPayoutAll(){openPayoutModal('All Operators','Multiple','9000000','720000','8280000');}
+function confirmPayout(){closeMo('payout');toast('Payout released — operator notified via SMS');}
+// App review
+function openAppModal(name){document.getElementById('appRevTitle').textContent=name+' — Application';openMo('appReview');}
+function openRejectModal(){openMo('reject');}
+// Approve trip
 function approveItem(btn,msg){
   const row=btn.closest('tr');
   if(row){
-    const badgeCell=row.querySelector('.badge');
-    if(badgeCell){badgeCell.className='badge bg';badgeCell.textContent='Approved';}
-    const actCell=btn.closest('td');
-    if(actCell)actCell.innerHTML='<span style="color:var(--light);font-size:11px;">Done ✓</span>';
+    const badges=row.querySelectorAll('.badge');
+    badges.forEach(b=>{if(b.textContent.trim()==='Pending'||b.textContent.trim()==='Pending Admin'){b.className='badge bg';b.textContent='Approved';}});
+    const td=btn.closest('td');
+    if(td)td.innerHTML='<span style="color:var(--light);font-size:11px;">Done ✓</span>';
   }
-  toastMsg(msg||'Action completed');
+  toast(msg||'Action completed');
 }
-
-// ── Dismiss alert
-function dismissAlert(id){
-  const el=document.getElementById(id);
-  if(el){el.style.opacity='0';el.style.height=el.offsetHeight+'px';setTimeout(()=>{el.style.height='0';el.style.padding='0';el.style.margin='0';},300);setTimeout(()=>el.remove(),600);}
-  toastMsg('Alert dismissed');
+function approveTrip(btn){
+  const row=btn.closest('tr');
+  row.querySelector('.badge').className='badge bg';
+  row.querySelector('.badge').textContent='Live';
+  const td=btn.closest('td');
+  td.innerHTML='<span style="color:var(--light);font-size:12px;">Approved ✓</span>';
+  toast('Trip approved — now live on public website');
 }
-function markAllRead(){document.querySelectorAll('.alert-card').forEach(c=>dismissAlert(c.id));}
-function filterAlerts(val){
-  document.querySelectorAll('.alert-card').forEach(c=>{
-    const t=c.querySelector('.alert-time')?.textContent||'';
-    c.style.display=!val||t.toLowerCase().includes(val.toLowerCase())?'flex':'none';
-  });
-}
-
-// ── Table filter
-function fTbl(inp,id){
+// Table filter
+function filterTbl(inp,id){
   const v=inp.value.toLowerCase();
   document.querySelectorAll('#'+id+' tbody tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(v)?'':'none');
 }
-function fTblCol(sel,id,col){
+function filterByStatus(sel,tblId,colIdx){
   const v=sel.value.toLowerCase();
-  document.querySelectorAll('#'+id+' tbody tr').forEach(r=>{
-    const cell=r.cells[col];
+  document.querySelectorAll('#'+tblId+' tbody tr').forEach(r=>{
+    const cell=r.cells[colIdx];
     r.style.display=!v||cell?.textContent.toLowerCase().includes(v)?'':'none';
   });
 }
-
-// ── QuickBooks accordion
-function toggleQB(hd){
-  const body=hd.nextElementSibling;
-  body.classList.toggle('open');
-  const svg=hd.querySelector('svg');
-  if(svg)svg.style.transform=body.classList.contains('open')?'rotate(180deg)':'';
+// Toast
+function toast(msg,ok=true){
+  const el=document.getElementById('toastEl');
+  el.textContent=(ok?'✓ ':'⚠ ')+msg;
+  el.style.background=ok?'#059669':'#D97706';
+  el.style.display='block';
+  setTimeout(()=>el.style.display='none',3500);
 }
+function saveSettings(){toast('Settings saved successfully');}
 
-// ── Document viewer (opens in new tab)
-function openDoc(name){
-  const win=window.open('','_blank');
-  win.document.write(`<!DOCTYPE html><html><head><title>${name} — Document Viewer</title>
-  <style>body{margin:0;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',sans-serif;color:#fff;}
-  .doc-viewer{background:#fff;width:90vw;max-width:800px;height:80vh;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:#4B5563;}
-  h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;font-size:24px;color:#0B2FA0;}
-  .sim{font-size:14px;background:#EEF2FA;padding:16px 24px;border-radius:8px;text-align:center;}
-  .close-btn{background:#0B2FA0;color:#fff;border:none;padding:10px 24px;border-radius:9999px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-style:italic;text-transform:uppercase;cursor:pointer;font-size:15px;}
-  </style></head><body>
-  <div class="doc-viewer">
-    <div style="font-size:48px;">📄</div>
-    <h2>${name}</h2>
-    <div class="sim">Document loaded from Raylane Express cloud storage.<br>In production this will render the actual uploaded PDF or image file via Supabase Storage URL.</div>
-    <button class="close-btn" onclick="window.close()">Close Document</button>
-  </div></body></html>`);
-}
-
-// ── Export CSV (working)
 function exportCSV(type){
   const datasets={
-    revenue:[['Month','Bookings Revenue','SaaS Revenue','Insurance Commission','Total'],['Oct 2025','38000000','12000000','1800000','51800000'],['Nov 2025','42000000','14000000','2100000','58100000'],['Dec 2025','55000000','16000000','2800000','73800000'],['Jan 2026','48000000','15000000','2400000','65400000'],['Feb 2026','52000000','17000000','3000000','72000000'],['Mar 2026','61000000','18000000','3500000','82500000'],['Apr 2026','50400000','18200000','3800000','72400000']],
-    bookings:[['Ref','Passenger','Route','Operator','Seat','Amount','Payment','Status'],['RLX-00284','Sarah Nakato','KLA→MBR','Global Coaches','14A','24000','MTN MoMo','Confirmed'],['RLX-00283','Moses Ouma','KLA→GUL','Link Bus','8B','28000','MTN MoMo','Confirmed'],['RLX-00282','Agnes Atim','KLA→MBL','YY Coaches','22C','22000','Visa','Confirmed'],['RLX-00281','John Mugisha','KLA→KBL','Fast Coaches','5A','28000','Airtel','Cancelled']],
-    payouts:[['Operator','MoMo Number','Gross','Commission','Net','Status','Date'],['Global Coaches','256200100200','4200000','336000','3864000','Released','18 Apr 2026'],['YY Coaches','256200334556','2100000','168000','1932000','Pending','—'],['Link Bus','256200220330','1800000','144000','1656000','Pending','—'],['Fast Coaches','256200445667','900000','72000','828000','Pending','—']],
-    expenses:[['Date','Category','Vendor','Description','Amount','Invoice','Status'],['20 Apr','Rent','Coach Park Authority','Bay rental April 2026','800000','INV-2026-041','Paid'],['15 Apr','Utility','UMEME Ltd','Electricity March 2026','120000','UMEME-033','Overdue'],['01 Apr','Tech','Africa s Talking','SMS bundle 50000 units','1250000','AT-INV-9921','Paid'],['01 Apr','Tech','Anthropic Claude','API usage March 2026','460000','ANT-2026-003','Paid']],
-    financials:[['Item','Amount (UGX)','Type'],['Booking Commission Revenue','50400000','Income'],['SaaS Subscriptions','18200000','Income'],['Insurance Commission','3800000','Income'],['Total Revenue','72400000','Income'],['Technology Expenses','3200000','Expense'],['Operations & Admin','4800000','Expense'],['Total Expenses','8000000','Expense'],['Net Profit','64400000','Net']],
-    audit:[['Time','Action','Details','User'],['09:14:22','Trip Approved','Global Coaches KLA→MBR 20 Apr 06:00','Raylane Admin'],['09:01:05','Payout Released','UGX 3864000 to Global Coaches 256200100200','Raylane Admin'],['08:45:30','Operator Created','YY Coaches Professional plan','Raylane Admin'],['08:22:11','Admin Login','IP: 41.210.xxx.xxx Kampala','Raylane Admin']],
-    insurance:[['Vehicle','Operator','Insurer','Type','Expires','Premium','Commission'],['UBF 001K','Raylane','UAP Old Mutual','Comprehensive','Dec 2026','380000','38000'],['UBF 002K','Raylane','Stanbic','MTP','Mar 2027','290000','23200'],['UBF 003K','Raylane','UAP Old Mutual','MTP','Jun 2026','350000','35000']]
+    bookings:[['Ref','Passenger','Route','Operator','Seat','Amount','Payment','Status'],
+      ['RLX-00284','Sarah Nakato','KLA→MBR','Global Coaches','14A','24000','MTN MoMo','Confirmed'],
+      ['RLX-00283','Moses Ouma','KLA→GUL','Link Bus','8B','28000','MTN MoMo','Confirmed'],
+      ['RLX-00282','Agnes Atim','KLA→MBL','YY Coaches','22C','22000','Visa','Confirmed'],
+      ['RLX-00281','John Mugisha','KLA→KBL','Fast Coaches','5A','28000','Airtel','Cancelled']],
+    payouts:[['Operator','MoMo Number','Gross','Commission','Net','Status'],
+      ['Global Coaches','256200100200','4200000','336000','3864000','Pending'],
+      ['YY Coaches','256200334556','2100000','168000','1932000','Pending'],
+      ['Link Bus','256200220330','1800000','144000','1656000','Pending'],
+      ['Fast Coaches','256200445667','900000','72000','828000','Pending']],
+    financials:[['Item','Amount (UGX)','Type'],
+      ['Booking Commission Revenue','50400000','Income'],
+      ['SaaS Subscriptions','18200000','Income'],
+      ['Insurance Commission','3800000','Income'],
+      ['Total Revenue','72400000','Income'],
+      ['Technology Expenses','3200000','Expense'],
+      ['Operations','4800000','Expense'],
+      ['Net Profit','64400000','Net']],
+    audit:[['Time','Action','Details','User'],
+      ['09:14:22','Trip Approved','Global Coaches KLA→MBR 20 Apr 06:00','Raylane Admin'],
+      ['09:01:05','Payout Released','UGX 3864000 to Global Coaches','Raylane Admin'],
+      ['08:45:30','Operator Created','YY Coaches Professional plan','Raylane Admin'],
+      ['08:22:11','Admin Login','IP 41.210.xxx.xxx Kampala','Raylane Admin']]
   };
   const data=datasets[type]||datasets['bookings'];
-  const csv=data.map(row=>row.map(cell=>'"'+String(cell).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const csv=data.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const link=document.createElement('a');
   link.href=URL.createObjectURL(blob);
   link.download='raylane-'+type+'-'+new Date().toISOString().split('T')[0]+'.csv';
-  link.click();
-  toastMsg('CSV exported: raylane-'+type+'.csv');
+  document.body.appendChild(link);link.click();document.body.removeChild(link);
+  toast('CSV downloaded: raylane-'+type+'.csv');
 }
-
-function exportPDF(){toastMsg('PDF report generating — will download in a moment');}
-
-// ── Doc file chosen
-function docFileChosen(inp){
-  const fn=inp.files[0]?.name||'';
-  const el=document.getElementById('docFileChosen');
-  if(fn){el.textContent='✓ Selected: '+fn;el.style.display='block';}
-}
-
-// ── Toast
-function toastMsg(msg,color='#059669'){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.style.background=color;
-  el.style.display='block';
-  clearTimeout(el._t);
-  el._t=setTimeout(()=>el.style.display='none',4000);
-}
-
-// ── Live concurrent users
-setInterval(()=>{const el=document.getElementById('ccU');if(el)el.textContent=Math.floor(230+Math.random()*40);},9000);
-
-// ── Auto feed activity
-const feedMsgs=[
-  {t:'<strong>Booking:</strong> KLA→GUL · Seat 22C · Link Bus · UGX 28,000',c:'var(--ok)'},
-  {t:'<strong>Parcel booked:</strong> PKL-'+Math.floor(100000+Math.random()*900000)+' · KLA→MBR',c:'var(--warn)'},
-  {t:'<strong>New operator signup:</strong> Pearl Coaches applied',c:'var(--pur)'},
-  {t:'<strong>Payment confirmed:</strong> UGX 30,000 · Raylane Fleet trip',c:'var(--ok)'},
-];
-let fi2=0;
+// Live concurrent users counter
 setInterval(()=>{
-  const feed=document.getElementById('adminFeed');
-  if(!feed||!document.getElementById('v-overview').classList.contains('on'))return;
-  const m=feedMsgs[fi2%feedMsgs.length];fi2++;
+  const el=document.getElementById('ccUsers');
+  if(el)el.textContent=Math.floor(230+Math.random()*40);
+},8000);
+// Live activity feed
+const adminMsgs=[
+  {t:'<strong>Booking:</strong> KLA→GUL · Seat 22C · Link Bus · UGX 28,000',c:'var(--ok)'},
+  {t:'<strong>Parcel booked:</strong> PKL-'+Math.floor(Math.random()*900000+100000)+' · KLA→MBR',c:'var(--warn)'},
+  {t:'<strong>Cancellation:</strong> RLX-00279 · Refund processed to MoMo',c:'var(--bad)'},
+  {t:'<strong>New booking:</strong> KLA→FTP · Raylane Express · UGX 30,000',c:'var(--ok)'},
+];
+let ai=0;
+setInterval(()=>{
+  const feed=document.getElementById('adminFeed');if(!feed)return;
+  const m=adminMsgs[ai%adminMsgs.length];ai++;
   const el=document.createElement('div');el.className='feed-item';
   el.innerHTML=`<div class="fdot" style="background:${m.c}"></div><div><div class="ft">${m.t}</div><div class="ftime">Just now</div></div>`;
   feed.insertBefore(el,feed.firstChild);
-  if(feed.children.length>7)feed.lastChild.remove();
-},11000);
+  if(feed.children.length>6)feed.lastChild.remove();
+},10000);
 </script>
 </body>
 </html>
