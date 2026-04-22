@@ -1092,10 +1092,10 @@ section{scroll-margin-top:72px;}
 
       <!-- Portal links -->
       <div class="nav-actions">
-        <a href="/pages/admin.html" class="nav-portal hide-mob">Admin</a>
-        <a href="/pages/operator.html" class="nav-portal hide-mob">Operator</a>
-        <a href="/pages/partner.html" class="nav-portal hide-mob" style="background:var(--rl-gold);color:var(--rl-blue-dark);border-color:var(--rl-gold);">Join as Operator</a>
-        <a href="/pages/account.html" class="btn btn-outline-white btn-sm hide-mob">My Account</a>
+        <a href="/admin" class="nav-portal hide-mob">Admin</a>
+        <a href="/operator" class="nav-portal hide-mob">Operator</a>
+        <a href="/partner" class="nav-portal hide-mob" style="background:var(--rl-gold);color:var(--rl-blue-dark);border-color:var(--rl-gold);">Join as Operator</a>
+        <a href="/account" class="btn btn-outline-white btn-sm hide-mob">My Account</a>
         <button class="hamburger" id="ham" onclick="toggleMenu()">
           <span></span><span></span><span></span>
         </button>
@@ -1113,19 +1113,19 @@ section{scroll-margin-top:72px;}
   <div class="mob-portal-section">
     <div class="mob-portal-label">Portals</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <a href="/pages/admin.html" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
+      <a href="/admin" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
         Super Admin Console
       </a>
-      <a href="/pages/operator.html" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
+      <a href="/operator" class="btn btn-outline-white" style="justify-content:flex-start;gap:10px;">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M6 18v2M18 18v2M2 10h20"/></svg>
         Operator Dashboard
       </a>
-      <a href="/pages/partner.html" class="btn btn-gold btn-lg" style="justify-content:center;">Apply to Join Platform</a>
+      <a href="/partner" class="btn btn-gold btn-lg" style="justify-content:center;">Apply to Join Platform</a>
     </div>
   </div>
   <div class="mob-actions">
-    <a href="/pages/account.html" class="btn btn-outline-white btn-lg">My Account</a>
+    <a href="/account" class="btn btn-outline-white btn-lg">My Account</a>
   </div>
 </div>
 
@@ -1309,18 +1309,14 @@ section{scroll-margin-top:72px;}
       <svg class="boarding-opt-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
       Pick Me Up Enroute
     </label>
-    <label class="boarding-opt" id="bopt-dropoff">
-      <input type="radio" name="boarding" value="dropoff" onchange="setBoardingOpt(this)">
-      <svg class="boarding-opt-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Drop Me Off Enroute
-    </label>
+
   </div>
 
   <!-- Enroute location input (shown when selected) -->
   <div class="boarding-loc" id="boardingLocField">
     <div class="loc-note">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span>Tell us your roadside location and the operator will confirm if there is a designated stop near you. Additional fee of <strong>UGX 2,000–5,000</strong> applies for enroute boarding/alighting.</span>
+      <span>Tell us your roadside location and the operator will confirm if there is a designated stop near you. The driver will contact you 30 minutes before passing your location.</span>
     </div>
     <div class="search-grid" style="margin-top:12px;grid-template-columns:1fr auto;">
       <div class="field-input">
@@ -1378,7 +1374,7 @@ section{scroll-margin-top:72px;}
       </div>
       <div class="flex-row">
         <div class="live">Live Updates</div>
-        <a href="/pages/book.html" class="btn btn-outline-blue btn-sm">View All →</a>
+        <a href="/parcels" class="btn btn-outline-blue btn-sm">View All →</a>
       </div>
     </div>
     <div class="dep-scroll" id="depScroll"></div>
@@ -1512,7 +1508,7 @@ section{scroll-margin-top:72px;}
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Full audit trail & logs</div>
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Platform-wide financials</div>
         </div>
-        <a href="/pages/admin.html" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Enter Admin Console →</a>
+        <a href="/admin" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Enter Admin Console →</a>
       </div>
       <!-- Operator -->
       <div class="portal-card portal-operator reveal">
@@ -1525,7 +1521,7 @@ section{scroll-margin-top:72px;}
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Driver & fleet management</div>
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>IFRS P&L & URA VAT exports</div>
         </div>
-        <a href="/pages/operator.html" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Operator Login →</a>
+        <a href="/operator" class="btn btn-blue btn-sm" style="align-self:flex-start;margin-top:auto;">Operator Login →</a>
       </div>
       <!-- Partner -->
       <div class="portal-card portal-partner reveal">
@@ -1538,7 +1534,7 @@ section{scroll-margin-top:72px;}
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>Live in 48 hours</div>
           <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>14-day free trial on paid plans</div>
         </div>
-        <a href="/pages/partner.html" class="btn btn-gold btn-sm" style="align-self:flex-start;margin-top:auto;">Apply to Join →</a>
+        <a href="/partner" class="btn btn-gold btn-sm" style="align-self:flex-start;margin-top:auto;">Apply to Join →</a>
       </div>
     </div>
   </div>
@@ -1561,7 +1557,7 @@ section{scroll-margin-top:72px;}
           <div class="map-stat"><div class="map-stat-n">200+</div><div class="map-stat-l">Daily Departures</div></div>
         </div>
         <div class="flex-row">
-          <a href="/pages/book.html" class="btn btn-gold">View All Routes</a>
+          <a href="/parcels" class="btn btn-gold">View All Routes</a>
           <button onclick="openGMaps()" class="btn btn-outline-white">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
@@ -1637,8 +1633,8 @@ section{scroll-margin-top:72px;}
         <h2 class="ops-title">Run Your Bus Business on One Platform.</h2>
         <p class="ops-sub">Stop managing bookings in WhatsApp groups. Raylane Express gives you a complete SaaS dashboard — bookings, fleet, drivers, payroll, compliance, GAAP P&L, and weekly MTN MoMo payouts. Plus: full white-label branding with your company logo and colours.</p>
         <div class="flex-row">
-          <a href="/pages/partner.html" class="btn btn-gold btn-lg">Apply to Join</a>
-          <a href="/pages/operator.html" class="btn btn-outline-white btn-lg">Operator Login</a>
+          <a href="/partner" class="btn btn-gold btn-lg">Apply to Join</a>
+          <a href="/operator" class="btn btn-outline-white btn-lg">Operator Login</a>
         </div>
       </div>
       <div class="plan-stack reveal-right">
@@ -1684,7 +1680,7 @@ section{scroll-margin-top:72px;}
           <div class="pcat"><div class="pcat-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3M9 21H21a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg></div><div class="pcat-info"><div class="pcat-name">Heavy Cargo</div><div class="pcat-desc">Commercial freight — up to 50kg+</div></div><div class="pcat-price">UGX 30K+</div></div>
         </div>
         <div class="flex-row mt-6">
-          <a href="/pages/book.html?tab=parcel" class="btn btn-blue">Send a Parcel Now</a>
+          <a href="/parcels" class="btn btn-blue">Send a Parcel Now</a>
           <a href="#faq" class="btn btn-outline-blue">Parcel FAQ</a>
         </div>
       </div>
@@ -1852,8 +1848,8 @@ section{scroll-margin-top:72px;}
         </div>
         <!-- BOARDING -->
         <div class="faq-panel" id="faq-boarding">
-          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be picked up along the route instead of at the terminal?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Select "Pick Me Up Enroute" in the boarding preference when searching. Enter your landmark or location on the route. The operator will confirm if there is a designated enroute stop near you — not all stops are guaranteed. An additional fee of UGX 2,000–5,000 applies. The driver will contact you 30 minutes before passing your location.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be dropped off before the final destination?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Select "Drop Me Off Enroute" during booking. Specify your alighting point. This is subject to the operator confirming the drop point is on their route. The price reflects the full route fare — partial route discounts are at the operator's discretion.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be picked up along the route instead of at the terminal?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Select "Pick Me Up Enroute" in the boarding preference when searching. Enter your landmark or location on the route. The operator will confirm if there is a designated enroute stop near you — not all stops are guaranteed. The driver will contact you 30 minutes before passing your location.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I be dropped off before the final destination?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">At this time, drop-off at intermediate points is not available through the online booking system. Please contact us on WhatsApp to arrange special alighting points for your journey — these are handled case by case with the operator.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I board the bus at the terminal?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Show the QR code from your SMS ticket to the driver or conductor. They scan it with the Raylane driver app — green screen confirms valid, red screen indicates an issue. You'll be assigned your exact seat number as shown on your ticket.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if my coach is delayed?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">You will receive an SMS notification if your coach is delayed by more than 30 minutes. The updated ETA will be in the message. You can also track your coach live on our website using your booking reference.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is luggage included in my ticket?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">One medium bag in the luggage hold and one small bag in the cabin are included. Excess luggage or oversized items may be charged separately by the operator at the terminal. Heavy cargo must be pre-booked as a Parcel.</div></div>
@@ -1874,7 +1870,7 @@ section{scroll-margin-top:72px;}
         </div>
         <!-- OPERATOR -->
         <div class="faq-panel" id="faq-operator">
-          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I apply to become a Raylane operator?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/pages/partner.html">raylaneexpress.com/partner</a> and complete the three-step application form. You'll need: company name, contact details, URA TIN, PSV operator licence, fleet size, vehicle registration details, and driver licence copies. Applications are reviewed within 48 hours.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I apply to become a Raylane operator?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/partner">raylaneexpress.com/partner</a> and complete the three-step application form. You'll need: company name, contact details, URA TIN, PSV operator licence, fleet size, vehicle registration details, and driver licence copies. Applications are reviewed within 48 hours.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I customise the operator dashboard with my company branding?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. Professional and Enterprise plan operators can upload their company logo and set a primary brand colour in Settings → Branding. Your custom logo and colours appear throughout your operator dashboard and on passenger-facing booking confirmation pages for trips on your buses.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How and when do I get paid?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Payouts are processed weekly every Friday. Admin reviews and releases payment to your MTN MoMo merchant code via B2B transfer. You receive an SMS receipt from Raylane detailing the route, gross amount, commission deducted, and net paid. You can also see the full payout breakdown in your Payments tab before release.</div></div>
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the commission rate?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Starter and Standard plans: 8% on all confirmed bookings. Professional plan: 6%. Enterprise plan: 5%. Commission is calculated on the gross booking value before any promotions. Parcel revenue shares the same commission rate as seat bookings.</div></div>
@@ -1882,8 +1878,8 @@ section{scroll-margin-top:72px;}
         <!-- ACCOUNT -->
         <div class="faq-panel" id="faq-account">
           <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do loyalty points work?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Earn 1 point per UGX 100 spent on Standard bookings. Silver members earn 1.5× and Gold members earn 2×. Points accumulate over time and unlock tier benefits automatically: Silver at 2,000 points, Gold at 10,000 points. Redeem points for discounts on future bookings from your Account page.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I create an account?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/pages/account.html">My Account</a> and enter your mobile number. You'll receive a 6-digit OTP via SMS to verify. No email or password required. Your booking history is linked to your phone number automatically.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my personal data shared with operators?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Operators receive only the information required to process your journey: name, seat number, departure point, and destination. Payment details are never shared. Your phone number is visible to the operator for journey-related communications only. Full details are in our <a href="/pages/privacy.html">Privacy Policy</a>.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I create an account?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Visit <a href="/account">My Account</a> and enter your mobile number. You'll receive a 6-digit OTP via SMS to verify. No email or password required. Your booking history is linked to your phone number automatically.</div></div>
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my personal data shared with operators?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Operators receive only the information required to process your journey: name, seat number, departure point, and destination. Payment details are never shared. Your phone number is visible to the operator for journey-related communications only. Full details are in our <a href="/privacy">Privacy Policy</a>.</div></div>
         </div>
       </div>
     </div>
@@ -1916,36 +1912,36 @@ section{scroll-margin-top:72px;}
       <div class="footer-col">
         <h4>Travel</h4>
         <div class="footer-links">
-          <a href="/pages/book.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Book a Seat</a>
-          <a href="/pages/book.html?tab=return"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Return Trips</a>
-          <a href="/pages/book.html?tab=parcel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Send a Parcel</a>
-          <a href="/pages/book.html?tab=hire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Private Charter</a>
-          <a href="/pages/book.html?tab=group"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Group Bookings</a>
-          <a href="/pages/account.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Track My Booking</a>
-          <a href="/pages/routes.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>All Routes & Timetables</a>
+          <a href="/parcels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Book a Seat</a>
+          <a href="/parcels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Return Trips</a>
+          <a href="/parcels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Send a Parcel</a>
+          <a href="/parcels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Private Charter</a>
+          <a href="/group"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Group Bookings</a>
+          <a href="/account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Track My Booking</a>
+          <a href="/routes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>All Routes & Timetables</a>
         </div>
       </div>
       <!-- Operators -->
       <div class="footer-col">
         <h4>Operators</h4>
         <div class="footer-links">
-          <a href="/pages/partner.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Apply to Join</a>
-          <a href="/pages/operator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator Login</a>
-          <a href="/pages/partner.html#plans"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Subscription Plans</a>
-          <a href="/pages/partner.html#calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Revenue Calculator</a>
-          <a href="/pages/partner.html#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator FAQ</a>
-          <a href="/pages/admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Admin Console</a>
+          <a href="/partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Apply to Join</a>
+          <a href="/operator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator Login</a>
+          <a href="/partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Subscription Plans</a>
+          <a href="/partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Revenue Calculator</a>
+          <a href="/partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Operator FAQ</a>
+          <a href="/admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Admin Console</a>
         </div>
       </div>
       <!-- Company -->
       <div class="footer-col">
         <h4>Company</h4>
         <div class="footer-links">
-          <a href="/pages/about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>About Raylane Express</a>
-          <a href="/pages/safety.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Safety Standards</a>
-          <a href="/pages/careers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Careers</a>
-          <a href="/pages/press.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Press & Media</a>
-          <a href="/pages/contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Contact Us</a>
+          <a href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>About Raylane Express</a>
+          <a href="/safety"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Safety Standards</a>
+          <a href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Careers</a>
+          <a href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Press & Media</a>
+          <a href="/contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Contact Us</a>
           <a href="https://wa.me/256700000000" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>WhatsApp Support</a>
         </div>
       </div>
@@ -1953,12 +1949,12 @@ section{scroll-margin-top:72px;}
       <div class="footer-col">
         <h4>Legal</h4>
         <div class="footer-links">
-          <a href="/pages/terms.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Terms & Conditions</a>
-          <a href="/pages/privacy.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Privacy Policy</a>
-          <a href="/pages/refund.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Refund Policy</a>
-          <a href="/pages/cookies.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Cookie Policy</a>
-          <a href="/pages/parcel-terms.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Parcel Conditions</a>
-          <a href="/pages/accessibility.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Accessibility</a>
+          <a href="/terms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Terms & Conditions</a>
+          <a href="/privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Privacy Policy</a>
+          <a href="/refund"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Refund Policy</a>
+          <a href="/privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Cookie Policy</a>
+          <a href="/terms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Parcel Conditions</a>
+          <a href="/terms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>Accessibility</a>
         </div>
       </div>
     </div>
@@ -2119,7 +2115,7 @@ function doSearch(){
   if(!f||!t){showToast('Select cities','Please choose departure and destination cities.','err');return;}
   if(f===t){showToast('Same city','Departure and destination must be different.','err');return;}
   showToast('Searching…',`${f} → ${t}`,'ok');
-  setTimeout(()=>location.href=`/pages/book.html?from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`,700);
+  setTimeout(()=>location.href=`/parcels?from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`,700);
 }
 function swapCities(){const f=document.getElementById('fromCity'),t=document.getElementById('toCity'),tmp=f.value;f.value=t.value;t.value=tmp;}
 function quickSearch(a,b){
@@ -2133,14 +2129,14 @@ function switchTab(type,el){
   el.classList.add('on');
 }
 function updateSearch(){}
-function bookDep(f,t,time){showToast('Opening…',`${f}→${t} at ${time}`,'ok');setTimeout(()=>location.href=`/pages/book.html?from=${f}&to=${t}`,500);}
+function bookDep(f,t,time){showToast('Opening…',`${f}→${t} at ${time}`,'ok');setTimeout(()=>location.href=`/parcels?from=${f}&to=${t}`,500);}
 
 // ── Boarding preference ──
 function setBoardingOpt(input){
   document.querySelectorAll('.boarding-opt').forEach(o=>o.classList.remove('on'));
   input.closest('.boarding-opt').classList.add('on');
   const loc=document.getElementById('boardingLocField');
-  loc.classList.toggle('show',input.value==='enroute'||input.value==='dropoff');
+  loc.classList.toggle('show', input.value==='enroute');
 }
 function useMyLocation(){
   if(!navigator.geolocation){showToast('Not supported','Geolocation not available on this browser.','err');return;}
