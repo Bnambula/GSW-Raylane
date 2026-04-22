@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Search Trips — Raylane Express</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0B2FA0;--bd:#071E6B;--bk:#040E35;--bm:#1a45c0;
+  --gold:#E8A800;--gb:#FFC72C;--gd:#C48C00;
+  --off:#F8FAFD;--s2:#EEF2FA;--border:#DDE3F0;--w:#fff;
+  --text:#0A0F1E;--mid:#4B5563;--light:#9CA3AF;
+  --ok:#059669;--warn:#D97706;--bad:#DC2626;
+  --fd:'Barlow Condensed',sans-serif;
+  --fb:'Barlow',sans-serif;
+  --fu:'Inter',sans-serif;
+  --r:8px;--rl:16px;--rx:24px;--rf:9999px;
+  --sh:0 2px 8px rgba(11,47,160,.08);
+  --shm:0 8px 32px rgba(11,47,160,.14);
+  --shx:0 16px 56px rgba(4,14,53,.2);
+  --t:200ms cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--text);min-height:100vh;}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+input,select,textarea{font-family:inherit;outline:none}
+
+/* ── NAV ── */
+.nav{
+  background:var(--bk);border-bottom:3px solid var(--gold);
+  padding:0 20px;height:60px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:200;
+}
+.nav-brand{display:flex;align-items:center;gap:9px;}
+.nav-mark{width:32px;height:32px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:900;font-size:14px;color:var(--bk);}
+.nav-name{font-family:var(--fd);font-weight:900;font-style:italic;font-size:18px;color:#fff;}
+.nav-name span{color:var(--gold);}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fd);font-weight:700;font-style:italic;text-transform:uppercase;padding:9px 20px;border-radius:var(--rf);transition:all var(--t);white-space:nowrap;font-size:14px;cursor:pointer;border:none;}
+.btn-gold{background:var(--gold);color:var(--bk);}.btn-gold:hover{background:var(--gb);transform:translateY(-1px);}
+.btn-blue{background:var(--blue);color:#fff;}.btn-blue:hover{background:var(--bm);transform:translateY(-1px);}
+.btn-out{border:1.5px solid var(--border);color:var(--mid);background:var(--w);}.btn-out:hover{border-color:var(--blue);color:var(--blue);}
+.btn-sm{padding:7px 15px;font-size:13px;}
+.btn-lg{padding:13px 30px;font-size:17px;}
+
+/* ── SEARCH BAR (sticky) ── */
+.search-bar{
+  background:var(--w);border-bottom:1px solid var(--border);
+  position:sticky;top:60px;z-index:100;
+  box-shadow:0 2px 12px rgba(11,47,160,.08);
+}
+.search-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;flex-wrap:wrap;gap:8px;
+  align-items:flex-end;padding:14px 20px;
+}
+.sf{display:flex;flex-direction:column;gap:4px;flex:1;min-width:130px;}
+.sf-label{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--light);}
+.sf-input{
+  background:var(--s2);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:9px 12px;font-size:14px;
+  font-family:var(--fb);color:var(--text);
+  transition:border-color 140ms;
+}
+.sf-input:focus{border-color:var(--blue);background:var(--w);}
+.swap-btn{
+  width:38px;height:38px;background:var(--s2);border:1.5px solid var(--border);
+  border-radius:var(--r);display:flex;align-items:center;justify-content:center;
+  color:var(--blue);margin-bottom:1px;transition:all 140ms;flex-shrink:0;
+}
+.swap-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+
+/* ── LAYOUT ── */
+.page-body{max-width:1200px;margin:0 auto;padding:20px;display:grid;grid-template-columns:260px 1fr;gap:20px;}
+@media(max-width:900px){.page-body{grid-template-columns:1fr;}}
+
+/* ── FILTERS SIDEBAR ── */
+.filters{background:var(--w);border:1px solid var(--border);border-radius:var(--rl);padding:18px;height:fit-content;position:sticky;top:130px;}
+@media(max-width:900px){.filters{position:static;}}
+.filter-title{font-family:var(--fd);font-size:16px;font-weight:900;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.filter-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--s2);}
+.filter-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.filter-label{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin-bottom:10px;display:block;}
+.filter-option{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px;color:var(--mid);}
+.filter-option input{accent-color:var(--blue);width:15px;height:15px;}
+.filter-option:hover{color:var(--text);}
+.price-range{display:flex;align-items:center;gap:8px;font-size:13px;}
+.price-range input[type=range]{flex:1;accent-color:var(--blue);}
+
+/* ── RESULTS HEADER ── */
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.results-title{font-family:var(--fd);font-size:22px;font-weight:900;text-transform:uppercase;}
+.results-count{font-size:13px;color:var(--mid);}
+.sort-select{font-family:var(--fu);font-size:13px;font-weight:600;background:var(--w);border:1.5px solid var(--border);border-radius:var(--r);padding:7px 12px;color:var(--text);cursor:pointer;}
+.sort-select:focus{border-color:var(--blue);outline:none;}
+
+/* ── LIVE DOT ── */
+.live{display:inline-flex;align-items:center;gap:6px;font-family:var(--fu);font-size:11px;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.06em;}
+.live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0;animation:lp 2s ease infinite;}
+@keyframes lp{0%,100%{box-shadow:0 0 0 0 rgba(5,150,105,.5);}60%{box-shadow:0 0 0 6px rgba(5,150,105,0);}}
+
+/* ── TRIP CARD ── */
+.trip-card{
+  background:var(--w);border:1.5px solid var(--border);
+  border-radius:var(--rl);padding:0;margin-bottom:14px;
+  transition:all var(--t);cursor:pointer;overflow:hidden;
+}
+.trip-card:hover{border-color:var(--blue);box-shadow:var(--shm);transform:translateY(-2px);}
+.trip-card.selected{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,47,160,.12);}
+.trip-card.raylane{border-color:var(--gold);border-left:4px solid var(--gold);}
+.trip-card-top{padding:18px 20px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;}
+.trip-operator{font-family:var(--fu);font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.trip-operator.rl-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--gold);color:var(--bk);
+  padding:2px 9px;border-radius:var(--rf);
+  font-size:10px;font-weight:800;
+}
+.trip-route{font-family:var(--fd);font-size:22px;font-weight:900;font-style:italic;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.trip-arrow{color:var(--gold);}
+.trip-times{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.trip-depart{font-family:var(--fd);font-size:28px;font-weight:900;color:var(--blue);line-height:1;}
+.trip-arrive{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--mid);line-height:1;}
+.trip-duration{font-size:12px;color:var(--light);font-family:var(--fu);}
+.trip-separator{color:var(--border);font-size:18px;}
+.trip-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+.trip-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:var(--rf);font-family:var(--fu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.tb-ac{background:#DBEAFE;color:#1E40AF;}
+.tb-wifi{background:#D1FAE5;color:#065F46;}
+.tb-usb{background:#EDE9FE;color:#5B21B6;}
+.tb-green{background:#D1FAE5;color:#065F46;}
+.tb-amber{background:#FEF3C7;color:#92400E;}
+.tb-red{background:#FEE2E2;color:#991B1B;}
+
+.trip-right{margin-left:auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.trip-price{font-family:var(--fd);font-size:30px;font-weight:900;font-style:italic;color:var(--text);line-height:1;}
+.trip-price-sub{font-size:12px;color:var(--light);font-family:var(--fu);}
+.trip-seats{font-size:13px;font-weight:600;}
+.trip-seats-bar{width:120px;height:5px;background:var(--s2);border-radius:3px;overflow:hidden;margin-top:3px;}
+.trip-seats-fill{height:100%;border-radius:3px;transition:width .5s ease;}
+.fill-green{background:var(--ok);}
+.fill-amber{background:var(--warn);}
+.fill-red{background:var(--bad);}
+
+/* Expandable seat map */
+.trip-expand{
+  border-top:1px solid var(--s2);padding:18px 20px;
+  display:none;background:var(--off);
+}
+.trip-expand.open{display:block;}
+.expand-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:640px){.expand-grid{grid-template-columns:1fr;}}
+
+/* Seat map */
+.seat-map-wrap{background:var(--w);border:1px solid var(--border);border-radius:var(--rl);padding:16px;}
+.seat-map-title{font-family:var(--fd);font-size:14px;font-weight:800;text-transform:uppercase;margin-bottom:12px;color:var(--mid);}
+.coach-body{display:flex;flex-direction:column;gap:4px;max-width:240px;margin:0 auto;}
+.seat-row{display:flex;gap:4px;align-items:center;justify-content:center;}
+.seat{
+  width:28px;height:28px;border-radius:5px;border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-family:var(--fu);font-weight:700;
+  cursor:pointer;transition:all 140ms;
+  background:var(--w);color:var(--text);
+}
+.seat.booked{background:var(--s2);border-color:var(--s2);color:var(--light);cursor:not-allowed;}
+.seat.selected{background:var(--gold);border-color:var(--gd);color:var(--bk);transform:scale(1.1);}
+.seat.available:hover{background:rgba(11,47,160,.08);border-color:var(--blue);}
+.seat-gap{width:20px;}
+.driver{width:28px;height:28px;border-radius:5px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.seat-legend{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mid);font-family:var(--fu);}
+.legend-dot{width:12px;height:12px;border-radius:3px;}
+
+/* Booking summary */
+.booking-summary{background:var(--w);border:1px solid var(--border);border-radius:var(--rl);padding:18px;height:fit-content;}
+.sum-title{font-family:var(--fd);font-size:16px;font-weight:900;text-transform:uppercase;margin-bottom:14px;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--s2);font-size:13px;}
+.sum-row:last-child{border-bottom:none;font-weight:700;font-size:15px;padding-top:10px;}
+.sum-val{font-family:var(--fd);font-weight:800;font-style:italic;font-size:15px;}
+.pay-methods{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.pay-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border:1.5px solid var(--border);
+  border-radius:var(--rl);cursor:pointer;transition:all 140ms;
+}
+.pay-opt:hover{border-color:var(--blue);}
+.pay-opt.on{border-color:var(--blue);background:rgba(11,47,160,.04);}
+.pay-opt input{accent-color:var(--blue);width:16px;height:16px;}
+.pay-opt-name{font-weight:700;font-size:13px;}
+.pay-opt-sub{font-size:11px;color:var(--mid);}
+
+/* Boarding option */
+.board-opts{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.board-opt{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 14px;border:1.5px solid var(--border);
+  border-radius:var(--rf);cursor:pointer;transition:all 140ms;
+  font-size:12px;font-family:var(--fu);font-weight:700;background:var(--w);
+}
+.board-opt:hover{border-color:var(--blue);}
+.board-opt.on{border-color:var(--blue);background:var(--blue);color:#fff;}
+.board-opt input{display:none;}
+.enroute-field{display:none;margin-bottom:14px;}
+.enroute-field.show{display:block;}
+
+/* No results */
+.no-results{text-align:center;padding:48px 20px;background:var(--w);border:1px solid var(--border);border-radius:var(--rx);}
+.no-results-icon{font-size:52px;margin-bottom:12px;}
+.no-results-title{font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;margin-bottom:8px;}
+.no-results-sub{color:var(--mid);font-size:14px;margin-bottom:24px;line-height:1.7;}
+
+/* Steps indicator */
+.steps{display:flex;align-items:center;gap:0;margin-bottom:20px;}
+.step{display:flex;align-items:center;gap:6px;font-family:var(--fu);font-size:12px;font-weight:700;}
+.step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+.step.done .step-num{background:var(--ok);color:#fff;}
+.step.active .step-num{background:var(--blue);color:#fff;}
+.step.todo .step-num{background:var(--s2);color:var(--light);}
+.step.active .step-label{color:var(--blue);font-weight:700;}
+.step.todo .step-label{color:var(--light);}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 6px;}
+
+/* Passenger form */
+.pax-form{display:none;}
+.pax-form.show{display:block;}
+.fg{margin-bottom:13px;}
+.fl{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--light);display:block;margin-bottom:4px;}
+.fi{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;font-family:var(--fb);color:var(--text);transition:border-color 140ms;}
+.fi:focus{border-color:var(--blue);background:var(--w);}
+.fs{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:14px;cursor:pointer;color:var(--text);}
+
+/* Modal */
+.mo{position:fixed;inset:0;background:rgba(4,14,53,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);}
+.mo.on{display:flex;}
+.mo-box{background:#fff;border-radius:var(--rx);box-shadow:var(--shx);max-width:500px;width:100%;max-height:90vh;overflow-y:auto;}
+.mo-hd{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.mo-title{font-family:var(--fd);font-size:18px;font-weight:900;text-transform:uppercase;}
+.mo-x{width:30px;height:30px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--mid);}
+.mo-x:hover{background:var(--border);}
+.mo-body{padding:18px 22px;}
+.mo-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+
+/* QR Ticket */
+.ticket{background:var(--blue);border-radius:var(--rl);padding:24px;color:#fff;text-align:center;margin-bottom:16px;}
+.ticket-ref{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.ticket-route{font-family:var(--fd);font-size:26px;font-weight:900;text-transform:uppercase;}
+.ticket-details{color:rgba(255,255,255,.7);font-size:13px;margin-top:6px;}
+.qr-box{width:140px;height:140px;background:var(--w);border-radius:var(--rl);margin:16px auto;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.loyalty-note{background:rgba(232,168,0,.12);border:1px solid rgba(232,168,0,.25);border-radius:var(--rl);padding:12px;margin-top:12px;font-size:13px;color:rgba(255,255,255,.8);}
+
+/* Skeleton loader */
+.skeleton{background:linear-gradient(90deg,var(--s2) 25%,var(--border) 50%,var(--s2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r);}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+.skel-card{background:var(--w);border:1px solid var(--border);border-radius:var(--rl);padding:20px;margin-bottom:14px;}
+
+/* Toast */
+#toast{position:fixed;bottom:20px;right:20px;z-index:600;display:none;padding:12px 18px;border-radius:10px;font-family:var(--fu);font-weight:600;font-size:13px;color:#fff;box-shadow:var(--shx);max-width:320px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/index.html" class="nav-brand">
+    <div class="nav-mark">RL</div>
+    <div class="nav-name"><span>Raylane</span>Express</div>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="live" id="liveIndicator">Live Availability</div>
+    <a href="/pages/account.html" class="btn btn-out btn-sm" style="display:none;" id="myAccountBtn">My Account</a>
+    <a href="/index.html" style="color:rgba(255,255,255,.6);font-size:13px;padding:6px 10px;">← Home</a>
+  </div>
+</nav>
+
+<!-- STICKY SEARCH BAR -->
+<div class="search-bar">
+  <div class="search-inner">
+    <div class="sf">
+      <div class="sf-label">From</div>
+      <select class="sf-input" id="s-from">
+        <option value="">Departure city</option>
+        <option>Kampala</option><option>Entebbe</option><option>Jinja</option>
+        <option>Mbale</option><option>Tororo</option><option>Soroti</option>
+        <option>Lira</option><option>Gulu</option><option>Arua</option>
+        <option>Fort Portal</option><option>Kasese</option><option>Mbarara</option>
+        <option>Masaka</option><option>Kabale</option><option>Kisoro</option>
+        <option>Hoima</option><option>Masindi</option><option>Kotido</option>
+        <option>Moroto</option><option>Nairobi (Kenya)</option><option>Kigali (Rwanda)</option>
+      </select>
+    </div>
+    <button class="swap-btn" onclick="swapCities()" title="Swap">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+    </button>
+    <div class="sf">
+      <div class="sf-label">To</div>
+      <select class="sf-input" id="s-to">
+        <option value="">Destination</option>
+        <option>Kampala</option><option>Entebbe</option><option>Jinja</option>
+        <option>Mbale</option><option>Tororo</option><option>Soroti</option>
+        <option>Lira</option><option>Gulu</option><option>Arua</option>
+        <option>Fort Portal</option><option>Kasese</option><option>Mbarara</option>
+        <option>Masaka</option><option>Kabale</option><option>Kisoro</option>
+        <option>Hoima</option><option>Masindi</option><option>Kotido</option>
+        <option>Moroto</option><option>Nairobi (Kenya)</option><option>Kigali (Rwanda)</option>
+      </select>
+    </div>
+    <div class="sf" style="max-width:150px;">
+      <div class="sf-label">Date</div>
+      <input type="date" class="sf-input" id="s-date">
+    </div>
+    <div class="sf" style="max-width:130px;">
+      <div class="sf-label">Passengers</div>
+      <select class="sf-input" id="s-pax">
+        <option value="1">1 Passenger</option>
+        <option value="2">2 Passengers</option>
+        <option value="3">3 Passengers</option>
+        <option value="4">4 Passengers</option>
+        <option value="5">5 Passengers</option>
+        <option value="6">6+ (Group)</option>
+      </select>
+    </div>
+    <button class="btn btn-blue" onclick="runSearch()" style="flex-shrink:0;height:40px;padding:0 20px;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Search
+    </button>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- FILTERS -->
+  <aside class="filters" id="filterPanel">
+    <div class="filter-title">
+      Filters
+      <button class="btn btn-sm btn-out" style="font-size:11px;padding:4px 10px;" onclick="clearFilters()">Clear</button>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Operator</span>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Raylane Express" checked> Raylane Express</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Global Coaches" checked> Global Coaches</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="YY Coaches" checked> YY Coaches</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Link Bus" checked> Link Bus</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Fast Coaches" checked> Fast Coaches</label>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Departure Time</span>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="early" checked> Early (05:00–08:00)</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="morning" checked> Morning (08:00–12:00)</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="afternoon" checked> Afternoon (12:00–17:00)</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="evening" checked> Evening (17:00+)</label>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Amenities</span>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="ac"> Air Conditioning</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="wifi"> WiFi</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="usb"> USB Charging</label>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Vehicle Type</span>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="67" checked> 67-Seater Coach</label>
+      <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="14" checked> 14-Seater Minivan</label>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Max Price (UGX)</span>
+      <div class="price-range">
+        <span style="font-size:12px;color:var(--mid);">5K</span>
+        <input type="range" id="priceFilter" min="5000" max="200000" value="200000" step="5000" oninput="updatePriceLabel(this)">
+        <span id="priceLabel" style="font-size:12px;font-weight:700;color:var(--blue);">Any</span>
+      </div>
+    </div>
+    <!-- Seats available badge -->
+    <div style="background:rgba(11,47,160,.06);border-radius:var(--rl);padding:12px;margin-top:4px;text-align:center;">
+      <div style="font-family:var(--fu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--light);margin-bottom:4px;">Seats updating</div>
+      <div class="live" style="justify-content:center;">Live seat counts</div>
+    </div>
+  </aside>
+
+  <!-- RESULTS -->
+  <div>
+    <!-- Steps -->
+    <div class="steps" id="stepsBar">
+      <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Choose Trip</div></div>
+      <div class="step-line"></div>
+      <div class="step todo" id="step2"><div class="step-num">2</div><div class="step-label">Select Seat</div></div>
+      <div class="step-line"></div>
+      <div class="step todo" id="step3"><div class="step-num">3</div><div class="step-label">Your Details</div></div>
+      <div class="step-line"></div>
+      <div class="step todo" id="step4"><div class="step-num">4</div><div class="step-label">Pay</div></div>
+    </div>
+
+    <!-- Results header -->
+    <div class="results-header" id="resultsHeader" style="display:none;">
+      <div>
+        <div class="results-title" id="resultsTitle">Available Trips</div>
+        <div class="results-count" id="resultsCount"></div>
+      </div>
+      <select class="sort-select" id="sortSelect" onchange="sortTrips()">
+        <option value="time">Sort: Earliest first</option>
+        <option value="price">Sort: Cheapest first</option>
+        <option value="seats">Sort: Most seats</option>
+        <option value="duration">Sort: Shortest journey</option>
+      </select>
+    </div>
+
+    <!-- Skeleton loaders -->
+    <div id="skeletons" style="display:none;">
+      <div class="skel-card"><div class="skeleton" style="height:20px;width:40%;margin-bottom:10px;"></div><div class="skeleton" style="height:32px;width:70%;margin-bottom:10px;"></div><div class="skeleton" style="height:16px;width:55%;"></div></div>
+      <div class="skel-card"><div class="skeleton" style="height:20px;width:35%;margin-bottom:10px;"></div><div class="skeleton" style="height:32px;width:65%;margin-bottom:10px;"></div><div class="skeleton" style="height:16px;width:50%;"></div></div>
+      <div class="skel-card"><div class="skeleton" style="height:20px;width:45%;margin-bottom:10px;"></div><div class="skeleton" style="height:32px;width:60%;margin-bottom:10px;"></div><div class="skeleton" style="height:16px;width:45%;"></div></div>
+    </div>
+
+    <!-- Trip list -->
+    <div id="tripList"></div>
+
+    <!-- No results -->
+    <div class="no-results" id="noResults" style="display:none;">
+      <div class="no-results-icon">🚌</div>
+      <div class="no-results-title">No Trips Found</div>
+      <div class="no-results-sub" id="noResultsSub">We couldn't find any trips matching your search.<br>Try a different date or browse nearby routes.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-blue" onclick="showWaitlist()">Join Waitlist</button>
+        <a href="/index.html" class="btn btn-out">Change Search</a>
+      </div>
+    </div>
+
+    <!-- Initial state -->
+    <div id="initialState" style="text-align:center;padding:60px 20px;background:var(--w);border:1px solid var(--border);border-radius:var(--rx);">
+      <div style="font-size:56px;margin-bottom:14px;">🔍</div>
+      <div style="font-family:var(--fd);font-size:24px;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Search for Trips</div>
+      <div style="color:var(--mid);font-size:14px;margin-bottom:20px;">Select your departure city, destination and date above, then click Search.</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-blue btn-sm" onclick="quickSearch('Kampala','Mbarara')">Kampala → Mbarara</button>
+        <button class="btn btn-out btn-sm" onclick="quickSearch('Kampala','Gulu')">Kampala → Gulu</button>
+        <button class="btn btn-out btn-sm" onclick="quickSearch('Kampala','Mbale')">Kampala → Mbale</button>
+        <button class="btn btn-out btn-sm" onclick="quickSearch('Kampala','Fort Portal')">Kampala → Fort Portal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT / DETAILS MODAL -->
+<div class="mo" id="mo-book">
+  <div class="mo-box" style="max-width:560px;">
+    <div class="mo-hd">
+      <div class="mo-title" id="mo-book-title">Complete Booking</div>
+      <button class="mo-x" onclick="closeMo()">✕</button>
+    </div>
+    <div class="mo-body">
+      <!-- Step 2: Seat selection shown in card expand -->
+      <!-- Step 3: Passenger details -->
+      <div id="detailsStep">
+        <div style="background:var(--s2);border-radius:var(--rl);padding:12px;margin-bottom:16px;font-size:13px;" id="bookingSummaryTop"></div>
+        
+        <div style="font-family:var(--fd);font-size:14px;font-weight:800;text-transform:uppercase;margin-bottom:10px;">Your Details</div>
+        <div class="fg"><label class="fl">Full Name *</label><input class="fi" id="pax-name" placeholder="Name as on ID/passport"></div>
+        <div class="fg"><label class="fl">Phone Number *</label><input class="fi" id="pax-phone" type="tel" placeholder="0771 xxx xxx — ticket sent here"></div>
+        <div class="fg"><label class="fl">Email (optional)</label><input class="fi" id="pax-email" type="email" placeholder="For receipt and booking history"></div>
+
+        <!-- Boarding preference -->
+        <div style="font-family:var(--fd);font-size:14px;font-weight:800;text-transform:uppercase;margin-bottom:8px;margin-top:4px;">Boarding Preference</div>
+        <div class="board-opts">
+          <label class="board-opt on" onclick="setBoardPref(this,'terminal')">
+            <input type="radio" name="boarding" value="terminal" checked>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Board at Terminal
+          </label>
+          <label class="board-opt" onclick="setBoardPref(this,'enroute')">
+            <input type="radio" name="boarding" value="enroute">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Pick Up Enroute
+          </label>
+        </div>
+        <div class="enroute-field" id="enrouteField">
+          <label class="fl">Your roadside location / landmark</label>
+          <input class="fi" id="enrouteLocation" placeholder="e.g. Shell Lukaya, Masaka Road turnoff">
+          <div style="font-size:11px;color:var(--mid);margin-top:5px;">Driver contacts you 30 minutes before passing your point. Subject to operator confirmation.</div>
+        </div>
+
+        <!-- Payment method -->
+        <div style="font-family:var(--fd);font-size:14px;font-weight:800;text-transform:uppercase;margin:14px 0 8px;">Payment Method</div>
+        <div class="pay-methods">
+          <label class="pay-opt on" onclick="setPayMethod(this)">
+            <input type="radio" name="pay" value="momo" checked>
+            <div>
+              <div class="pay-opt-name">📱 MTN Mobile Money</div>
+              <div class="pay-opt-sub">USSD push — works on any phone, confirmed in ~8 seconds</div>
+            </div>
+          </label>
+          <label class="pay-opt" onclick="setPayMethod(this)">
+            <input type="radio" name="pay" value="airtel">
+            <div>
+              <div class="pay-opt-name">📱 Airtel Money</div>
+              <div class="pay-opt-sub">Strong coverage in northern Uganda</div>
+            </div>
+          </label>
+          <label class="pay-opt" onclick="setPayMethod(this)">
+            <input type="radio" name="pay" value="card">
+            <div>
+              <div class="pay-opt-name">💳 Visa / Mastercard</div>
+              <div class="pay-opt-sub">Secure payment via DPO Group — USD & UGX supported</div>
+            </div>
+          </label>
+        </div>
+        <div class="fg" id="momoPhoneField">
+          <label class="fl">MTN MoMo Number</label>
+          <input class="fi" id="momo-phone" type="tel" placeholder="0771 xxx xxx">
+        </div>
+      </div>
+    </div>
+    <div class="mo-ft">
+      <button class="btn btn-out btn-sm" onclick="closeMo()">Cancel</button>
+      <button class="btn btn-gold btn-lg" id="payBtn" onclick="processPayment()">
+        Pay <span id="payAmount">UGX 0</span> →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TICKET MODAL -->
+<div class="mo" id="mo-ticket">
+  <div class="mo-box">
+    <div class="mo-hd"><div class="mo-title">Your QR Ticket</div><button class="mo-x" onclick="document.getElementById('mo-ticket').classList.remove('on')">✕</button></div>
+    <div class="mo-body">
+      <div class="ticket">
+        <div class="ticket-ref">Raylane Express · Booking Confirmed</div>
+        <div class="ticket-route" id="tk-route">—</div>
+        <div class="ticket-details" id="tk-details">—</div>
+        <div class="qr-box">
+          <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+            <rect x="5" y="5" width="35" height="35" rx="3" fill="#0B2FA0"/><rect x="13" y="13" width="19" height="19" fill="#fff"/>
+            <rect x="60" y="5" width="35" height="35" rx="3" fill="#0B2FA0"/><rect x="68" y="13" width="19" height="19" fill="#fff"/>
+            <rect x="5" y="60" width="35" height="35" rx="3" fill="#0B2FA0"/><rect x="13" y="68" width="19" height="19" fill="#fff"/>
+            <rect x="45" y="5" width="8" height="8" fill="#0B2FA0"/><rect x="45" y="20" width="8" height="8" fill="#0B2FA0"/>
+            <rect x="20" y="45" width="8" height="8" fill="#0B2FA0"/><rect x="45" y="45" width="8" height="8" fill="#0B2FA0"/>
+            <rect x="60" y="60" width="8" height="8" fill="#0B2FA0"/><rect x="75" y="60" width="8" height="8" fill="#0B2FA0"/>
+            <rect x="60" y="75" width="8" height="8" fill="#0B2FA0"/><rect x="87" y="75" width="8" height="8" fill="#0B2FA0"/>
+            <rect x="87" y="87" width="8" height="8" fill="#0B2FA0"/>
+          </svg>
+          <div style="font-family:var(--fu);font-size:10px;color:var(--mid);" id="tk-ref">RLX-00000</div>
+        </div>
+        <div class="loyalty-note">🎯 Earn <span id="tk-pts">0</span> loyalty points on this trip · <a href="/pages/account.html" style="color:var(--gold);font-weight:700;">Create account to track</a></div>
+      </div>
+      <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;">This QR code is scanned at boarding. No printing needed — screenshot or share via WhatsApp.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-blue" style="flex:1;" onclick="window.print()">Download / Print</button>
+        <button class="btn btn-out" style="flex:1;" onclick="shareWhatsApp()">Share via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WAITLIST MODAL -->
+<div class="mo" id="mo-waitlist">
+  <div class="mo-box">
+    <div class="mo-hd"><div class="mo-title">Join Waitlist</div><button class="mo-x" onclick="document.getElementById('mo-waitlist').classList.remove('on')">✕</button></div>
+    <div class="mo-body">
+      <p style="font-size:14px;color:var(--mid);margin-bottom:16px;">We'll notify you by SMS when a seat becomes available on this route. Payment link is sent 24 hours before departure.</p>
+      <div class="fg"><label class="fl">Your Phone Number</label><input class="fi" id="wl-phone" type="tel" placeholder="0771 xxx xxx"></div>
+      <div class="fg"><label class="fl">Seat Preference</label>
+        <select class="fs"><option>Window seat</option><option>Aisle seat</option><option>Front of bus</option><option>Back of bus</option><option>No preference</option></select>
+      </div>
+    </div>
+    <div class="mo-ft">
+      <button class="btn btn-out btn-sm" onclick="document.getElementById('mo-waitlist').classList.remove('on')">Cancel</button>
+      <button class="btn btn-blue" onclick="submitWaitlist()">Join Waitlist</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── TRIP DATA ──
+// Complete trip database - all major Uganda routes
+const ALL_TRIPS = [
+  // Kampala → Mbarara
+  {id:'t001',from:'Kampala',to:'Mbarara',depart:'05:30',arrive:'09:00',duration:'3h 30m',price:22000,seats:67,booked:31,op:'Raylane Express',type:67,amenities:['ac','wifi','usb'],isRaylane:true},
+  {id:'t002',from:'Kampala',to:'Mbarara',depart:'06:00',arrive:'09:30',duration:'3h 30m',price:24000,seats:67,booked:58,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t003',from:'Kampala',to:'Mbarara',depart:'07:00',arrive:'10:30',duration:'3h 30m',price:20000,seats:67,booked:42,op:'Link Bus',type:67,amenities:['ac','usb'],isRaylane:false},
+  {id:'t004',from:'Kampala',to:'Mbarara',depart:'08:00',arrive:'11:30',duration:'3h 30m',price:25000,seats:67,booked:62,op:'YY Coaches',type:67,amenities:['ac','wifi'],isRaylane:false},
+  {id:'t005',from:'Kampala',to:'Mbarara',depart:'10:00',arrive:'13:30',duration:'3h 30m',price:22000,seats:14,booked:9,op:'Fast Coaches',type:14,amenities:['ac'],isRaylane:false},
+  {id:'t006',from:'Kampala',to:'Mbarara',depart:'14:00',arrive:'17:30',duration:'3h 30m',price:21000,seats:67,booked:18,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Gulu
+  {id:'t007',from:'Kampala',to:'Gulu',depart:'06:00',arrive:'11:00',duration:'5h 0m',price:28000,seats:67,booked:42,op:'Raylane Express',type:67,amenities:['ac','wifi'],isRaylane:true},
+  {id:'t008',from:'Kampala',to:'Gulu',depart:'07:30',arrive:'12:30',duration:'5h 0m',price:26000,seats:67,booked:55,op:'Link Bus',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t009',from:'Kampala',to:'Gulu',depart:'08:00',arrive:'13:00',duration:'5h 0m',price:30000,seats:67,booked:28,op:'Fast Coaches',type:67,amenities:['ac','usb'],isRaylane:false},
+  {id:'t010',from:'Kampala',to:'Gulu',depart:'20:00',arrive:'01:00',duration:'5h 0m',price:32000,seats:67,booked:15,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Mbale
+  {id:'t011',from:'Kampala',to:'Mbale',depart:'07:00',arrive:'10:00',duration:'3h 0m',price:22000,seats:67,booked:38,op:'Raylane Express',type:67,amenities:['ac','wifi','usb'],isRaylane:true},
+  {id:'t012',from:'Kampala',to:'Mbale',depart:'09:00',arrive:'12:00',duration:'3h 0m',price:20000,seats:67,booked:60,op:'YY Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t013',from:'Kampala',to:'Mbale',depart:'11:00',arrive:'14:00',duration:'3h 0m',price:18000,seats:14,booked:12,op:'Link Bus',type:14,amenities:['ac'],isRaylane:false},
+  // Kampala → Fort Portal
+  {id:'t014',from:'Kampala',to:'Fort Portal',depart:'07:00',arrive:'12:00',duration:'5h 0m',price:30000,seats:67,booked:30,op:'Raylane Express',type:67,amenities:['ac','wifi','usb'],isRaylane:true},
+  {id:'t015',from:'Kampala',to:'Fort Portal',depart:'10:00',arrive:'15:00',duration:'5h 0m',price:28000,seats:67,booked:22,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Kabale
+  {id:'t016',from:'Kampala',to:'Kabale',depart:'07:00',arrive:'13:00',duration:'6h 0m',price:28000,seats:67,booked:65,op:'YY Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t017',from:'Kampala',to:'Kabale',depart:'09:00',arrive:'15:00',duration:'6h 0m',price:26000,seats:67,booked:40,op:'Fast Coaches',type:67,amenities:['ac','usb'],isRaylane:false},
+  // Kampala → Arua
+  {id:'t018',from:'Kampala',to:'Arua',depart:'06:00',arrive:'14:00',duration:'8h 0m',price:35000,seats:67,booked:22,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t019',from:'Kampala',to:'Arua',depart:'08:00',arrive:'16:00',duration:'8h 0m',price:38000,seats:67,booked:15,op:'Raylane Express',type:67,amenities:['ac','wifi'],isRaylane:true},
+  // Kampala → Nairobi
+  {id:'t020',from:'Kampala',to:'Nairobi (Kenya)',depart:'08:00',arrive:'20:00',duration:'12h 0m',price:85000,seats:67,booked:38,op:'Raylane Express',type:67,amenities:['ac','wifi','usb'],isRaylane:true},
+  {id:'t021',from:'Kampala',to:'Nairobi (Kenya)',depart:'06:00',arrive:'18:00',duration:'12h 0m',price:80000,seats:67,booked:50,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Jinja
+  {id:'t022',from:'Kampala',to:'Jinja',depart:'07:00',arrive:'08:30',duration:'1h 30m',price:10000,seats:14,booked:10,op:'Link Bus',type:14,amenities:['ac'],isRaylane:false},
+  {id:'t023',from:'Kampala',to:'Jinja',depart:'09:00',arrive:'10:30',duration:'1h 30m',price:12000,seats:14,booked:7,op:'Fast Coaches',type:14,amenities:['ac'],isRaylane:false},
+  {id:'t024',from:'Kampala',to:'Jinja',depart:'11:00',arrive:'12:30',duration:'1h 30m',price:10000,seats:14,booked:12,op:'YY Coaches',type:14,amenities:['ac'],isRaylane:false},
+  {id:'t025',from:'Kampala',to:'Jinja',depart:'14:00',arrive:'15:30',duration:'1h 30m',price:10000,seats:67,booked:8,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Lira
+  {id:'t026',from:'Kampala',to:'Lira',depart:'07:00',arrive:'12:00',duration:'5h 0m',price:25000,seats:67,booked:35,op:'Fast Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t027',from:'Kampala',to:'Lira',depart:'09:00',arrive:'14:00',duration:'5h 0m',price:28000,seats:67,booked:20,op:'Raylane Express',type:67,amenities:['ac','wifi'],isRaylane:true},
+  // Kampala → Soroti
+  {id:'t028',from:'Kampala',to:'Soroti',depart:'07:00',arrive:'11:30',duration:'4h 30m',price:22000,seats:67,booked:28,op:'Link Bus',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Hoima
+  {id:'t029',from:'Kampala',to:'Hoima',depart:'08:00',arrive:'11:30',duration:'3h 30m',price:22000,seats:67,booked:32,op:'YY Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Masaka
+  {id:'t030',from:'Kampala',to:'Masaka',depart:'07:00',arrive:'09:30',duration:'2h 30m',price:14000,seats:67,booked:44,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t031',from:'Kampala',to:'Masaka',depart:'13:00',arrive:'15:30',duration:'2h 30m',price:12000,seats:14,booked:9,op:'Fast Coaches',type:14,amenities:['ac'],isRaylane:false},
+  // Kampala → Kisoro
+  {id:'t032',from:'Kampala',to:'Kisoro',depart:'07:00',arrive:'14:00',duration:'7h 0m',price:35000,seats:67,booked:20,op:'Fast Coaches',type:67,amenities:['ac'],isRaylane:false},
+  // Kampala → Kigali
+  {id:'t033',from:'Kampala',to:'Kigali (Rwanda)',depart:'07:00',arrive:'17:00',duration:'10h 0m',price:75000,seats:67,booked:30,op:'Raylane Express',type:67,amenities:['ac','wifi'],isRaylane:true},
+  // Return routes
+  {id:'t034',from:'Mbarara',to:'Kampala',depart:'05:30',arrive:'09:00',duration:'3h 30m',price:22000,seats:67,booked:25,op:'Raylane Express',type:67,amenities:['ac','wifi'],isRaylane:true},
+  {id:'t035',from:'Mbarara',to:'Kampala',depart:'07:00',arrive:'10:30',duration:'3h 30m',price:20000,seats:67,booked:40,op:'Link Bus',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t036',from:'Gulu',to:'Kampala',depart:'06:00',arrive:'11:00',duration:'5h 0m',price:28000,seats:67,booked:38,op:'Link Bus',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t037',from:'Mbale',to:'Kampala',depart:'06:30',arrive:'09:30',duration:'3h 0m',price:20000,seats:67,booked:30,op:'YY Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t038',from:'Jinja',to:'Kampala',depart:'07:00',arrive:'08:30',duration:'1h 30m',price:10000,seats:14,booked:8,op:'Fast Coaches',type:14,amenities:['ac'],isRaylane:false},
+  {id:'t039',from:'Fort Portal',to:'Kampala',depart:'07:00',arrive:'12:00',duration:'5h 0m',price:30000,seats:67,booked:18,op:'Global Coaches',type:67,amenities:['ac'],isRaylane:false},
+  {id:'t040',from:'Entebbe',to:'Kampala',depart:'06:00',arrive:'07:00',duration:'1h 0m',price:8000,seats:14,booked:10,op:'Link Bus',type:14,amenities:['ac'],isRaylane:false},
+];
+
+let currentTrips = [];
+let selectedTrip = null;
+let selectedSeats = [];
+let currentStep = 1;
+let currentFrom = '';
+let currentTo = '';
+let currentDate = '';
+
+// ── URL PARAMS ──
+function getParams() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    from: p.get('from') || '',
+    to: p.get('to') || '',
+    date: p.get('date') || '',
+    pax: p.get('pax') || '1'
+  };
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('s-date').min = today;
+
+  const params = getParams();
+  if (params.from) {
+    setSelect('s-from', params.from);
+    setSelect('s-to', params.to);
+    document.getElementById('s-date').value = params.date || today;
+    setSelect('s-pax', params.pax);
+    currentFrom = params.from;
+    currentTo = params.to;
+    currentDate = params.date || today;
+    if (params.from && params.to) {
+      runSearch();
+    }
+  } else {
+    document.getElementById('s-date').value = today;
+  }
+});
+
+function setSelect(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  for (let opt of el.options) {
+    if (opt.value === val || opt.text === val) { el.value = opt.value; return; }
+  }
+}
+
+// ── SEARCH ──
+function runSearch() {
+  const from = document.getElementById('s-from').value;
+  const to   = document.getElementById('s-to').value;
+  const date = document.getElementById('s-date').value;
+  const pax  = document.getElementById('s-pax').value;
+
+  if (!from || !to) { showToast('Please select departure and destination cities', '#D97706'); return; }
+  if (from === to)  { showToast('Departure and destination must be different', '#DC2626'); return; }
+
+  currentFrom = from; currentTo = to; currentDate = date;
+
+  // Update URL without page reload
+  const url = new URL(window.location);
+  url.searchParams.set('from', from);
+  url.searchParams.set('to', to);
+  url.searchParams.set('date', date);
+  url.searchParams.set('pax', pax);
+  window.history.pushState({}, '', url);
+
+  // Show skeletons
+  document.getElementById('initialState').style.display = 'none';
+  document.getElementById('tripList').innerHTML = '';
+  document.getElementById('noResults').style.display = 'none';
+  document.getElementById('skeletons').style.display = 'block';
+  document.getElementById('resultsHeader').style.display = 'none';
+
+  // Simulate network delay for realism
+  setTimeout(() => {
+    document.getElementById('skeletons').style.display = 'none';
+
+    const trips = ALL_TRIPS.filter(t =>
+      t.from.toLowerCase() === from.toLowerCase() &&
+      t.to.toLowerCase() === to.toLowerCase()
+    );
+
+    // Sort: Raylane first, then by time
+    trips.sort((a, b) => {
+      if (a.isRaylane && !b.isRaylane) return -1;
+      if (!a.isRaylane && b.isRaylane) return 1;
+      return a.depart.localeCompare(b.depart);
+    });
+
+    currentTrips = trips;
+    renderTrips(trips, from, to, date);
+  }, 900);
+}
+
+function renderTrips(trips, from, to, date) {
+  const list = document.getElementById('tripList');
+  const header = document.getElementById('resultsHeader');
+  const noResults = document.getElementById('noResults');
+
+  const dateLabel = date ? new Date(date + 'T12:00').toLocaleDateString('en-UG', { weekday:'short', day:'numeric', month:'short' }) : 'Today';
+
+  if (trips.length === 0) {
+    noResults.style.display = 'block';
+    header.style.display = 'none';
+    document.getElementById('noResultsSub').innerHTML = `No trips found on <strong>${from} → ${to}</strong> for ${dateLabel}.<br>Try a nearby date or join the waitlist.`;
+    return;
+  }
+
+  header.style.display = 'flex';
+  document.getElementById('resultsTitle').textContent = `${from} → ${to}`;
+  document.getElementById('resultsCount').textContent = `${trips.length} trips available · ${dateLabel}`;
+
+  list.innerHTML = trips.map(t => buildTripCard(t, date)).join('');
+}
+
+function buildTripCard(t, date) {
+  const pct = Math.round((t.booked / t.seats) * 100);
+  const avail = t.seats - t.booked;
+  let urgencyClass, urgencyText, fillClass;
+  if (pct > 85)      { urgencyClass='tb-red';   urgencyText='Almost Full'; fillClass='fill-red'; }
+  else if (pct > 60) { urgencyClass='tb-amber';  urgencyText='Filling Fast'; fillClass='fill-amber'; }
+  else               { urgencyClass='tb-green';  urgencyText='Available'; fillClass='fill-green'; }
+
+  const amenities = [
+    t.amenities.includes('ac')   ? '<span class="trip-badge tb-ac">❄ AC</span>' : '',
+    t.amenities.includes('wifi') ? '<span class="trip-badge tb-wifi">📶 WiFi</span>' : '',
+    t.amenities.includes('usb')  ? '<span class="trip-badge tb-usb">⚡ USB</span>' : '',
+  ].filter(Boolean).join('');
+
+  const pts = Math.round(t.price / 100);
+  const opLabel = t.isRaylane
+    ? `<span class="trip-operator rl-badge">⭐ Raylane Express</span>`
+    : `<div class="trip-operator">${t.op}</div>`;
+
+  return `
+  <div class="trip-card${t.isRaylane ? ' raylane' : ''}" id="card-${t.id}">
+    <div class="trip-card-top" onclick="toggleExpand('${t.id}')">
+      <div style="flex:1;">
+        ${opLabel}
+        <div class="trip-route">${t.from} <span class="trip-arrow">→</span> ${t.to}</div>
+        <div class="trip-times">
+          <div class="trip-depart">${t.depart}</div>
+          <div class="trip-separator">·</div>
+          <div class="trip-duration" style="font-size:13px;color:var(--mid);">${t.duration}</div>
+          <div class="trip-separator">·</div>
+          <div class="trip-arrive">${t.arrive}</div>
+        </div>
+        <div class="trip-meta">
+          <span class="trip-badge ${urgencyClass}">${urgencyText}</span>
+          <span style="font-size:12px;color:var(--mid);">${t.type}-seater</span>
+          ${amenities}
+          <span style="font-size:11px;color:var(--mid);font-family:var(--fu);">+${pts} pts</span>
+        </div>
+      </div>
+      <div class="trip-right">
+        <div>
+          <div class="trip-price">UGX ${t.price.toLocaleString()}</div>
+          <div class="trip-price-sub">per seat</div>
+        </div>
+        <div>
+          <div class="trip-seats" style="color:${pct>85?'var(--bad)':pct>60?'var(--warn)':'var(--ok);'}">${avail} seats left</div>
+          <div class="trip-seats-bar"><div class="trip-seats-fill ${fillClass}" style="width:${pct}%"></div></div>
+        </div>
+        <button class="btn btn-gold btn-sm" onclick="event.stopPropagation();selectTrip('${t.id}')">
+          Select →
+        </button>
+      </div>
+    </div>
+    <!-- Expandable seat map + quick book -->
+    <div class="trip-expand" id="expand-${t.id}">
+      <div class="expand-grid">
+        <div>
+          <div class="seat-map-wrap">
+            <div class="seat-map-title">${t.type}-Seater Seat Map — click to select</div>
+            <div class="coach-body" id="seatmap-${t.id}"></div>
+            <div class="seat-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--w);border:1.5px solid var(--border);"></div>Available</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div>Selected</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--s2);"></div>Taken</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="booking-summary">
+            <div class="sum-title">Trip Summary</div>
+            <div class="sum-row"><span>Route</span><span class="sum-val" style="font-size:13px;">${t.from} → ${t.to}</span></div>
+            <div class="sum-row"><span>Departure</span><span class="sum-val">${t.depart}</span></div>
+            <div class="sum-row"><span>Operator</span><span class="sum-val" style="font-size:12px;">${t.op}</span></div>
+            <div class="sum-row"><span>Seat(s)</span><span class="sum-val" id="selected-seats-${t.id}">None selected</span></div>
+            <div class="sum-row"><span>Total</span><span class="sum-val" id="selected-total-${t.id}" style="color:var(--blue);">UGX 0</span></div>
+            <button class="btn btn-gold" style="width:100%;margin-top:12px;font-size:16px;" onclick="selectTrip('${t.id}')">
+              Book This Trip →
+            </button>
+            <div style="font-size:11px;color:var(--light);text-align:center;margin-top:8px;">Seat locked for 10 minutes after booking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── TOGGLE EXPAND + BUILD SEAT MAP ──
+function toggleExpand(id) {
+  const expand = document.getElementById('expand-' + id);
+  const card   = document.getElementById('card-' + id);
+  const isOpen = expand.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.trip-expand.open').forEach(e => e.classList.remove('open'));
+  document.querySelectorAll('.trip-card.selected').forEach(c => c.classList.remove('selected'));
+  if (!isOpen) {
+    expand.classList.add('open');
+    card.classList.add('selected');
+    buildSeatMap(id);
+    expand.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function buildSeatMap(tripId) {
+  const trip = ALL_TRIPS.find(t => t.id === tripId);
+  if (!trip) return;
+  const el = document.getElementById('seatmap-' + tripId);
+  if (!el || el.dataset.built === '1') return;
+  el.dataset.built = '1';
+
+  // Randomly mark some seats as booked based on trip.booked count
+  const totalSeats = trip.type;
+  const bookedSet = new Set();
+  while (bookedSet.size < Math.min(trip.booked, totalSeats - 5)) {
+    bookedSet.add(Math.floor(Math.random() * totalSeats) + 1);
+  }
+
+  let html = '';
+  if (trip.type === 67) {
+    // 67-seater: driver row + 12 rows of 5 (2+aisle+3) + back row of 6
+    html += `<div class="seat-row"><div class="driver">🧑</div></div>`;
+    let sn = 1;
+    for (let r = 0; r < 12; r++) {
+      html += `<div class="seat-row">`;
+      for (let c = 0; c < 5; c++) {
+        if (c === 2) html += `<div class="seat-gap"></div>`;
+        const isBooked = bookedSet.has(sn);
+        html += `<div class="seat ${isBooked ? 'booked' : 'available'}" id="seat-${tripId}-${sn}" onclick="${isBooked ? '' : `toggleSeat('${tripId}',${sn},${trip.price})`}">${sn}</div>`;
+        sn++;
+      }
+      html += `</div>`;
+    }
+    // back row of 6
+    html += `<div class="seat-row">`;
+    for (let c = 0; c < 6; c++) {
+      const isBooked = bookedSet.has(sn);
+      html += `<div class="seat ${isBooked ? 'booked' : 'available'}" id="seat-${tripId}-${sn}" onclick="${isBooked ? '' : `toggleSeat('${tripId}',${sn},${trip.price})`}">${sn}</div>`;
+      sn++;
+    }
+    html += `</div>`;
+  } else {
+    // 14-seater: driver + 2 front + 4 rows of 3
+    html += `<div class="seat-row"><div class="driver">🧑</div><div class="seat-gap"></div>`;
+    for (let c = 0; c < 2; c++) {
+      const isBooked = bookedSet.has(c+1);
+      html += `<div class="seat ${isBooked ? 'booked' : 'available'}" id="seat-${tripId}-${c+1}" onclick="${isBooked ? '' : `toggleSeat('${tripId}',${c+1},${trip.price})`}">${c+1}</div>`;
+    }
+    html += `</div>`;
+    let sn = 3;
+    for (let r = 0; r < 4; r++) {
+      html += `<div class="seat-row">`;
+      for (let c = 0; c < 3; c++) {
+        const isBooked = bookedSet.has(sn);
+        html += `<div class="seat ${isBooked ? 'booked' : 'available'}" id="seat-${tripId}-${sn}" onclick="${isBooked ? '' : `toggleSeat('${tripId}',${sn},${trip.price})`}">${sn}</div>`;
+        sn++;
+      }
+      html += `</div>`;
+    }
+  }
+  el.innerHTML = html;
+}
+
+// Track selected seats per trip
+const tripSeats = {};
+
+function toggleSeat(tripId, seatNum, price) {
+  if (!tripSeats[tripId]) tripSeats[tripId] = new Set();
+  const seats = tripSeats[tripId];
+  const el = document.getElementById(`seat-${tripId}-${seatNum}`);
+  if (!el) return;
+
+  if (seats.has(seatNum)) {
+    seats.delete(seatNum);
+    el.classList.remove('selected');
+    el.classList.add('available');
+  } else {
+    if (seats.size >= 6) { showToast('Maximum 6 seats per booking', '#D97706'); return; }
+    seats.add(seatNum);
+    el.classList.add('selected');
+    el.classList.remove('available');
+  }
+
+  // Update summary
+  const count = seats.size;
+  const total = count * price;
+  const seatsEl = document.getElementById(`selected-seats-${tripId}`);
+  const totalEl = document.getElementById(`selected-total-${tripId}`);
+  if (seatsEl) seatsEl.textContent = count ? 'Seat ' + [...seats].sort((a,b)=>a-b).join(', ') : 'None selected';
+  if (totalEl) totalEl.textContent = count ? 'UGX ' + total.toLocaleString() : 'UGX 0';
+}
+
+// ── SELECT TRIP → OPEN BOOKING MODAL ──
+function selectTrip(tripId) {
+  const trip = ALL_TRIPS.find(t => t.id === tripId);
+  if (!trip) return;
+  selectedTrip = trip;
+  selectedSeats = tripSeats[tripId] ? [...tripSeats[tripId]] : [];
+
+  const count = selectedSeats.length || 1;
+  const total = count * trip.price;
+
+  document.getElementById('mo-book-title').textContent = `Book · ${trip.from} → ${trip.to}`;
+  document.getElementById('payAmount').textContent = 'UGX ' + total.toLocaleString();
+  document.getElementById('bookingSummaryTop').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;">
+      <div><div style="color:var(--light);font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-family:var(--fu);">Route</div><strong>${trip.from} → ${trip.to}</strong></div>
+      <div><div style="color:var(--light);font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-family:var(--fu);">Departure</div><strong>${trip.depart} · ${currentDate ? new Date(currentDate+'T12:00').toLocaleDateString('en-UG',{day:'numeric',month:'short'}) : 'Today'}</strong></div>
+      <div><div style="color:var(--light);font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-family:var(--fu);">Seats</div><strong>${selectedSeats.length ? 'Seat '+selectedSeats.join(', ') : count+' seat(s)'}</strong></div>
+      <div><div style="color:var(--light);font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-family:var(--fu);">Total</div><strong style="color:var(--blue);font-family:var(--fd);font-size:16px;">UGX ${total.toLocaleString()}</strong></div>
+    </div>`;
+
+  // Pre-fill phone with query param if available
+  document.getElementById('momo-phone').value = '';
+  document.getElementById('mo-book').classList.add('on');
+}
+
+// ── BOARDING PREF ──
+function setBoardPref(el, val) {
+  document.querySelectorAll('.board-opt').forEach(o => o.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('enrouteField').classList.toggle('show', val === 'enroute');
+}
+
+// ── PAYMENT METHOD ──
+function setPayMethod(el) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('on'));
+  el.classList.add('on');
+  const val = el.querySelector('input').value;
+  document.getElementById('momoPhoneField').style.display = (val === 'momo' || val === 'airtel') ? 'block' : 'none';
+  const label = { momo: 'MTN MoMo', airtel: 'Airtel Money', card: 'Card' }[val];
+}
+
+// ── PROCESS PAYMENT ──
+function processPayment() {
+  const name  = document.getElementById('pax-name').value.trim();
+  const phone = document.getElementById('pax-phone').value.trim();
+  const momoPhone = document.getElementById('momo-phone').value.trim();
+  const payMethod = document.querySelector('.pay-opt.on input')?.value;
+
+  if (!name)  { showToast('Please enter your full name', '#D97706'); return; }
+  if (!phone) { showToast('Please enter your phone number for the SMS ticket', '#D97706'); return; }
+  if ((payMethod === 'momo' || payMethod === 'airtel') && !momoPhone) {
+    showToast('Please enter your MoMo phone number', '#D97706'); return;
+  }
+
+  // Show processing state
+  const btn = document.getElementById('payBtn');
+  btn.textContent = '⏳ Processing…';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    document.getElementById('mo-book').classList.remove('on');
+    btn.disabled = false;
+
+    // Show ticket
+    const ref = 'RLX-' + Math.floor(10000 + Math.random() * 90000);
+    const trip = selectedTrip;
+    const count = selectedSeats.length || 1;
+    const pts   = Math.round((trip.price * count) / 100);
+    const dateLabel = currentDate ? new Date(currentDate + 'T12:00').toLocaleDateString('en-UG', {weekday:'long', day:'numeric', month:'long'}) : 'Today';
+
+    document.getElementById('tk-route').textContent = `${trip.from} → ${trip.to}`;
+    document.getElementById('tk-details').textContent = `${dateLabel} · ${trip.depart} · ${selectedSeats.length ? 'Seat '+selectedSeats.join(', ') : count+' seat(s)'} · ${trip.op}`;
+    document.getElementById('tk-ref').textContent = ref;
+    document.getElementById('tk-pts').textContent = pts;
+    document.getElementById('mo-ticket').classList.add('on');
+
+    // Update step indicator
+    updateStep(4);
+    btn.innerHTML = 'Pay <span id="payAmount">UGX 0</span> →';
+  }, 2200);
+}
+
+// ── CLOSE MODAL ──
+function closeMo() { document.getElementById('mo-book').classList.remove('on'); }
+document.querySelectorAll('.mo').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); }));
+
+// ── STEP INDICATOR ──
+function updateStep(n) {
+  [1,2,3,4].forEach(i => {
+    const el = document.getElementById('step'+i);
+    if (!el) return;
+    el.className = 'step ' + (i < n ? 'done' : i === n ? 'active' : 'todo');
+  });
+}
+
+// ── SORT ──
+function sortTrips() {
+  const val = document.getElementById('sortSelect').value;
+  let sorted = [...currentTrips];
+  if (val === 'price')    sorted.sort((a,b) => a.price - b.price);
+  else if (val === 'seats') sorted.sort((a,b) => (b.seats-b.booked) - (a.seats-a.booked));
+  else if (val === 'duration') sorted.sort((a,b) => a.duration.localeCompare(b.duration));
+  else { // time - Raylane first then by time
+    sorted.sort((a,b) => {
+      if (a.isRaylane && !b.isRaylane) return -1;
+      if (!a.isRaylane && b.isRaylane) return 1;
+      return a.depart.localeCompare(b.depart);
+    });
+  }
+  currentTrips = sorted;
+  renderTrips(sorted, currentFrom, currentTo, currentDate);
+}
+
+// ── FILTERS ──
+function applyFilters() {
+  const checkedOps = [...document.querySelectorAll('.filter-option input[value]:checked')]
+    .map(i => i.value).filter(v => !['early','morning','afternoon','evening','ac','wifi','usb','67','14'].includes(v));
+  const checkedTimes = [...document.querySelectorAll('.filter-option input[value]:checked')]
+    .map(i => i.value).filter(v => ['early','morning','afternoon','evening'].includes(v));
+  const checkedAmenities = [...document.querySelectorAll('.filter-option input[value]:checked')]
+    .map(i => i.value).filter(v => ['ac','wifi','usb'].includes(v));
+  const checkedTypes = [...document.querySelectorAll('.filter-option input[value]:checked')]
+    .map(i => i.value).filter(v => ['67','14'].includes(v)).map(Number);
+  const maxPrice = parseInt(document.getElementById('priceFilter').value);
+
+  const filtered = currentTrips.filter(t => {
+    if (checkedOps.length && !checkedOps.includes(t.op) && !(checkedOps.includes('Raylane Express') && t.isRaylane)) return false;
+    if (checkedTypes.length && !checkedTypes.includes(t.type)) return false;
+    if (t.price > maxPrice) return false;
+    if (checkedAmenities.length && !checkedAmenities.every(a => t.amenities.includes(a))) return false;
+    const h = parseInt(t.depart.split(':')[0]);
+    if (checkedTimes.length) {
+      const inTime = checkedTimes.some(tm => {
+        if (tm==='early'    && h >= 5  && h < 8)  return true;
+        if (tm==='morning'  && h >= 8  && h < 12) return true;
+        if (tm==='afternoon'&& h >= 12 && h < 17) return true;
+        if (tm==='evening'  && h >= 17)            return true;
+        return false;
+      });
+      if (!inTime) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('tripList').innerHTML = filtered.map(t => buildTripCard(t, currentDate)).join('');
+  document.getElementById('resultsCount').textContent = `${filtered.length} trips shown`;
+}
+
+function updatePriceLabel(el) {
+  const v = parseInt(el.value);
+  document.getElementById('priceLabel').textContent = v >= 200000 ? 'Any' : 'UGX '+v.toLocaleString();
+  applyFilters();
+}
+
+function clearFilters() {
+  document.querySelectorAll('.filter-option input').forEach(i => i.checked = true);
+  document.getElementById('priceFilter').value = 200000;
+  document.getElementById('priceLabel').textContent = 'Any';
+  renderTrips(currentTrips, currentFrom, currentTo, currentDate);
+}
+
+// ── UTILITIES ──
+function swapCities() {
+  const f = document.getElementById('s-from'), t = document.getElementById('s-to');
+  const tmp = f.value; f.value = t.value; t.value = tmp;
+}
+
+function quickSearch(from, to) {
+  setSelect('s-from', from); setSelect('s-to', to);
+  document.getElementById('s-date').value = new Date().toISOString().split('T')[0];
+  runSearch();
+}
+
+function showWaitlist() { document.getElementById('mo-waitlist').classList.add('on'); }
+function submitWaitlist() {
+  const p = document.getElementById('wl-phone').value.trim();
+  if (!p) { showToast('Enter your phone number', '#D97706'); return; }
+  document.getElementById('mo-waitlist').classList.remove('on');
+  showToast('✓ Added to waitlist. We\'ll SMS you when seats open.', '#059669');
+}
+
+function shareWhatsApp() {
+  const route = document.getElementById('tk-route').textContent;
+  const ref   = document.getElementById('tk-ref').textContent;
+  window.open(`https://wa.me/?text=I%20booked%20${encodeURIComponent(route)}%20with%20Raylane%20Express%20%F0%9F%9A%8C%20Booking%20ref:%20${ref}%20-%20raylaneexpress.com`, '_blank');
+}
+
+function showToast(msg, color) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.style.background = color || '#0B2FA0';
+  el.style.display = 'block';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.display = 'none', 4000);
+}
+
+// ── LIVE SEAT COUNT UPDATE ──
+setInterval(() => {
+  document.querySelectorAll('.trip-seats-fill').forEach(el => {
+    // Simulate small fluctuations in seat counts
+    const currentWidth = parseInt(el.style.width);
+    if (currentWidth > 95) return; // already almost full
+    const newWidth = Math.min(100, currentWidth + Math.floor(Math.random() * 3));
+    el.style.width = newWidth + '%';
+    if (newWidth > 85) { el.className = 'trip-seats-fill fill-red'; }
+    else if (newWidth > 60) { el.className = 'trip-seats-fill fill-amber'; }
+  });
+}, 45000);
+</script>
+</body>
+</html>
