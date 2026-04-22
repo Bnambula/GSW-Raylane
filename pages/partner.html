@@ -206,16 +206,36 @@ input,select,textarea{font-family:inherit;outline:none}
     <p style="color:rgba(255,255,255,.55);text-align:center;margin-bottom:0;">Enter your fleet details to estimate your monthly earnings on Raylane Express.</p>
     <div class="calc-grid">
       <div class="calc-card">
-        <div style="margin-bottom:16px;"><label class="fl">Number of Vehicles</label><input class="fi" type="number" id="cVeh" value="3" min="1" oninput="calcRevenue()"></div>
-        <div style="margin-bottom:16px;"><label class="fl">Trips per Vehicle per Day</label><input class="fi" type="number" id="cTrips" value="2" min="1" oninput="calcRevenue()"></div>
-        <div style="margin-bottom:16px;"><label class="fl">Average Seats Sold per Trip</label><input class="fi" type="number" id="cSeats" value="40" min="1" max="67" oninput="calcRevenue()"></div>
-        <div><label class="fl">Average Ticket Price (UGX)</label><input class="fi" type="number" id="cPrice" value="25000" min="5000" oninput="calcRevenue()"></div>
+        <div style="margin-bottom:14px;"><label class="fl">Number of Vehicles in Your Fleet</label><input class="fi" type="number" id="cVeh" value="3" min="1" placeholder="e.g. 3"></div>
+        <div style="margin-bottom:14px;"><label class="fl">Trips per Vehicle per Day</label><input class="fi" type="number" id="cTrips" value="2" min="1" placeholder="e.g. 2"></div>
+        <div style="margin-bottom:14px;"><label class="fl">Average Seats Sold per Trip</label><input class="fi" type="number" id="cSeats" value="40" min="1" max="67" placeholder="e.g. 40 of 67"></div>
+        <div style="margin-bottom:14px;"><label class="fl">Average Ticket Price (UGX)</label><input class="fi" type="number" id="cPrice" value="25000" min="5000" placeholder="e.g. 25000"></div>
+        <div style="margin-bottom:14px;"><label class="fl">Your Subscription Plan</label>
+          <select class="fi" id="cPlan" style="cursor:pointer;">
+            <option value="8">Starter — Free (8% commission)</option>
+            <option value="8">Standard — UGX 200K/mo (8% commission)</option>
+            <option value="6" selected>Professional — UGX 450K/mo (6% commission)</option>
+            <option value="5">Enterprise — UGX 900K/mo (5% commission)</option>
+          </select>
+        </div>
+        <button class="btn btn-gold" style="width:100%;font-size:16px;padding:13px;" onclick="calcRevenue()">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-3M9 11l3 3L22 4"/></svg>
+          Calculate My Earnings
+        </button>
       </div>
-      <div class="calc-card" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
-        <div><div class="result-num" id="rGross">UGX 18M</div><div class="result-lbl">Monthly Gross Revenue</div></div>
-        <div><div class="result-num" id="rNet" style="color:#4ade80;">UGX 16.6M</div><div class="result-lbl">Your Monthly Earnings (after 8% commission)</div></div>
-        <div><div class="result-num" id="rYear" style="font-size:22px;">UGX 199M</div><div class="result-lbl">Estimated Annual Earnings</div></div>
-        <a href="#apply" class="btn btn-gold" style="align-self:flex-start;">Start Earning Now →</a>
+      <div class="calc-card" id="calcResults" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="text-align:center;padding:20px 0;opacity:.6;">
+          <div style="font-size:32px;margin-bottom:8px;">🧮</div>
+          <div style="color:rgba(255,255,255,.6);font-size:14px;">Enter your details and click<br><strong style="color:var(--gold);">Calculate My Earnings</strong></div>
+        </div>
+        <div id="calcResultsInner" style="display:none;flex-direction:column;gap:16px;">
+          <div><div class="result-num" id="rGross">—</div><div class="result-lbl">Monthly Gross Revenue</div></div>
+          <div><div class="result-num" id="rComm" style="color:#f87171;">—</div><div class="result-lbl">Raylane Commission Deducted</div></div>
+          <div><div class="result-num" id="rNet" style="color:#4ade80;">—</div><div class="result-lbl">Your Monthly Net Earnings</div></div>
+          <div><div class="result-num" id="rYear" style="font-size:22px;color:var(--gold);">—</div><div class="result-lbl">Estimated Annual Earnings</div></div>
+          <div id="calcAssumptions" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;"></div>
+          <a href="#apply" class="btn btn-gold" style="align-self:flex-start;">Start Earning Now →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -356,16 +376,51 @@ function calcRevenue(){
   const t=+document.getElementById('cTrips').value||0;
   const s=+document.getElementById('cSeats').value||0;
   const p=+document.getElementById('cPrice').value||0;
-  const days=26; // working days
+  const planSel=document.getElementById('cPlan');
+  const commRate=+(planSel?.value||8)/100;
+  const planText=planSel?.options[planSel.selectedIndex]?.text||'Professional';
+
+  if(!v||!t||!s||!p){
+    // Show empty state if incomplete
+    document.getElementById('calcResultsInner').style.display='none';
+    document.getElementById('calcResults').children[0].style.display='block';
+    return;
+  }
+
+  const days=26; // industry standard: 26 working days per month
   const gross=v*t*s*p*days;
-  const net=gross*0.92;
+  const comm=gross*commRate;
+  const net=gross-comm;
   const year=net*12;
-  const fmt=n=>n>=1e6?'UGX '+(n/1e6).toFixed(1)+'M':'UGX '+n.toLocaleString();
+
+  const fmt=n=>{
+    if(n>=1e9)return'UGX '+(n/1e9).toFixed(2)+'B';
+    if(n>=1e6)return'UGX '+(n/1e6).toFixed(1)+'M';
+    return'UGX '+Math.round(n).toLocaleString();
+  };
+
   document.getElementById('rGross').textContent=fmt(gross);
+  document.getElementById('rComm').textContent='− '+fmt(comm)+' ('+(commRate*100)+'%)';
   document.getElementById('rNet').textContent=fmt(net);
   document.getElementById('rYear').textContent=fmt(year);
+
+  // Assumptions block
+  const loadFactor=Math.round((s/(v<=3?67:67))*100);
+  document.getElementById('calcAssumptions').innerHTML=
+    '<strong style="color:rgba(255,255,255,.8);">Calculation Assumptions:</strong><br>'+
+    '• '+v+' vehicle'+(v>1?'s':'')+' operating '+t+' trip'+(t>1?'s':'')+' per day each<br>'+
+    '• '+s+' of 67 seats sold per trip ('+loadFactor+'% load factor)<br>'+
+    '• Average ticket price: UGX '+p.toLocaleString()+' per seat<br>'+
+    '• 26 working days per month (excludes 4 Sundays + 2 public holidays)<br>'+
+    '• Plan: '+planText+'<br>'+
+    '• Commission of '+(commRate*100)+'% deducted before your payout<br>'+
+    '• Parcel revenue and charter income not included (additional upside)';
+
+  // Show results
+  const inner=document.getElementById('calcResultsInner');
+  inner.style.display='flex';
+  document.getElementById('calcResults').children[0].style.display='none';
 }
-calcRevenue();
 
 // Multi-step form
 let currentStep=1;
