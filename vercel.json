@@ -11,8 +11,7 @@
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     },
@@ -24,27 +23,36 @@
     }
   ],
   "rewrites": [
-    { "source": "/",            "destination": "/index.html" },
-    { "source": "/book",        "destination": "/pages/book.html" },
-    { "source": "/parcels",     "destination": "/pages/parcels.html" },
-    { "source": "/account",     "destination": "/pages/account.html" },
-    { "source": "/partner",     "destination": "/pages/partner.html" },
-    { "source": "/operator",    "destination": "/pages/operator.html" },
-    { "source": "/admin",       "destination": "/pages/admin.html" },
-    { "source": "/routes",      "destination": "/pages/routes.html" },
-    { "source": "/terms",       "destination": "/pages/terms.html" },
-    { "source": "/privacy",     "destination": "/pages/privacy.html" },
-    { "source": "/refund",      "destination": "/pages/refund.html" },
-    { "source": "/about",       "destination": "/pages/about.html" },
-    { "source": "/contact",     "destination": "/pages/contact.html" },
-    { "source": "/safety",      "destination": "/pages/safety.html" }
-  ],
-  "redirects": [
-    { "source": "/home",      "destination": "/",         "permanent": true },
-    { "source": "/apply",     "destination": "/partner",  "permanent": true },
-    { "source": "/dashboard", "destination": "/operator", "permanent": true },
-    { "source": "/parcel",    "destination": "/parcels",  "permanent": true },
-    { "source": "/send",      "destination": "/parcels",  "permanent": true },
-    { "source": "/charter",   "destination": "/parcels",  "permanent": true }
+    { "source": "/",              "destination": "/index.html" },
+    { "source": "/book",          "destination": "/pages/parcels.html" },
+    { "source": "/search",        "destination": "/pages/parcels.html" },
+    { "source": "/parcels",       "destination": "/pages/parcels.html" },
+    { "source": "/parcel",        "destination": "/pages/parcels.html" },
+    { "source": "/send",          "destination": "/pages/parcels.html" },
+    { "source": "/charter",       "destination": "/pages/parcels.html" },
+    { "source": "/group",         "destination": "/pages/group.html" },
+    { "source": "/group-booking", "destination": "/pages/group.html" },
+    { "source": "/account",       "destination": "/pages/account.html" },
+    { "source": "/login",         "destination": "/pages/account.html" },
+    { "source": "/signup",        "destination": "/pages/account.html" },
+    { "source": "/partner",       "destination": "/pages/partner.html" },
+    { "source": "/apply",         "destination": "/pages/partner.html" },
+    { "source": "/operator",      "destination": "/pages/operator.html" },
+    { "source": "/dashboard",     "destination": "/pages/operator.html" },
+    { "source": "/admin",         "destination": "/pages/admin.html" },
+    { "source": "/routes",        "destination": "/pages/routes.html" },
+    { "source": "/timetables",    "destination": "/pages/routes.html" },
+    { "source": "/terms",         "destination": "/pages/terms.html" },
+    { "source": "/privacy",       "destination": "/pages/privacy.html" },
+    { "source": "/refund",        "destination": "/pages/refund.html" },
+    { "source": "/about",         "destination": "/pages/about.html" },
+    { "source": "/contact",       "destination": "/pages/contact.html" },
+    { "source": "/safety",        "destination": "/pages/safety.html" },
+    { "source": "/faq",           "destination": "/index.html" },
+    { "source": "/careers",       "destination": "/pages/about.html" },
+    { "source": "/press",         "destination": "/pages/about.html" },
+    { "source": "/accessibility", "destination": "/pages/terms.html" },
+    { "source": "/cookies",       "destination": "/pages/privacy.html" },
+    { "source": "/parcel-terms",  "destination": "/pages/terms.html" }
   ]
 }
