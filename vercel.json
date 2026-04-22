@@ -1,56 +1,37 @@
 {
   "version": 2,
-  "name": "raylane-express",
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(self)" }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*).html",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    }
-  ],
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/book", "destination": "/pages/book.html" },
-    { "source": "/account", "destination": "/pages/account.html" },
-    { "source": "/partner", "destination": "/pages/partner.html" },
-    { "source": "/operator", "destination": "/pages/operator.html" },
-    { "source": "/admin", "destination": "/pages/admin.html" },
-    { "source": "/routes", "destination": "/pages/routes.html" },
-    { "source": "/parcels", "destination": "/pages/parcels.html" },
-    { "source": "/terms", "destination": "/pages/terms.html" },
-    { "source": "/privacy", "destination": "/pages/privacy.html" },
-    { "source": "/refund", "destination": "/pages/refund.html" },
-    { "source": "/about", "destination": "/pages/about.html" },
-    { "source": "/contact", "destination": "/pages/contact.html" },
-    { "source": "/safety", "destination": "/pages/safety.html" },
-    { "source": "/faq", "destination": "/index.html#faq" }
-  ],
   "redirects": [
-    { "source": "/home", "destination": "/", "permanent": true },
-    { "source": "/apply", "destination": "/partner", "permanent": true },
-    { "source": "/dashboard", "destination": "/operator", "permanent": true },
-    { "source": "/driver/:path*", "destination": "/pages/driver.html", "permanent": false }
+    { "source": "/book",          "destination": "/pages/parcels", "permanent": false },
+    { "source": "/search",        "destination": "/pages/parcels", "permanent": false },
+    { "source": "/parcels",       "destination": "/pages/parcels", "permanent": false },
+    { "source": "/parcel",        "destination": "/pages/parcels", "permanent": false },
+    { "source": "/send",          "destination": "/pages/parcels", "permanent": false },
+    { "source": "/charter",       "destination": "/pages/parcels", "permanent": false },
+    { "source": "/group",         "destination": "/pages/group",   "permanent": false },
+    { "source": "/group-booking", "destination": "/pages/group",   "permanent": false },
+    { "source": "/account",       "destination": "/pages/account", "permanent": false },
+    { "source": "/login",         "destination": "/pages/account", "permanent": false },
+    { "source": "/signup",        "destination": "/pages/account", "permanent": false },
+    { "source": "/partner",       "destination": "/pages/partner", "permanent": false },
+    { "source": "/apply",         "destination": "/pages/partner", "permanent": false },
+    { "source": "/operator",      "destination": "/pages/operator","permanent": false },
+    { "source": "/dashboard",     "destination": "/pages/operator","permanent": false },
+    { "source": "/admin",         "destination": "/pages/admin",   "permanent": false },
+    { "source": "/routes",        "destination": "/pages/routes",  "permanent": false },
+    { "source": "/timetables",    "destination": "/pages/routes",  "permanent": false },
+    { "source": "/terms",         "destination": "/pages/terms",   "permanent": false },
+    { "source": "/privacy",       "destination": "/pages/privacy", "permanent": false },
+    { "source": "/refund",        "destination": "/pages/refund",  "permanent": false },
+    { "source": "/about",         "destination": "/pages/about",   "permanent": false },
+    { "source": "/contact",       "destination": "/pages/contact", "permanent": false },
+    { "source": "/safety",        "destination": "/pages/safety",  "permanent": false },
+    { "source": "/faq",           "destination": "/",              "permanent": false },
+    { "source": "/careers",       "destination": "/pages/about",   "permanent": false },
+    { "source": "/press",         "destination": "/pages/about",   "permanent": false },
+    { "source": "/accessibility", "destination": "/pages/terms",   "permanent": false },
+    { "source": "/cookies",       "destination": "/pages/privacy", "permanent": false },
+    { "source": "/parcel-terms",  "destination": "/pages/terms",   "permanent": false }
   ]
 }
