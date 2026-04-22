@@ -7,8 +7,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/book",          "destination": "/pages/parcels", "permanent": false },
-    { "source": "/search",        "destination": "/pages/parcels", "permanent": false },
+    { "source": "/book",          "destination": "/pages/book",    "permanent": false },
+    { "source": "/search",        "destination": "/pages/book",    "permanent": false },
+    { "source": "/trips",         "destination": "/pages/book",    "permanent": false },
+    { "source": "/departures",    "destination": "/pages/book",    "permanent": false },
     { "source": "/parcels",       "destination": "/pages/parcels", "permanent": false },
     { "source": "/parcel",        "destination": "/pages/parcels", "permanent": false },
     { "source": "/send",          "destination": "/pages/parcels", "permanent": false },
