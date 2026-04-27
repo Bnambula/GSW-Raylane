@@ -1,0 +1,2830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Raylane Express — Uganda's first vertically integrated transport technology platform. Book bus seats, send parcels, charter coaches. Pay via MTN MoMo in 60 seconds.">
+<title>Raylane Express — Travel Uganda. Without the Queue.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   RAYLANE EXPRESS — DESIGN SYSTEM
+   African Contemporary × Bold Editorial × Mobile First
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --royal-blue: #0B2FA0;
+  --warriors-gold: #E8A800;
+  --deep-navy: #040E35;
+  --navy-mid: #081A5C;
+  --gold-light: #FFD044;
+  --gold-dim: rgba(232,168,0,0.15);
+  --white: #FFFFFF;
+  --white-80: rgba(255,255,255,0.8);
+  --white-60: rgba(255,255,255,0.6);
+  --white-20: rgba(255,255,255,0.12);
+  --white-10: rgba(255,255,255,0.07);
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --text-body: #94A3B8;
+  --card-bg: rgba(8,26,92,0.6);
+  --border-subtle: rgba(255,255,255,0.08);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --shadow-gold: 0 0 40px rgba(232,168,0,0.2);
+  --shadow-blue: 0 20px 60px rgba(11,47,160,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--deep-navy);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CANVAS PARTICLES ─────────────────────────────────────── */
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 1rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  transition: var(--transition);
+}
+.nav.scrolled {
+  background: rgba(4,14,53,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--royal-blue), #1a4fd8);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--warriors-gold);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.nav-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+.nav-logo-text span { color: var(--warriors-gold); }
+.nav-logo-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--white-60);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.nav-btn-ghost {
+  display: none;
+  padding: 8px 16px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--white-80);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.nav-btn-ghost:hover {
+  background: var(--white-10);
+  color: var(--white);
+  border-color: var(--white-20);
+}
+.nav-btn-primary {
+  padding: 8px 18px;
+  background: var(--warriors-gold);
+  color: var(--deep-navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232,168,0,0.4);
+}
+.nav-menu-btn {
+  width: 40px; height: 40px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-menu-btn span {
+  width: 18px; height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: var(--transition);
+  display: block;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--deep-navy);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-gradient-1 {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(11,47,160,0.6) 0%, transparent 70%);
+  top: -150px; left: -100px;
+  animation: drift1 8s ease-in-out infinite alternate;
+}
+.hero-gradient-2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,168,0,0.12) 0%, transparent 70%);
+  bottom: 100px; right: -50px;
+  animation: drift2 10s ease-in-out infinite alternate;
+}
+.hero-gradient-3 {
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(11,47,160,0.3) 0%, transparent 70%);
+  top: 40%; left: 60%;
+  animation: drift3 12s ease-in-out infinite alternate;
+}
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+@keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px,40px) scale(1.1); } }
+@keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px,-60px) scale(1.15); } }
+@keyframes drift3 { from { transform: translate(0,0); } to { transform: translate(-80px,40px); } }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 100px 1.25rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Live badge */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232,168,0,0.12);
+  border: 1px solid rgba(232,168,0,0.3);
+  border-radius: 100px;
+  padding: 6px 14px;
+  margin-bottom: 24px;
+  animation: fadeInDown 0.8s ease 0.2s both;
+}
+.live-dot {
+  width: 8px; height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse-live 2s ease infinite;
+}
+@keyframes pulse-live {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+.live-badge-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--warriors-gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Headline */
+.hero-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(52px, 14vw, 88px);
+  line-height: 0.92;
+  text-align: center;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+.hero-headline .line1 { display: block; color: var(--white); }
+.hero-headline .line2 { display: block; color: var(--warriors-gold); }
+.hero-headline .line3 {
+  display: block;
+  color: var(--white-60);
+  font-size: 0.55em;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-top: 4px;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--white-60);
+  text-align: center;
+  max-width: 380px;
+  line-height: 1.6;
+  margin-bottom: 36px;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── SEARCH WIDGET ────────────────────────────────────────── */
+.search-widget {
+  width: 100%;
+  max-width: 640px;
+  background: rgba(8,26,92,0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,168,0,0.05);
+  animation: fadeInUp 0.8s ease 0.5s both;
+}
+
+/* Tabs */
+.search-tabs {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 4px;
+}
+.search-tabs::-webkit-scrollbar { display: none; }
+.search-tab {
+  flex-shrink: 0;
+  padding: 14px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-60);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: relative;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+.search-tab .tab-icon { font-size: 14px; }
+.search-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 12px; right: 12px;
+  height: 2px;
+  background: var(--warriors-gold);
+  border-radius: 2px 2px 0 0;
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+.search-tab.active {
+  color: var(--warriors-gold);
+}
+.search-tab.active::after { transform: scaleX(1); }
+.search-tab:hover { color: var(--white-80); }
+
+/* Form */
+.search-form {
+  padding: 20px;
+  display: none;
+}
+.search-form.active { display: block; }
+.search-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.search-field {
+  position: relative;
+}
+.search-field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-60);
+  margin-bottom: 6px;
+}
+.search-field select,
+.search-field input {
+  width: 100%;
+  padding: 13px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.search-field select:focus,
+.search-field input:focus {
+  border-color: var(--royal-blue);
+  background: rgba(11,47,160,0.2);
+  box-shadow: 0 0 0 3px rgba(11,47,160,0.15);
+}
+.search-field select option { background: var(--deep-navy); color: var(--white); }
+
+.swap-btn {
+  width: 36px; height: 36px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,168,0,0.3);
+  border-radius: 50%;
+  color: var(--warriors-gold);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-bottom: 0;
+  position: relative;
+  top: 10px;
+}
+.swap-btn:hover {
+  background: rgba(232,168,0,0.25);
+  transform: rotate(180deg);
+}
+
+.search-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.search-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--warriors-gold);
+  color: var(--deep-navy);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+.search-submit:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232,168,0,0.4);
+}
+.search-submit:active { transform: translateY(0); }
+
+/* Quick routes */
+.quick-routes {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-subtle);
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+.quick-routes::-webkit-scrollbar { display: none; }
+.quick-pill {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-80);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-pill:hover, .quick-pill:active {
+  background: var(--gold-dim);
+  border-color: rgba(232,168,0,0.4);
+  color: var(--warriors-gold);
+}
+.quick-pill .pill-icon { margin-right: 4px; }
+
+/* GPS button */
+.gps-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--white-60);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 8px;
+}
+.gps-btn:hover {
+  border-color: var(--royal-blue);
+  color: #6B9EFF;
+}
+
+/* ── LIVE TICKER ──────────────────────────────────────────── */
+.live-ticker-bar {
+  position: relative;
+  z-index: 3;
+  background: rgba(4,14,53,0.9);
+  border-top: 1px solid rgba(232,168,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.ticker-live-badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 100%;
+  background: var(--warriors-gold);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--deep-navy);
+  white-space: nowrap;
+}
+.ticker-live-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--deep-navy);
+  border-radius: 50%;
+  animation: pulse-live 1.5s ease infinite;
+}
+.ticker-track-wrap {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.ticker-track {
+  display: flex;
+  align-items: center;
+  animation: tickerScroll 40s linear infinite;
+  white-space: nowrap;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--white-60);
+  border-right: 1px solid var(--border-subtle);
+}
+.ticker-item .route { color: var(--white); font-weight: 600; font-size: 12px; }
+.ticker-item .status-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+.status-badge.on-time { background: rgba(34,197,94,0.15); color: #22C55E; }
+.status-badge.filling { background: rgba(245,158,11,0.15); color: #F59E0B; }
+.status-badge.almost { background: rgba(239,68,68,0.15); color: #EF4444; }
+
+@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── STATS BAR ────────────────────────────────────────────── */
+.stats-bar {
+  background: linear-gradient(135deg, var(--warriors-gold) 0%, #D4960A 100%);
+  padding: 20px 1.25rem;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+.stats-bar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(22px, 6vw, 32px);
+  color: var(--deep-navy);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(4,14,53,0.65);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(4,14,53,0.15);
+  align-self: center;
+  display: none;
+}
+
+/* ── SECTION COMMONS ──────────────────────────────────────── */
+section { padding: 60px 1.25rem; position: relative; }
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--warriors-gold);
+  margin-bottom: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--warriors-gold);
+  border-radius: 2px;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(32px, 8vw, 52px);
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--white-60);
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* ── TODAY'S DEPARTURES ───────────────────────────────────── */
+.departures-section { padding: 60px 0; }
+.departures-header {
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.view-all-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warriors-gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.departures-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 1.25rem 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.departures-scroll::-webkit-scrollbar { display: none; }
+
+.departure-card {
+  flex-shrink: 0;
+  width: 280px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.departure-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--royal-blue);
+  border-radius: 4px 0 0 4px;
+}
+.departure-card.raylane::before { background: var(--warriors-gold); }
+.departure-card:hover {
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.dep-operator-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.dep-operator {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--white-60);
+  text-transform: uppercase;
+}
+.dep-operator-badge {
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,168,0,0.3);
+  border-radius: 100px;
+  padding: 3px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--warriors-gold);
+  letter-spacing: 0.5px;
+}
+.dep-route {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+.dep-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.dep-time {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--warriors-gold);
+  line-height: 1;
+}
+.dep-duration {
+  font-size: 11px;
+  color: var(--white-60);
+  text-align: center;
+}
+.dep-arrival {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--white-80);
+  line-height: 1;
+}
+
+.urgency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.5px;
+}
+.urgency-badge.available { background: rgba(34,197,94,0.12); color: #22C55E; border: 1px solid rgba(34,197,94,0.2); }
+.urgency-badge.filling { background: rgba(245,158,11,0.12); color: #F59E0B; border: 1px solid rgba(245,158,11,0.2); }
+.urgency-badge.almost { background: rgba(239,68,68,0.12); color: #EF4444; border: 1px solid rgba(239,68,68,0.2); }
+
+.dep-fill-row {
+  margin: 12px 0 8px;
+}
+.dep-fill-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.dep-fill-progress {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+.fill-green { background: linear-gradient(90deg, #22C55E, #16A34A); }
+.fill-amber { background: linear-gradient(90deg, #F59E0B, #D97706); }
+.fill-red { background: linear-gradient(90deg, #EF4444, #DC2626); }
+
+.dep-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dep-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+.dep-price span { font-size: 12px; font-weight: 500; color: var(--white-60); }
+.dep-cta {
+  padding: 8px 16px;
+  background: var(--warriors-gold);
+  color: var(--deep-navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.dep-cta:hover { background: var(--gold-light); transform: scale(1.05); }
+
+.dep-amenities {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.amenity-chip {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  color: var(--white-60);
+}
+
+/* ── HOW IT WORKS ─────────────────────────────────────────── */
+.how-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(11,47,160,0.08) 100%);
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 36px;
+}
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.step-card:hover {
+  border-color: rgba(232,168,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+.step-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 64px;
+  color: rgba(232,168,0,0.08);
+  line-height: 1;
+  position: absolute;
+  top: 8px; right: 12px;
+  letter-spacing: -2px;
+}
+.step-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+}
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+.step-desc {
+  font-size: 12px;
+  color: var(--white-60);
+  line-height: 1.6;
+}
+
+/* ── SERVICES ─────────────────────────────────────────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+.service-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+.service-card:hover {
+  border-color: rgba(11,47,160,0.5);
+  background: rgba(11,47,160,0.3);
+  transform: translateY(-4px);
+}
+.service-card.featured {
+  border-color: rgba(232,168,0,0.3);
+  background: linear-gradient(135deg, rgba(232,168,0,0.1), rgba(11,47,160,0.3));
+}
+.service-card.featured:hover {
+  border-color: rgba(232,168,0,0.6);
+  box-shadow: var(--shadow-gold);
+}
+.service-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+}
+.service-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.service-desc {
+  font-size: 11px;
+  color: var(--white-60);
+  line-height: 1.5;
+}
+.service-price {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--warriors-gold);
+}
+
+/* ── OPERATOR CTA ─────────────────────────────────────────── */
+.operator-cta {
+  background: linear-gradient(135deg, var(--royal-blue) 0%, var(--navy-mid) 50%, var(--deep-navy) 100%);
+  border: 1px solid rgba(11,47,160,0.5);
+  border-radius: var(--radius-xl);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin: 0 1.25rem;
+}
+.operator-cta::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,168,0,0.15), transparent 70%);
+  border-radius: 50%;
+}
+.operator-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(11,47,160,0.3), transparent 70%);
+  border-radius: 50%;
+}
+.op-cta-content { position: relative; z-index: 1; }
+.op-cta-tag {
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 1px solid rgba(232,168,0,0.3);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--warriors-gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.op-cta-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(28px, 7vw, 44px);
+  line-height: 0.95;
+  margin-bottom: 12px;
+}
+.op-cta-desc {
+  font-size: 14px;
+  color: var(--white-60);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.op-plans-mini {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.op-plan-mini {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 6px;
+  text-align: center;
+}
+.op-plan-mini.popular {
+  background: rgba(232,168,0,0.1);
+  border-color: rgba(232,168,0,0.3);
+}
+.op-plan-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--white-60);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.op-plan-mini.popular .op-plan-name { color: var(--warriors-gold); }
+.op-plan-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--white);
+}
+.op-plan-commission {
+  font-size: 9px;
+  color: var(--white-60);
+  margin-top: 2px;
+}
+.op-cta-btns { display: flex; gap: 12px; }
+.btn-gold {
+  flex: 1;
+  padding: 16px;
+  background: var(--warriors-gold);
+  color: var(--deep-navy);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-gold:hover {
+  background: var(--gold-light);
+  box-shadow: 0 8px 30px rgba(232,168,0,0.4);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  padding: 16px 20px;
+  background: transparent;
+  color: var(--white-80);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.btn-outline:hover {
+  background: var(--white-10);
+  border-color: var(--white-20);
+}
+
+/* ── PORTALS ──────────────────────────────────────────────── */
+.portals-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 32px;
+}
+.portal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+  transition: var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+.portal-card:hover {
+  transform: translateX(6px);
+  border-color: rgba(255,255,255,0.15);
+}
+.portal-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.portal-icon.blue { background: rgba(11,47,160,0.4); border: 1px solid rgba(11,47,160,0.4); }
+.portal-icon.gold { background: var(--gold-dim); border: 1px solid rgba(232,168,0,0.3); }
+.portal-icon.green { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); }
+.portal-info { flex: 1; }
+.portal-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+.portal-desc { font-size: 12px; color: var(--white-60); line-height: 1.5; }
+.portal-arrow {
+  font-size: 20px;
+  color: var(--white-60);
+  transition: var(--transition);
+}
+.portal-card:hover .portal-arrow { color: var(--warriors-gold); transform: translateX(4px); }
+
+/* ── LOYALTY ──────────────────────────────────────────────── */
+.loyalty-section {
+  background: linear-gradient(180deg, rgba(11,47,160,0.05) 0%, transparent 100%);
+}
+.loyalty-tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+.tier-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px 14px;
+  text-align: center;
+  transition: var(--transition);
+}
+.tier-card.gold-tier {
+  background: linear-gradient(135deg, rgba(232,168,0,0.12), rgba(11,47,160,0.3));
+  border-color: rgba(232,168,0,0.3);
+}
+.tier-card:hover { transform: translateY(-4px); }
+.tier-badge {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+}
+.tier-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.tier-name.bronze { color: #CD7F32; }
+.tier-name.silver { color: #C0C0C0; }
+.tier-name.gold { color: var(--warriors-gold); }
+.tier-points { font-size: 10px; color: var(--white-60); margin-bottom: 12px; }
+.tier-perk { font-size: 11px; color: var(--white-80); line-height: 1.6; }
+
+/* ── TRUST ────────────────────────────────────────────────── */
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+.trust-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.trust-icon { font-size: 24px; flex-shrink: 0; }
+.trust-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.trust-desc { font-size: 11px; color: var(--white-60); line-height: 1.5; }
+
+/* ── FAQ ──────────────────────────────────────────────────── */
+.faq-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  margin-bottom: 24px;
+}
+.faq-tabs::-webkit-scrollbar { display: none; }
+.faq-tab-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-60);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.faq-tab-btn.active {
+  background: rgba(11,47,160,0.4);
+  border-color: rgba(11,47,160,0.6);
+  color: var(--white);
+}
+.faq-list { display: grid; gap: 8px; }
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  cursor: pointer;
+  gap: 12px;
+  -webkit-tap-highlight-color: transparent;
+}
+.faq-q-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.4;
+}
+.faq-chevron {
+  font-size: 18px;
+  color: var(--warriors-gold);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner {
+  padding: 0 16px 16px;
+  font-size: 13px;
+  color: var(--white-60);
+  line-height: 1.7;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  background: rgba(4,14,53,0.8);
+  border-top: 1px solid var(--border-subtle);
+  padding: 48px 1.25rem 100px;
+}
+.footer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.footer-tagline {
+  font-size: 13px;
+  color: var(--white-60);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 280px;
+}
+.footer-socials {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.social-btn {
+  width: 38px; height: 38px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.social-btn:hover { background: var(--white-20); transform: translateY(-2px); }
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-60);
+  margin-bottom: 14px;
+}
+.footer-links { display: grid; gap: 10px; }
+.footer-link {
+  font-size: 13px;
+  color: var(--white-60);
+  text-decoration: none;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-link:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-legal a { font-size: 11px; color: var(--white-60); text-decoration: none; }
+.footer-legal a:hover { color: var(--white); }
+.footer-copy { font-size: 11px; color: var(--white-60); }
+.footer-copy span { color: var(--warriors-gold); }
+
+/* ── MOBILE STICKY BAR ────────────────────────────────────── */
+.mobile-sticky {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(4,14,53,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.sticky-btn {
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.sticky-btn.gold {
+  background: var(--warriors-gold);
+  color: var(--deep-navy);
+}
+.sticky-btn.ghost {
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  color: var(--white);
+}
+
+/* ── WHATSAPP FAB ─────────────────────────────────────────── */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 90px;
+  right: 16px;
+  width: 52px; height: 52px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+  z-index: 49;
+  transition: var(--transition);
+  animation: bounceIn 0.5s ease 1.5s both;
+}
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(37,211,102,0.5);
+}
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.1); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ── TOAST ────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(8,26,92,0.95);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  backdrop-filter: blur(16px);
+  z-index: 200;
+  opacity: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast.success { border-color: rgba(34,197,94,0.3); }
+.toast.info { border-color: rgba(232,168,0,0.3); }
+
+/* ── MOBILE MENU ──────────────────────────────────────────── */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+}
+.mobile-menu-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mobile-menu-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--deep-navy);
+  border-left: 1px solid var(--border-subtle);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  padding: 24px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu.open { pointer-events: all; }
+.mobile-menu.open .mobile-menu-overlay { opacity: 1; }
+.mobile-menu.open .mobile-menu-panel { transform: translateX(0); }
+.menu-close {
+  align-self: flex-end;
+  width: 36px; height: 36px;
+  background: var(--white-10);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  color: var(--white);
+  transition: var(--transition);
+}
+.menu-close:hover { background: var(--white-20); }
+.menu-links { display: grid; gap: 2px; flex: 1; }
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--white-80);
+  font-size: 15px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.menu-link:hover { background: var(--white-10); color: var(--white); }
+.menu-link .menu-icon { font-size: 20px; width: 24px; text-align: center; }
+.menu-link-divider { height: 1px; background: var(--border-subtle); margin: 8px 0; }
+.menu-cta { margin-top: 24px; display: grid; gap: 10px; }
+.menu-cta-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-60);
+  margin-bottom: 4px;
+}
+
+/* ── RESPONSIVE DESKTOP ───────────────────────────────────── */
+@media (min-width: 640px) {
+  section { padding: 80px 2rem; }
+  .stats-grid { grid-template-columns: repeat(5,1fr); gap: 0; }
+  .stat-divider { display: block; }
+  .steps-grid { grid-template-columns: repeat(4,1fr); }
+  .services-grid { grid-template-columns: repeat(3,1fr); }
+  .trust-grid { grid-template-columns: repeat(3,1fr); }
+  .loyalty-tiers { gap: 20px; }
+  .footer-cols { grid-template-columns: repeat(4,1fr); }
+  .nav-btn-ghost { display: flex; }
+  .departures-scroll { padding: 0 2rem 8px; }
+}
+@media (min-width: 768px) {
+  .portals-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .op-cta-btns { flex-direction: row; }
+}
+@media (min-width: 1024px) {
+  .mobile-sticky, .whatsapp-fab { display: none; }
+  .nav { padding: 0 2rem; }
+  section { padding: 100px 3rem; }
+  .services-grid { grid-template-columns: repeat(3,1fr); }
+  .trust-grid { grid-template-columns: repeat(3,1fr); }
+  .hero-content { padding: 120px 3rem 0; max-width: 800px; margin: 0 auto; }
+}
+
+/* ── SCROLL ANIMATIONS ────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── COUNTER ANIMATION ────────────────────────────────────── */
+.count-up { display: inline-block; }
+
+/* UTILITY */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+</head>
+<body>
+
+<!-- ═══ TOAST ═══════════════════════════════════════════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══ NAV ══════════════════════════════════════════════════ -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Raylane Express Home">
+    <div class="nav-logo-mark">RL</div>
+    <div>
+      <div class="nav-logo-text">RAYLANE <span>EXPRESS</span></div>
+      <div class="nav-logo-sub">Uganda's Transport Platform</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="/pages/account.html" class="nav-btn-ghost">Login</a>
+    <a href="/pages/partner.html" class="nav-btn-primary">Join as Operator</a>
+    <button class="nav-menu-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE MENU ══════════════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="mobile-menu-overlay" id="menuOverlay"></div>
+  <div class="mobile-menu-panel">
+    <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
+    <nav class="menu-links">
+      <a href="/pages/book.html" class="menu-link"><span class="menu-icon">🚌</span> Book a Seat</a>
+      <a href="/pages/parcels.html" class="menu-link"><span class="menu-icon">📦</span> Send a Parcel</a>
+      <a href="/pages/parcels.html#charter" class="menu-link"><span class="menu-icon">🏆</span> Charter a Bus</a>
+      <a href="/pages/group.html" class="menu-link"><span class="menu-icon">👥</span> Group Bookings</a>
+      <a href="/pages/routes.html" class="menu-link"><span class="menu-icon">🗺️</span> Routes & Timetables</a>
+      <div class="menu-link-divider"></div>
+      <a href="/pages/account.html" class="menu-link"><span class="menu-icon">👤</span> My Account</a>
+      <a href="/pages/account.html#loyalty" class="menu-link"><span class="menu-icon">⭐</span> Loyalty Points</a>
+      <div class="menu-link-divider"></div>
+      <a href="/pages/operator.html" class="menu-link"><span class="menu-icon">🏢</span> Operator Dashboard</a>
+      <a href="/pages/partner.html" class="menu-link"><span class="menu-icon">🤝</span> Become a Partner</a>
+      <a href="/pages/about.html" class="menu-link"><span class="menu-icon">ℹ️</span> About Raylane</a>
+      <a href="/contact" class="menu-link"><span class="menu-icon">💬</span> Contact Us</a>
+    </nav>
+    <div class="menu-cta">
+      <a href="/pages/book.html" class="btn-gold" style="border-radius:12px;font-size:15px;">🎫 Book Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-gradient-1"></div>
+    <div class="hero-gradient-2"></div>
+    <div class="hero-gradient-3"></div>
+    <div class="hero-grid-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      <span class="live-badge-text">40+ Live Departures Today</span>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="line1">Travel Uganda.</span>
+      <span class="line2">Without the Queue.</span>
+      <span class="line3">Tusimbudde — We travel together</span>
+    </h1>
+
+    <p class="hero-sub">Book your seat, send a parcel, or charter a coach. Pay via MTN MoMo in 60 seconds. No app. No queue. Works on any phone.</p>
+
+    <!-- Search Widget -->
+    <div class="search-widget" role="main" aria-label="Trip search">
+      <div class="search-tabs" role="tablist">
+        <button class="search-tab active" role="tab" aria-selected="true" data-tab="bus" aria-controls="tab-bus">
+          <span class="tab-icon">🚌</span> Bus Seat
+        </button>
+        <button class="search-tab" role="tab" aria-selected="false" data-tab="return" aria-controls="tab-return">
+          <span class="tab-icon">🔄</span> Return Trip
+        </button>
+        <button class="search-tab" role="tab" aria-selected="false" data-tab="parcel" aria-controls="tab-parcel">
+          <span class="tab-icon">📦</span> Send Parcel
+        </button>
+        <button class="search-tab" role="tab" aria-selected="false" data-tab="charter" aria-controls="tab-charter">
+          <span class="tab-icon">🏆</span> Charter
+        </button>
+        <button class="search-tab" role="tab" aria-selected="false" data-tab="corporate" aria-controls="tab-corporate">
+          <span class="tab-icon">🏢</span> Corporate
+        </button>
+      </div>
+
+      <!-- Bus Seat Tab -->
+      <div class="search-form active" id="tab-bus" role="tabpanel">
+        <div class="search-row">
+          <div class="search-field">
+            <label for="from-city">From</label>
+            <select id="from-city" aria-label="Departure city">
+              <option value="">Select city...</option>
+              <option value="kampala" selected>Kampala</option>
+              <option value="mbarara">Mbarara</option>
+              <option value="gulu">Gulu</option>
+              <option value="mbale">Mbale</option>
+              <option value="jinja">Jinja</option>
+              <option value="fort-portal">Fort Portal</option>
+              <option value="lira">Lira</option>
+              <option value="soroti">Soroti</option>
+              <option value="arua">Arua</option>
+              <option value="kabale">Kabale</option>
+              <option value="masaka">Masaka</option>
+              <option value="hoima">Hoima</option>
+              <option value="kisoro">Kisoro</option>
+              <option value="entebbe">Entebbe</option>
+              <option value="nairobi">Nairobi 🇰🇪</option>
+              <option value="kigali">Kigali 🇷🇼</option>
+            </select>
+          </div>
+          <button class="swap-btn" id="swapBtn" aria-label="Swap cities" title="Swap departure and arrival">⇄</button>
+          <div class="search-field">
+            <label for="to-city">To</label>
+            <select id="to-city" aria-label="Destination city">
+              <option value="">Select city...</option>
+              <option value="kampala">Kampala</option>
+              <option value="mbarara">Mbarara</option>
+              <option value="gulu">Gulu</option>
+              <option value="mbale">Mbale</option>
+              <option value="jinja">Jinja</option>
+              <option value="fort-portal">Fort Portal</option>
+              <option value="lira">Lira</option>
+              <option value="soroti">Soroti</option>
+              <option value="arua">Arua</option>
+              <option value="kabale">Kabale</option>
+              <option value="masaka">Masaka</option>
+              <option value="hoima">Hoima</option>
+              <option value="kisoro">Kisoro</option>
+              <option value="entebbe">Entebbe</option>
+              <option value="nairobi">Nairobi 🇰🇪</option>
+              <option value="kigali">Kigali 🇷🇼</option>
+            </select>
+          </div>
+        </div>
+        <div class="search-row-2">
+          <div class="search-field">
+            <label for="travel-date">Date</label>
+            <input type="date" id="travel-date" aria-label="Travel date">
+          </div>
+          <div class="search-field">
+            <label for="passengers">Passengers</label>
+            <select id="passengers" aria-label="Number of passengers">
+              <option value="1">1 passenger</option>
+              <option value="2">2 passengers</option>
+              <option value="3">3 passengers</option>
+              <option value="4">4 passengers</option>
+              <option value="5">5 passengers</option>
+              <option value="6">6+ passengers</option>
+            </select>
+          </div>
+        </div>
+        <button class="search-submit" id="searchBtn" aria-label="Search for available trips">
+          🔍 Find My Trip
+        </button>
+        <button class="gps-btn" id="gpsBtn" aria-label="Find nearest terminal using GPS">
+          📍 Find Nearest Terminal
+        </button>
+      </div>
+
+      <!-- Return Trip Tab -->
+      <div class="search-form" id="tab-return" role="tabpanel">
+        <div class="search-row">
+          <div class="search-field">
+            <label>From</label>
+            <select><option>Kampala</option><option>Mbarara</option><option>Gulu</option><option>Mbale</option></select>
+          </div>
+          <button class="swap-btn" aria-label="Swap">⇄</button>
+          <div class="search-field">
+            <label>To</label>
+            <select><option>Mbarara</option><option>Kampala</option><option>Gulu</option><option>Jinja</option></select>
+          </div>
+        </div>
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>Depart</label>
+            <input type="date">
+          </div>
+          <div class="search-field">
+            <label>Return</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>Passengers</label>
+            <select><option>1</option><option>2</option><option>3</option><option>4</option></select>
+          </div>
+          <div></div>
+        </div>
+        <button class="search-submit" onclick="showToast('🔍 Searching return trips...','info')">
+          🔍 Search Return Trips
+        </button>
+      </div>
+
+      <!-- Parcel Tab -->
+      <div class="search-form" id="tab-parcel" role="tabpanel">
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>From City</label>
+            <select><option>Kampala</option><option>Mbarara</option><option>Gulu</option></select>
+          </div>
+          <div class="search-field">
+            <label>To City</label>
+            <select><option>Mbarara</option><option>Kampala</option><option>Mbale</option></select>
+          </div>
+        </div>
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>Category</label>
+            <select>
+              <option>Envelope (0.5kg) — UGX 5,000</option>
+              <option>Small Parcel (2kg) — UGX 12,000</option>
+              <option>Large Parcel (10kg) — UGX 20,000</option>
+              <option>Heavy Cargo — UGX 30,000+</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Send Date</label>
+            <input type="date">
+          </div>
+        </div>
+        <button class="search-submit" onclick="window.location.href='/pages/parcels.html'">
+          📦 Book Parcel Delivery
+        </button>
+      </div>
+
+      <!-- Charter Tab -->
+      <div class="search-form" id="tab-charter" role="tabpanel">
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>From</label>
+            <select><option>Kampala</option><option>Mbarara</option><option>Gulu</option></select>
+          </div>
+          <div class="search-field">
+            <label>To</label>
+            <select><option>Mbarara</option><option>Kampala</option><option>Mbale</option></select>
+          </div>
+        </div>
+        <div class="search-row-2">
+          <div class="search-field">
+            <label>Date</label>
+            <input type="date">
+          </div>
+          <div class="search-field">
+            <label>Passengers</label>
+            <select><option>10-20</option><option>21-40</option><option>41-67</option></select>
+          </div>
+        </div>
+        <button class="search-submit" onclick="window.location.href='/pages/parcels.html'">
+          🏆 Request Charter Quote
+        </button>
+      </div>
+
+      <!-- Corporate Tab -->
+      <div class="search-form" id="tab-corporate" role="tabpanel">
+        <p style="font-size:13px;color:var(--white-60);margin-bottom:16px;line-height:1.6;">Corporate accounts get monthly invoicing, priority support, dedicated coordinator, and group discounts.</p>
+        <div class="search-field" style="margin-bottom:12px;">
+          <label>Company Name</label>
+          <input type="text" placeholder="Enter your company name" style="width:100%;padding:13px 14px;background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);border-radius:12px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;">
+        </div>
+        <div class="search-field" style="margin-bottom:16px;">
+          <label>Contact Phone</label>
+          <input type="tel" placeholder="0771 000 000" style="width:100%;padding:13px 14px;background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);border-radius:12px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;">
+        </div>
+        <button class="search-submit" onclick="showToast('✅ Corporate enquiry sent!','success')">
+          🏢 Submit Corporate Enquiry
+        </button>
+      </div>
+
+      <!-- Quick Route Pills -->
+      <div class="quick-routes" role="navigation" aria-label="Popular routes">
+        <button class="quick-pill" onclick="setRoute('kampala','mbarara')"><span class="pill-icon">🚌</span>Kla → Mbarara</button>
+        <button class="quick-pill" onclick="setRoute('kampala','gulu')"><span class="pill-icon">🚌</span>Kla → Gulu</button>
+        <button class="quick-pill" onclick="setRoute('kampala','mbale')"><span class="pill-icon">🚌</span>Kla → Mbale</button>
+        <button class="quick-pill" onclick="setRoute('kampala','fort-portal')"><span class="pill-icon">🚌</span>Kla → Fort Portal</button>
+        <button class="quick-pill" onclick="window.location.href='/pages/parcels.html'"><span class="pill-icon">📦</span>Send Parcel</button>
+        <button class="quick-pill" onclick="window.location.href='/pages/parcels.html'"><span class="pill-icon">🏆</span>Charter</button>
+      </div>
+    </div>
+    <!-- end search-widget -->
+  </div>
+  <!-- end hero-content -->
+</section>
+
+<!-- ═══ LIVE TICKER ══════════════════════════════════════════ -->
+<div class="live-ticker-bar" role="marquee" aria-label="Live departure status">
+  <div class="ticker-live-badge">
+    <div class="dot"></div>
+    LIVE
+  </div>
+  <div class="ticker-track-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <!-- duplicated for seamless loop -->
+      <div class="ticker-item"><span class="route">Kampala → Mbarara</span><span>06:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Gulu</span><span>06:30</span><span class="status-badge filling">Filling Fast</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Jinja</span><span>07:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Mbale</span><span>07:30</span><span class="status-badge almost">Almost Full</span></div>
+      <div class="ticker-item"><span class="route">Mbarara → Kampala</span><span>05:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Fort Portal</span><span>08:00</span><span class="status-badge filling">Filling Fast</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Kabale</span><span>08:30</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Nairobi</span><span>20:00</span><span class="status-badge filling">Filling Fast</span></div>
+      <!-- duplicate -->
+      <div class="ticker-item"><span class="route">Kampala → Mbarara</span><span>06:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Gulu</span><span>06:30</span><span class="status-badge filling">Filling Fast</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Jinja</span><span>07:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Mbale</span><span>07:30</span><span class="status-badge almost">Almost Full</span></div>
+      <div class="ticker-item"><span class="route">Mbarara → Kampala</span><span>05:00</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Fort Portal</span><span>08:00</span><span class="status-badge filling">Filling Fast</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Kabale</span><span>08:30</span><span class="status-badge on-time">On Time</span></div>
+      <div class="ticker-item"><span class="route">Kampala → Nairobi</span><span>20:00</span><span class="status-badge filling">Filling Fast</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS BAR ════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number"><span class="count-up" data-target="500">0</span>K+</div>
+      <div class="stat-label">Passengers</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number"><span class="count-up" data-target="150">0</span>+</div>
+      <div class="stat-label">Operators</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number"><span class="count-up" data-target="21">0</span></div>
+      <div class="stat-label">Destinations</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">60<span style="font-size:0.55em">s</span></div>
+      <div class="stat-label">Booking Time</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">99.1<span style="font-size:0.55em">%</span></div>
+      <div class="stat-label">On-Time Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TODAY'S DEPARTURES ════════════════════════════════════ -->
+<section class="departures-section reveal" aria-labelledby="dep-heading">
+  <div class="departures-header">
+    <div>
+      <div class="section-label">Real-time</div>
+      <h2 class="section-title" id="dep-heading" style="margin-bottom:0;">Today's<br>Departures</h2>
+    </div>
+    <a href="/pages/book.html" class="view-all-link">View all →</a>
+  </div>
+
+  <div class="departures-scroll" role="list" aria-label="Today's departures">
+    <!-- Card 1: Raylane own -->
+    <article class="departure-card raylane" role="listitem" onclick="window.location.href='/pages/book.html?from=kampala&to=mbarara'" style="cursor:pointer;" aria-label="Kampala to Mbarara at 06:00">
+      <div class="dep-operator-row">
+        <span class="dep-operator">Raylane Express</span>
+        <span class="dep-operator-badge">⭐ Verified</span>
+      </div>
+      <div class="dep-route">Kampala → Mbarara</div>
+      <div class="dep-time-row">
+        <span class="dep-time">06:00</span>
+        <span class="dep-duration">3h 30m →</span>
+        <span class="dep-arrival">09:30</span>
+      </div>
+      <div class="dep-amenities">
+        <span class="amenity-chip">❄️ AC</span>
+        <span class="amenity-chip">📶 WiFi</span>
+        <span class="amenity-chip">🔌 USB</span>
+        <span class="amenity-chip">67-Seater</span>
+      </div>
+      <span class="urgency-badge filling">● Filling Fast</span>
+      <div class="dep-fill-row">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-60);margin-bottom:4px;">
+          <span>42/67 seats</span><span>25 left</span>
+        </div>
+        <div class="dep-fill-bar"><div class="dep-fill-progress fill-amber" style="width:63%"></div></div>
+      </div>
+      <div class="dep-bottom-row">
+        <div class="dep-price">UGX 25,000 <span>/seat</span></div>
+        <button class="dep-cta" onclick="event.stopPropagation();window.location.href='/pages/book.html?from=kampala&to=mbarara'">Select</button>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="departure-card" role="listitem" onclick="window.location.href='/pages/book.html?from=kampala&to=gulu'" style="cursor:pointer;">
+      <div class="dep-operator-row">
+        <span class="dep-operator">Global Coaches</span>
+      </div>
+      <div class="dep-route">Kampala → Gulu</div>
+      <div class="dep-time-row">
+        <span class="dep-time">06:30</span>
+        <span class="dep-duration">5h →</span>
+        <span class="dep-arrival">11:30</span>
+      </div>
+      <div class="dep-amenities">
+        <span class="amenity-chip">❄️ AC</span>
+        <span class="amenity-chip">67-Seater</span>
+      </div>
+      <span class="urgency-badge available">● Available</span>
+      <div class="dep-fill-row">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-60);margin-bottom:4px;">
+          <span>18/67 seats</span><span>49 left</span>
+        </div>
+        <div class="dep-fill-bar"><div class="dep-fill-progress fill-green" style="width:27%"></div></div>
+      </div>
+      <div class="dep-bottom-row">
+        <div class="dep-price">UGX 30,000 <span>/seat</span></div>
+        <button class="dep-cta" onclick="event.stopPropagation();window.location.href='/pages/book.html?from=kampala&to=gulu'">Select</button>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="departure-card" role="listitem" onclick="window.location.href='/pages/book.html?from=kampala&to=mbale'" style="cursor:pointer;">
+      <div class="dep-operator-row">
+        <span class="dep-operator">YY Coaches</span>
+      </div>
+      <div class="dep-route">Kampala → Mbale</div>
+      <div class="dep-time-row">
+        <span class="dep-time">07:30</span>
+        <span class="dep-duration">4h →</span>
+        <span class="dep-arrival">11:30</span>
+      </div>
+      <div class="dep-amenities">
+        <span class="amenity-chip">❄️ AC</span>
+        <span class="amenity-chip">📶 WiFi</span>
+        <span class="amenity-chip">67-Seater</span>
+      </div>
+      <span class="urgency-badge almost">● Almost Full</span>
+      <div class="dep-fill-row">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-60);margin-bottom:4px;">
+          <span>61/67 seats</span><span>6 left</span>
+        </div>
+        <div class="dep-fill-bar"><div class="dep-fill-progress fill-red" style="width:91%"></div></div>
+      </div>
+      <div class="dep-bottom-row">
+        <div class="dep-price">UGX 22,000 <span>/seat</span></div>
+        <button class="dep-cta" onclick="event.stopPropagation();window.location.href='/pages/book.html?from=kampala&to=mbale'">Select</button>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="departure-card raylane" role="listitem" onclick="window.location.href='/pages/book.html?from=kampala&to=fort-portal'" style="cursor:pointer;">
+      <div class="dep-operator-row">
+        <span class="dep-operator">Raylane Express</span>
+        <span class="dep-operator-badge">⭐ Verified</span>
+      </div>
+      <div class="dep-route">Kampala → Fort Portal</div>
+      <div class="dep-time-row">
+        <span class="dep-time">08:00</span>
+        <span class="dep-duration">4h 30m →</span>
+        <span class="dep-arrival">12:30</span>
+      </div>
+      <div class="dep-amenities">
+        <span class="amenity-chip">❄️ AC</span>
+        <span class="amenity-chip">🔌 USB</span>
+        <span class="amenity-chip">67-Seater</span>
+      </div>
+      <span class="urgency-badge filling">● Filling Fast</span>
+      <div class="dep-fill-row">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-60);margin-bottom:4px;">
+          <span>35/67 seats</span><span>32 left</span>
+        </div>
+        <div class="dep-fill-bar"><div class="dep-fill-progress fill-amber" style="width:52%"></div></div>
+      </div>
+      <div class="dep-bottom-row">
+        <div class="dep-price">UGX 35,000 <span>/seat</span></div>
+        <button class="dep-cta" onclick="event.stopPropagation();window.location.href='/pages/book.html?from=kampala&to=fort-portal'">Select</button>
+      </div>
+    </article>
+
+    <!-- Card 5 -->
+    <article class="departure-card" role="listitem" onclick="window.location.href='/pages/book.html?from=kampala&to=nairobi'" style="cursor:pointer;">
+      <div class="dep-operator-row">
+        <span class="dep-operator">Link Bus</span>
+      </div>
+      <div class="dep-route">Kampala → Nairobi 🇰🇪</div>
+      <div class="dep-time-row">
+        <span class="dep-time">20:00</span>
+        <span class="dep-duration">12h →</span>
+        <span class="dep-arrival">08:00</span>
+      </div>
+      <div class="dep-amenities">
+        <span class="amenity-chip">❄️ AC</span>
+        <span class="amenity-chip">📶 WiFi</span>
+        <span class="amenity-chip">🔌 USB</span>
+        <span class="amenity-chip">67-Seater</span>
+      </div>
+      <span class="urgency-badge available">● Available</span>
+      <div class="dep-fill-row">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-60);margin-bottom:4px;">
+          <span>22/67 seats</span><span>45 left</span>
+        </div>
+        <div class="dep-fill-bar"><div class="dep-fill-progress fill-green" style="width:33%"></div></div>
+      </div>
+      <div class="dep-bottom-row">
+        <div class="dep-price">UGX 65,000 <span>/seat</span></div>
+        <button class="dep-cta" onclick="event.stopPropagation();window.location.href='/pages/book.html?from=kampala&to=nairobi'">Select</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═════════════════════════════════════════ -->
+<section class="how-section reveal" aria-labelledby="how-heading">
+  <div class="section-label">Simple Process</div>
+  <h2 class="section-title" id="how-heading">How It Works</h2>
+  <p class="section-desc">From search to boarding in under 60 seconds. Works on any phone — smartphone or basic 2G feature phone. No app download required.</p>
+
+  <div class="steps-grid">
+    <div class="step-card reveal reveal-delay-1">
+      <div class="step-number">01</div>
+      <span class="step-icon">🔍</span>
+      <div class="step-title">Search Your Route</div>
+      <p class="step-desc">Choose your departure city, destination, date and number of passengers. See all available trips instantly.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-2">
+      <div class="step-number">02</div>
+      <span class="step-icon">💺</span>
+      <div class="step-title">Choose Your Seat</div>
+      <p class="step-desc">Pick your exact seat on an interactive coach map. See which seats are available, booked, or premium.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-3">
+      <div class="step-number">03</div>
+      <span class="step-icon">💳</span>
+      <div class="step-title">Pay Instantly</div>
+      <p class="step-desc">Pay with MTN MoMo, Airtel Money, Visa or Mastercard. USSD push works on any phone in 8 seconds.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-4">
+      <div class="step-number">04</div>
+      <span class="step-icon">📲</span>
+      <div class="step-title">Board with QR Code</div>
+      <p class="step-desc">Your QR-coded ticket arrives by SMS instantly. Show it at the terminal. No printing needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ══════════════════════════════════════════════ -->
+<section class="reveal" aria-labelledby="services-heading">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title" id="services-heading">Our Services</h2>
+
+  <div class="services-grid">
+    <a href="/pages/book.html" class="service-card featured">
+      <span class="service-icon">🚌</span>
+      <div class="service-title">Intercity Coach</div>
+      <p class="service-desc">40+ departures daily to 21 destinations across Uganda and beyond.</p>
+      <span class="service-price">From UGX 8,000</span>
+    </a>
+    <a href="/pages/parcels.html" class="service-card">
+      <span class="service-icon">📦</span>
+      <div class="service-title">Parcel Delivery</div>
+      <p class="service-desc">Send envelopes, parcels, and heavy cargo on the next available bus.</p>
+      <span class="service-price">From UGX 5,000</span>
+    </a>
+    <a href="/pages/parcels.html" class="service-card">
+      <span class="service-icon">🏆</span>
+      <div class="service-title">Private Charter</div>
+      <p class="service-desc">Charter a full 67-seater coach for events, school trips, or corporate travel.</p>
+      <span class="service-price">Custom Quote</span>
+    </a>
+    <a href="/pages/group.html" class="service-card">
+      <span class="service-icon">👥</span>
+      <div class="service-title">Group Bookings</div>
+      <p class="service-desc">Groups of 10+. Consecutive seats guaranteed. Discounts for 20+ passengers.</p>
+      <span class="service-price">5% Group Discount</span>
+    </a>
+    <a href="/pages/account.html" class="service-card">
+      <span class="service-icon">🏢</span>
+      <div class="service-title">Corporate Accounts</div>
+      <p class="service-desc">Monthly invoicing, priority boarding, dedicated coordinator for your team.</p>
+      <span class="service-price">Custom Plan</span>
+    </a>
+    <a href="/pages/book.html" class="service-card">
+      <span class="service-icon">📅</span>
+      <div class="service-title">Advance Booking</div>
+      <p class="service-desc">Book up to 90 days ahead. Secure your seat with a 20% deposit.</p>
+      <span class="service-price">20% Deposit</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PORTALS ════════════════════════════════════════════════ -->
+<section class="reveal" aria-labelledby="portals-heading">
+  <div class="section-label">Platform Access</div>
+  <h2 class="section-title" id="portals-heading">Access Your Portal</h2>
+  <p class="section-desc">One platform powering passengers, operators, and admins across Uganda.</p>
+
+  <div class="portals-grid" style="margin-top:32px;">
+    <a href="/pages/admin.html" class="portal-card">
+      <div class="portal-icon blue">🛡️</div>
+      <div class="portal-info">
+        <div class="portal-name">Super Admin Console</div>
+        <p class="portal-desc">Full platform control — operators, trips, payouts, fleet, financials, and system health.</p>
+      </div>
+      <div class="portal-arrow">→</div>
+    </a>
+    <a href="/pages/operator.html" class="portal-card">
+      <div class="portal-icon gold">🏢</div>
+      <div class="portal-info">
+        <div class="portal-name">Operator Dashboard</div>
+        <p class="portal-desc">Manage trips, bookings, drivers, fleet, payroll, P&amp;L statements, and insurance.</p>
+      </div>
+      <div class="portal-arrow">→</div>
+    </a>
+    <a href="/pages/partner.html" class="portal-card">
+      <div class="portal-icon green">🤝</div>
+      <div class="portal-info">
+        <div class="portal-name">Partner Portal</div>
+        <p class="portal-desc">Join Raylane as a bus operator. Apply online, go live in 48 hours.</p>
+      </div>
+      <div class="portal-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ OPERATOR CTA ══════════════════════════════════════════ -->
+<section style="padding:40px 1.25rem 60px;" class="reveal">
+  <div class="operator-cta">
+    <div class="op-cta-content">
+      <div class="op-cta-tag">For Bus Operators</div>
+      <h2 class="op-cta-title">Grow Your Bus<br>Business With Us</h2>
+      <p class="op-cta-desc">Uganda's most powerful bus management SaaS. Seat booking, fleet tracking, payroll, P&amp;L, and more — all in one dashboard.</p>
+      <div class="op-plans-mini">
+        <div class="op-plan-mini">
+          <div class="op-plan-name">Starter</div>
+          <div class="op-plan-price">Free</div>
+          <div class="op-plan-commission">8% commission</div>
+        </div>
+        <div class="op-plan-mini">
+          <div class="op-plan-name">Standard</div>
+          <div class="op-plan-price">200K</div>
+          <div class="op-plan-commission">8% commission</div>
+        </div>
+        <div class="op-plan-mini popular">
+          <div class="op-plan-name">Pro ⭐</div>
+          <div class="op-plan-price">450K</div>
+          <div class="op-plan-commission">6% commission</div>
+        </div>
+        <div class="op-plan-mini">
+          <div class="op-plan-name">Enterprise</div>
+          <div class="op-plan-price">900K</div>
+          <div class="op-plan-commission">5% commission</div>
+        </div>
+      </div>
+      <div class="op-cta-btns">
+        <a href="/pages/partner.html" class="btn-gold">Apply Now — Free</a>
+        <a href="/pages/partner.html#calculator" class="btn-outline">Calculate Earnings</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LOYALTY ════════════════════════════════════════════════ -->
+<section class="loyalty-section reveal" aria-labelledby="loyalty-heading">
+  <div class="section-label">Rewards</div>
+  <h2 class="section-title" id="loyalty-heading">Loyalty Programme</h2>
+  <p class="section-desc">Earn points every time you travel or send a parcel. Redeem for discounts, free trips, and exclusive perks.</p>
+
+  <div class="loyalty-tiers">
+    <div class="tier-card reveal reveal-delay-1">
+      <span class="tier-badge">🥉</span>
+      <div class="tier-name bronze">Bronze</div>
+      <div class="tier-points">0 – 1,999 pts</div>
+      <p class="tier-perk">1 pt per UGX 100 spent. QR e-tickets, 30-day booking history.</p>
+    </div>
+    <div class="tier-card reveal reveal-delay-2">
+      <span class="tier-badge">🥈</span>
+      <div class="tier-name silver">Silver</div>
+      <div class="tier-points">2,000 – 9,999 pts</div>
+      <p class="tier-perk">1.5× earn rate. Priority boarding. 5% off all bookings. 1 free upgrade per quarter.</p>
+    </div>
+    <div class="tier-card gold-tier reveal reveal-delay-3">
+      <span class="tier-badge">🥇</span>
+      <div class="tier-name gold">Gold</div>
+      <div class="tier-points">10,000+ pts</div>
+      <p class="tier-perk">2× earn rate. 10% off every booking. Free monthly parcel. WhatsApp VIP support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST & SAFETY ════════════════════════════════════════ -->
+<section class="reveal" aria-labelledby="trust-heading">
+  <div class="section-label">Safety First</div>
+  <h2 class="section-title" id="trust-heading">Trust &amp; Safety</h2>
+
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-info">
+        <div class="trust-title">Server-Locked Seats</div>
+        <p class="trust-desc">Your seat is locked at the database level for 10 minutes during payment. Nobody can steal it.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">📱</div>
+      <div class="trust-info">
+        <div class="trust-title">Works on 2G Phones</div>
+        <p class="trust-desc">USSD MoMo push works on any mobile phone. No internet needed to pay.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">✅</div>
+      <div class="trust-info">
+        <div class="trust-title">Verified Operators</div>
+        <p class="trust-desc">All operators verified with PSV licence, URA TIN, and fleet insurance before going live.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-info">
+        <div class="trust-title">Instant MoMo Refunds</div>
+        <p class="trust-desc">Cancel within 6 hours and receive 80% refund back to your MoMo instantly.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">📦</div>
+      <div class="trust-info">
+        <div class="trust-title">Parcel Insurance</div>
+        <p class="trust-desc">Every parcel insured by UAP Old Mutual Uganda. Declare value, we protect it.</p>
+      </div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">💳</div>
+      <div class="trust-info">
+        <div class="trust-title">PCI-DSS Card Security</div>
+        <p class="trust-desc">Card payments via DPO Group PCI-DSS Level 1. We never store your card details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ════════════════════════════════════════════════════ -->
+<section class="reveal" aria-labelledby="faq-heading">
+  <div class="section-label">Help</div>
+  <h2 class="section-title" id="faq-heading">Frequently Asked</h2>
+
+  <div class="faq-tabs" role="tablist" aria-label="FAQ categories">
+    <button class="faq-tab-btn active" data-faq="booking" role="tab">Booking &amp; Payment</button>
+    <button class="faq-tab-btn" data-faq="boarding" role="tab">Boarding</button>
+    <button class="faq-tab-btn" data-faq="cancel" role="tab">Cancellations</button>
+    <button class="faq-tab-btn" data-faq="parcels" role="tab">Parcels</button>
+    <button class="faq-tab-btn" data-faq="operators" role="tab">Operators</button>
+  </div>
+
+  <div class="faq-list" id="faqList" role="list">
+    <!-- Booking FAQs shown by default -->
+    <div class="faq-item" data-category="booking">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">How do I pay with MTN Mobile Money?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Select MTN Mobile Money at checkout, enter your MoMo number (0771, 0701, or 0750). You'll receive a USSD push notification on your phone. Enter your MoMo PIN and the payment is confirmed in about 8 seconds. Works on any phone — no internet required on your end.</div></div>
+    </div>
+    <div class="faq-item" data-category="booking">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">Do I need to create an account to book?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">No account is required. Enter your name and phone number at checkout. Your QR-coded ticket is sent directly to your phone via SMS. Creating an account unlocks loyalty points, booking history, and exclusive discounts.</div></div>
+    </div>
+    <div class="faq-item" data-category="booking">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">How far in advance can I book?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">You can book up to 90 days in advance. Advance bookings require a 20% deposit to secure your seat. The remaining 80% is paid at the terminal or you can pay the full amount online now.</div></div>
+    </div>
+    <div class="faq-item" data-category="boarding">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">What do I show at the terminal?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Show the QR code sent to your phone via SMS. The conductor scans it to verify your seat. No printing required. If you have no phone signal, you can also show your booking reference number (e.g. RLX-123456).</div></div>
+    </div>
+    <div class="faq-item" data-category="cancel">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">What is the cancellation and refund policy?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Cancel more than 6 hours before departure and receive 80% of your fare refunded to your original payment method (MoMo, Airtel, or card). Cancellations within 6 hours are non-refundable. Refunds are processed within 24 hours.</div></div>
+    </div>
+    <div class="faq-item" data-category="parcels">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">How do I track my parcel?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">After booking, both sender and recipient receive an SMS with a tracking code (e.g. PKL-123456). Visit raylaneexpress.com/parcels, click "Track Parcel", enter your code and see live status: Picked Up → Verified → In Transit → Delivered.</div></div>
+    </div>
+    <div class="faq-item" data-category="operators">
+      <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+        <span class="faq-q-text">How quickly can my bus company go live?</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Submit your application at raylaneexpress.com/partner. Our onboarding team reviews documents within 24 hours. Once approved, you receive your dashboard credentials via SMS and can submit your first trip immediately. Most operators go live within 48 hours.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-logo-row">
+    <div class="nav-logo-mark">RL</div>
+    <div>
+      <div class="nav-logo-text" style="font-size:18px;">RAYLANE <span>EXPRESS</span></div>
+      <div class="nav-logo-sub">Uganda's Transport Platform</div>
+    </div>
+  </div>
+  <p class="footer-tagline">Uganda's first vertically integrated transport technology platform. Tusimbudde — We travel together.</p>
+  <div class="footer-socials">
+    <a href="#" class="social-btn" aria-label="Facebook">f</a>
+    <a href="#" class="social-btn" aria-label="Twitter/X">𝕏</a>
+    <a href="#" class="social-btn" aria-label="WhatsApp">W</a>
+    <a href="#" class="social-btn" aria-label="Instagram">📷</a>
+  </div>
+
+  <div class="footer-cols">
+    <div>
+      <div class="footer-col-title">Travel</div>
+      <div class="footer-links">
+        <a href="/pages/book.html" class="footer-link">Book a Seat</a>
+        <a href="/pages/parcels.html" class="footer-link">Send a Parcel</a>
+        <a href="/pages/parcels.html" class="footer-link">Charter a Bus</a>
+        <a href="/pages/group.html" class="footer-link">Group Bookings</a>
+        <a href="/pages/routes.html" class="footer-link">Routes &amp; Timetables</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Operators</div>
+      <div class="footer-links">
+        <a href="/pages/partner.html" class="footer-link">Join as Operator</a>
+        <a href="/pages/operator.html" class="footer-link">Operator Dashboard</a>
+        <a href="/pages/admin.html" class="footer-link">Admin Console</a>
+        <a href="/pages/partner.html#plans" class="footer-link">Pricing Plans</a>
+        <a href="/pages/partner.html#calculator" class="footer-link">Revenue Calculator</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="/pages/about.html" class="footer-link">About Raylane</a>
+        <a href="/pages/about.html" class="footer-link">Careers</a>
+        <a href="/pages/about.html" class="footer-link">Press</a>
+        <a href="/contact" class="footer-link">Contact Us</a>
+        <a href="/pages/safety.html" class="footer-link">Safety</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="/pages/terms.html" class="footer-link">Terms of Service</a>
+        <a href="/pages/privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="/pages/refund.html" class="footer-link">Refund Policy</a>
+        <a href="/pages/terms.html" class="footer-link">Parcel Terms</a>
+        <a href="/pages/privacy.html" class="footer-link">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 <span>Raylane Express</span>. All rights reserved. Kampala, Uganda 🇺🇬</p>
+    <div class="footer-legal">
+      <a href="/pages/terms.html">Terms</a>
+      <a href="/pages/privacy.html">Privacy</a>
+      <a href="/pages/refund.html">Refunds</a>
+      <a href="/pages/safety.html">Safety</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MOBILE STICKY BAR ═════════════════════════════════════ -->
+<div class="mobile-sticky" role="navigation" aria-label="Quick actions">
+  <a href="/pages/book.html" class="sticky-btn gold" aria-label="Book a seat">🎫 Book a Seat</a>
+  <a href="/pages/parcels.html" class="sticky-btn ghost" aria-label="Send a parcel">📦 Send Parcel</a>
+</div>
+
+<!-- ═══ WHATSAPP FAB ══════════════════════════════════════════ -->
+<a href="https://wa.me/256700000000" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">💬</a>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   RAYLANE EXPRESS — HOMEPAGE JAVASCRIPT
+   Mobile-first, accessible, performant
+══════════════════════════════════════════════════════════ */
+
+// ── Set today's date as default ──────────────────────────
+(function() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const dateInput = document.getElementById('travel-date');
+  if (dateInput) {
+    dateInput.value = yyyy + '-' + mm + '-' + dd;
+    dateInput.min = yyyy + '-' + mm + '-' + dd;
+  }
+})();
+
+// ── Toast notification ───────────────────────────────────
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast ' + type + ' show';
+  setTimeout(() => { toast.classList.remove('show'); }, 3000);
+}
+
+// ── Nav scroll effect ────────────────────────────────────
+const nav = document.getElementById('nav');
+let ticking = false;
+window.addEventListener('scroll', function() {
+  if (!ticking) {
+    requestAnimationFrame(function() {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+// ── Search tabs ──────────────────────────────────────────
+document.querySelectorAll('.search-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    const targetTab = this.dataset.tab;
+    document.querySelectorAll('.search-tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.search-form').forEach(f => f.classList.remove('active'));
+    this.classList.add('active');
+    this.setAttribute('aria-selected', 'true');
+    const targetForm = document.getElementById('tab-' + targetTab);
+    if (targetForm) targetForm.classList.add('active');
+  });
+});
+
+// ── Swap cities ──────────────────────────────────────────
+document.getElementById('swapBtn').addEventListener('click', function() {
+  const from = document.getElementById('from-city');
+  const to = document.getElementById('to-city');
+  const tmp = from.value;
+  from.value = to.value;
+  to.value = tmp;
+  showToast('🔄 Cities swapped!', 'info');
+});
+
+// ── Quick route pills ────────────────────────────────────
+function setRoute(from, to) {
+  const fromEl = document.getElementById('from-city');
+  const toEl = document.getElementById('to-city');
+  if (fromEl) fromEl.value = from;
+  if (toEl) toEl.value = to;
+  // Switch to bus tab
+  document.querySelectorAll('.search-tab')[0].click();
+  showToast('✅ Route set: ' + from.charAt(0).toUpperCase() + from.slice(1) + ' → ' + to.charAt(0).toUpperCase() + to.slice(1), 'success');
+}
+
+// ── Search submit ────────────────────────────────────────
+document.getElementById('searchBtn').addEventListener('click', function() {
+  const from = document.getElementById('from-city').value;
+  const to = document.getElementById('to-city').value;
+  const date = document.getElementById('travel-date').value;
+  const pax = document.getElementById('passengers').value;
+
+  if (!from) { showToast('⚠️ Please select a departure city', 'info'); return; }
+  if (!to) { showToast('⚠️ Please select a destination city', 'info'); return; }
+  if (from === to) { showToast('⚠️ Departure and destination cannot be the same', 'info'); return; }
+
+  const url = '/pages/book.html?from=' + from + '&to=' + to + '&date=' + date + '&pax=' + pax;
+  showToast('🔍 Finding trips...', 'info');
+  setTimeout(() => { window.location.href = url; }, 500);
+});
+
+// Allow Enter key on search
+document.getElementById('from-city').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('searchBtn').click();
+});
+document.getElementById('to-city').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('searchBtn').click();
+});
+
+// ── GPS Terminal Finder ──────────────────────────────────
+document.getElementById('gpsBtn').addEventListener('click', function() {
+  if (!navigator.geolocation) {
+    showToast('⚠️ GPS not supported on this device', 'info');
+    return;
+  }
+  showToast('📍 Locating you...', 'info');
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    showToast('✅ Nearest terminal: Kampala Main Bus Park — 1.2km', 'success');
+  }, function() {
+    showToast('⚠️ Could not access location. Please allow GPS.', 'info');
+  });
+});
+
+// ── Mobile menu ──────────────────────────────────────────
+const mobileMenu = document.getElementById('mobileMenu');
+const menuToggle = document.getElementById('menuToggle');
+const menuClose = document.getElementById('menuClose');
+const menuOverlay = document.getElementById('menuOverlay');
+
+function openMenu() {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  menuToggle.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  menuToggle.setAttribute('aria-expanded', 'false');
+}
+menuToggle.addEventListener('click', openMenu);
+menuClose.addEventListener('click', closeMenu);
+menuOverlay.addEventListener('click', closeMenu);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMenu();
+});
+
+// ── FAQ accordion ────────────────────────────────────────
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    const item = this.parentElement;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      this.setAttribute('aria-expanded', 'true');
+    }
+  });
+  // Keyboard support
+  q.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.click();
+    }
+  });
+});
+
+// ── FAQ tabs ─────────────────────────────────────────────
+document.querySelectorAll('.faq-tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.faq-tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    // For now just open all since we have limited data
+    showToast('📋 Showing ' + this.textContent + ' questions', 'info');
+  });
+});
+
+// ── Particle system ──────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], animId;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function Particle() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4;
+    this.opacity = Math.random() * 0.4 + 0.1;
+    this.color = Math.random() > 0.7 ? '#E8A800' : '#4B7BEC';
+  }
+
+  Particle.prototype.update = function() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0) this.x = W;
+    if (this.x > W) this.x = 0;
+    if (this.y < 0) this.y = H;
+    if (this.y > H) this.y = 0;
+  };
+
+  Particle.prototype.draw = function() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  };
+
+  function init() {
+    resize();
+    particles = [];
+    const count = Math.min(Math.floor((W * H) / 12000), 80);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    // Draw connections
+    ctx.globalAlpha = 0.04;
+    ctx.strokeStyle = '#4B7BEC';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    animId = requestAnimationFrame(loop);
+  }
+
+  // Pause when not visible
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else loop();
+  });
+
+  window.addEventListener('resize', function() {
+    cancelAnimationFrame(animId);
+    init();
+    loop();
+  }, { passive: true });
+
+  init();
+  loop();
+})();
+
+// ── Scroll reveal ────────────────────────────────────────
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+})();
+
+// ── Counter animation ────────────────────────────────────
+(function() {
+  const counters = document.querySelectorAll('.count-up');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const step = target / 60;
+        const timer = setInterval(function() {
+          current += step;
+          if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current);
+          }
+        }, 20);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => observer.observe(el));
+})();
+
+// ── Simulate live seat updates on departure cards ────────
+(function() {
+  setInterval(function() {
+    const fills = document.querySelectorAll('.dep-fill-progress');
+    fills.forEach(function(fill) {
+      const current = parseInt(fill.style.width);
+      if (current < 95) {
+        const bump = Math.floor(Math.random() * 3);
+        fill.style.width = Math.min(current + bump, 99) + '%';
+      }
+    });
+  }, 45000);
+})();
+
+// ── Keyboard navigation shortcut ─────────────────────────
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('from-city').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+
+// ── Service worker ready (production) ────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    // navigator.serviceWorker.register('/sw.js'); // enable in production
+  });
+}
+
+</script>
+</body>
+</html>
