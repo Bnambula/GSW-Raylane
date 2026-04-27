@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Raylane Express — Uganda's Transport Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,800;0,900;1,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;--white:#fff;--white-80:rgba(255,255,255,0.8);--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--success:#22C55E;--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px;--transition:all 0.25s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px}.logo-text span{color:var(--warriors-gold)}
+.nav-right{margin-left:auto;display:flex;gap:8px}
+.nav-btn{padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-decoration:none;transition:var(--transition)}
+.nav-btn.ghost{background:var(--white-10);border:1px solid var(--border);color:var(--white-80)}
+.nav-btn.gold{background:var(--warriors-gold);color:var(--deep-navy);border:none}
+.nav-btn:hover{opacity:.85}
+/* PAGE */
+.page{padding:90px 1.25rem 80px;max-width:800px;margin:0 auto}
+.hero-section{text-align:center;padding:40px 0 60px;position:relative}
+.hero-section::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:400px;background:radial-gradient(circle,rgba(11,47,160,.4) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.page-label{display:inline-block;background:var(--gold-dim,rgba(232,168,0,.12));border:1px solid rgba(232,168,0,.3);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--warriors-gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.page-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(36px,8vw,56px);line-height:.95;margin-bottom:14px;letter-spacing:-.5px}
+.page-title span{color:var(--warriors-gold)}
+.page-sub{font-size:15px;color:var(--white-60);max-width:520px;margin:0 auto;line-height:1.7}
+/* SECTIONS */
+.section{margin-bottom:56px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--warriors-gold);border-radius:2px}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;margin-bottom:14px;letter-spacing:-.3px}
+.body-text{font-size:14px;color:var(--white-80);line-height:1.8;margin-bottom:14px}
+/* CARDS */
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+@media(max-width:600px){.cards-2,.cards-3{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.cards-3{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;transition:var(--transition)}
+.info-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px)}
+.info-card .icon{font-size:28px;margin-bottom:10px;display:block}
+.info-card .title{font-size:14px;font-weight:700;margin-bottom:6px}
+.info-card .desc{font-size:12px;color:var(--white-60);line-height:1.6}
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+.team-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--royal-blue),var(--navy-mid));display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px}
+.team-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.team-role{font-size:11px;color:var(--white-60)}
+/* MILESTONES */
+.timeline{position:relative;margin-top:20px}
+.timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:var(--border)}
+.milestone{display:flex;gap:16px;margin-bottom:24px;position:relative}
+.milestone-dot{width:30px;height:30px;border-radius:50%;background:var(--royal-blue);border:2px solid var(--warriors-gold);display:grid;place-items:center;font-size:12px;flex-shrink:0;position:relative;z-index:1}
+.milestone-body{flex:1;padding-top:4px}
+.milestone-year{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--warriors-gold);margin-bottom:2px}
+.milestone-title{font-weight:700;font-size:14px;margin-bottom:4px}
+.milestone-desc{font-size:12px;color:var(--white-60);line-height:1.5}
+/* FORM */
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.form-control{width:100%;padding:12px 13px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:var(--transition);-webkit-appearance:none}
+.form-control:focus{border-color:var(--royal-blue)}
+.form-control::placeholder{color:var(--white-60)}
+.btn-submit{padding:13px 28px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer;transition:var(--transition)}
+.btn-submit:hover{background:#ffd044;transform:translateY(-1px)}
+/* CONTACT */
+.contact-grid{display:grid;gap:12px;margin-top:20px}
+.contact-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:14px}
+.contact-icon{font-size:24px;width:40px;text-align:center;flex-shrink:0}
+.contact-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60);margin-bottom:3px}
+.contact-value{font-size:14px;font-weight:600}
+.contact-value a{color:var(--warriors-gold);text-decoration:none}
+/* TABS for page switching */
+.page-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:32px}
+.page-tabs::-webkit-scrollbar{display:none}
+.pt-btn{flex-shrink:0;padding:10px 16px;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--white-60);transition:var(--transition);margin-bottom:-1px}
+.pt-btn.active{color:var(--warriors-gold);border-bottom-color:var(--warriors-gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+/* TOAST */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(34,197,94,.3)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav">
+  <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <div class="nav-right"><a href="/" class="nav-btn ghost">← Home</a><a href="/pages/book.html" class="nav-btn gold">Book Now</a></div>
+</nav>
+<div class="page">
+  <div class="hero-section">
+    <div class="page-label">About Us</div>
+    <h1 class="page-title">We're Building Uganda's<br><span>Transport Future</span></h1>
+    <p class="page-sub">Raylane Express is Uganda's first vertically integrated transport technology platform. We connect passengers to buses, and bus companies to technology — in one seamless ecosystem.</p>
+  </div>
+
+  <!-- PAGE TABS -->
+  <div class="page-tabs">
+    <button class="pt-btn active" onclick="switchTab('about',this)">About Us</button>
+    <button class="pt-btn" onclick="switchTab('contact',this)">Contact</button>
+    <button class="pt-btn" onclick="switchTab('safety',this)">Safety</button>
+    <button class="pt-btn" onclick="switchTab('careers',this)">Careers</button>
+    <button class="pt-btn" onclick="switchTab('press',this)">Press</button>
+  </div>
+
+  <!-- ABOUT TAB -->
+  <div class="tab-panel active" id="tab-about">
+    <div class="section">
+      <div class="section-label">Our Story</div>
+      <div class="section-title">Born in Kampala</div>
+      <p class="body-text">Raylane Express was founded in Kampala, Uganda, with a simple frustration: booking a bus in Uganda required physically going to a bus park, standing in a queue, and hoping your seat was available. We built the technology to eliminate that queue — forever.</p>
+      <p class="body-text">Today we operate a three-layer platform: a passenger marketplace where any Ugandan can book a seat in 60 seconds using any phone; a full SaaS dashboard that gives bus companies everything they need to run a modern transport business; and our own internal Raylane Express Fleet of coaches operating on the most popular routes.</p>
+      <p class="body-text"><strong style="color:var(--warriors-gold)">Tusimbudde.</strong> In Luganda, this means "We travel together." It is our promise — to passengers, to operators, and to Uganda.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">What We Do</div>
+      <div class="section-title">Three Businesses. One Platform.</div>
+      <div class="cards-3">
+        <div class="info-card"><span class="icon">🚌</span><div class="title">Passenger Marketplace</div><div class="desc">Book seats, send parcels, charter coaches. Pay via MTN MoMo in 60 seconds on any phone.</div></div>
+        <div class="info-card"><span class="icon">🏢</span><div class="title">Operator SaaS</div><div class="desc">Full business management for bus companies — trips, fleet, drivers, payroll, P&L, insurance.</div></div>
+        <div class="info-card"><span class="icon">🚍</span><div class="title">Raylane Fleet</div><div class="desc">Our own coaches (UBF 001K, 002K, 003K) on Uganda's busiest routes, fully managed internally.</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Our Journey</div>
+      <div class="section-title">Milestones</div>
+      <div class="timeline">
+        <div class="milestone"><div class="milestone-dot">🌱</div><div class="milestone-body"><div class="milestone-year">2023</div><div class="milestone-title">Founded in Kampala</div><div class="milestone-desc">Raylane Express founded with 3 buses and a vision to digitise Uganda's transport sector</div></div></div>
+        <div class="milestone"><div class="milestone-dot">🚀</div><div class="milestone-body"><div class="milestone-year">2024</div><div class="milestone-title">Platform Launch</div><div class="milestone-desc">Public website launched. First 10 operators onboarded. MTN MoMo integration live.</div></div></div>
+        <div class="milestone"><div class="milestone-dot">📈</div><div class="milestone-body"><div class="milestone-year">2025</div><div class="milestone-title">Scale &amp; Growth</div><div class="milestone-desc">100,000+ passengers booked. 50+ operators. Parcel delivery and charter services added.</div></div></div>
+        <div class="milestone"><div class="milestone-dot">⭐</div><div class="milestone-body"><div class="milestone-year">2026</div><div class="milestone-title">Today</div><div class="milestone-desc">500,000+ passengers. 150+ operators. 21 destinations. Expanding to Nairobi and Kigali.</div></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">The Team</div>
+      <div class="section-title">Built by Ugandans</div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">👨‍💼</div><div class="team-name">Brian Ssemanda</div><div class="team-role">Chief Executive Officer</div></div>
+        <div class="team-card"><div class="team-avatar">👩‍💻</div><div class="team-name">Patricia Nakibuuka</div><div class="team-role">Chief Technology Officer</div></div>
+        <div class="team-card"><div class="team-avatar">👨‍💼</div><div class="team-name">Robert Kiggundu</div><div class="team-role">Chief Operating Officer</div></div>
+        <div class="team-card"><div class="team-avatar">👩‍💼</div><div class="team-name">Agnes Tumusiime</div><div class="team-role">Head of Operator Success</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Our Values</div>
+      <div class="section-title">How We Work</div>
+      <div class="cards-2">
+        <div class="info-card"><span class="icon">🇺🇬</span><div class="title">Uganda First</div><div class="desc">Built for Ugandans, by Ugandans. Every decision considers our local context — 2G phones, MoMo payments, rural routes.</div></div>
+        <div class="info-card"><span class="icon">🔒</span><div class="title">Trust &amp; Safety</div><div class="desc">Every operator verified. Every vehicle insured. Every passenger protected. No shortcuts on safety.</div></div>
+        <div class="info-card"><span class="icon">⚡</span><div class="title">Speed &amp; Simplicity</div><div class="desc">60-second bookings. Instant SMS tickets. No app download. Technology that works for everyone.</div></div>
+        <div class="info-card"><span class="icon">🤝</span><div class="title">Operator Partnership</div><div class="desc">We grow when operators grow. Fair commissions. Transparent payouts. Tools that actually help run a bus business.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT TAB -->
+  <div class="tab-panel" id="tab-contact">
+    <div class="section">
+      <div class="section-label">Get in Touch</div>
+      <div class="section-title">Contact Us</div>
+      <p class="body-text">We're a Kampala-based team and we love hearing from passengers, operators, and anyone interested in Uganda's transport future.</p>
+      <div class="contact-grid">
+        <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Head Office</div><div class="contact-value">Plot 45, Kampala Road, Kampala, Uganda</div></div></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Phone / WhatsApp</div><div class="contact-value"><a href="tel:+256700000000">+256 700 000 000</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-label">Email</div><div class="contact-value"><a href="mailto:hello@raylaneexpress.com">hello@raylaneexpress.com</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">🕐</div><div><div class="contact-label">Support Hours</div><div class="contact-value">Mon–Sat: 05:00 – 22:00 · Sun: 06:00 – 18:00</div></div></div>
+        <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">WhatsApp Support</div><div class="contact-value"><a href="https://wa.me/256700000000" target="_blank">Chat on WhatsApp →</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">🤝</div><div><div class="contact-label">Operator Partnerships</div><div class="contact-value"><a href="mailto:operators@raylaneexpress.com">operators@raylaneexpress.com</a></div></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Send Us a Message</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+        <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-control" placeholder="Sarah Nakato"></div>
+        <div class="form-group"><label class="form-label">Phone or Email</label><input type="text" class="form-control" placeholder="0771 000 000 or you@email.com"></div>
+        <div class="form-group"><label class="form-label">Subject</label><select class="form-control"><option>General Enquiry</option><option>Booking Issue</option><option>Parcel Query</option><option>Operator Application</option><option>Press / Media</option><option>Complaint</option><option>Other</option></select></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-control" rows="4" placeholder="How can we help you?..."></textarea></div>
+        <button class="btn-submit" onclick="showToast('✅ Message sent — we\'ll respond within 4 hours','success')">Send Message →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAFETY TAB -->
+  <div class="tab-panel" id="tab-safety">
+    <div class="section">
+      <div class="section-label">Passenger Safety</div>
+      <div class="section-title">Your Safety Is Non-Negotiable</div>
+      <p class="body-text">Every operator on the Raylane Express platform is verified, every vehicle is insured, and every booking is protected. Here's what we do to keep you safe.</p>
+      <div class="cards-2">
+        <div class="info-card"><span class="icon">✅</span><div class="title">Operator Verification</div><div class="desc">Every operator must submit a valid PSV licence, URA TIN, vehicle insurance, and driver licences before any trip goes live.</div></div>
+        <div class="info-card"><span class="icon">🔒</span><div class="title">Server-Locked Seats</div><div class="desc">Your seat is locked at the database level for 10 minutes during payment. No one can take your seat while you're paying.</div></div>
+        <div class="info-card"><span class="icon">📱</span><div class="title">2G Compatible</div><div class="desc">MTN MoMo USSD push works on any mobile phone. No smartphone or internet connection required to book and pay.</div></div>
+        <div class="info-card"><span class="icon">⚡</span><div class="title">Instant Refunds</div><div class="desc">Cancel more than 6 hours before departure and receive 80% refund to your original payment method within 24 hours.</div></div>
+        <div class="info-card"><span class="icon">🛡️</span><div class="title">Parcel Insurance</div><div class="desc">All parcels are insurable via UAP Old Mutual Uganda. Declare your value and we protect it throughout transit.</div></div>
+        <div class="info-card"><span class="icon">💳</span><div class="title">PCI-DSS Security</div><div class="desc">Card payments via DPO Group PCI-DSS Level 1. Your card data is never stored by Raylane Express.</div></div>
+        <div class="info-card"><span class="icon">👤</span><div class="title">Driver Standards</div><div class="desc">All drivers must hold a valid PSV licence. Licences tracked and expiry SMS alerts sent 60 days before renewal.</div></div>
+        <div class="info-card"><span class="icon">🚨</span><div class="title">Emergency Protocol</div><div class="desc">All Raylane operators are briefed on emergency procedures. Contact us immediately if you experience a safety issue.</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Report a Safety Concern</div>
+      <p class="body-text">If you experienced a safety issue on a Raylane Express trip, please report it immediately. We take all safety concerns seriously and investigate every report.</p>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+        <div class="form-group"><label class="form-label">Booking Reference</label><input type="text" class="form-control" placeholder="RLX-000000"></div>
+        <div class="form-group"><label class="form-label">Issue Type</label><select class="form-control"><option>Driver behaviour</option><option>Vehicle condition</option><option>Overbooking</option><option>Harassment</option><option>Accident or injury</option><option>Fraud or theft</option><option>Other</option></select></div>
+        <div class="form-group"><label class="form-label">Your Phone</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
+        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" rows="4" placeholder="Please describe what happened..."></textarea></div>
+        <button class="btn-submit" onclick="showToast('✅ Safety report submitted — our team will call you within 1 hour','success')">Submit Safety Report →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAREERS TAB -->
+  <div class="tab-panel" id="tab-careers">
+    <div class="section">
+      <div class="section-label">Join the Team</div>
+      <div class="section-title">Work at Raylane Express</div>
+      <p class="body-text">We're building Uganda's transport future. If you're passionate about technology, logistics, and making a real difference in people's lives, we'd love to meet you.</p>
+      <div class="cards-2">
+        <div class="info-card"><span class="icon">💻</span><div class="title">Software Engineer</div><div class="desc">Full-stack web development. HTML/CSS/JS + Supabase. Kampala-based. Competitive salary.</div></div>
+        <div class="info-card"><span class="icon">📊</span><div class="title">Operator Success Manager</div><div class="desc">Onboard and support bus operators. Relationship management. Travel required.</div></div>
+        <div class="info-card"><span class="icon">📱</span><div class="title">Customer Support Agent</div><div class="desc">WhatsApp and phone support for passengers. Kampala office. Rotational shifts.</div></div>
+        <div class="info-card"><span class="icon">🎨</span><div class="title">UI/UX Designer</div><div class="desc">Mobile-first product design. Figma. Understanding of low-bandwidth contexts preferred.</div></div>
+      </div>
+      <div style="margin-top:20px;text-align:center">
+        <p style="font-size:13px;color:var(--white-60);margin-bottom:14px">Don't see your role? Send us a general application.</p>
+        <button onclick="showToast('📧 Send your CV to careers@raylaneexpress.com','info')" style="padding:12px 24px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;cursor:pointer">Apply Now →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRESS TAB -->
+  <div class="tab-panel" id="tab-press">
+    <div class="section">
+      <div class="section-label">Media</div>
+      <div class="section-title">Press &amp; Media</div>
+      <p class="body-text">Raylane Express is Uganda's fastest-growing transport technology company. We welcome press enquiries, interview requests, and media partnerships.</p>
+      <div class="contact-grid">
+        <div class="contact-item"><div class="contact-icon">📰</div><div><div class="contact-label">Press Contact</div><div class="contact-value"><a href="mailto:press@raylaneexpress.com">press@raylaneexpress.com</a></div></div></div>
+        <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-label">Media Hotline</div><div class="contact-value"><a href="tel:+256700000001">+256 700 000 001</a></div></div></div>
+      </div>
+      <div style="margin-top:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--warriors-gold)">Key Facts for Media</div>
+        <div style="display:grid;gap:8px;font-size:13px;color:var(--white-80);line-height:1.6">
+          <div>📍 Founded: Kampala, Uganda</div>
+          <div>📅 Year Founded: 2023</div>
+          <div>👥 Team Size: 25+ full-time staff</div>
+          <div>🚌 Active Operators: 150+</div>
+          <div>🎫 Total Bookings: 500,000+</div>
+          <div>🗺️ Destinations Served: 21 cities + Nairobi + Kigali</div>
+          <div>💰 Monthly GMV: UGX 850M+</div>
+          <div>📱 Payments: MTN MoMo, Airtel Money, Visa, Mastercard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.pt-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+// Handle direct URL hash routing
+(function(){
+  const hash=window.location.hash.replace('#','');
+  const map={contact:'contact',safety:'safety',careers:'careers',press:'press'};
+  if(map[hash]){
+    const btn=Array.from(document.querySelectorAll('.pt-btn')).find(b=>b.textContent.toLowerCase().includes(hash));
+    switchTab(map[hash],btn);
+  }
+})();
+</script>
+</body>
+</html>

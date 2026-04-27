@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refund Policy — Raylane Express</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--white:#fff;--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--success:#22C55E;--warning:#F59E0B;--danger:#EF4444;--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px}.logo-text span{color:var(--warriors-gold)}
+.nav-right{margin-left:auto}.nav-btn{padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-decoration:none;background:var(--white-10);border:1px solid var(--border);color:rgba(255,255,255,.8)}
+.page{padding:90px 1.25rem 80px;max-width:720px;margin:0 auto}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;margin-bottom:6px}
+.updated{font-size:12px;color:var(--white-60);margin-bottom:32px}
+h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--warriors-gold);margin:28px 0 10px}
+p{font-size:14px;color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:12px}
+ul{margin:8px 0 12px 20px;display:grid;gap:6px}
+li{font-size:14px;color:rgba(255,255,255,.75);line-height:1.6}
+strong{color:var(--white)}
+a{color:var(--warriors-gold)}
+/* REFUND CARDS */
+.refund-grid{display:grid;gap:12px;margin:16px 0}
+.refund-card{border-radius:var(--radius);padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.refund-card.green{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
+.refund-card.amber{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)}
+.refund-card.red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
+.rc-icon{font-size:24px;flex-shrink:0}
+.rc-title{font-weight:700;font-size:15px;margin-bottom:4px}
+.rc-green{color:var(--success)}.rc-amber{color:var(--warning)}.rc-red{color:var(--danger)}
+.rc-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6}
+.rc-amount{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;margin-top:6px}
+/* REQUEST FORM */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:20px}
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.form-control{width:100%;padding:11px 13px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:all .25s;-webkit-appearance:none}
+.form-control:focus{border-color:var(--royal-blue)}
+.form-control::placeholder{color:var(--white-60)}
+select.form-control option{background:var(--deep-navy)}
+.btn-submit{padding:12px 24px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer;transition:all .25s}
+.btn-submit:hover{background:#ffd044}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(34,197,94,.3)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav">
+  <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <div class="nav-right"><a href="/" class="nav-btn">← Home</a></div>
+</nav>
+<div class="page">
+  <h1>Refund Policy</h1>
+  <p class="updated">Last updated: 1 April 2026 · Effective: 1 April 2026</p>
+  <p>We want every journey to be seamless. When things don't go to plan, our refund policy is designed to be fair, fast, and transparent.</p>
+
+  <h2>Seat Booking Refunds</h2>
+  <div class="refund-grid">
+    <div class="refund-card green">
+      <div class="rc-icon">✅</div>
+      <div>
+        <div class="rc-title rc-green">Cancel 6+ Hours Before Departure</div>
+        <div class="rc-desc">Cancel your booking more than 6 hours before the scheduled departure time and receive a full partial refund to your original payment method.</div>
+        <div class="rc-amount rc-green">80% Refund</div>
+      </div>
+    </div>
+    <div class="refund-card amber">
+      <div class="rc-icon">⏰</div>
+      <div>
+        <div class="rc-title rc-amber">Cancel Within 6 Hours of Departure</div>
+        <div class="rc-desc">Cancellations within 6 hours of the scheduled departure time are non-refundable. This applies to all regular bookings.</div>
+        <div class="rc-amount rc-amber">No Refund</div>
+      </div>
+    </div>
+    <div class="refund-card green">
+      <div class="rc-icon">🚌</div>
+      <div>
+        <div class="rc-title rc-green">Operator Cancels Your Trip</div>
+        <div class="rc-desc">If the bus operator cancels a trip for any reason, all affected passengers receive a full refund automatically. We also notify you by SMS immediately.</div>
+        <div class="rc-amount rc-green">100% Refund</div>
+      </div>
+    </div>
+    <div class="refund-card amber">
+      <div class="rc-icon">⏱️</div>
+      <div>
+        <div class="rc-title rc-amber">Trip Delayed More Than 2 Hours</div>
+        <div class="rc-desc">If your trip departs more than 2 hours after the scheduled time and you choose not to travel, you may request a full refund.</div>
+        <div class="rc-amount rc-amber">100% Refund (on request)</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Advance Booking Refunds</h2>
+  <p>Advance bookings (made 7+ days before departure) require a 20% deposit to secure your seat.</p>
+  <ul>
+    <li><strong>Deposit:</strong> Non-refundable if you cancel within 72 hours of making the booking</li>
+    <li><strong>Balance:</strong> If you cancel the full booking more than 6 hours before departure, the balance (minus deposit) is refunded at 80%</li>
+    <li><strong>Full advance payment:</strong> Subject to the same 6-hour cancellation window as regular bookings</li>
+  </ul>
+
+  <h2>Parcel Delivery Refunds</h2>
+  <div class="refund-grid">
+    <div class="refund-card green">
+      <div class="rc-icon">📦</div>
+      <div>
+        <div class="rc-title rc-green">Parcel Not Collected (Before Bus Departs)</div>
+        <div class="rc-desc">If your parcel was not collected before the bus departed, request a cancellation before 20:00 that day for a refund.</div>
+        <div class="rc-amount rc-green">80% Refund</div>
+      </div>
+    </div>
+    <div class="refund-card red">
+      <div class="rc-icon">❌</div>
+      <div>
+        <div class="rc-title rc-red">Parcel Already in Transit</div>
+        <div class="rc-desc">Once a parcel is loaded on the bus and in transit, no refund is available. Insurance claims apply for loss or damage.</div>
+        <div class="rc-amount rc-red">No Refund</div>
+      </div>
+    </div>
+    <div class="refund-card amber">
+      <div class="rc-icon">🛡️</div>
+      <div>
+        <div class="rc-title rc-amber">Lost or Damaged Parcel</div>
+        <div class="rc-desc">If your insured parcel is lost or damaged in transit, file a claim with UAP Old Mutual Uganda through Raylane within 48 hours of expected delivery.</div>
+        <div class="rc-amount rc-amber">Insurance Claim (up to declared value)</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Refund Processing Times</h2>
+  <ul>
+    <li><strong>MTN Mobile Money:</strong> Within 24 hours of refund approval</li>
+    <li><strong>Airtel Money:</strong> Within 24 hours of refund approval</li>
+    <li><strong>Visa / Mastercard:</strong> 3–7 business days depending on your bank</li>
+  </ul>
+  <p>Refunds are returned to the same payment method used for the original booking. We cannot redirect refunds to a different account.</p>
+
+  <h2>How to Request a Refund</h2>
+  <p>You can request a refund in three ways:</p>
+  <ul>
+    <li><strong>Online:</strong> Log in to your account at <a href="/pages/account.html">raylaneexpress.com/account</a>, go to My Trips, and click Cancel on the relevant booking</li>
+    <li><strong>WhatsApp:</strong> Message us on <a href="https://wa.me/256700000000">+256 700 000 000</a> with your booking reference</li>
+    <li><strong>Phone:</strong> Call +256 700 000 000 during support hours (Mon–Sat 05:00–22:00)</li>
+  </ul>
+
+  <h2>Request a Refund Online</h2>
+  <div class="form-card">
+    <div class="form-group"><label class="form-label">Booking Reference</label><input type="text" class="form-control" placeholder="RLX-000000 or PKL-000000"></div>
+    <div class="form-group"><label class="form-label">Phone Number Used at Booking</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
+    <div class="form-group"><label class="form-label">Reason for Cancellation</label><select class="form-control"><option>Change of plans</option><option>Trip delay exceeding 2 hours</option><option>Medical emergency</option><option>Operator cancelled trip</option><option>Wrong booking details</option><option>Other</option></select></div>
+    <div class="form-group"><label class="form-label">Additional Details (optional)</label><textarea class="form-control" rows="3" placeholder="Any relevant details about your cancellation..."></textarea></div>
+    <button class="btn-submit" onclick="showToast('✅ Refund request submitted — you\'ll receive confirmation SMS within 15 minutes','success')">Submit Refund Request →</button>
+    <p style="font-size:11px;color:var(--white-60);margin-top:10px">Your refund eligibility will be confirmed by SMS. If eligible, refunds are processed within 24 hours.</p>
+  </div>
+
+  <h2>Contact for Refund Queries</h2>
+  <p>If your refund hasn't arrived within the expected timeframe, contact us:</p>
+  <ul>
+    <li>Email: <a href="mailto:refunds@raylaneexpress.com">refunds@raylaneexpress.com</a></li>
+    <li>WhatsApp: <a href="https://wa.me/256700000000">+256 700 000 000</a></li>
+    <li>Phone: +256 700 000 000 (Mon–Sat, 05:00–22:00)</li>
+  </ul>
+  <p>Please have your booking reference, payment method, and the phone number used for payment ready when contacting us.</p>
+</div>
+<script>
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
+</script>
+</body>
+</html>

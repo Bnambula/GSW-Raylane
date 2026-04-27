@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Bookings — Raylane Express</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,800;0,900;1,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--white:#fff;--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--success:#22C55E;--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px;--transition:all 0.25s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px}.logo-text span{color:var(--warriors-gold)}
+.nav-right{margin-left:auto}.nav-btn{padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-decoration:none;background:var(--white-10);border:1px solid var(--border);color:rgba(255,255,255,.8)}
+.page{padding:90px 1.25rem 120px;max-width:720px;margin:0 auto}
+.page-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(36px,8vw,52px);line-height:.95;margin-bottom:8px;letter-spacing:-.5px}
+.page-sub{font-size:14px;color:var(--white-60);margin-bottom:28px;line-height:1.7}
+/* BENEFITS */
+.benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.benefit-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:flex-start;gap:10px}
+.benefit-icon{font-size:22px;flex-shrink:0}
+.benefit-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.benefit-desc{font-size:11px;color:var(--white-60);line-height:1.5}
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.form-section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--warriors-gold);margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.form-control{width:100%;padding:11px 13px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:var(--transition);-webkit-appearance:none}
+.form-control:focus{border-color:var(--royal-blue)}
+.form-control::placeholder{color:var(--white-60)}
+select.form-control option{background:var(--deep-navy)}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.checkbox-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:600}
+.checkbox-item input{accent-color:var(--warriors-gold);width:16px;height:16px}
+.btn-submit{width:100%;padding:15px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;cursor:pointer;transition:var(--transition);margin-top:8px}
+.btn-submit:hover{background:#ffd044;transform:translateY(-1px)}
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px}
+.success-icon{font-size:56px;display:block;margin-bottom:14px}
+.success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;margin-bottom:8px}
+.grp-ref{font-family:monospace;font-size:20px;font-weight:700;color:var(--warriors-gold);background:rgba(232,168,0,.1);border:1px solid rgba(232,168,0,.2);border-radius:var(--radius);padding:10px 24px;display:inline-block;letter-spacing:2px;margin:10px 0}
+.next-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);text-align:left}
+.next-step:last-child{border-bottom:none}
+.ns-num{width:22px;height:22px;border-radius:50%;background:var(--royal-blue);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0}
+/* FAQ */
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px}
+.faq-q{padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;-webkit-tap-highlight-color:transparent}
+.faq-chevron{color:var(--warriors-gold);transition:transform .3s}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding:0 16px 14px;font-size:13px;color:var(--white-60);line-height:1.7;border-top:1px solid var(--border);padding-top:12px}
+/* TOAST */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(34,197,94,.3)}
+.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:12px 1rem;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<nav class="nav">
+  <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <div class="nav-right"><a href="/" class="nav-btn">← Home</a></div>
+</nav>
+<div class="page">
+  <div class="page-title">Group Bookings</div>
+  <p class="page-sub">Minimum 10 passengers. Guaranteed consecutive seats, single payment link, group discounts, and a dedicated WhatsApp coordinator.</p>
+
+  <div class="benefits-grid">
+    <div class="benefit-card"><div class="benefit-icon">🎫</div><div><div class="benefit-title">One Group QR Code</div><div class="benefit-desc">Single QR code for the whole group — one scan at the terminal</div></div></div>
+    <div class="benefit-card"><div class="benefit-icon">💳</div><div><div class="benefit-title">Single Payment Link</div><div class="benefit-desc">One link, one payment — or split it among the group</div></div></div>
+    <div class="benefit-card"><div class="benefit-icon">💺</div><div><div class="benefit-title">Consecutive Seats</div><div class="benefit-desc">Guaranteed adjacent seats — your whole group sits together</div></div></div>
+    <div class="benefit-card"><div class="benefit-icon">💰</div><div><div class="benefit-title">Group Discounts</div><div class="benefit-desc">5% off for 20+ passengers · Negotiated rates for 40+</div></div></div>
+    <div class="benefit-card"><div class="benefit-icon">🧾</div><div><div class="benefit-title">Corporate Invoice</div><div class="benefit-desc">Full tax invoice for corporate travel and reimbursement</div></div></div>
+    <div class="benefit-card"><div class="benefit-icon">💬</div><div><div class="benefit-title">WhatsApp Coordinator</div><div class="benefit-desc">Dedicated coordinator for your group from booking to boarding</div></div></div>
+  </div>
+
+  <div class="form-card" id="groupForm">
+    <div class="form-section-title">👤 Organiser Information</div>
+    <div class="form-grid-2">
+      <div class="form-group"><label class="form-label">Full Name <span style="color:#EF4444">*</span></label><input type="text" class="form-control" id="orgName" placeholder="Sarah Nakato"></div>
+      <div class="form-group"><label class="form-label">Phone <span style="color:#EF4444">*</span></label><input type="tel" class="form-control" id="orgPhone" placeholder="0771 000 000"></div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-control" placeholder="sarah@makerere.ac.ug"></div>
+      <div class="form-group"><label class="form-label">Organisation / Company</label><input type="text" class="form-control" placeholder="Makerere University"></div>
+    </div>
+
+    <div class="form-section-title">🚌 Trip Details</div>
+    <div class="form-grid-2">
+      <div class="form-group"><label class="form-label">Number of Passengers <span style="color:#EF4444">*</span></label><input type="number" class="form-control" id="paxCount" placeholder="45" min="10"></div>
+      <div class="form-group"><label class="form-label">Trip Purpose</label><select class="form-control"><option>School Trip</option><option>Corporate Travel</option><option>Church Outing</option><option>Wedding</option><option>Sports Event</option><option>Tourism</option><option>Other</option></select></div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group"><label class="form-label">From City</label><select class="form-control"><option>Kampala</option><option>Mbarara</option><option>Gulu</option><option>Mbale</option><option>Jinja</option></select></div>
+      <div class="form-group"><label class="form-label">To City</label><select class="form-control"><option>Mbarara</option><option>Kampala</option><option>Gulu</option><option>Mbale</option><option>Jinja</option></select></div>
+    </div>
+    <div class="form-grid-2">
+      <div class="form-group"><label class="form-label">Travel Date</label><input type="date" class="form-control" id="travelDate"></div>
+      <div class="form-group"><label class="form-label">Preferred Time</label><select class="form-control"><option>Morning (06:00–09:00)</option><option>Late Morning (09:00–12:00)</option><option>Afternoon (12:00–17:00)</option><option>Any Time</option></select></div>
+    </div>
+    <div class="form-grid-3" style="margin-bottom:14px">
+      <label class="checkbox-item"><input type="checkbox"> 🔄 Return Trip</label>
+      <label class="checkbox-item"><input type="checkbox"> 🪟 Window Seats</label>
+      <label class="checkbox-item" id="invoiceCheck"><input type="checkbox" id="invoiceCheckbox"> 🧾 Invoice Required</label>
+    </div>
+    <div class="form-group"><label class="form-label">Additional Notes</label><textarea class="form-control" rows="3" placeholder="Special requirements, accessibility needs, luggage, meals..."></textarea></div>
+
+    <button class="btn-submit" onclick="submitGroup()">👥 Request Group Booking →</button>
+    <p style="font-size:11px;color:var(--white-60);text-align:center;margin-top:10px">Reference number issued immediately. Our team will confirm within 2 hours.</p>
+  </div>
+
+  <div class="success-screen" id="successScreen">
+    <span class="success-icon">👥</span>
+    <div class="success-title">Group Request Submitted!</div>
+    <p style="color:var(--white-60);margin-bottom:10px">Your reference number:</p>
+    <div class="grp-ref" id="grpRef">GRP-000000</div>
+    <p style="font-size:12px;color:var(--white-60);margin-bottom:20px">Our team will WhatsApp you with a quote and seat confirmation within 2 hours.</p>
+    <div style="background:rgba(8,26,92,.5);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:10px">What Happens Next</div>
+      <div class="next-step"><div class="ns-num">1</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">Our coordinator reviews your request and checks seat availability</div></div>
+      <div class="next-step"><div class="ns-num">2</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">You receive a WhatsApp quote within 2 hours with total amount and deposit details</div></div>
+      <div class="next-step"><div class="ns-num">3</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">Seats are reserved on 30% deposit — pay via MoMo or Airtel Money</div></div>
+      <div class="next-step"><div class="ns-num">4</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">One group QR code sent to organiser before departure date</div></div>
+    </div>
+    <a href="https://wa.me/256700000000?text=Hi Raylane, I just submitted group booking GRP-" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#25D366;color:#fff;border-radius:var(--radius);font-weight:700;text-decoration:none;margin-bottom:12px">💬 WhatsApp Follow-Up</a>
+  </div>
+
+  <div style="margin-top:40px">
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;margin-bottom:16px">Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>What is the minimum group size?</span><span class="faq-chevron">⌄</span></div><div class="faq-a"><div class="faq-a-inner">The minimum group size for a group booking is 10 passengers. For groups under 10, you can book individually through the main booking page. For groups over 40, we recommend also considering a full charter.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Can we split the payment among group members?</span><span class="faq-chevron">⌄</span></div><div class="faq-a"><div class="faq-a-inner">Yes! We can generate individual payment links for each member, or one link for the organiser to pay in full. Corporate groups can also receive a monthly invoice. Let us know your preference in the notes field.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>What if some group members cancel last minute?</span><span class="faq-chevron">⌄</span></div><div class="faq-a"><div class="faq-a-inner">Individual cancellations within a group are handled case by case. Generally, cancellations more than 24 hours before departure receive 80% refund per seat. Last-minute cancellations (within 6 hours) are non-refundable. The deposit is non-refundable once seats are confirmed.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Do all group members board from the same terminal?</span><span class="faq-chevron">⌄</span></div><div class="faq-a"><div class="faq-a-inner">Yes, all group members must board from the same terminal. The one group QR code is scanned at a single boarding point. If your group needs enroute pickup, please mention this in the notes and we'll check if the operator can accommodate.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Can we book the entire bus (charter)?</span><span class="faq-chevron">⌄</span></div><div class="faq-a"><div class="faq-a-inner">Yes! For groups needing an entire coach (67 seats), a private charter gives you full control over timing and route. Use the Charter tab on the Parcels page or contact us directly. Charter pricing is based on distance and vehicle type.</div></div></div>
+  </div>
+</div>
+
+<div class="mobile-sticky">
+  <button onclick="document.getElementById('groupForm').scrollIntoView({behavior:'smooth'})" style="width:100%;padding:14px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer">👥 Request Group Booking</button>
+</div>
+
+<script>
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
+(function(){const d=new Date().toISOString().split('T')[0];const el=document.getElementById('travelDate');if(el){el.value=d;el.min=d}})();
+function submitGroup(){
+  const name=document.getElementById('orgName').value.trim();
+  const phone=document.getElementById('orgPhone').value.trim();
+  const pax=document.getElementById('paxCount').value;
+  if(!name||!phone){showToast('⚠️ Please enter your name and phone','info');return}
+  if(!pax||parseInt(pax)<10){showToast('⚠️ Minimum group size is 10 passengers','info');return}
+  const ref='GRP-'+Math.floor(Math.random()*900000+100000);
+  document.getElementById('grpRef').textContent=ref;
+  document.getElementById('groupForm').style.display='none';
+  document.getElementById('successScreen').style.display='block';
+  document.getElementById('successScreen').scrollIntoView({behavior:'smooth'});
+  showToast('✅ Group request '+ref+' submitted!','success');
+}
+</script>
+</body>
+</html>

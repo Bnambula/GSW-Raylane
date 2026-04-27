@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Routes & Timetables — Raylane Express</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,800;0,900;1,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--white:#fff;--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px}.logo-text span{color:var(--warriors-gold)}
+.nav-right{margin-left:auto;display:flex;gap:8px}
+.nav-btn{padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;text-decoration:none;background:var(--white-10);border:1px solid var(--border);color:rgba(255,255,255,.8);transition:all .25s}
+.nav-btn.gold{background:var(--warriors-gold);color:var(--deep-navy);border-color:var(--warriors-gold)}
+.page{padding:90px 1.25rem 80px;max-width:900px;margin:0 auto}
+h1{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(36px,8vw,52px);line-height:.95;margin-bottom:8px;letter-spacing:-.5px}
+.sub{font-size:14px;color:var(--white-60);margin-bottom:28px;line-height:1.7}
+.search-bar-wrap{display:flex;gap:10px;margin-bottom:24px}
+.s-input{flex:1;padding:12px 14px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none}
+.s-input::placeholder{color:var(--white-60)}
+.route-grid{display:grid;gap:10px}
+.route-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:16px;transition:all .25s;cursor:pointer;text-decoration:none}
+.route-card:hover{border-color:rgba(255,255,255,.2);transform:translateX(4px)}
+.route-flag{font-size:20px;width:36px;text-align:center;flex-shrink:0}
+.route-cities{flex:1}
+.route-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.2px}
+.route-stats{font-size:11px;color:var(--white-60);margin-top:3px}
+.route-price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:var(--warriors-gold);text-align:right;flex-shrink:0}
+.route-trips{font-size:10px;color:var(--white-60);text-align:right}
+.badge-int{display:inline-block;padding:2px 8px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.2);border-radius:100px;font-size:9px;font-weight:700;color:#3B82F6;margin-left:6px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--warriors-gold);margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--warriors-gold);border-radius:2px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <div class="nav-right"><a href="/" class="nav-btn">← Home</a><a href="/pages/book.html" class="nav-btn gold">Book Now</a></div>
+</nav>
+<div class="page">
+  <h1>Routes &amp;<br>Timetables</h1>
+  <p class="sub">All routes served by Raylane Express and partner operators. Click any route to see live departures and book your seat.</p>
+  <div class="search-bar-wrap">
+    <input type="text" class="s-input" placeholder="🔍 Search routes — e.g. Kampala, Mbarara..." oninput="filterRoutes(this.value)">
+  </div>
+
+  <div class="section-label">Uganda Routes</div>
+  <div class="route-grid" id="routeGrid">
+    <a href="/pages/book.html?from=kampala&to=mbarara" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Mbarara</div><div class="route-stats">270km · 3h 30min · 6 departures/day</div></div><div><div class="route-price">UGX 25,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=gulu" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Gulu</div><div class="route-stats">340km · 5h · 4 departures/day</div></div><div><div class="route-price">UGX 30,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=mbale" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Mbale</div><div class="route-stats">235km · 4h · 3 departures/day</div></div><div><div class="route-price">UGX 22,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=fort-portal" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Fort Portal</div><div class="route-stats">310km · 4h 30min · 2 departures/day</div></div><div><div class="route-price">UGX 35,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=jinja" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Jinja</div><div class="route-stats">85km · 2h · 4 departures/day</div></div><div><div class="route-price">UGX 15,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=kabale" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Kabale</div><div class="route-stats">415km · 5h 30min · 2 departures/day</div></div><div><div class="route-price">UGX 28,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=arua" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Arua</div><div class="route-stats">490km · 7h · 2 departures/day</div></div><div><div class="route-price">UGX 35,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=lira" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Lira</div><div class="route-stats">355km · 5h · 2 departures/day</div></div><div><div class="route-price">UGX 30,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=masaka" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Masaka</div><div class="route-stats">140km · 2h 30min · 2 departures/day</div></div><div><div class="route-price">UGX 18,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=hoima" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Hoima</div><div class="route-stats">220km · 3h 30min · 1 departure/day</div></div><div><div class="route-price">UGX 22,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=soroti" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Soroti</div><div class="route-stats">310km · 4h 30min · 1 departure/day</div></div><div><div class="route-price">UGX 25,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=kisoro" class="route-card"><div class="route-flag">🚌</div><div class="route-cities"><div class="route-name">Kampala → Kisoro</div><div class="route-stats">490km · 6h · 1 departure/day</div></div><div><div class="route-price">UGX 38,000</div><div class="route-trips">from/seat</div></div></a>
+  </div>
+
+  <div class="section-label">International Routes</div>
+  <div class="route-grid">
+    <a href="/pages/book.html?from=kampala&to=nairobi" class="route-card"><div class="route-flag">🇰🇪</div><div class="route-cities"><div class="route-name">Kampala → Nairobi <span class="badge-int">INTERNATIONAL</span></div><div class="route-stats">680km · 12h · 2 departures/day (overnight)</div></div><div><div class="route-price">UGX 65,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=kampala&to=kigali" class="route-card"><div class="route-flag">🇷🇼</div><div class="route-cities"><div class="route-name">Kampala → Kigali <span class="badge-int">INTERNATIONAL</span></div><div class="route-stats">580km · 9h · 1 departure/day</div></div><div><div class="route-price">UGX 55,000</div><div class="route-trips">from/seat</div></div></a>
+  </div>
+
+  <div class="section-label">Return Routes</div>
+  <div class="route-grid">
+    <a href="/pages/book.html?from=mbarara&to=kampala" class="route-card"><div class="route-flag">🔄</div><div class="route-cities"><div class="route-name">Mbarara → Kampala</div><div class="route-stats">270km · 3h 30min · 4 departures/day</div></div><div><div class="route-price">UGX 25,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=gulu&to=kampala" class="route-card"><div class="route-flag">🔄</div><div class="route-cities"><div class="route-name">Gulu → Kampala</div><div class="route-stats">340km · 5h · 3 departures/day</div></div><div><div class="route-price">UGX 30,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=mbale&to=kampala" class="route-card"><div class="route-flag">🔄</div><div class="route-cities"><div class="route-name">Mbale → Kampala</div><div class="route-stats">235km · 4h · 2 departures/day</div></div><div><div class="route-price">UGX 22,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=jinja&to=kampala" class="route-card"><div class="route-flag">🔄</div><div class="route-cities"><div class="route-name">Jinja → Kampala</div><div class="route-stats">85km · 2h · 4 departures/day</div></div><div><div class="route-price">UGX 15,000</div><div class="route-trips">from/seat</div></div></a>
+    <a href="/pages/book.html?from=fort-portal&to=kampala" class="route-card"><div class="route-flag">🔄</div><div class="route-cities"><div class="route-name">Fort Portal → Kampala</div><div class="route-stats">310km · 4h 30min · 2 departures/day</div></div><div><div class="route-price">UGX 35,000</div><div class="route-trips">from/seat</div></div></a>
+  </div>
+</div>
+<script>
+function filterRoutes(q){
+  document.querySelectorAll('.route-card').forEach(c=>{
+    c.style.display=c.textContent.toLowerCase().includes(q.toLowerCase())?'flex':'none';
+  });
+}
+</script>
+</body>
+</html>

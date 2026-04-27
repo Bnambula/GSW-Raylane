@@ -1,0 +1,58 @@
+{
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "",
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/book",          "destination": "/pages/book.html" },
+    { "source": "/search",        "destination": "/pages/book.html" },
+    { "source": "/trips",         "destination": "/pages/book.html" },
+    { "source": "/departures",    "destination": "/pages/book.html" },
+    { "source": "/parcels",       "destination": "/pages/parcels.html" },
+    { "source": "/parcel",        "destination": "/pages/parcels.html" },
+    { "source": "/send",          "destination": "/pages/parcels.html" },
+    { "source": "/charter",       "destination": "/pages/parcels.html" },
+    { "source": "/group",         "destination": "/pages/group.html" },
+    { "source": "/group-booking", "destination": "/pages/group.html" },
+    { "source": "/account",       "destination": "/pages/account.html" },
+    { "source": "/login",         "destination": "/pages/account.html" },
+    { "source": "/signup",        "destination": "/pages/account.html" },
+    { "source": "/partner",       "destination": "/pages/partner.html" },
+    { "source": "/apply",         "destination": "/pages/partner.html" },
+    { "source": "/operator",      "destination": "/pages/operator.html" },
+    { "source": "/dashboard",     "destination": "/pages/operator.html" },
+    { "source": "/admin",         "destination": "/pages/admin.html" },
+    { "source": "/routes",        "destination": "/pages/routes.html" },
+    { "source": "/timetables",    "destination": "/pages/routes.html" },
+    { "source": "/terms",         "destination": "/pages/terms.html" },
+    { "source": "/privacy",       "destination": "/pages/privacy.html" },
+    { "source": "/refund",        "destination": "/pages/refund.html" },
+    { "source": "/about",         "destination": "/pages/about.html" },
+    { "source": "/contact",       "destination": "/pages/contact.html" },
+    { "source": "/safety",        "destination": "/pages/safety.html" },
+    { "source": "/faq",           "destination": "/" },
+    { "source": "/careers",       "destination": "/pages/about.html" },
+    { "source": "/press",         "destination": "/pages/about.html" },
+    { "source": "/accessibility", "destination": "/pages/terms.html" },
+    { "source": "/cookies",       "destination": "/pages/privacy.html" },
+    { "source": "/parcel-terms",  "destination": "/pages/terms.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/pages/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=60" }
+      ]
+    }
+  ]
+}

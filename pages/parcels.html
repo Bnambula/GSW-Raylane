@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send a Parcel — Raylane Express</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;--gold-dim:rgba(232,168,0,0.12);--white:#fff;--white-80:rgba(255,255,255,0.8);--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--success:#22C55E;--warning:#F59E0B;--danger:#EF4444;--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px;--transition:all 0.25s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:13px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px}
+.logo-text span{color:var(--warriors-gold)}
+.nav-right{margin-left:auto;display:flex;gap:8px}
+.nav-btn{padding:7px 14px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;transition:var(--transition);display:flex;align-items:center;gap:6px}
+.nav-btn.ghost{background:var(--white-10);border:1px solid var(--border);color:var(--white-80)}
+.nav-btn.gold{background:var(--warriors-gold);color:var(--deep-navy);border:none}
+.nav-btn:hover{opacity:.85;transform:translateY(-1px)}
+/* PAGE */
+.page{padding:80px 1.25rem 120px;max-width:720px;margin:0 auto}
+.page-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(36px,8vw,52px);line-height:.95;margin-bottom:6px;letter-spacing:-.5px}
+.page-sub{font-size:14px;color:var(--white-60);margin-bottom:28px;line-height:1.6}
+/* TABS */
+.tab-strip{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:28px;padding-bottom:0}
+.tab-strip::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:10px 16px;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--white-60);transition:var(--transition);margin-bottom:-1px;display:flex;align-items:center;gap:6px}
+.tab-btn.active{color:var(--warriors-gold);border-bottom-color:var(--warriors-gold)}
+.tab-btn:hover{color:var(--white)}
+.tab-content{display:none}.tab-content.active{display:block}
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px}
+/* CATEGORY CARDS */
+.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+@media(min-width:600px){.category-grid{grid-template-columns:repeat(4,1fr)}}
+.cat-card{background:var(--white-10);border:2px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:var(--transition);-webkit-tap-highlight-color:transparent}
+.cat-card.selected{border-color:var(--royal-blue);background:rgba(11,47,160,.2)}
+.cat-card:hover{border-color:var(--white-20);background:var(--white-10)}
+.cat-icon{font-size:28px;display:block;margin-bottom:6px}
+.cat-name{font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px}
+.cat-weight{font-size:10px;color:var(--white-60)}
+.cat-price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--warriors-gold);margin-top:4px}
+/* FORM */
+.form-section{margin-bottom:20px}
+.form-section-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:6px}
+.form-control{width:100%;padding:12px 14px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:var(--transition);-webkit-appearance:none}
+.form-control:focus{border-color:var(--royal-blue);background:rgba(11,47,160,.15);box-shadow:0 0 0 3px rgba(11,47,160,.1)}
+.form-control::placeholder{color:var(--white-60)}
+select.form-control option{background:var(--deep-navy)}
+/* ADDON TOGGLES */
+.addon-card{background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:10px;cursor:pointer;transition:var(--transition)}
+.addon-card.selected{background:rgba(11,47,160,.2);border-color:rgba(11,47,160,.4)}
+.addon-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:grid;place-items:center;font-size:12px;flex-shrink:0;transition:var(--transition)}
+.addon-card.selected .addon-check{background:var(--royal-blue);border-color:var(--royal-blue)}
+.addon-info{flex:1}
+.addon-name{font-size:13px;font-weight:700}
+.addon-desc{font-size:11px;color:var(--white-60);margin-top:2px}
+.addon-price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--warriors-gold)}
+/* PRICE SUMMARY */
+.price-summary{background:var(--gold-dim);border:1px solid rgba(232,168,0,.25);border-radius:var(--radius);padding:16px}
+.ps-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px}
+.ps-row.total{border-top:1px solid rgba(232,168,0,.2);margin-top:8px;padding-top:12px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:var(--warriors-gold)}
+/* PAYMENT PANEL */
+.payment-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:20px}
+.payment-methods{display:grid;gap:10px;margin-bottom:20px}
+.payment-method{border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:var(--transition)}
+.payment-method.selected{border-color:var(--royal-blue);background:rgba(11,47,160,.15)}
+.pm-header{display:flex;align-items:center;gap:12px}
+.pm-icon{font-size:22px;width:36px;text-align:center}
+.pm-name{font-size:14px;font-weight:700}
+.pm-desc{font-size:11px;color:var(--white-60)}
+/* USSD STEPS */
+.ussd-steps{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.payment-method.selected .ussd-steps{display:block}
+.ussd-warning{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--danger);margin-bottom:14px;line-height:1.6}
+.ussd-warning strong{color:var(--white)}
+.ussd-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--royal-blue);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--white-80);line-height:1.5}
+.step-code{font-family:monospace;background:rgba(255,255,255,.08);padding:2px 8px;border-radius:4px;color:var(--warriors-gold);font-size:13px}
+/* QR DISPLAY */
+.qr-box{text-align:center;padding:20px}
+.qr-inner{background:#fff;border-radius:12px;padding:16px;display:inline-block;margin-bottom:12px}
+.qr-inner svg{display:block}
+.qr-label{font-size:12px;color:var(--white-60)}
+.qr-amount{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--warriors-gold);margin:4px 0}
+/* SUBMIT SECTION */
+.submit-section{margin-top:20px}
+.btn-submit{width:100%;padding:16px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-submit:hover{background:#ffd044;transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,168,0,.4)}
+.btn-submit:active{transform:translateY(0)}
+/* SUCCESS STATE */
+.success-screen{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:64px;display:block;margin-bottom:16px;animation:bounceIn .5s ease}
+@keyframes bounceIn{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+.success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;margin-bottom:8px}
+.tracking-code{font-family:monospace;font-size:22px;font-weight:700;color:var(--warriors-gold);background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:var(--radius);padding:12px 24px;display:inline-block;margin:12px 0;letter-spacing:2px}
+/* TRACKING */
+.track-steps{margin-top:20px}
+.track-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:0;position:relative}
+.track-step::before{content:'';position:absolute;left:15px;top:32px;width:2px;height:calc(100% + 8px);background:var(--border)}
+.track-step:last-child::before{display:none}
+.track-dot{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex-shrink:0;border:2px solid var(--border);background:var(--deep-navy);position:relative;z-index:1;margin-bottom:8px}
+.track-dot.done{background:var(--success);border-color:var(--success)}
+.track-dot.active{background:var(--royal-blue);border-color:var(--royal-blue);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(11,47,160,.5)}50%{box-shadow:0 0 0 8px rgba(11,47,160,0)}}
+.track-info{flex:1;padding-bottom:20px}
+.track-label{font-size:14px;font-weight:700}
+.track-time{font-size:11px;color:var(--white-60);margin-top:2px}
+/* RATES */
+.rates-grid{display:grid;gap:12px}
+.rate-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:14px}
+.rate-icon{font-size:28px;width:44px;text-align:center;flex-shrink:0}
+.rate-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.rate-detail{font-size:12px;color:var(--white-60)}
+.rate-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--warriors-gold);margin-left:auto}
+/* TOAST */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:13px;font-weight:600;color:var(--white);backdrop-filter:blur(16px);z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(34,197,94,.3)}.toast.info{border-color:rgba(232,168,0,.3)}
+/* MOBILE STICKY */
+.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px)}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <div class="logo-mark">RL</div>
+    <div class="logo-text">RAYLANE <span>EXPRESS</span></div>
+  </a>
+  <div class="nav-right">
+    <a href="/pages/book.html" class="nav-btn ghost">🚌 Book Seat</a>
+    <a href="/pages/account.html" class="nav-btn gold">My Account</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="page-title">Send a Parcel</div>
+  <p class="page-sub">Fast, insured parcel delivery on the next available bus. Track your package live every step of the way.</p>
+
+  <!-- TABS -->
+  <div class="tab-strip">
+    <button class="tab-btn active" onclick="switchTab('send',this)"><span>📦</span> Send a Parcel</button>
+    <button class="tab-btn" onclick="switchTab('track',this)"><span>📍</span> Track Parcel</button>
+    <button class="tab-btn" onclick="switchTab('rates',this)"><span>💰</span> Rates &amp; Categories</button>
+    <button class="tab-btn" onclick="switchTab('charter',this)"><span>🏆</span> Private Charter</button>
+    <button class="tab-btn" onclick="switchTab('corporate',this)"><span>🏢</span> Corporate Delivery</button>
+  </div>
+
+  <!-- ═══ SEND A PARCEL ═══ -->
+  <div class="tab-content active" id="tab-send">
+    <!-- STEP 1: Category -->
+    <div class="card">
+      <div class="form-section-title">📦 Step 1 — Select Parcel Category</div>
+      <div class="category-grid">
+        <div class="cat-card selected" onclick="selectCategory(this,5000,'Envelope / Documents','0.5kg max')" data-price="5000">
+          <span class="cat-icon">✉️</span>
+          <div class="cat-name">Envelope / Docs</div>
+          <div class="cat-weight">Max 0.5kg</div>
+          <div class="cat-price">UGX 5,000</div>
+        </div>
+        <div class="cat-card" onclick="selectCategory(this,12000,'Small Parcel','2kg max')" data-price="12000">
+          <span class="cat-icon">📦</span>
+          <div class="cat-name">Small Parcel</div>
+          <div class="cat-weight">Max 2kg</div>
+          <div class="cat-price">UGX 12,000</div>
+        </div>
+        <div class="cat-card" onclick="selectCategory(this,20000,'Large Parcel','10kg max')" data-price="20000">
+          <span class="cat-icon">🗃️</span>
+          <div class="cat-name">Large Parcel</div>
+          <div class="cat-weight">Max 10kg</div>
+          <div class="cat-price">UGX 20,000</div>
+        </div>
+        <div class="cat-card" onclick="selectCategory(this,30000,'Heavy Cargo','50kg+')" data-price="30000">
+          <span class="cat-icon">📫</span>
+          <div class="cat-name">Heavy Cargo</div>
+          <div class="cat-weight">50kg+</div>
+          <div class="cat-price">UGX 30,000+</div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Route -->
+      <div class="form-section-title">🗺️ Step 2 — Route &amp; Date</div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">From City</label>
+          <select class="form-control" id="parcelFrom">
+            <option value="kampala">Kampala</option>
+            <option value="mbarara">Mbarara</option>
+            <option value="gulu">Gulu</option>
+            <option value="mbale">Mbale</option>
+            <option value="jinja">Jinja</option>
+            <option value="fort-portal">Fort Portal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">To City</label>
+          <select class="form-control" id="parcelTo">
+            <option value="mbarara">Mbarara</option>
+            <option value="kampala">Kampala</option>
+            <option value="gulu">Gulu</option>
+            <option value="mbale">Mbale</option>
+            <option value="jinja">Jinja</option>
+            <option value="fort-portal">Fort Portal</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Send Date</label>
+        <input type="date" class="form-control" id="parcelDate">
+      </div>
+    </div>
+
+    <!-- STEP 3: Sender & Recipient -->
+    <div class="card">
+      <div class="form-section-title">👤 Step 3 — Sender Information</div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Sender Full Name</label><input type="text" class="form-control" id="senderName" placeholder="Mary Nakato" required></div>
+        <div class="form-group"><label class="form-label">Sender Phone</label><input type="tel" class="form-control" id="senderPhone" placeholder="0771 000 000" required></div>
+      </div>
+      <div class="form-group"><label class="form-label">Pickup Address (if rider requested)</label><input type="text" class="form-control" placeholder="e.g. Plot 12, Ntinda Road, Kampala"></div>
+
+      <div class="form-section-title" style="margin-top:8px">📬 Recipient Information</div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Recipient Full Name</label><input type="text" class="form-control" id="recipientName" placeholder="James Ssempala" required></div>
+        <div class="form-group"><label class="form-label">Recipient Phone</label><input type="tel" class="form-control" id="recipientPhone" placeholder="0701 000 000" required></div>
+      </div>
+      <div class="form-group"><label class="form-label">Collection Address / Instructions</label><input type="text" class="form-control" placeholder="e.g. Gate 2, Gulu Bus Park, will collect personally"></div>
+      <div class="form-group"><label class="form-label">Contents Description <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="parcelContents" placeholder="e.g. Clothing, documents, electronics — required for insurance" required></div>
+      <div class="form-group"><label class="form-label">Declared Value (UGX) — for insurance calculation</label><input type="number" class="form-control" id="declaredValue" placeholder="50000" oninput="updatePriceSummary()"></div>
+    </div>
+
+    <!-- STEP 4: Add-ons -->
+    <div class="card">
+      <div class="form-section-title">✨ Step 4 — Optional Add-ons</div>
+      <div class="addon-card" id="addonRider" onclick="toggleAddon('rider',5000,this)">
+        <div class="addon-check" id="checkRider">—</div>
+        <div class="addon-info">
+          <div class="addon-name">🛵 Pickup Rider</div>
+          <div class="addon-desc">Rider collects your parcel from your location within 2 hours</div>
+        </div>
+        <div class="addon-price">+ UGX 5,000</div>
+      </div>
+      <div class="addon-card" id="addonInsurance" onclick="toggleAddon('insurance',0,this)">
+        <div class="addon-check" id="checkInsurance">—</div>
+        <div class="addon-info">
+          <div class="addon-name">🛡️ Parcel Insurance</div>
+          <div class="addon-desc">3% of declared value — underwritten by UAP Old Mutual Uganda</div>
+        </div>
+        <div class="addon-price" id="insurancePrice">+ UGX 0</div>
+      </div>
+      <div class="addon-card" id="addonExpress" onclick="toggleAddon('express',8000,this)">
+        <div class="addon-check" id="checkExpress">—</div>
+        <div class="addon-info">
+          <div class="addon-name">⚡ Express Priority</div>
+          <div class="addon-desc">Next available bus guaranteed — priority loading</div>
+        </div>
+        <div class="addon-price">+ UGX 8,000</div>
+      </div>
+    </div>
+
+    <!-- PRICE SUMMARY -->
+    <div class="price-summary" id="priceSummary">
+      <div class="ps-row"><span>Parcel category</span><span id="ps-base">UGX 5,000</span></div>
+      <div class="ps-row" id="ps-rider-row" style="display:none"><span>Pickup Rider</span><span>UGX 5,000</span></div>
+      <div class="ps-row" id="ps-insurance-row" style="display:none"><span>Insurance (3% of declared value)</span><span id="ps-insurance-val">UGX 0</span></div>
+      <div class="ps-row" id="ps-express-row" style="display:none"><span>Express Priority</span><span>UGX 8,000</span></div>
+      <div class="ps-row total"><span>Total</span><span id="ps-total">UGX 5,000</span></div>
+    </div>
+
+    <!-- PAYMENT SECTION (shown after clicking Book) -->
+    <div id="paymentSection" style="display:none">
+      <div class="payment-panel">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;margin-bottom:4px">Your Parcel Booking Number</div>
+          <div id="parcelBookingId" style="font-family:monospace;font-size:28px;font-weight:700;color:var(--warriors-gold);background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:var(--radius);padding:10px 20px;display:inline-block;letter-spacing:2px">PKL-000000</div>
+          <div style="font-size:12px;color:var(--white-60);margin-top:8px">Use this number as your payment reference</div>
+        </div>
+
+        <!-- WARNING BOX -->
+        <div class="ussd-warning" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3)">
+          ⚠️ <strong>IMPORTANT:</strong> When paying, use your <strong>Parcel Booking Number (<span id="refCodeDisplay">PKL-000000</span>)</strong> as the payment reference — <strong>NOT your name</strong>. This is different from seat bookings which use your name. Using the wrong reference will delay your parcel.
+        </div>
+
+        <div style="font-weight:700;font-size:14px;margin-bottom:12px">Choose Payment Method</div>
+        <div class="payment-methods">
+          <!-- MTN MoMo -->
+          <div class="payment-method" id="pm-mtn" onclick="selectPaymentMethod('mtn')">
+            <div class="pm-header">
+              <div class="pm-icon">📱</div>
+              <div>
+                <div class="pm-name">MTN Mobile Money</div>
+                <div class="pm-desc">Dial *165*3# — works on any phone</div>
+              </div>
+            </div>
+            <div class="ussd-steps">
+              <div class="ussd-warning">
+                ⚠️ Use <strong><span class="ref-code-inline">PKL-000000</span></strong> as reference — <strong>NOT your name</strong>
+              </div>
+              <div class="ussd-step"><div class="step-num">1</div><div class="step-text">On your phone, dial <span class="step-code">*165*3#</span></div></div>
+              <div class="ussd-step"><div class="step-num">2</div><div class="step-text">Select <strong>Pay Goods / Services</strong></div></div>
+              <div class="ussd-step"><div class="step-num">3</div><div class="step-text">Enter merchant code: <span class="step-code">RAYLANE EXPRESS</span></div></div>
+              <div class="ussd-step"><div class="step-num">4</div><div class="step-text">Enter amount: <span class="step-code" id="mtn-amount">UGX 5,000</span></div></div>
+              <div class="ussd-step"><div class="step-num">5</div><div class="step-text">Enter reference: <span class="step-code ref-code-inline">PKL-000000</span> ← <strong style="color:var(--warning)">Your parcel booking number</strong></div></div>
+              <div class="ussd-step"><div class="step-num">6</div><div class="step-text">Enter your MoMo PIN and confirm</div></div>
+              <div class="ussd-step"><div class="step-num">7</div><div class="step-text">Enter your paying phone number below after payment is complete</div></div>
+              <div class="form-group" style="margin-top:10px"><label class="form-label">Your MTN MoMo Phone Number</label><input type="tel" class="form-control" placeholder="0771 000 000 — the number you paid from"></div>
+            </div>
+          </div>
+
+          <!-- Airtel Money -->
+          <div class="payment-method" id="pm-airtel" onclick="selectPaymentMethod('airtel')">
+            <div class="pm-header">
+              <div class="pm-icon">📲</div>
+              <div>
+                <div class="pm-name">Airtel Money</div>
+                <div class="pm-desc">Dial *185*9# — strong in northern Uganda</div>
+              </div>
+            </div>
+            <div class="ussd-steps">
+              <div class="ussd-warning">
+                ⚠️ Use <strong><span class="ref-code-inline">PKL-000000</span></strong> as reference — <strong>NOT your name</strong>
+              </div>
+              <div class="ussd-step"><div class="step-num">1</div><div class="step-text">On your phone, dial <span class="step-code">*185*9#</span></div></div>
+              <div class="ussd-step"><div class="step-num">2</div><div class="step-text">Select <strong>Pay Goods / Services</strong></div></div>
+              <div class="ussd-step"><div class="step-num">3</div><div class="step-text">Enter merchant: <span class="step-code">RAYLANE EXPRESS</span></div></div>
+              <div class="ussd-step"><div class="step-num">4</div><div class="step-text">Enter amount: <span class="step-code" id="airtel-amount">UGX 5,000</span></div></div>
+              <div class="ussd-step"><div class="step-num">5</div><div class="step-text">Enter reference: <span class="step-code ref-code-inline">PKL-000000</span> ← <strong style="color:var(--warning)">Your parcel booking number</strong></div></div>
+              <div class="ussd-step"><div class="step-num">6</div><div class="step-text">Enter your Airtel Money PIN and confirm</div></div>
+              <div class="form-group" style="margin-top:10px"><label class="form-label">Your Airtel Phone Number</label><input type="tel" class="form-control" placeholder="0700 000 000 — the number you paid from"></div>
+            </div>
+          </div>
+
+          <!-- QR Code -->
+          <div class="payment-method" id="pm-qr" onclick="selectPaymentMethod('qr')">
+            <div class="pm-header">
+              <div class="pm-icon">📷</div>
+              <div>
+                <div class="pm-name">QR Code Scan</div>
+                <div class="pm-desc">Works with MTN MoMo app and Airtel Money app</div>
+              </div>
+            </div>
+            <div class="ussd-steps">
+              <div class="ussd-warning">
+                ⚠️ After scanning, enter <strong><span class="ref-code-inline">PKL-000000</span></strong> as the reference — <strong>NOT your name</strong>
+              </div>
+              <div class="qr-box">
+                <div class="qr-inner">
+                  <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="120" height="120" fill="white"/>
+                    <rect x="10" y="10" width="40" height="40" fill="black" rx="2"/>
+                    <rect x="15" y="15" width="30" height="30" fill="white" rx="1"/>
+                    <rect x="20" y="20" width="20" height="20" fill="black"/>
+                    <rect x="70" y="10" width="40" height="40" fill="black" rx="2"/>
+                    <rect x="75" y="15" width="30" height="30" fill="white" rx="1"/>
+                    <rect x="80" y="20" width="20" height="20" fill="black"/>
+                    <rect x="10" y="70" width="40" height="40" fill="black" rx="2"/>
+                    <rect x="15" y="75" width="30" height="30" fill="white" rx="1"/>
+                    <rect x="20" y="80" width="20" height="20" fill="black"/>
+                    <rect x="55" y="55" width="8" height="8" fill="black"/>
+                    <rect x="67" y="55" width="8" height="8" fill="black"/>
+                    <rect x="79" y="55" width="8" height="8" fill="black"/>
+                    <rect x="55" y="67" width="8" height="8" fill="black"/>
+                    <rect x="67" y="67" width="8" height="8" fill="black"/>
+                    <rect x="79" y="67" width="8" height="8" fill="black"/>
+                    <rect x="55" y="79" width="8" height="8" fill="black"/>
+                    <rect x="79" y="79" width="8" height="8" fill="black"/>
+                    <rect x="91" y="55" width="8" height="8" fill="black"/>
+                    <rect x="91" y="67" width="8" height="8" fill="black"/>
+                    <rect x="91" y="91" width="8" height="8" fill="black"/>
+                    <rect x="55" y="91" width="8" height="8" fill="black"/>
+                    <rect x="67" y="91" width="8" height="8" fill="black"/>
+                    <rect x="79" y="91" width="8" height="8" fill="black"/>
+                  </svg>
+                </div>
+                <div class="qr-label">Scan with MTN MoMo App or Airtel Money App</div>
+                <div class="qr-amount" id="qr-amount">UGX 5,000</div>
+                <div style="font-size:11px;color:var(--white-60)">Merchant: RAYLANE EXPRESS</div>
+              </div>
+              <div style="text-align:center;font-size:12px;color:var(--warning);margin-top:4px">After scanning, enter <strong><span class="ref-code-inline">PKL-000000</span></strong> as the reference field</div>
+              <div class="form-group" style="margin-top:12px"><label class="form-label">Your Phone Number (for confirmation SMS)</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONFIRM SUBMIT -->
+        <div style="background:rgba(11,47,160,.15);border:1px solid rgba(11,47,160,.3);border-radius:var(--radius);padding:14px;font-size:13px;margin-bottom:16px;line-height:1.6">
+          After completing payment on your phone, click the button below. Your booking status will show <strong>"Pending Confirmation"</strong>. Raylane admin will verify your payment and activate tracking. You'll receive an SMS confirmation within 15 minutes.
+        </div>
+        <button class="btn-submit" onclick="submitParcelPayment()">
+          ✅ I Have Paid — Submit Booking
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="success-screen" id="successScreen">
+      <span class="success-icon">📦</span>
+      <div class="success-title">Parcel Booked!</div>
+      <p style="color:var(--white-60);margin-bottom:12px">Your parcel has been registered. Track it live below.</p>
+      <div class="tracking-code" id="successTrackingCode">PKL-000000</div>
+      <p style="font-size:12px;color:var(--white-60);margin-bottom:20px">SMS sent to both sender and recipient with this tracking code</p>
+      <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:var(--radius);padding:12px;font-size:13px;color:var(--warning);margin-bottom:20px">
+        ⏳ Status: <strong>Pending Payment Confirmation</strong> — Admin will verify your payment and activate tracking within 15 minutes.
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button onclick="switchTab('track',document.querySelector('.tab-btn:nth-child(2)'));document.getElementById('trackInput').value=document.getElementById('successTrackingCode').textContent;trackParcel()" style="padding:12px 20px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;cursor:pointer">Track This Parcel →</button>
+        <button onclick="location.reload()" style="padding:12px 20px;background:var(--white-10);color:var(--white);border:1px solid var(--border);border-radius:var(--radius);font-weight:600;cursor:pointer">Send Another</button>
+      </div>
+    </div>
+
+    <!-- BOOK PARCEL BTN (shows payment section) -->
+    <div id="bookParcelBtnWrap" class="submit-section">
+      <button class="btn-submit" onclick="bookParcel()">📦 Book Parcel Delivery →</button>
+      <p style="font-size:11px;color:var(--white-60);text-align:center;margin-top:10px">Booking status will be <strong>"Pending Confirmation"</strong> until payment is verified by Raylane admin</p>
+    </div>
+  </div>
+
+  <!-- ═══ TRACK PARCEL ═══ -->
+  <div class="tab-content" id="tab-track">
+    <div class="card">
+      <div class="form-section-title">📍 Track Your Parcel</div>
+      <div style="display:flex;gap:10px">
+        <input type="text" class="form-control" id="trackInput" placeholder="Enter tracking code — e.g. PKL-847291" style="flex:1">
+        <button onclick="trackParcel()" style="padding:12px 20px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;cursor:pointer;flex-shrink:0">Track →</button>
+      </div>
+    </div>
+    <div id="trackResult" style="display:none">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px" id="trackCodeDisplay">PKL-847291</div>
+            <div style="font-size:12px;color:var(--white-60)" id="trackRouteDisplay">Kampala → Mbarara · Small Parcel</div>
+          </div>
+          <span class="badge" style="background:rgba(59,130,246,.12);color:#3B82F6;border:1px solid rgba(59,130,246,.2);padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700">🚌 In Transit</span>
+        </div>
+        <div class="track-steps">
+          <div class="track-step">
+            <div class="track-dot done">✓</div>
+            <div class="track-info">
+              <div class="track-label">📦 Picked Up</div>
+              <div class="track-time">26 Apr 2026 · 07:15 AM · Kampala Bus Park</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot done">✓</div>
+            <div class="track-info">
+              <div class="track-label">✅ Verified &amp; Loaded</div>
+              <div class="track-time">26 Apr 2026 · 07:45 AM · Confirmed on bus UBF 001K</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot active">→</div>
+            <div class="track-info">
+              <div class="track-label">🚌 In Transit</div>
+              <div class="track-time">On bus UBF 001K · ETA Mbarara: 10:45 AM (updated via GPS)</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot" style="color:var(--white-60)">○</div>
+            <div class="track-info">
+              <div class="track-label" style="color:var(--white-60)">📬 Delivered</div>
+              <div class="track-time" style="color:var(--white-60)">Awaiting arrival</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RATES ═══ -->
+  <div class="tab-content" id="tab-rates">
+    <div class="rates-grid">
+      <div class="rate-card"><div class="rate-icon">✉️</div><div><div class="rate-name">Envelope / Documents</div><div class="rate-detail">Max 0.5kg · Letters, contracts, certificates</div></div><div class="rate-price">UGX 5,000</div></div>
+      <div class="rate-card"><div class="rate-icon">📦</div><div><div class="rate-name">Small Parcel</div><div class="rate-detail">Max 2kg · Books, clothing, small goods</div></div><div class="rate-price">UGX 12,000</div></div>
+      <div class="rate-card"><div class="rate-icon">🗃️</div><div><div class="rate-name">Large Parcel</div><div class="rate-detail">Max 10kg · Electronics, household items</div></div><div class="rate-price">UGX 20,000</div></div>
+      <div class="rate-card"><div class="rate-icon">📫</div><div><div class="rate-name">Heavy Cargo</div><div class="rate-detail">50kg+ · Building materials, machinery</div></div><div class="rate-price">UGX 30,000+</div></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="form-section-title">Add-on Services</div>
+      <div class="rate-card" style="margin-bottom:10px"><div class="rate-icon">🛵</div><div><div class="rate-name">Pickup Rider</div><div class="rate-detail">Collects from your location within 2 hours</div></div><div class="rate-price">UGX 5,000</div></div>
+      <div class="rate-card" style="margin-bottom:10px"><div class="rate-icon">🛡️</div><div><div class="rate-name">Parcel Insurance</div><div class="rate-detail">3% of declared value — UAP Old Mutual</div></div><div class="rate-price">3%</div></div>
+      <div class="rate-card"><div class="rate-icon">⚡</div><div><div class="rate-name">Express Priority</div><div class="rate-detail">Next available bus guaranteed</div></div><div class="rate-price">UGX 8,000</div></div>
+    </div>
+  </div>
+
+  <!-- ═══ CHARTER ═══ -->
+  <div class="tab-content" id="tab-charter">
+    <div class="card">
+      <div class="form-section-title">🏆 Charter a Bus</div>
+      <p style="font-size:13px;color:var(--white-60);margin-bottom:20px;line-height:1.6">Charter a full 67-seater coach for corporate events, school trips, church outings, or group travel. We'll send you a full quote within 2 hours.</p>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Contact Name</label><input type="text" class="form-control" placeholder="Your full name"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Organisation / Company</label><input type="text" class="form-control" placeholder="Makerere University"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">From</label><select class="form-control"><option>Kampala</option><option>Mbarara</option><option>Gulu</option></select></div>
+        <div class="form-group"><label class="form-label">To</label><select class="form-control"><option>Mbarara</option><option>Kampala</option><option>Kisoro</option></select></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Charter Date</label><input type="date" class="form-control"></div>
+        <div class="form-group"><label class="form-label">Return Date (optional)</label><input type="date" class="form-control"></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Number of Passengers</label><input type="number" class="form-control" placeholder="45"></div>
+        <div class="form-group"><label class="form-label">Bus Type Preference</label><select class="form-control"><option>67-Seater Coach</option><option>14-Seater Minivan</option><option>Either — best available</option></select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Trip Purpose</label><select class="form-control"><option>Corporate Event</option><option>School Trip</option><option>Church Outing</option><option>Wedding</option><option>Tourism</option><option>Other</option></select></div>
+      <div class="form-group"><label class="form-label">Additional Notes</label><textarea class="form-control" rows="3" placeholder="Any special requirements — overnight stay, meals, accessibility needs..."></textarea></div>
+      <button class="btn-submit" onclick="submitCharter()">🏆 Request Charter Quote</button>
+    </div>
+  </div>
+
+  <!-- ═══ CORPORATE ═══ -->
+  <div class="tab-content" id="tab-corporate">
+    <div class="card">
+      <div style="background:linear-gradient(135deg,rgba(11,47,160,.3),rgba(232,168,0,.08));border:1px solid rgba(232,168,0,.2);border-radius:var(--radius);padding:20px;margin-bottom:20px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;margin-bottom:6px">Corporate Delivery Accounts</div>
+        <p style="font-size:13px;color:var(--white-60);line-height:1.6">Monthly invoicing · Priority support · Volume discounts · Dedicated account manager</p>
+      </div>
+      <div class="form-section-title">Corporate Enquiry</div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Company Name</label><input type="text" class="form-control" placeholder="Uganda Revenue Authority"></div>
+        <div class="form-group"><label class="form-label">Contact Name</label><input type="text" class="form-control" placeholder="Procurement Officer"></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-control" placeholder="procurement@ura.go.ug"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Estimated Monthly Parcels</label><select class="form-control"><option>1–10 parcels/month</option><option>11–50 parcels/month</option><option>51–200 parcels/month</option><option>200+ parcels/month</option></select></div>
+      <div class="form-group"><label class="form-label">Main Routes Used</label><input type="text" class="form-control" placeholder="e.g. Kampala–Mbarara, Kampala–Gulu daily"></div>
+      <button class="btn-submit" onclick="submitCorporate()">🏢 Submit Corporate Enquiry</button>
+    </div>
+  </div>
+</div><!-- end .page -->
+
+<!-- Mobile sticky -->
+<div class="mobile-sticky">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <a href="/pages/book.html" style="padding:14px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);font-weight:700;font-size:14px;color:var(--white);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px">🚌 Book Seat</a>
+    <button onclick="switchTab('track',document.querySelector('.tab-strip .tab-btn:nth-child(2)'))" style="padding:14px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;font-size:14px;cursor:pointer">📍 Track Parcel</button>
+  </div>
+</div>
+
+<script>
+// Set today's date
+(function(){const d=new Date();const s=d.toISOString().split('T')[0];const el=document.getElementById('parcelDate');if(el){el.value=s;el.min=s}})();
+
+// State
+let state={basePrice:5000,rider:false,insurance:false,express:false,declaredValue:0};
+let currentParcelId='PKL-'+Math.floor(Math.random()*900000+100000);
+
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
+
+// Tab switching
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+
+// Category selection
+function selectCategory(el,price,name,weight){
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.basePrice=price;
+  updatePriceSummary();
+}
+
+// Toggle addon
+function toggleAddon(type,price,el){
+  el.classList.toggle('selected');
+  const check=document.getElementById('check'+type.charAt(0).toUpperCase()+type.slice(1));
+  state[type]=!state[type];
+  check.textContent=state[type]?'✓':'—';
+  if(type==='rider')document.getElementById('ps-rider-row').style.display=state.rider?'flex':'none';
+  if(type==='express')document.getElementById('ps-express-row').style.display=state.express?'flex':'none';
+  if(type==='insurance'){document.getElementById('ps-insurance-row').style.display=state.insurance?'flex':'none';}
+  updatePriceSummary();
+}
+
+// Price calculation
+function updatePriceSummary(){
+  const dv=parseFloat(document.getElementById('declaredValue').value)||0;
+  state.declaredValue=dv;
+  const ins=state.insurance?Math.round(dv*.03):0;
+  document.getElementById('insurancePrice').textContent='+ UGX '+ins.toLocaleString();
+  document.getElementById('ps-insurance-val').textContent='UGX '+ins.toLocaleString();
+  const total=state.basePrice+(state.rider?5000:0)+ins+(state.express?8000:0);
+  document.getElementById('ps-base').textContent='UGX '+state.basePrice.toLocaleString();
+  document.getElementById('ps-total').textContent='UGX '+total.toLocaleString();
+  // Update payment method amounts
+  const amtStr='UGX '+total.toLocaleString();
+  ['mtn-amount','airtel-amount'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=amtStr});
+  const qr=document.getElementById('qr-amount');if(qr)qr.textContent=amtStr;
+}
+
+// Book parcel — show payment section
+function bookParcel(){
+  const senderName=document.getElementById('senderName').value.trim();
+  const senderPhone=document.getElementById('senderPhone').value.trim();
+  const contents=document.getElementById('parcelContents').value.trim();
+  if(!senderName){showToast('⚠️ Please enter sender name','info');return}
+  if(!senderPhone){showToast('⚠️ Please enter sender phone','info');return}
+  if(!contents){showToast('⚠️ Please describe parcel contents (required for insurance)','info');return}
+  if(document.getElementById('parcelFrom').value===document.getElementById('parcelTo').value){showToast('⚠️ From and To cities cannot be the same','info');return}
+  // Generate parcel ID
+  currentParcelId='PKL-'+Math.floor(Math.random()*900000+100000);
+  // Update all ref code displays
+  document.getElementById('parcelBookingId').textContent=currentParcelId;
+  document.getElementById('refCodeDisplay').textContent=currentParcelId;
+  document.querySelectorAll('.ref-code-inline').forEach(el=>el.textContent=currentParcelId);
+  // Show payment section, hide book btn
+  document.getElementById('bookParcelBtnWrap').style.display='none';
+  document.getElementById('paymentSection').style.display='block';
+  document.getElementById('paymentSection').scrollIntoView({behavior:'smooth',block:'start'});
+  showToast('📦 Parcel ID '+currentParcelId+' generated — choose payment method','info');
+}
+
+// Select payment method
+function selectPaymentMethod(method){
+  document.querySelectorAll('.payment-method').forEach(p=>p.classList.remove('selected'));
+  document.getElementById('pm-'+method).classList.add('selected');
+}
+
+// Submit parcel payment (after paying)
+function submitParcelPayment(){
+  const selected=document.querySelector('.payment-method.selected');
+  if(!selected){showToast('⚠️ Please select a payment method first','info');return}
+  // Show success
+  document.getElementById('successTrackingCode').textContent=currentParcelId;
+  document.getElementById('paymentSection').style.display='none';
+  document.getElementById('successScreen').style.display='block';
+  document.getElementById('successScreen').scrollIntoView({behavior:'smooth'});
+}
+
+// Track parcel
+function trackParcel(){
+  const code=document.getElementById('trackInput').value.trim();
+  if(!code||!code.startsWith('PKL')){showToast('⚠️ Enter a valid tracking code (PKL-XXXXXX)','info');return}
+  document.getElementById('trackCodeDisplay').textContent=code;
+  document.getElementById('trackResult').style.display='block';
+  showToast('✅ Tracking '+code,'success');
+}
+
+// Charter submit
+function submitCharter(){
+  const ref='CHR-'+Math.floor(Math.random()*90000+10000);
+  showToast('✅ Charter request '+ref+' submitted — we\'ll call you within 2 hours','success');
+}
+
+// Corporate submit
+function submitCorporate(){
+  showToast('✅ Corporate enquiry submitted — our team will contact you within 24 hours','success');
+}
+</script>
+</body>
+</html>
