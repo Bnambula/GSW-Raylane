@@ -4,1236 +4,991 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Super Admin Console — Raylane Express</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;
-  --gold-dim:rgba(232,168,0,0.12);--white:#fff;--white-80:rgba(255,255,255,0.8);
-  --white-60:rgba(255,255,255,0.6);--white-20:rgba(255,255,255,0.12);--white-10:rgba(255,255,255,0.07);
-  --success:#22C55E;--warning:#F59E0B;--danger:#EF4444;--info:#3B82F6;
-  --border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px;--transition:all 0.25s ease;
-  --sidebar-w:240px;--topbar-h:60px;
-}
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;--gold-dim:rgba(232,168,0,0.12);--white:#fff;--white-80:rgba(255,255,255,.8);--white-60:rgba(255,255,255,.6);--white-20:rgba(255,255,255,.12);--white-10:rgba(255,255,255,.07);--success:#22C55E;--warning:#F59E0B;--danger:#EF4444;--info:#3B82F6;--border:rgba(255,255,255,.08);--card:rgba(8,26,92,.5);--radius:10px;--transition:all 0.25s ease;--sidebar-w:232px;--topbar-h:60px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden;font-size:14px}
-/* ── TOPBAR ── */
-.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-h);background:rgba(4,14,53,0.98);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;z-index:100;backdrop-filter:blur(16px)}
-.topbar-logo{display:flex;align-items:center;gap:8px;width:var(--sidebar-w);flex-shrink:0}
-.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:8px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:var(--warriors-gold)}
-.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:.3px}
+body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);font-size:14px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-h);background:rgba(4,14,53,.98);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px;z-index:200;backdrop-filter:blur(16px)}
+.hamburger{width:36px;height:36px;background:var(--white-10);border:1px solid var(--border);border-radius:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer;flex-shrink:0;transition:var(--transition)}
+.hamburger:hover{background:var(--white-20)}
+.hamburger span{width:16px;height:2px;background:var(--white);border-radius:2px;display:block}
+.topbar-logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:7px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:12px;color:var(--warriors-gold)}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px}
 .logo-text span{color:var(--warriors-gold)}
-.topbar-center{flex:1;display:flex;align-items:center;gap:12px}
-.live-indicator{display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--success)}
-.live-dot{width:7px;height:7px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
+.topbar-mid{flex:1;display:flex;align-items:center;gap:8px}
+.live-pill{display:flex;align-items:center;gap:5px;padding:3px 9px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:100px;font-size:10px;font-weight:600;color:var(--success)}
+.live-dot{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
-.topbar-clock{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--warriors-gold);margin-left:8px;letter-spacing:.5px}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.topbar-badge-btn{position:relative;padding:7px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600;color:var(--white-80);display:flex;align-items:center;gap:6px;transition:var(--transition)}
-.topbar-badge-btn:hover{background:var(--white-20)}
-.badge-count{position:absolute;top:-6px;right:-6px;background:var(--danger);color:#fff;border-radius:100px;font-size:9px;font-weight:700;padding:2px 5px;min-width:16px;text-align:center}
-.topbar-btn{padding:7px 14px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;transition:var(--transition)}
-.topbar-btn.gold{background:var(--warriors-gold);color:var(--deep-navy)}
-.topbar-btn.gold:hover{background:#ffd044}
-/* ── LAYOUT ── */
-.app-body{display:flex;margin-top:var(--topbar-h);min-height:calc(100vh - var(--topbar-h))}
-/* ── SIDEBAR ── */
-.sidebar{width:var(--sidebar-w);flex-shrink:0;background:rgba(4,14,53,0.95);border-right:1px solid var(--border);position:fixed;top:var(--topbar-h);bottom:0;overflow-y:auto;z-index:90;scrollbar-width:thin;scrollbar-color:var(--white-20) transparent}
-.sidebar::-webkit-scrollbar{width:4px}
-.sidebar::-webkit-scrollbar-thumb{background:var(--white-20);border-radius:4px}
-.sidebar-section{padding:16px 12px 4px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white-60)}
-.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 12px;margin:1px 8px;border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:500;color:var(--white-60);transition:var(--transition);position:relative;text-decoration:none}
-.sidebar-item:hover{background:var(--white-10);color:var(--white)}
-.sidebar-item.active{background:rgba(11,47,160,0.4);color:var(--white);border-left:3px solid var(--warriors-gold)}
-.sidebar-item .icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
-.sidebar-item .s-badge{margin-left:auto;background:var(--danger);border-radius:100px;font-size:9px;font-weight:700;padding:2px 6px;color:#fff;min-width:18px;text-align:center}
-.sidebar-item .s-badge.gold{background:var(--warriors-gold);color:var(--deep-navy)}
-.sidebar-divider{height:1px;background:var(--border);margin:8px 16px}
-/* ── MAIN ── */
-.main{margin-left:var(--sidebar-w);flex:1;padding:24px;min-height:calc(100vh - var(--topbar-h))}
-/* ── VIEWS ── */
+.clock{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--warriors-gold)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:6px}
+.tb-badge{position:relative;padding:5px 10px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:11px;font-weight:600;color:var(--white-80);display:flex;align-items:center;gap:4px;transition:var(--transition)}
+.tb-badge:hover{background:var(--white-20)}
+.badge-n{position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;border-radius:100px;font-size:8px;font-weight:700;padding:1px 4px;min-width:14px;text-align:center}
+.tb-btn{padding:5px 12px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;transition:var(--transition);text-decoration:none;background:var(--warriors-gold);color:var(--deep-navy)}
+.tb-btn:hover{background:#ffd044}
+.sb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:190;display:none}
+.sb-overlay.open{display:block}
+.sidebar{position:fixed;top:var(--topbar-h);left:0;bottom:0;width:var(--sidebar-w);background:rgba(4,14,53,.98);border-right:1px solid var(--border);overflow-y:auto;z-index:195;transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);scrollbar-width:thin;scrollbar-color:var(--white-20) transparent}
+.sidebar.open{transform:translateX(0)}
+@media(min-width:901px){.sidebar{transform:translateX(0)!important}.sb-overlay{display:none!important}.main{margin-left:var(--sidebar-w)}.hamburger{display:none}}
+.sb-close-row{display:flex;justify-content:flex-end;padding:8px 10px}
+@media(min-width:901px){.sb-close-row{display:none}}
+.sb-close{width:26px;height:26px;background:var(--white-10);border:none;border-radius:50%;cursor:pointer;color:var(--white);font-size:13px;display:grid;place-items:center}
+.sb-sec{padding:12px 10px 3px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white-60)}
+.si{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:1px 6px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:500;color:var(--white-60);transition:var(--transition);border:none;background:transparent;width:calc(100% - 12px);text-align:left}
+.si:hover{background:var(--white-10);color:var(--white)}
+.si.active{background:rgba(11,47,160,.4);color:var(--white);border-left:3px solid var(--warriors-gold)}
+.si .ico{font-size:13px;width:17px;text-align:center;flex-shrink:0}
+.s-badge{margin-left:auto;background:var(--danger);border-radius:100px;font-size:8px;font-weight:700;padding:2px 4px;min-width:14px;text-align:center;color:#fff}
+.s-badge.g{background:var(--warriors-gold);color:var(--deep-navy)}
+.sd{height:1px;background:var(--border);margin:5px 12px}
+.main{margin-top:var(--topbar-h);min-height:calc(100vh - var(--topbar-h));padding:18px}
 .view{display:none}.view.active{display:block}
-.view-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;color:var(--white);margin-bottom:4px;letter-spacing:-.3px}
-.view-sub{font-size:12px;color:var(--white-60);margin-bottom:24px}
-/* ── ALERT BANNER ── */
-.alert-banner{background:linear-gradient(90deg,rgba(239,68,68,0.15),transparent);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.alert-banner.gold{background:linear-gradient(90deg,rgba(232,168,0,0.12),transparent);border-color:rgba(232,168,0,0.3)}
-.alert-banner-text{font-size:13px;font-weight:600}
-.alert-banner-link{padding:6px 14px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;transition:var(--transition)}
-.alert-banner-link:hover{background:#ffd044}
-/* ── CARDS ── */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden;border-left:4px solid transparent}
-.stat-card.blue{border-left-color:var(--info)}
-.stat-card.gold{border-left-color:var(--warriors-gold)}
-.stat-card.green{border-left-color:var(--success)}
-.stat-card.red{border-left-color:var(--danger)}
-.stat-card.purple{border-left-color:#8B5CF6}
-.stat-card.amber{border-left-color:var(--warning)}
-.stat-label{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60);margin-bottom:8px}
-.stat-value{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--white);line-height:1;margin-bottom:4px;letter-spacing:-.5px}
-.stat-change{font-size:11px;color:var(--success)}
-.stat-change.down{color:var(--danger)}
-/* ── TABLES ── */
-.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
-.table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.table-title{font-weight:700;font-size:14px}
-.table-actions{display:flex;gap:8px;flex-wrap:wrap}
-.search-input{padding:7px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;width:180px}
-.search-input::placeholder{color:var(--white-60)}
-.search-input:focus{border-color:var(--royal-blue)}
+.vt{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;margin-bottom:2px;letter-spacing:-.2px}
+.vs{font-size:11px;color:var(--white-60);margin-bottom:18px}
+.cards-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;border-left:4px solid transparent}
+.sc.b{border-left-color:var(--info)}.sc.g{border-left-color:var(--warriors-gold)}.sc.gr{border-left-color:var(--success)}.sc.r{border-left-color:var(--danger)}.sc.p{border-left-color:#8B5CF6}.sc.a{border-left-color:var(--warning)}
+.sc-l{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.sc-v{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;line-height:1;margin-bottom:3px}
+.sc-c{font-size:10px;color:var(--success)}
+.sc-c.dn{color:var(--danger)}
+.tw{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+.tw-h{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tw-t{font-weight:700;font-size:13px}
+.si-input{padding:6px 10px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-size:11px;font-family:'DM Sans',sans-serif;outline:none;width:150px}
+.si-input::placeholder{color:var(--white-60)}
 table{width:100%;border-collapse:collapse}
-th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+th{padding:8px 12px;text-align:left;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--white-10)}
-/* ── BADGES ── */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.3px;white-space:nowrap}
-.badge.green{background:rgba(34,197,94,.12);color:var(--success);border:1px solid rgba(34,197,94,.2)}
-.badge.amber{background:rgba(245,158,11,.12);color:var(--warning);border:1px solid rgba(245,158,11,.2)}
-.badge.red{background:rgba(239,68,68,.12);color:var(--danger);border:1px solid rgba(239,68,68,.2)}
-.badge.blue{background:rgba(59,130,246,.12);color:var(--info);border:1px solid rgba(59,130,246,.2)}
-.badge.gold{background:var(--gold-dim);color:var(--warriors-gold);border:1px solid rgba(232,168,0,.3)}
-.badge.grey{background:var(--white-10);color:var(--white-60);border:1px solid var(--border)}
-/* Match status badges */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:100px;font-size:9px;font-weight:700;white-space:nowrap}
+.badge.gr{background:rgba(34,197,94,.12);color:var(--success);border:1px solid rgba(34,197,94,.2)}
+.badge.am{background:rgba(245,158,11,.12);color:var(--warning);border:1px solid rgba(245,158,11,.2)}
+.badge.rd{background:rgba(239,68,68,.12);color:var(--danger);border:1px solid rgba(239,68,68,.2)}
+.badge.bl{background:rgba(59,130,246,.12);color:var(--info);border:1px solid rgba(59,130,246,.2)}
+.badge.gd{background:var(--gold-dim);color:var(--warriors-gold);border:1px solid rgba(232,168,0,.3)}
+.badge.gy{background:var(--white-10);color:var(--white-60);border:1px solid var(--border)}
 .badge.matched{background:rgba(34,197,94,.15);color:var(--success);border:1px solid rgba(34,197,94,.3)}
 .badge.mismatch{background:rgba(245,158,11,.15);color:var(--warning);border:1px solid rgba(245,158,11,.3)}
 .badge.missing{background:rgba(239,68,68,.15);color:var(--danger);border:1px solid rgba(239,68,68,.3)}
-/* ── BUTTONS ── */
-.btn{padding:7px 14px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn{padding:5px 12px;border-radius:var(--radius);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;transition:var(--transition);display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
 .btn:hover{opacity:.85;transform:translateY(-1px)}
 .btn:active{transform:translateY(0)}
-.btn-gold{background:var(--warriors-gold);color:var(--deep-navy)}
-.btn-blue{background:var(--royal-blue);color:#fff}
-.btn-green{background:var(--success);color:#fff}
-.btn-red{background:var(--danger);color:#fff}
-.btn-ghost{background:var(--white-10);color:var(--white-80);border:1px solid var(--border)}
-.btn-sm{padding:5px 10px;font-size:11px}
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-.modal-overlay.open{display:flex}
-.modal{background:var(--navy-mid);border:1px solid var(--border);border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;animation:modalIn .25s ease}
-.modal.wide{max-width:780px}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.2px}
-.modal-close{width:32px;height:32px;background:var(--white-10);border:none;border-radius:50%;cursor:pointer;color:var(--white);font-size:16px;display:grid;place-items:center;transition:var(--transition)}
-.modal-close:hover{background:var(--white-20)}
-.modal-body{padding:20px 24px}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
-/* ── FORM ── */
-.form-group{margin-bottom:16px}
-.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:6px}
-.form-control{width:100%;padding:10px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:var(--transition)}
-.form-control:focus{border-color:var(--royal-blue);background:rgba(11,47,160,.15)}
-.form-control::placeholder{color:var(--white-60)}
-select.form-control option{background:var(--deep-navy)}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-/* ── TABS ── */
-.tab-bar{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0}
-.tab-btn{padding:8px 16px;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--white-60);transition:var(--transition);margin-bottom:-1px}
-.tab-btn.active{color:var(--warriors-gold);border-bottom-color:var(--warriors-gold)}
-.tab-btn:hover{color:var(--white)}
-/* ── TOAST ── */
-.toast{position:fixed;top:80px;right:20px;background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius);padding:12px 18px;font-size:13px;font-weight:600;z-index:300;transform:translateX(120%);transition:transform .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.btn-go{background:var(--warriors-gold);color:var(--deep-navy)}
+.btn-bl{background:var(--royal-blue);color:#fff}
+.btn-gr{background:var(--success);color:#fff}
+.btn-rd{background:var(--danger);color:#fff}
+.btn-gh{background:var(--white-10);color:var(--white-80);border:1px solid var(--border)}
+.btn-sm{padding:4px 9px;font-size:10px}
+.toast{position:fixed;top:68px;right:14px;background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:12px;font-weight:600;z-index:500;transform:translateX(120%);transition:transform .3s ease;box-shadow:0 6px 24px rgba(0,0,0,.4);max-width:260px}
 .toast.show{transform:translateX(0)}
-.toast.success{border-color:rgba(34,197,94,.3)}
-.toast.error{border-color:rgba(239,68,68,.3)}
-.toast.info{border-color:rgba(232,168,0,.3)}
-/* ── PAYMENT INBOX ── */
-.payment-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:var(--transition)}
-.payment-card:hover{border-color:var(--white-20)}
-.payment-card.mismatch-card{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.03)}
-.payment-card.missing-card{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.03)}
-.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
-.pc-name{font-weight:700;font-size:15px}
-.pc-route{font-size:12px;color:var(--white-60);margin-top:2px}
-.pc-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.pc-meta-item{background:var(--white-10);border-radius:8px;padding:8px 10px}
-.pc-meta-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:2px}
-.pc-meta-value{font-size:13px;font-weight:700;color:var(--white)}
-.pc-actions{display:flex;gap:8px;flex-wrap:wrap}
-.names-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-.name-box{padding:12px;border-radius:var(--radius);text-align:center}
-.name-box.booking-name{background:rgba(11,47,160,.3);border:1px solid rgba(11,47,160,.5)}
-.name-box.paying-name{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3)}
-.name-box-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:4px}
-.name-box-value{font-size:16px;font-weight:700}
-/* ── SCENERY MANAGER ── */
-.scenery-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
-.scenery-preview{height:120px;background:linear-gradient(135deg,var(--royal-blue),var(--navy-mid));display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
-.scenery-featured-badge{position:absolute;top:8px;right:8px;background:var(--warriors-gold);color:var(--deep-navy);padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700}
-.scenery-info{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.scenery-title{font-weight:700;font-size:14px}
-.scenery-meta{font-size:11px;color:var(--white-60);margin-top:2px}
-/* ── FUEL / MAINTENANCE LOG ── */
-.log-entry{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:16px}
-.log-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0}
-.log-body{flex:1}
-.log-title{font-weight:700;font-size:13px}
-.log-meta{font-size:11px;color:var(--white-60);margin-top:2px}
-.log-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:var(--warriors-gold)}
-.log-actions{display:flex;gap:6px}
-/* ── QUICK ACTIONS GRID ── */
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.quick-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:var(--transition)}
-.quick-card:hover{background:rgba(11,47,160,.3);border-color:rgba(11,47,160,.4);transform:translateY(-2px)}
-.quick-card .qc-icon{font-size:24px;margin-bottom:6px;display:block}
-.quick-card .qc-label{font-size:11px;font-weight:600;color:var(--white-80)}
-/* ── ACTIVITY FEED ── */
-.activity-feed{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;max-height:280px;overflow-y:auto}
-.activity-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.activity-item:last-child{border-bottom:none}
-.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.activity-dot.green{background:var(--success)}
-.activity-dot.blue{background:var(--info)}
-.activity-dot.gold{background:var(--warriors-gold)}
-.activity-dot.red{background:var(--danger)}
-.activity-text{font-size:12px;color:var(--white-80);line-height:1.4;flex:1}
-.activity-time{font-size:10px;color:var(--white-60);flex-shrink:0}
-/* ── QR CODE ── */
-.qr-display{background:#fff;border-radius:12px;padding:16px;display:inline-flex;align-items:center;justify-content:center}
-.qr-svg rect{fill:#fff}
-/* ── UPLOAD AREA ── */
-.upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:var(--transition)}
-.upload-area:hover{border-color:var(--warriors-gold);background:var(--gold-dim)}
-.upload-icon{font-size:36px;margin-bottom:8px;display:block}
-.upload-text{font-size:13px;color:var(--white-60)}
-/* ── ROUTE CARD ── */
-.route-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:16px}
-.route-cities{flex:1}
-.route-from-to{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.2px}
-.route-stats{font-size:11px;color:var(--white-60);margin-top:2px}
-.route-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--warriors-gold)}
-/* ── RESPONSIVE ── */
-@media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform .3s ease}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.quick-grid{grid-template-columns:repeat(2,1fr)}}
+.toast.success{border-color:rgba(34,197,94,.3)}.toast.info{border-color:rgba(232,168,0,.3)}.toast.error{border-color:rgba(239,68,68,.3)}
+/* PREVIEW DRAWER */
+.pv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:400;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+@media(min-width:600px){.pv-overlay{align-items:center}}
+.pv-overlay.open{display:flex}
+.pv-drawer{background:var(--navy-mid);border:1px solid var(--border);border-radius:18px 18px 0 0;width:100%;max-width:580px;max-height:90svh;overflow-y:auto;animation:pvIn .28s ease}
+@media(min-width:600px){.pv-drawer{border-radius:14px}}
+@keyframes pvIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.pv-handle{width:36px;height:3px;background:var(--white-20);border-radius:3px;margin:10px auto 0}
+.pv-head{padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pv-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px}
+.pv-close{width:26px;height:26px;background:var(--white-10);border:none;border-radius:50%;cursor:pointer;color:var(--white);font-size:13px;display:grid;place-items:center}
+.pv-body{padding:14px 18px}
+.pv-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px}
+.pv-foot .btn{flex:1;justify-content:center;padding:11px}
+.pv-row{display:flex;justify-content:space-between;padding:6px 0;font-size:12px;border-bottom:1px solid var(--border)}
+.pv-row:last-of-type{border-bottom:none}
+.pv-key{color:var(--white-60)}
+.pv-val{font-weight:600;text-align:right;max-width:55%}
+.pv-alert{border-radius:var(--radius);padding:9px 12px;font-size:11px;margin:10px 0;line-height:1.6}
+.pv-alert.green{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--success)}
+.pv-alert.amber{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--warning)}
+.pv-alert.red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--danger)}
+/* FORM */
+.fg{margin-bottom:12px}
+.fl{display:block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:4px}
+.fc{width:100%;padding:9px 11px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;transition:var(--transition)}
+.fc:focus{border-color:var(--royal-blue)}
+.fc::placeholder{color:var(--white-60)}
+select.fc option{background:var(--deep-navy)}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* TABS */
+.tab-bar{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:6px 12px;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--white-60);transition:var(--transition);margin-bottom:-1px;white-space:nowrap}
+.tab-btn.active{color:var(--warriors-gold);border-bottom-color:var(--warriors-gold)}
+/* PC = payment card */
+.pc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:9px}
+.pc.mis-c{border-color:rgba(245,158,11,.3)}.pc.miss-c{border-color:rgba(239,68,68,.3)}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:9px}
+.pc-name{font-weight:700;font-size:13px}
+.pc-route{font-size:10px;color:var(--white-60);margin-top:1px}
+.pc-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px}
+.pc-mi{background:var(--white-10);border-radius:8px;padding:6px 8px}
+.pc-ml{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60);margin-bottom:1px}
+.pc-mv{font-size:12px;font-weight:700}
+.pc-acts{display:flex;gap:5px;flex-wrap:wrap}
+/* QUICK GRID */
+.qg{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
+@media(max-width:600px){.qg{grid-template-columns:repeat(2,1fr)}}
+.qc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;cursor:pointer;transition:var(--transition)}
+.qc:hover{background:rgba(11,47,160,.3);transform:translateY(-2px)}
+.qc-icon{font-size:18px;margin-bottom:4px;display:block}
+.qc-lbl{font-size:10px;font-weight:600;color:var(--white-80)}
+/* ALERT BANNER */
+.ab{background:linear-gradient(90deg,rgba(239,68,68,.1),transparent);border:1px solid rgba(239,68,68,.22);border-radius:var(--radius);padding:9px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ab.gd{background:linear-gradient(90deg,rgba(232,168,0,.09),transparent);border-color:rgba(232,168,0,.22)}
+.ab-t{font-size:12px;font-weight:600}
+.ab-btn{padding:4px 10px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-size:10px;font-weight:700;cursor:pointer}
+/* ACTIVITY */
+.af{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;max-height:240px;overflow-y:auto}
+.ai{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:1px solid var(--border)}
+.ai:last-child{border-bottom:none}
+.ai-d{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ai-d.gr{background:var(--success)}.ai-d.bl{background:var(--info)}.ai-d.gd{background:var(--warriors-gold)}.ai-d.rd{background:var(--danger)}
+.ai-t{font-size:11px;color:var(--white-80);flex:1;line-height:1.4}
+.ai-tm{font-size:9px;color:var(--white-60)}
+/* LOG */
+.log-e{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:11px}
+.log-ico{font-size:17px;width:28px;text-align:center;flex-shrink:0}
+.log-b{flex:1}
+.log-ti{font-weight:700;font-size:12px}
+.log-me{font-size:10px;color:var(--white-60);margin-top:1px}
+.log-am{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;color:var(--warriors-gold)}
+/* SCENERY */
+.sc-show{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:14px;height:180px;background:linear-gradient(135deg,var(--royal-blue),var(--navy-mid))}
+.sc-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;display:flex;align-items:flex-end;padding:14px}
+.sc-slide.active{opacity:1}
+.sc-slide-bg{position:absolute;inset:0;font-size:72px;display:flex;align-items:center;justify-content:center;opacity:.28}
+.sc-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,14,53,.92) 0%,transparent 55%)}
+.sc-info{position:relative;z-index:1}
+.sc-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;line-height:1.1;margin-bottom:2px}
+.sc-cap{font-size:10px;color:var(--white-80)}
+.sc-route-tag{display:inline-block;margin-top:4px;padding:2px 7px;background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:100px;font-size:9px;font-weight:600;color:var(--warriors-gold)}
+.sc-ctrl{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 8px;pointer-events:none}
+.sc-arr{width:26px;height:26px;background:rgba(4,14,53,.7);border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;cursor:pointer;pointer-events:all;font-size:11px}
+.sc-dots{position:absolute;bottom:10px;right:10px;display:flex;gap:4px}
+.sc-dot{width:5px;height:5px;border-radius:50%;background:var(--white-60);cursor:pointer;transition:var(--transition)}
+.sc-dot.active{background:var(--warriors-gold);width:12px;border-radius:3px}
+/* UPLOAD */
+.up-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;transition:var(--transition);cursor:pointer;position:relative}
+.up-zone:hover,.up-zone.dv{border-color:var(--warriors-gold);background:var(--gold-dim)}
+.up-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.up-icon{font-size:26px;margin-bottom:7px;display:block}
+.up-txt{font-size:11px;color:var(--white-60)}
+.up-methods{display:flex;gap:7px;margin-top:9px;justify-content:center;flex-wrap:wrap}
+.up-m{padding:5px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:100px;font-size:10px;font-weight:600;color:var(--white-80);cursor:pointer;transition:var(--transition)}
+.up-m:hover{background:var(--white-20)}
+.up-m.cloud{color:var(--info);border-color:rgba(59,130,246,.3)}
+/* JOB CARD */
+.job-c{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start}
+.job-ico{width:36px;height:36px;border-radius:9px;background:rgba(11,47,160,.3);display:grid;place-items:center;font-size:16px;flex-shrink:0}
+.job-title{font-weight:700;font-size:13px;margin-bottom:2px}
+.job-meta{font-size:10px;color:var(--white-60);line-height:1.5}
+.job-acts{margin-left:auto;display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap}
+.app-c{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:7px;display:flex;align-items:center;gap:12px}
+.app-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--royal-blue),var(--navy-mid));display:grid;place-items:center;font-size:14px;flex-shrink:0}
+.app-name{font-weight:700;font-size:12px}
+.app-role{font-size:10px;color:var(--white-60)}
+.app-acts{margin-left:auto;display:flex;gap:5px}
+/* FIN */
+.fin-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:flex-end}
+.fin-g{display:grid;gap:4px}
+.fin-l{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60)}
+.fin-sel{padding:8px 11px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:11px;outline:none;cursor:pointer}
+.fin-sel option{background:var(--deep-navy)}
+.fin-inp{padding:8px 11px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:11px;outline:none}
+.fin-inp:focus{border-color:var(--royal-blue)}
+.fin-sec{font-weight:800;font-size:12px;color:var(--warriors-gold);padding:8px 12px;background:rgba(232,168,0,.05);border-left:3px solid var(--warriors-gold);border-bottom:1px solid var(--border)}
+.fin-row{display:flex;justify-content:space-between;padding:7px 12px 7px 24px;font-size:12px;border-bottom:1px solid var(--border);cursor:pointer;transition:var(--transition)}
+.fin-row:hover{background:var(--white-10)}
+.fin-sub{padding-left:38px;font-size:11px;color:var(--white-80)}
+.fin-total{padding:9px 12px;font-weight:800;font-size:13px;display:flex;justify-content:space-between;border-top:2px solid var(--border);margin-top:3px}
+.fin-total.profit{color:var(--success)}.fin-total.loss{color:var(--danger)}
+/* MAP */
+.map-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative}
+.map-wrap img{width:100%;display:block;opacity:.92}
+.map-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,14,53,.2),rgba(11,47,160,.1))}
+.map-bottom{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(4,14,53,.95));padding:14px}
+.map-legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.map-pill{padding:2px 8px;border-radius:100px;font-size:9px;font-weight:700}
 </style>
 </head>
 <body>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-logo">
-    <div class="logo-mark">RL</div>
-    <div>
-      <div class="logo-text">RAYLANE <span>EXPRESS</span></div>
-      <div style="font-size:9px;color:var(--white-60);letter-spacing:1px">SUPER ADMIN</div>
+<!-- PREVIEW DRAWER -->
+<div class="pv-overlay" id="pvOverlay">
+  <div class="pv-drawer">
+    <div class="pv-handle"></div>
+    <div class="pv-head">
+      <div class="pv-title" id="pvTitle">Preview</div>
+      <button class="pv-close" onclick="closePv()">✕</button>
     </div>
-  </div>
-  <div class="topbar-center">
-    <div class="live-indicator"><div class="live-dot"></div> Platform Live</div>
-    <div class="topbar-clock" id="clock">00:00:00</div>
-  </div>
-  <div class="topbar-right">
-    <div class="topbar-badge-btn" onclick="nav('payments')">
-      💳 Payments <div class="badge-count" id="paymentsBadge">7</div>
+    <div class="pv-body" id="pvBody"></div>
+    <div class="pv-foot">
+      <button class="btn btn-gh" onclick="closePv()">Cancel</button>
+      <button class="btn btn-gr" id="pvConfirm">Confirm</button>
     </div>
-    <div class="topbar-badge-btn" onclick="nav('trip-approvals')">
-      🚌 Trips <div class="badge-count" id="tripsBadge">3</div>
-    </div>
-    <a href="/" class="topbar-btn gold" style="text-decoration:none">← Public Site</a>
   </div>
 </div>
 
-<!-- APP BODY -->
-<div class="app-body">
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sbOverlay" onclick="closeSb()"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <button class="hamburger" onclick="toggleSb()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="topbar-logo">
+    <div class="logo-mark">RL</div>
+    <div><div class="logo-text">RAYLANE <span>EXP</span></div><div style="font-size:8px;color:var(--white-60);letter-spacing:1px">SUPER ADMIN</div></div>
+  </div>
+  <div class="topbar-mid">
+    <div class="live-pill"><div class="live-dot"></div>Live</div>
+    <div class="clock" id="clock">00:00:00</div>
+  </div>
+  <div class="topbar-right">
+    <div class="tb-badge" onclick="nav('payments')">💳<div class="badge-n" id="payBadge">7</div></div>
+    <div class="tb-badge" onclick="nav('trip-approvals')">🚌<div class="badge-n" id="tripBadge">3</div></div>
+    <a href="/" class="tb-btn">← Site</a>
+  </div>
+</div>
+
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
-  <div class="sidebar-section">Operations</div>
-  <div class="sidebar-item active" onclick="nav('overview')" id="nav-overview"><span class="icon">📊</span> Overview</div>
-  <div class="sidebar-item" onclick="nav('payments')" id="nav-payments"><span class="icon">💳</span> Payment Inbox <span class="s-badge" id="sb-payments">7</span></div>
-  <div class="sidebar-item" onclick="nav('alerts')" id="nav-alerts"><span class="icon">🔔</span> Alerts Inbox</div>
-  <div class="sidebar-item" onclick="nav('applications')" id="nav-applications"><span class="icon">📋</span> Applications</div>
-  <div class="sidebar-item" onclick="nav('operators')" id="nav-operators"><span class="icon">🏢</span> Operators</div>
-  <div class="sidebar-item" onclick="nav('trip-approvals')" id="nav-trip-approvals"><span class="icon">✅</span> Trip Approvals <span class="s-badge" id="sb-trips">3</span></div>
-  <div class="sidebar-item" onclick="nav('charter')" id="nav-charter"><span class="icon">✈️</span> Charter Mgmt</div>
-  <div class="sidebar-item" onclick="nav('group-bookings')" id="nav-group-bookings"><span class="icon">👥</span> Group Bookings</div>
-  <div class="sidebar-item" onclick="nav('advance-bookings')" id="nav-advance-bookings"><span class="icon">📅</span> Advance Bookings</div>
-  <div class="sidebar-item" onclick="nav('all-bookings')" id="nav-all-bookings"><span class="icon">🎫</span> All Bookings</div>
-  <div class="sidebar-item" onclick="nav('parcel-pickups')" id="nav-parcel-pickups"><span class="icon">🛵</span> Parcel Pickups <span class="s-badge gold">4</span></div>
-  <div class="sidebar-item" onclick="nav('routes')" id="nav-routes"><span class="icon">🛣️</span> Route Management</div>
-  <div class="sidebar-section">Fleet &amp; People</div>
-  <div class="sidebar-item" onclick="nav('fleet')" id="nav-fleet"><span class="icon">🚌</span> Raylane Fleet</div>
-  <div class="sidebar-item" onclick="nav('drivers')" id="nav-drivers"><span class="icon">👤</span> Drivers</div>
-  <div class="sidebar-item" onclick="nav('fuel')" id="nav-fuel"><span class="icon">⛽</span> Fuel Log</div>
-  <div class="sidebar-item" onclick="nav('maintenance')" id="nav-maintenance"><span class="icon">🔧</span> Maintenance Log</div>
-  <div class="sidebar-item" onclick="nav('documents')" id="nav-documents"><span class="icon">📁</span> Document Store</div>
-  <div class="sidebar-section">Finance</div>
-  <div class="sidebar-item" onclick="nav('payouts')" id="nav-payouts"><span class="icon">💰</span> Payouts</div>
-  <div class="sidebar-item" onclick="nav('financials')" id="nav-financials"><span class="icon">📈</span> Financials / P&amp;L</div>
-  <div class="sidebar-item" onclick="nav('expenses')" id="nav-expenses"><span class="icon">🧾</span> Costs &amp; Expenses</div>
-  <div class="sidebar-item" onclick="nav('vendors')" id="nav-vendors"><span class="icon">🤝</span> Vendor Management</div>
-  <div class="sidebar-item" onclick="nav('subscriptions')" id="nav-subscriptions"><span class="icon">🔄</span> Subscriptions</div>
-  <div class="sidebar-item" onclick="nav('insurance')" id="nav-insurance"><span class="icon">🛡️</span> Insurance Marketplace</div>
-  <div class="sidebar-section">Platform &amp; Content</div>
-  <div class="sidebar-item" onclick="nav('scenery')" id="nav-scenery"><span class="icon">🖼️</span> Scenery Manager</div>
-  <div class="sidebar-item" onclick="nav('users')" id="nav-users"><span class="icon">👥</span> Users &amp; Roles</div>
-  <div class="sidebar-item" onclick="nav('audit')" id="nav-audit"><span class="icon">📝</span> Audit Log</div>
-  <div class="sidebar-item" onclick="nav('health')" id="nav-health"><span class="icon">💚</span> System Health</div>
-  <div class="sidebar-item" onclick="nav('settings')" id="nav-settings"><span class="icon">⚙️</span> Settings</div>
+  <div class="sb-close-row"><button class="sb-close" onclick="closeSb()">✕</button></div>
+  <div class="sb-sec">Operations</div>
+  <button class="si active" onclick="nav('overview')" id="n-overview"><span class="ico">📊</span>Overview</button>
+  <button class="si" onclick="nav('payments')" id="n-payments"><span class="ico">💳</span>Payment Inbox<span class="s-badge" id="sb-pay">7</span></button>
+  <button class="si" onclick="nav('alerts')" id="n-alerts"><span class="ico">🔔</span>Alerts</button>
+  <button class="si" onclick="nav('applications')" id="n-applications"><span class="ico">📋</span>Applications</button>
+  <button class="si" onclick="nav('operators')" id="n-operators"><span class="ico">🏢</span>Operators</button>
+  <button class="si" onclick="nav('trip-approvals')" id="n-trip-approvals"><span class="ico">✅</span>Trip Approvals<span class="s-badge" id="sb-trips">3</span></button>
+  <button class="si" onclick="nav('charter')" id="n-charter"><span class="ico">✈️</span>Charter</button>
+  <button class="si" onclick="nav('group-bookings')" id="n-group-bookings"><span class="ico">👥</span>Group Bookings</button>
+  <button class="si" onclick="nav('advance-bookings')" id="n-advance-bookings"><span class="ico">📅</span>Advance Bookings</button>
+  <button class="si" onclick="nav('all-bookings')" id="n-all-bookings"><span class="ico">🎫</span>All Bookings</button>
+  <button class="si" onclick="nav('parcel-pickups')" id="n-parcel-pickups"><span class="ico">🛵</span>Parcel Pickups<span class="s-badge g">4</span></button>
+  <button class="si" onclick="nav('routes')" id="n-routes"><span class="ico">🛣️</span>Route Mgmt</button>
+  <div class="sd"></div>
+  <div class="sb-sec">Fleet &amp; People</div>
+  <button class="si" onclick="nav('fleet')" id="n-fleet"><span class="ico">🚌</span>Raylane Fleet</button>
+  <button class="si" onclick="nav('drivers')" id="n-drivers"><span class="ico">👤</span>Drivers</button>
+  <button class="si" onclick="nav('fuel')" id="n-fuel"><span class="ico">⛽</span>Fuel Log</button>
+  <button class="si" onclick="nav('maintenance')" id="n-maintenance"><span class="ico">🔧</span>Maintenance</button>
+  <button class="si" onclick="nav('documents')" id="n-documents"><span class="ico">📁</span>Documents</button>
+  <div class="sd"></div>
+  <div class="sb-sec">Finance</div>
+  <button class="si" onclick="nav('payouts')" id="n-payouts"><span class="ico">💰</span>Payouts</button>
+  <button class="si" onclick="nav('financials')" id="n-financials"><span class="ico">📈</span>Financials</button>
+  <button class="si" onclick="nav('expenses')" id="n-expenses"><span class="ico">🧾</span>Expenses</button>
+  <button class="si" onclick="nav('vendors')" id="n-vendors"><span class="ico">🤝</span>Vendors</button>
+  <button class="si" onclick="nav('subscriptions')" id="n-subscriptions"><span class="ico">🔄</span>Subscriptions</button>
+  <button class="si" onclick="nav('insurance')" id="n-insurance"><span class="ico">🛡️</span>Insurance</button>
+  <div class="sd"></div>
+  <div class="sb-sec">Content &amp; Platform</div>
+  <button class="si" onclick="nav('scenery')" id="n-scenery"><span class="ico">🖼️</span>Scenery Manager</button>
+  <button class="si" onclick="nav('jobs')" id="n-jobs"><span class="ico">💼</span>Jobs &amp; Applications</button>
+  <button class="si" onclick="nav('uganda-map')" id="n-uganda-map"><span class="ico">🗺️</span>Uganda Map</button>
+  <button class="si" onclick="nav('users')" id="n-users"><span class="ico">👥</span>Users &amp; Roles</button>
+  <button class="si" onclick="nav('audit')" id="n-audit"><span class="ico">📝</span>Audit Log</button>
+  <button class="si" onclick="nav('health')" id="n-health"><span class="ico">💚</span>System Health</button>
+  <button class="si" onclick="nav('settings')" id="n-settings"><span class="ico">⚙️</span>Settings</button>
 </nav>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main class="main">
 
-<!-- ═══ OVERVIEW ═══ -->
+<!-- OVERVIEW -->
 <div class="view active" id="view-overview">
-  <div class="view-title">Platform Overview</div>
-  <div class="view-sub">Real-time dashboard — Kampala, Uganda</div>
-
-  <!-- Alert banner for pending trips -->
-  <div class="alert-banner" id="tripApprovalBanner">
-    ⚠️ <strong>3 trips pending approval</strong> — go live instantly once approved.
-    <button class="alert-banner-link" onclick="nav('trip-approvals')">Review Trips →</button>
+  <div class="vt">Platform Overview</div><div class="vs">Real-time · Kampala, Uganda</div>
+  <div class="ab" id="tripBanner">⚠️ <strong>3 trips pending approval</strong><button class="ab-btn" onclick="nav('trip-approvals')">Review →</button></div>
+  <div class="ab gd">💳 <strong>7 payments pending confirmation</strong><button class="ab-btn" onclick="nav('payments')">Payment Inbox →</button></div>
+  <div class="cards-g">
+    <div class="sc b"><div class="sc-l">Today's Bookings</div><div class="sc-v">142</div><div class="sc-c">↑ 18% vs yesterday</div></div>
+    <div class="sc g"><div class="sc-l">Revenue MTD</div><div class="sc-v">38.4M</div><div class="sc-c">UGX · ↑ 12%</div></div>
+    <div class="sc gr"><div class="sc-l">Active Operators</div><div class="sc-v">47</div><div class="sc-c">2 pending</div></div>
+    <div class="sc r"><div class="sc-l">Pending Payouts</div><div class="sc-v">12.1M</div><div class="sc-c dn">UGX due Fri</div></div>
+    <div class="sc p"><div class="sc-l">Uptime</div><div class="sc-v">99.9%</div><div class="sc-c">30-day avg</div></div>
+    <div class="sc a"><div class="sc-l">Ins. Expiring</div><div class="sc-v">3</div><div class="sc-c">Within 60 days</div></div>
   </div>
-  <div class="alert-banner gold" id="paymentApprovalBanner">
-    💳 <strong>7 payments pending confirmation</strong> — confirm to issue tickets.
-    <button class="alert-banner-link" onclick="nav('payments')">Payment Inbox →</button>
+  <div class="qg">
+    <div class="qc" onclick="nav('trip-approvals')"><span class="qc-icon">✅</span><div class="qc-lbl">Approve Trips</div></div>
+    <div class="qc" onclick="nav('payments')"><span class="qc-icon">💳</span><div class="qc-lbl">Payment Inbox</div></div>
+    <div class="qc" onclick="nav('payouts')"><span class="qc-icon">💰</span><div class="qc-lbl">Release Payouts</div></div>
+    <div class="qc" onclick="nav('applications')"><span class="qc-icon">📋</span><div class="qc-lbl">Applications</div></div>
   </div>
-
-  <div class="cards-grid">
-    <div class="stat-card blue"><div class="stat-label">Today's Bookings</div><div class="stat-value">142</div><div class="stat-change">↑ 18% vs yesterday</div></div>
-    <div class="stat-card gold"><div class="stat-label">Revenue MTD</div><div class="stat-value">38.4M</div><div class="stat-change">UGX · ↑ 12%</div></div>
-    <div class="stat-card green"><div class="stat-label">Active Operators</div><div class="stat-value">47</div><div class="stat-change">2 pending review</div></div>
-    <div class="stat-card red"><div class="stat-label">Pending Payouts</div><div class="stat-value">12.1M</div><div class="stat-change down">UGX due Friday</div></div>
-    <div class="stat-card purple"><div class="stat-label">Platform Uptime</div><div class="stat-value">99.9%</div><div class="stat-change">30-day average</div></div>
-    <div class="stat-card amber"><div class="stat-label">Insurance Expiring</div><div class="stat-value">3</div><div class="stat-change">Within 60 days</div></div>
-  </div>
-
-  <div class="quick-grid">
-    <div class="quick-card" onclick="nav('trip-approvals')"><span class="qc-icon">✅</span><div class="qc-label">Approve Trips</div></div>
-    <div class="quick-card" onclick="nav('payments')"><span class="qc-icon">💳</span><div class="qc-label">Payment Inbox</div></div>
-    <div class="quick-card" onclick="nav('payouts')"><span class="qc-icon">💰</span><div class="qc-label">Release Payouts</div></div>
-    <div class="quick-card" onclick="nav('applications')"><span class="qc-icon">📋</span><div class="qc-label">Review Applications</div></div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
     <div>
-      <div class="table-title" style="margin-bottom:12px;font-size:14px;font-weight:700">Live Activity Feed</div>
-      <div class="activity-feed" id="activityFeed">
-        <div class="activity-item"><div class="activity-dot green"></div><div class="activity-text">New booking — Kampala→Mbarara, Seat 14A, UGX 25,000</div><div class="activity-time">Just now</div></div>
-        <div class="activity-item"><div class="activity-dot blue"></div><div class="activity-text">Operator YY Coaches submitted new trip — Kampala→Mbale 07:30</div><div class="activity-time">2 min ago</div></div>
-        <div class="activity-item"><div class="activity-dot gold"></div><div class="activity-text">Payout request from Global Coaches — UGX 3,200,000</div><div class="activity-time">5 min ago</div></div>
-        <div class="activity-item"><div class="activity-dot green"></div><div class="activity-text">Parcel PKL-847291 delivered — Kampala→Mbarara</div><div class="activity-time">8 min ago</div></div>
-        <div class="activity-item"><div class="activity-dot red"></div><div class="activity-text">Payment mismatch — John Doe booked as Jane Doe</div><div class="activity-time">12 min ago</div></div>
-        <div class="activity-item"><div class="activity-dot blue"></div><div class="activity-text">New operator application — Fast Coaches Uganda Ltd</div><div class="activity-time">15 min ago</div></div>
-        <div class="activity-item"><div class="activity-dot gold"></div><div class="activity-text">Charter quote accepted — Makerere University 67-seater</div><div class="activity-time">22 min ago</div></div>
+      <div style="font-weight:700;font-size:12px;margin-bottom:9px">Live Activity</div>
+      <div class="af" id="actFeed">
+        <div class="ai"><div class="ai-d gr"></div><div class="ai-t">Booking — Kla→Mbarara Seat 14A UGX 25,000</div><div class="ai-tm">Now</div></div>
+        <div class="ai"><div class="ai-d bl"></div><div class="ai-t">YY Coaches submitted trip — Kla→Mbale 07:30</div><div class="ai-tm">2m</div></div>
+        <div class="ai"><div class="ai-d gd"></div><div class="ai-t">Payout request — Global Coaches UGX 3.2M</div><div class="ai-tm">5m</div></div>
+        <div class="ai"><div class="ai-d rd"></div><div class="ai-t">Payment mismatch — John Doe / Jane Doe</div><div class="ai-tm">12m</div></div>
+        <div class="ai"><div class="ai-d bl"></div><div class="ai-t">New application — Fast Coaches Uganda Ltd</div><div class="ai-tm">15m</div></div>
       </div>
     </div>
     <div>
-      <div class="table-title" style="margin-bottom:12px;font-size:14px;font-weight:700">Pending Actions</div>
-      <div class="table-wrap" style="margin:0">
+      <div style="font-weight:700;font-size:12px;margin-bottom:9px">Pending Actions</div>
+      <div class="tw" style="margin:0">
         <table>
-          <tr><td><strong>3 trips</strong> await approval</td><td><button class="btn btn-sm btn-gold" onclick="nav('trip-approvals')">Review</button></td></tr>
-          <tr><td><strong>7 payments</strong> pending confirmation</td><td><button class="btn btn-sm btn-green" onclick="nav('payments')">Confirm</button></td></tr>
-          <tr><td><strong>2 applications</strong> to review</td><td><button class="btn btn-sm btn-blue" onclick="nav('applications')">Review</button></td></tr>
-          <tr><td><strong>UGX 12.1M</strong> payouts due</td><td><button class="btn btn-sm btn-gold" onclick="nav('payouts')">Release</button></td></tr>
-          <tr><td><strong>3 insurance</strong> expiring &lt; 60 days</td><td><button class="btn btn-sm btn-ghost" onclick="nav('insurance')">Renew</button></td></tr>
-          <tr><td><strong>4 parcel pickups</strong> need riders</td><td><button class="btn btn-sm btn-blue" onclick="nav('parcel-pickups')">Assign</button></td></tr>
+          <tr><td><strong>3 trips</strong> pending</td><td><button class="btn btn-sm btn-go" onclick="nav('trip-approvals')">Review</button></td></tr>
+          <tr><td><strong>7 payments</strong> pending</td><td><button class="btn btn-sm btn-gr" onclick="nav('payments')">Confirm</button></td></tr>
+          <tr><td><strong>2 applications</strong></td><td><button class="btn btn-sm btn-bl" onclick="nav('applications')">Review</button></td></tr>
+          <tr><td><strong>UGX 12.1M</strong> payouts</td><td><button class="btn btn-sm btn-go" onclick="nav('payouts')">Release</button></td></tr>
+          <tr><td><strong>4 pickups</strong> need riders</td><td><button class="btn btn-sm btn-bl" onclick="nav('parcel-pickups')">Assign</button></td></tr>
         </table>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ PAYMENT INBOX ═══ -->
+<!-- PAYMENT INBOX -->
 <div class="view" id="view-payments">
-  <div class="view-title">💳 Payment Confirmation Inbox</div>
-  <div class="view-sub">Manual verification — confirm payments to issue tickets. Every MTN MoMo and Airtel Money payment must be verified here.</div>
-
+  <div class="vt">💳 Payment Confirmation Inbox</div><div class="vs">Manual verification — confirm to issue QR tickets</div>
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="filterPayments('all',this)">All (7)</button>
-    <button class="tab-btn" onclick="filterPayments('matched',this)">✅ Matched (4)</button>
-    <button class="tab-btn" onclick="filterPayments('mismatch',this)">⚠️ Mismatch (2)</button>
-    <button class="tab-btn" onclick="filterPayments('missing',this)">❌ Missing (1)</button>
+    <button class="tab-btn active" onclick="filterPay('all',this)">All (7)</button>
+    <button class="tab-btn" onclick="filterPay('matched',this)">✅ Matched (4)</button>
+    <button class="tab-btn" onclick="filterPay('mismatch',this)">⚠️ Mismatch (2)</button>
+    <button class="tab-btn" onclick="filterPay('missing',this)">❌ Missing (1)</button>
   </div>
-
-  <!-- Matched payment -->
-  <div class="payment-card" data-match="matched">
-    <div class="pc-top">
-      <div><div class="pc-name">Sarah Nakato</div><div class="pc-route">Kampala → Mbarara · Seat 14A · 06:00</div></div>
-      <div style="text-align:right"><span class="badge matched">✅ MATCHED</span><div style="font-size:11px;color:var(--white-60);margin-top:4px">MTN MoMo</div></div>
-    </div>
-    <div class="pc-meta">
-      <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 25,000</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Paying Phone</div><div class="pc-meta-value">0771 234 567</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Reference Name</div><div class="pc-meta-value">Sarah Nakato</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--white-60);margin-bottom:10px">⏱️ Submitted 4 min ago · Booking ref: RLX-001291</div>
-    <div class="pc-actions">
-      <button class="btn btn-green" onclick="confirmPayment(this,'Sarah Nakato','RLX-001291')">✅ Confirm &amp; Issue Ticket</button>
-      <button class="btn btn-ghost btn-sm" onclick="openRejectModal()">Reject</button>
-      <button class="btn btn-ghost btn-sm" onclick="holdPayment(this)">Hold 30min</button>
+  <div class="pc" data-match="matched">
+    <div class="pc-top"><div><div class="pc-name">Sarah Nakato</div><div class="pc-route">Kampala → Mbarara · Seat 14A · 06:00</div></div><span class="badge matched">✅ MATCHED</span></div>
+    <div class="pc-meta"><div class="pc-mi"><div class="pc-ml">Amount</div><div class="pc-mv">UGX 25,000</div></div><div class="pc-mi"><div class="pc-ml">Phone</div><div class="pc-mv">0771 234 567</div></div><div class="pc-mi"><div class="pc-ml">Reference</div><div class="pc-mv">Sarah Nakato</div></div></div>
+    <div style="font-size:9px;color:var(--white-60);margin-bottom:7px">4 min ago · RLX-001291 · MTN MoMo</div>
+    <div class="pc-acts">
+      <button class="btn btn-gr" onclick="pv('confirm-payment',{name:'Sarah Nakato',ref:'RLX-001291',route:'Kla→Mbarara',seat:'14A',amount:'UGX 25,000',method:'MTN MoMo',match:'✅ MATCHED',phone:'0771 234 567'})">✅ Confirm &amp; Issue Ticket</button>
+      <button class="btn btn-gh btn-sm" onclick="pv('reject-payment',{name:'Sarah Nakato',ref:'RLX-001291'})">Reject</button>
+      <button class="btn btn-gh btn-sm" onclick="showToast('⏸️ Seat held 30 more minutes','info')">Hold</button>
     </div>
   </div>
-
-  <!-- Matched payment 2 -->
-  <div class="payment-card" data-match="matched">
-    <div class="pc-top">
-      <div><div class="pc-name">James Okello</div><div class="pc-route">Kampala → Gulu · Seats 22B, 22C · 06:30</div></div>
-      <div style="text-align:right"><span class="badge matched">✅ MATCHED</span><div style="font-size:11px;color:var(--white-60);margin-top:4px">Airtel Money</div></div>
-    </div>
-    <div class="pc-meta">
-      <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 60,000</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Paying Phone</div><div class="pc-meta-value">0702 111 222</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Reference Name</div><div class="pc-meta-value">James Okello</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--white-60);margin-bottom:10px">⏱️ Submitted 9 min ago · Booking ref: RLX-001292</div>
-    <div class="pc-actions">
-      <button class="btn btn-green" onclick="confirmPayment(this,'James Okello','RLX-001292')">✅ Confirm &amp; Issue Ticket</button>
-      <button class="btn btn-ghost btn-sm" onclick="openRejectModal()">Reject</button>
-      <button class="btn btn-ghost btn-sm" onclick="holdPayment(this)">Hold 30min</button>
+  <div class="pc mis-c" data-match="mismatch">
+    <div class="pc-top"><div><div class="pc-name">John Doe</div><div class="pc-route">Kampala → Mbale · Seat 8A · 07:30</div></div><span class="badge mismatch">⚠️ MISMATCH</span></div>
+    <div class="pc-meta"><div class="pc-mi"><div class="pc-ml">Amount</div><div class="pc-mv">UGX 22,000</div></div><div class="pc-mi"><div class="pc-ml">Phone</div><div class="pc-mv">0771 888 999</div></div><div class="pc-mi"><div class="pc-ml">Reference</div><div class="pc-mv" style="color:var(--warning)">Jane Doe ⚠️</div></div></div>
+    <div style="font-size:9px;color:var(--warning);margin-bottom:7px">⚠️ Booking "John Doe" ≠ MoMo reference "Jane Doe"</div>
+    <div class="pc-acts">
+      <button class="btn btn-go" onclick="pv('mismatch-payment',{booking:'John Doe',reference:'Jane Doe',ref:'RLX-001293',route:'Kla→Mbale',amount:'UGX 22,000',phone:'0771 888 999'})">🔍 Review Mismatch</button>
+      <button class="btn btn-gh btn-sm" onclick="pv('reject-payment',{name:'John Doe',ref:'RLX-001293'})">Reject</button>
     </div>
   </div>
-
-  <!-- MISMATCH payment -->
-  <div class="payment-card mismatch-card" data-match="mismatch">
-    <div class="pc-top">
-      <div><div class="pc-name">John Doe</div><div class="pc-route">Kampala → Mbale · Seat 8A · 07:30</div></div>
-      <div style="text-align:right"><span class="badge mismatch">⚠️ MISMATCH</span><div style="font-size:11px;color:var(--white-60);margin-top:4px">MTN MoMo</div></div>
-    </div>
-    <div class="pc-meta">
-      <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 22,000</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Paying Phone</div><div class="pc-meta-value">0771 888 999</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Reference Name</div><div class="pc-meta-value" style="color:var(--warning)">Jane Doe ⚠️</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--warning);margin-bottom:10px">⚠️ Booking name "John Doe" does not match MoMo reference "Jane Doe" — verify before approving</div>
-    <div class="pc-actions">
-      <button class="btn btn-gold" onclick="openMismatchModal('John Doe','Jane Doe','RLX-001293','0771 888 999')">🔍 Review Mismatch</button>
-      <button class="btn btn-ghost btn-sm" onclick="openRejectModal()">Reject</button>
-      <button class="btn btn-ghost btn-sm" onclick="holdPayment(this)">Hold 30min</button>
-    </div>
-  </div>
-
-  <!-- MISMATCH payment 2 -->
-  <div class="payment-card mismatch-card" data-match="mismatch">
-    <div class="pc-top">
-      <div><div class="pc-name">Grace Auma</div><div class="pc-route">Kampala → Fort Portal · Seat 3B · 08:00</div></div>
-      <div style="text-align:right"><span class="badge mismatch">⚠️ MISMATCH</span><div style="font-size:11px;color:var(--white-60);margin-top:4px">QR Code Scan</div></div>
-    </div>
-    <div class="pc-meta">
-      <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 35,000</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Paying Phone</div><div class="pc-meta-value">0750 333 444</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Reference Name</div><div class="pc-meta-value" style="color:var(--warning)">G. Auma ⚠️</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--warning);margin-bottom:10px">⚠️ Abbreviated name — likely same person. Verify by calling customer.</div>
-    <div class="pc-actions">
-      <button class="btn btn-gold" onclick="openMismatchModal('Grace Auma','G. Auma','RLX-001294','0750 333 444')">🔍 Review Mismatch</button>
-      <button class="btn btn-ghost btn-sm" onclick="openRejectModal()">Reject</button>
-      <button class="btn btn-ghost btn-sm" onclick="holdPayment(this)">Hold 30min</button>
-    </div>
-  </div>
-
-  <!-- MISSING reference -->
-  <div class="payment-card missing-card" data-match="missing">
-    <div class="pc-top">
-      <div><div class="pc-name">David Mugisha</div><div class="pc-route">Kampala → Kabale · Seat 45C · 09:00</div></div>
-      <div style="text-align:right"><span class="badge missing">❌ MISSING</span><div style="font-size:11px;color:var(--white-60);margin-top:4px">MTN MoMo</div></div>
-    </div>
-    <div class="pc-meta">
-      <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 28,000</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Paying Phone</div><div class="pc-meta-value">0701 555 666</div></div>
-      <div class="pc-meta-item"><div class="pc-meta-label">Reference Name</div><div class="pc-meta-value" style="color:var(--danger)">NOT PROVIDED ❌</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--danger);margin-bottom:10px">❌ HIGH RISK — no reference name provided. Call customer before approving.</div>
-    <div class="pc-actions">
-      <button class="btn btn-ghost btn-sm" onclick="showToast('📞 Calling 0701 555 666...','info')">📞 Call Customer</button>
-      <a href="https://wa.me/256701555666" class="btn btn-ghost btn-sm" target="_blank">💬 WhatsApp</a>
-      <button class="btn btn-green btn-sm" onclick="confirmPayment(this,'David Mugisha','RLX-001295')">✅ Confirm Anyway</button>
-      <button class="btn btn-ghost btn-sm" onclick="openRejectModal()">Reject</button>
+  <div class="pc miss-c" data-match="missing">
+    <div class="pc-top"><div><div class="pc-name">David Mugisha</div><div class="pc-route">Kampala → Kabale · Seat 45C · 09:00</div></div><span class="badge missing">❌ MISSING</span></div>
+    <div class="pc-meta"><div class="pc-mi"><div class="pc-ml">Amount</div><div class="pc-mv">UGX 28,000</div></div><div class="pc-mi"><div class="pc-ml">Phone</div><div class="pc-mv">0701 555 666</div></div><div class="pc-mi"><div class="pc-ml">Reference</div><div class="pc-mv" style="color:var(--danger)">MISSING ❌</div></div></div>
+    <div style="font-size:9px;color:var(--danger);margin-bottom:7px">❌ HIGH RISK — no reference. Call customer first.</div>
+    <div class="pc-acts">
+      <button class="btn btn-gh btn-sm" onclick="showToast('📞 Calling 0701 555 666...','info')">📞 Call</button>
+      <button class="btn btn-gr btn-sm" onclick="pv('confirm-payment',{name:'David Mugisha',ref:'RLX-001295',route:'Kla→Kabale',seat:'45C',amount:'UGX 28,000',method:'MTN MoMo',match:'❌ MISSING — confirm at own risk',phone:'0701 555 666'})">✅ Confirm Anyway</button>
+      <button class="btn btn-gh btn-sm" onclick="pv('reject-payment',{name:'David Mugisha',ref:'RLX-001295'})">Reject</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ TRIP APPROVALS ═══ -->
+<!-- TRIP APPROVALS -->
 <div class="view" id="view-trip-approvals">
-  <div class="view-title">✅ Trip Approvals</div>
-  <div class="view-sub">Operator-submitted trips require admin approval before appearing on the public website.</div>
-  <div class="table-wrap">
-    <div class="table-header">
-      <span class="table-title">Pending Trips (3)</span>
-      <div class="table-actions"><input class="search-input" placeholder="Search..."></div>
+  <div class="vt">✅ Trip Approvals</div><div class="vs">Operator trips require approval before going live on the public site.</div>
+  <div class="tw">
+    <div class="tw-h"><span class="tw-t">Pending (3)</span><input class="si-input" placeholder="Search..."></div>
+    <table>
+      <thead><tr><th>Operator</th><th>Route</th><th>Date/Time</th><th>Vehicle</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr><td><strong>YY Coaches</strong></td><td>Kla→Mbale</td><td>25 Apr · 07:30</td><td>67-Seater</td><td>UGX 22,000</td><td><span class="badge am">Pending</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-sm btn-gr" onclick="pv('approve-trip',{operator:'YY Coaches',route:'Kampala → Mbale',date:'25 Apr 2026',time:'07:30',vehicle:'67-Seater Coach',driver:'Patrick Mugerwa',price:'UGX 22,000/seat',seats:'67',amenities:'AC, WiFi'})">Approve</button>
+            <button class="btn btn-sm btn-rd" onclick="pv('reject-trip',{operator:'YY Coaches',route:'Kla→Mbale',date:'25 Apr'})">Reject</button>
+          </div></td></tr>
+        <tr><td><strong>Link Bus</strong></td><td>Kla→Arua</td><td>26 Apr · 06:00</td><td>67-Seater</td><td>UGX 35,000</td><td><span class="badge am">Pending</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-sm btn-gr" onclick="pv('approve-trip',{operator:'Link Bus',route:'Kampala → Arua',date:'26 Apr 2026',time:'06:00',vehicle:'67-Seater Coach',driver:'Moses Opolot',price:'UGX 35,000/seat',seats:'67',amenities:'AC'})">Approve</button>
+            <button class="btn btn-sm btn-rd" onclick="pv('reject-trip',{operator:'Link Bus',route:'Kla→Arua',date:'26 Apr'})">Reject</button>
+          </div></td></tr>
+        <tr><td><strong>Fast Coaches</strong></td><td>Kla→Lira</td><td>26 Apr · 07:00</td><td>67-Seater</td><td>UGX 30,000</td><td><span class="badge am">Pending</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-sm btn-gr" onclick="pv('approve-trip',{operator:'Fast Coaches',route:'Kampala → Lira',date:'26 Apr 2026',time:'07:00',vehicle:'67-Seater Coach',driver:'Ronald Kato',price:'UGX 30,000/seat',seats:'67',amenities:'AC, USB'})">Approve</button>
+            <button class="btn btn-sm btn-rd" onclick="pv('reject-trip',{operator:'Fast Coaches',route:'Kla→Lira',date:'26 Apr'})">Reject</button>
+          </div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- APPLICATIONS -->
+<div class="view" id="view-applications">
+  <div class="vt">📋 Operator Applications</div><div class="vs">New applications awaiting compliance verification.</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Company</th><th>Contact</th><th>Fleet</th><th>Plan</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fast Coaches Uganda Ltd</strong></td><td>0771 800 900</td><td>5 vehicles</td><td>Professional</td><td>26 Apr</td><td><span class="badge am">Pending</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-sm btn-gr" onclick="pv('approve-operator',{company:'Fast Coaches Uganda Ltd',contact:'0771 800 900',tin:'1000999888',psv:'PSV/2024/005',fleet:'5 vehicles',plan:'Professional — UGX 450,000/mo',commission:'6%',momo:'FCU-8821001'})">Approve</button>
+            <button class="btn btn-sm btn-rd" onclick="pv('reject-operator',{company:'Fast Coaches Uganda Ltd'})">Reject</button>
+          </div></td></tr>
+        <tr><td><strong>Eagle Bus Services</strong></td><td>0701 700 800</td><td>3 vehicles</td><td>Standard</td><td>24 Apr</td><td><span class="badge am">Pending</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-sm btn-gr" onclick="pv('approve-operator',{company:'Eagle Bus Services',contact:'0701 700 800',tin:'1000777666',psv:'PSV/2024/006',fleet:'3 vehicles',plan:'Standard — UGX 200,000/mo',commission:'8%',momo:'EBS-7721002'})">Approve</button>
+            <button class="btn btn-sm btn-rd" onclick="pv('reject-operator',{company:'Eagle Bus Services'})">Reject</button>
+          </div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAYOUTS -->
+<div class="view" id="view-payouts">
+  <div class="vt">💰 Payouts</div><div class="vs">Weekly settlement — review and release via MTN MoMo B2B.</div>
+  <div style="margin-bottom:12px;display:flex;gap:7px;flex-wrap:wrap">
+    <button class="btn btn-go" onclick="pv('release-all-payouts',{total:'UGX 12,100,000',count:'4 operators',method:'MTN MoMo B2B',day:'Friday 26 Apr 2026'})">Release All Payouts</button>
+    <button class="btn btn-gh" onclick="showToast('📥 Downloading payouts.csv...','info')">Export CSV</button>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Operator</th><th>MoMo Code</th><th>Gross</th><th>Commission</th><th>Net Payout</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Global Coaches</strong></td><td>GCL-8829012</td><td>UGX 3,200,000</td><td>8% = UGX 256,000</td><td><strong>UGX 2,944,000</strong></td><td><span class="badge am">Pending</span></td>
+          <td><button class="btn btn-sm btn-go" onclick="pv('release-payout',{operator:'Global Coaches',merchant:'GCL-8829012',gross:'UGX 3,200,000',commission:'UGX 256,000 (8%)',net:'UGX 2,944,000',method:'MTN MoMo B2B'})">Review &amp; Release</button></td></tr>
+        <tr><td><strong>YY Coaches</strong></td><td>YYC-5512334</td><td>UGX 2,800,000</td><td>8% = UGX 224,000</td><td><strong>UGX 2,576,000</strong></td><td><span class="badge am">Pending</span></td>
+          <td><button class="btn btn-sm btn-go" onclick="pv('release-payout',{operator:'YY Coaches',merchant:'YYC-5512334',gross:'UGX 2,800,000',commission:'UGX 224,000 (8%)',net:'UGX 2,576,000',method:'MTN MoMo B2B'})">Review &amp; Release</button></td></tr>
+        <tr><td><strong>Link Bus</strong></td><td>LBU-3344221</td><td>UGX 4,100,000</td><td>6% = UGX 246,000</td><td><strong>UGX 3,854,000</strong></td><td><span class="badge am">Pending</span></td>
+          <td><button class="btn btn-sm btn-go" onclick="pv('release-payout',{operator:'Link Bus',merchant:'LBU-3344221',gross:'UGX 4,100,000',commission:'UGX 246,000 (6%)',net:'UGX 3,854,000',method:'MTN MoMo B2B'})">Review &amp; Release</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FINANCIALS -->
+<div class="view" id="view-financials">
+  <div class="vt">📈 Financial Statements</div><div class="vs">Generate URA-compliant statements by custom date range. Export as PDF or CSV.</div>
+  <div class="fin-controls">
+    <div class="fin-g"><div class="fin-l">Statement Type</div>
+      <select class="fin-sel" id="finType" onchange="renderFin()">
+        <option value="pl">Profit &amp; Loss (Income Statement)</option>
+        <option value="bs">Balance Sheet</option>
+        <option value="cf">Cash Flow Statement</option>
+        <option value="equity">Shareholders Equity</option>
+        <option value="vat">VAT Return (URA)</option>
+        <option value="prov">Provisional Tax Return (URA)</option>
+        <option value="paye">PAYE Summary</option>
+        <option value="nssf">NSSF Contributions Schedule</option>
+      </select>
     </div>
-    <table>
-      <thead><tr><th>Operator</th><th>Route</th><th>Date/Time</th><th>Vehicle</th><th>Seats</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr><td><strong>YY Coaches</strong></td><td>Kampala → Mbale</td><td>25 Apr · 07:30</td><td>67-Seater</td><td>67</td><td>UGX 22,000</td><td><span class="badge amber">Pending</span></td>
-          <td><div style="display:flex;gap:6px"><button class="btn btn-sm btn-green" onclick="approveTrip(this)">Approve</button><button class="btn btn-sm btn-red" onclick="openRejectModal()">Reject</button></div></td></tr>
-        <tr><td><strong>Link Bus</strong></td><td>Kampala → Arua</td><td>26 Apr · 06:00</td><td>67-Seater</td><td>67</td><td>UGX 35,000</td><td><span class="badge amber">Pending</span></td>
-          <td><div style="display:flex;gap:6px"><button class="btn btn-sm btn-green" onclick="approveTrip(this)">Approve</button><button class="btn btn-sm btn-red" onclick="openRejectModal()">Reject</button></div></td></tr>
-        <tr><td><strong>Fast Coaches</strong></td><td>Kampala → Lira</td><td>26 Apr · 07:00</td><td>67-Seater</td><td>67</td><td>UGX 30,000</td><td><span class="badge amber">Pending</span></td>
-          <td><div style="display:flex;gap:6px"><button class="btn btn-sm btn-green" onclick="approveTrip(this)">Approve</button><button class="btn btn-sm btn-red" onclick="openRejectModal()">Reject</button></div></td></tr>
-      </tbody>
-    </table>
+    <div class="fin-g"><div class="fin-l">From</div><input type="date" class="fin-inp" id="finFrom" value="2026-04-01" onchange="renderFin()"></div>
+    <div class="fin-g"><div class="fin-l">To</div><input type="date" class="fin-inp" id="finTo" value="2026-04-30" onchange="renderFin()"></div>
+    <div class="fin-g"><div class="fin-l">Export</div><div style="display:flex;gap:5px"><button class="btn btn-go" onclick="exportFin('pdf')">📄 PDF</button><button class="btn btn-gh" onclick="exportFin('csv')">📥 CSV</button></div></div>
   </div>
+  <div class="tw"><div class="tw-h"><span class="tw-t" id="finTitle">P&amp;L — April 2026</span><span style="font-size:10px;color:var(--white-60)" id="finPeriod">1 Apr – 30 Apr 2026</span></div><div id="finContent"></div></div>
 </div>
 
-<!-- ═══ PARCEL PICKUPS ═══ -->
-<div class="view" id="view-parcel-pickups">
-  <div class="view-title">🛵 Parcel Pickup Requests</div>
-  <div class="view-sub">Customers who selected the Pickup Rider add-on. Assign a rider to complete collection.</div>
-  <div class="tab-bar">
-    <button class="tab-btn active">Needs Rider (4)</button>
-    <button class="tab-btn">Pending Payment (2)</button>
-    <button class="tab-btn">Rider Assigned (8)</button>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Customer</th><th>Phone</th><th>Pickup Address</th><th>Time Pref.</th><th>Category</th><th>Route</th><th>Payment</th><th>Rider</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>Mary Nalubega</strong></td><td>0771 100 200</td><td>Plot 12, Ntinda Road</td><td>Morning (8-11am)</td><td>Small Parcel</td><td>Kla→Mbarara</td>
-          <td><span class="badge green">Confirmed</span></td><td><span class="badge amber">Unassigned</span></td>
-          <td><button class="btn btn-sm btn-gold" onclick="openAssignRiderModal('Mary Nalubega','PKL-847291')">Assign Rider</button></td>
-        </tr>
-        <tr>
-          <td><strong>Peter Wamala</strong></td><td>0701 300 400</td><td>Kisugu, near Shell</td><td>Afternoon</td><td>Envelope</td><td>Kla→Gulu</td>
-          <td><span class="badge green">Confirmed</span></td><td><span class="badge amber">Unassigned</span></td>
-          <td><button class="btn btn-sm btn-gold" onclick="openAssignRiderModal('Peter Wamala','PKL-847292')">Assign Rider</button></td>
-        </tr>
-        <tr>
-          <td><strong>Fatuma Hassan</strong></td><td>0750 500 600</td><td>Wandegeya Market Gate 3</td><td>Flexible</td><td>Large Parcel</td><td>Kla→Mbale</td>
-          <td><span class="badge amber">Pending</span></td><td><span class="badge red">Blocked</span></td>
-          <td><button class="btn btn-sm btn-green" onclick="confirmParcelPayment('Fatuma Hassan','PKL-847293')">Confirm Payment</button></td>
-        </tr>
-        <tr>
-          <td><strong>Robert Byamugisha</strong></td><td>0772 700 800</td><td>Mengo, Lubiri Rd</td><td>Morning</td><td>Heavy Cargo</td><td>Kla→Fort Portal</td>
-          <td><span class="badge green">Confirmed</span></td><td><span class="badge amber">Unassigned</span></td>
-          <td><button class="btn btn-sm btn-gold" onclick="openAssignRiderModal('Robert Byamugisha','PKL-847294')">Assign Rider</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══ ROUTES ═══ -->
-<div class="view" id="view-routes">
-  <div class="view-title">🛣️ Route Management</div>
-  <div class="view-sub">Full CRUD for all routes. Prices and durations feed into the booking engine.</div>
-  <div style="margin-bottom:16px"><button class="btn btn-gold" onclick="openAddRouteModal()">+ Add Route</button></div>
-  <div id="routesList">
-    <div class="route-card"><div class="route-cities"><div class="route-from-to">Kampala → Mbarara</div><div class="route-stats">270km · 3h 30min · 6 active trips/day · 🟢 Profitable</div></div><div class="route-price">UGX 25,000</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="openEditRouteModal()">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div></div>
-    <div class="route-card"><div class="route-cities"><div class="route-from-to">Kampala → Gulu</div><div class="route-stats">340km · 5h · 4 active trips/day · 🟢 Profitable</div></div><div class="route-price">UGX 30,000</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="openEditRouteModal()">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div></div>
-    <div class="route-card"><div class="route-cities"><div class="route-from-to">Kampala → Mbale</div><div class="route-stats">235km · 4h · 3 active trips/day · 🟢 Profitable</div></div><div class="route-price">UGX 22,000</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="openEditRouteModal()">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div></div>
-    <div class="route-card"><div class="route-cities"><div class="route-from-to">Kampala → Fort Portal</div><div class="route-stats">310km · 4h 30min · 2 active trips/day · 🟡 Break-even</div></div><div class="route-price">UGX 35,000</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="openEditRouteModal()">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div></div>
-    <div class="route-card"><div class="route-cities"><div class="route-from-to">Kampala → Nairobi 🇰🇪</div><div class="route-stats">680km · 12h · 2 active trips/day · 🟢 Profitable</div></div><div class="route-price">UGX 65,000</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="openEditRouteModal()">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div></div>
-  </div>
-</div>
-
-<!-- ═══ FUEL LOG ═══ -->
-<div class="view" id="view-fuel">
-  <div class="view-title">⛽ Fuel Management</div>
-  <div class="view-sub">All fuel entries auto-create a corresponding Expense record — single-entry principle.</div>
-  <div style="display:flex;gap:10px;margin-bottom:16px">
-    <button class="btn btn-gold" onclick="openAddFuelModal()">+ Log Fuel</button>
-    <button class="btn btn-ghost" onclick="showToast('📥 Downloading fuel_log.csv...','info')">Export CSV</button>
-  </div>
-  <div id="fuelList">
-    <div class="log-entry"><div class="log-icon">⛽</div><div class="log-body"><div class="log-title">UBF 001K — Total 60L · UGX 5,400/L</div><div class="log-meta">Shell Kampala Road · Mileage: 48,231km · Driver: Paul Ssemakula · 24 Apr 2026</div></div><div class="log-amount">UGX 324,000</div><div class="log-actions"><button class="btn btn-sm btn-ghost">Edit</button><button class="btn btn-sm btn-red" onclick="deleteFuel(this)">Del</button></div></div>
-    <div class="log-entry"><div class="log-icon">⛽</div><div class="log-body"><div class="log-title">UBF 002K — Total 75L · UGX 5,400/L</div><div class="log-meta">Total Entebbe Rd · Mileage: 31,445km · Driver: Ronald Kato · 23 Apr 2026</div></div><div class="log-amount">UGX 405,000</div><div class="log-actions"><button class="btn btn-sm btn-ghost">Edit</button><button class="btn btn-sm btn-red" onclick="deleteFuel(this)">Del</button></div></div>
-    <div class="log-entry"><div class="log-icon">⛽</div><div class="log-body"><div class="log-title">UBF 003K — Total 45L · UGX 5,400/L</div><div class="log-meta">Rubis Nakawa · Mileage: 19,872km · Driver: David Ssebagala · 22 Apr 2026</div></div><div class="log-amount">UGX 243,000</div><div class="log-actions"><button class="btn btn-sm btn-ghost">Edit</button><button class="btn btn-sm btn-red" onclick="deleteFuel(this)">Del</button></div></div>
-  </div>
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;gap:24px;flex-wrap:wrap">
-    <div><div class="stat-label">Month Fuel Cost</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--warriors-gold)">UGX 3,240,000</div></div>
-    <div><div class="stat-label">Total Litres</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--white)">600L</div></div>
-    <div><div class="stat-label">Avg per Km</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--white)">UGX 850</div></div>
-  </div>
-</div>
-
-<!-- ═══ MAINTENANCE LOG ═══ -->
-<div class="view" id="view-maintenance">
-  <div class="view-title">🔧 Maintenance Log</div>
-  <div class="view-sub">All maintenance entries auto-create a corresponding Expense record — single-entry principle.</div>
-  <div style="display:flex;gap:10px;margin-bottom:16px">
-    <button class="btn btn-gold" onclick="openAddMaintenanceModal()">+ Log Repair</button>
-    <button class="btn btn-ghost" onclick="showToast('📥 Downloading maintenance_log.csv...','info')">Export CSV</button>
-  </div>
-  <div id="maintenanceList">
-    <div class="log-entry"><div class="log-icon">🔧</div><div class="log-body"><div class="log-title">UBF 001K — Tyre replacement (2 front tyres)</div><div class="log-meta">Vendor: Dunlop Uganda · Next service: 15 May 2026 · Logged: 20 Apr 2026</div></div><div class="log-amount">UGX 480,000</div><div class="log-actions"><span class="badge green">Completed</span><button class="btn btn-sm btn-ghost" onclick="deleteMaintenance(this)">Del</button></div></div>
-    <div class="log-entry"><div class="log-icon">🔧</div><div class="log-body"><div class="log-title">UBF 003K — Engine oil change + filter</div><div class="log-meta">Vendor: Caltex Lubricants · Next service: 1 Jun 2026 · Logged: 18 Apr 2026</div></div><div class="log-amount">UGX 220,000</div><div class="log-actions"><span class="badge green">Completed</span><button class="btn btn-sm btn-ghost" onclick="deleteMaintenance(this)">Del</button></div></div>
-    <div class="log-entry"><div class="log-icon">🔧</div><div class="log-body"><div class="log-title">UBF 002K — Brake pad replacement</div><div class="log-meta">Vendor: Kampala Auto Spares · Next service: TBD</div></div><div class="log-amount">UGX 350,000</div><div class="log-actions"><span class="badge amber">In Progress</span><button class="btn btn-sm btn-green btn-sm" onclick="completeMaintenance(this)">Mark Done</button></div></div>
-  </div>
-</div>
-
-<!-- ═══ SCENERY MANAGER ═══ -->
+<!-- SCENERY MANAGER -->
 <div class="view" id="view-scenery">
-  <div class="view-title">🖼️ Featured Scenery Manager</div>
-  <div class="view-sub">Upload weekly scenery for the homepage banner. Only one image featured at a time — auto-expires in 7 days.</div>
-  <div style="margin-bottom:20px">
-    <button class="btn btn-gold" onclick="openAddSceneryModal()">+ Upload New Scenery</button>
+  <div class="vt">🖼️ Scenery Manager</div><div class="vs">3 rotating slides on the homepage. Auto-expires 7 days after upload.</div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:8px">Live Homepage Preview</div>
+  <div class="sc-show">
+    <div class="sc-slide active" id="sl0"><div class="sc-slide-bg">🏔️</div><div class="sc-grad"></div><div class="sc-info"><div class="sc-title">The Mist of Bwindi Forest</div><div class="sc-cap">Africa's last mountain gorilla sanctuary</div><div class="sc-route-tag">Kampala → Kisoro</div></div></div>
+    <div class="sc-slide" id="sl1"><div class="sc-slide-bg">🌊</div><div class="sc-grad"></div><div class="sc-info"><div class="sc-title">Lake Victoria Sunset</div><div class="sc-cap">Uganda's largest freshwater lake at golden hour</div><div class="sc-route-tag">Kampala → Entebbe</div></div></div>
+    <div class="sc-slide" id="sl2"><div class="sc-slide-bg">🦁</div><div class="sc-grad"></div><div class="sc-info"><div class="sc-title">Lions at Kidepo Valley</div><div class="sc-cap">Uganda's most remote and spectacular national park</div><div class="sc-route-tag">Kampala → Gulu</div></div></div>
+    <div class="sc-ctrl"><div class="sc-arr" onclick="prevSl()">‹</div><div class="sc-arr" onclick="nextSl()">›</div></div>
+    <div class="sc-dots"><div class="sc-dot active" onclick="goSl(0)"></div><div class="sc-dot" onclick="goSl(1)"></div><div class="sc-dot" onclick="goSl(2)"></div></div>
   </div>
-  <!-- Current featured -->
-  <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:10px">Currently Featured</div>
-  <div class="scenery-card">
-    <div class="scenery-preview">🏔️<div class="scenery-featured-badge">⭐ FEATURED THIS WEEK</div></div>
-    <div class="scenery-info">
-      <div>
-        <div class="scenery-title">The Mist of Bwindi Impenetrable Forest</div>
-        <div class="scenery-meta">Route: Kampala → Kisoro · Caption: "Africa's last mountain gorilla sanctuary" · Expires: 1 May 2026</div>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-sm btn-ghost" onclick="showToast('✅ Will expire on next upload','info')">Unfeature</button>
+  <button class="btn btn-go" style="margin-bottom:12px" onclick="toggleUploadPanel()">+ Upload New Scenery</button>
+  <div class="log-e" style="border-color:rgba(232,168,0,.3)"><div class="log-ico">🏔️</div><div class="log-b"><div class="log-ti">Slide 1 — The Mist of Bwindi Forest</div><div class="log-me">Kla→Kisoro · Added 24 Apr · Expires 1 May · ⭐ Featured</div></div><div style="display:flex;gap:4px"><button class="btn btn-gh btn-sm">Edit</button><button class="btn btn-rd btn-sm" onclick="pv('delete-scenery',{title:'The Mist of Bwindi Forest',route:'Kla→Kisoro'})">Delete</button></div></div>
+  <div class="log-e"><div class="log-ico">🌊</div><div class="log-b"><div class="log-ti">Slide 2 — Lake Victoria Sunset</div><div class="log-me">Kla→Entebbe · Added 24 Apr · Expires 1 May</div></div><div style="display:flex;gap:4px"><button class="btn btn-gh btn-sm">Edit</button><button class="btn btn-rd btn-sm" onclick="pv('delete-scenery',{title:'Lake Victoria Sunset',route:'Kla→Entebbe'})">Delete</button></div></div>
+  <div class="log-e"><div class="log-ico">🦁</div><div class="log-b"><div class="log-ti">Slide 3 — Lions at Kidepo Valley</div><div class="log-me">Kla→Gulu · Added 24 Apr · Expires 1 May</div></div><div style="display:flex;gap:4px"><button class="btn btn-gh btn-sm">Edit</button><button class="btn btn-rd btn-sm" onclick="pv('delete-scenery',{title:'Lions at Kidepo Valley',route:'Kla→Gulu'})">Delete</button></div></div>
+
+  <!-- Upload panel -->
+  <div id="uploadPanel" style="display:none;margin-top:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px">
+    <div style="font-weight:700;font-size:13px;margin-bottom:12px">Upload Scenery Slide</div>
+    <div class="up-zone" id="upZone">
+      <input type="file" accept="image/*" onchange="handleUpload(this)">
+      <span class="up-icon">🖼️</span>
+      <div class="up-txt">Drop image or click to browse<br><small>JPG, PNG, WebP · Min 1920×600px · Max 5MB</small></div>
+      <div class="up-methods">
+        <div class="up-m" onclick="showToast('📱 Opening device file picker...','info')">📱 Device</div>
+        <div class="up-m cloud" onclick="showToast('☁️ Google Drive OAuth — production ready','info')">☁️ Google Drive</div>
+        <div class="up-m cloud" onclick="showToast('☁️ Dropbox OAuth — production ready','info')">☁️ Dropbox</div>
+        <div class="up-m" onclick="showToast('🔗 Paste URL in field below','info')">🔗 URL</div>
       </div>
     </div>
-  </div>
-  <!-- Archive -->
-  <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin:20px 0 10px">Archive</div>
-  <div class="scenery-card">
-    <div class="scenery-preview" style="height:80px;font-size:36px">🌊</div>
-    <div class="scenery-info">
-      <div>
-        <div class="scenery-title">Lake Victoria Sunset, Entebbe</div>
-        <div class="scenery-meta">Route: Kampala → Entebbe · Featured: 17–24 Apr 2026 · Archived</div>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-sm btn-gold" onclick="featureScenery(this)">Feature Again</button>
-        <button class="btn btn-sm btn-red" onclick="deleteScenery(this)">Delete</button>
-      </div>
+    <div id="uploadPreviewMsg" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:var(--radius);font-size:11px;color:var(--success)"></div>
+    <div class="fg" style="margin-top:12px"><label class="fl">Image URL (alternative)</label><input type="url" class="fc" placeholder="https://..."></div>
+    <div class="fg"><label class="fl">Scene Title</label><input type="text" class="fc" placeholder="The Mist of Bwindi Impenetrable Forest"></div>
+    <div class="fg2">
+      <div class="fg"><label class="fl">Route Tag</label><select class="fc"><option>Kampala → Kisoro</option><option>Kampala → Gulu</option><option>Kampala → Mbarara</option><option>Kampala → Fort Portal</option><option>All Routes</option></select></div>
+      <div class="fg"><label class="fl">Slide Position</label><select class="fc"><option>Slide 1</option><option>Slide 2</option><option>Slide 3</option></select></div>
     </div>
-  </div>
-  <div class="scenery-card">
-    <div class="scenery-preview" style="height:80px;font-size:36px">🦁</div>
-    <div class="scenery-info">
-      <div>
-        <div class="scenery-title">Lions at Kidepo Valley National Park</div>
-        <div class="scenery-meta">Route: Kampala → Gulu · Featured: 10–17 Apr 2026 · Archived</div>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-sm btn-gold" onclick="featureScenery(this)">Feature Again</button>
-        <button class="btn btn-sm btn-red" onclick="deleteScenery(this)">Delete</button>
-      </div>
+    <div class="fg"><label class="fl">Caption</label><input type="text" class="fc" placeholder="Africa's last mountain gorilla sanctuary"></div>
+    <div class="fg"><label class="fl">CTA Button Text</label><input type="text" class="fc" value="Book This Route →"></div>
+    <div style="display:flex;gap:7px">
+      <button class="btn btn-go" onclick="saveScenery()">Save Slide</button>
+      <button class="btn btn-gh" onclick="toggleUploadPanel()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ GROUP BOOKINGS ADMIN ═══ -->
-<div class="view" id="view-group-bookings">
-  <div class="view-title">👥 Group Booking Management</div>
-  <div class="view-sub">Groups of 10+ passengers submitted via the public website.</div>
-  <div class="cards-grid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="stat-card amber"><div class="stat-label">Pending Quote</div><div class="stat-value">5</div></div>
-    <div class="stat-card blue"><div class="stat-label">Quote Sent</div><div class="stat-value">3</div></div>
-    <div class="stat-card green"><div class="stat-label">Confirmed</div><div class="stat-value">12</div></div>
+<!-- JOBS & APPLICATIONS -->
+<div class="view" id="view-jobs">
+  <div class="vt">💼 Jobs &amp; Applications</div><div class="vs">Manage open positions and review candidate applications.</div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchJobTab('listings',this)">Job Listings</button>
+    <button class="tab-btn" onclick="switchJobTab('applications',this)">Applications (8)</button>
   </div>
-  <div style="margin-bottom:12px"><button class="btn btn-gold" onclick="openCreateGroupModal()">+ Create Group Booking</button></div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Ref</th><th>Organisation</th><th>Contact</th><th>Route</th><th>Pax</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr><td><strong>GRP-001</strong></td><td>Makerere University</td><td>0771 111 000</td><td>Kla→Mbarara</td><td>45</td><td>30 Apr</td><td><span class="badge amber">Pending Quote</span></td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-gold" onclick="openGroupQuoteModal('GRP-001')">Send Quote</button><button class="btn btn-sm btn-ghost">View</button></div></td></tr>
-        <tr><td><strong>GRP-002</strong></td><td>NSSF Uganda</td><td>0701 222 333</td><td>Kla→Gulu</td><td>22</td><td>2 May</td><td><span class="badge blue">Quote Sent</span></td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-green" onclick="confirmGroup(this)">Confirm</button><button class="btn btn-sm btn-ghost" onclick="openAssignVehicleModal()">Assign Vehicle</button></div></td></tr>
-        <tr><td><strong>GRP-003</strong></td><td>St. Mary's Secondary</td><td>0750 444 555</td><td>Kla→Jinja</td><td>67</td><td>5 May</td><td><span class="badge green">Confirmed</span></td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-ghost">View</button></div></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══ CHARTER MGMT ═══ -->
-<div class="view" id="view-charter">
-  <div class="view-title">✈️ Charter Management</div>
-  <div class="view-sub">Charter requests from the website form and direct bookings.</div>
-  <div class="table-wrap" style="margin-bottom:20px">
-    <div class="table-header"><span class="table-title">Charter Requests</span></div>
-    <table>
-      <thead><tr><th>Ref</th><th>Client</th><th>Route</th><th>Date</th><th>Pax</th><th>Purpose</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr><td><strong>CHR-001</strong></td><td>Shell Uganda Ltd<br><small>0771 800 900</small></td><td>Kla→Entebbe</td><td>28 Apr</td><td>50</td><td>Corporate Event</td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-gold" onclick="openCharterQuoteModal('CHR-001')">Send Quote</button><button class="btn btn-sm btn-ghost">Call</button><button class="btn btn-sm btn-red">Decline</button></div></td></tr>
-        <tr><td><strong>CHR-002</strong></td><td>Uganda Tourism Board<br><small>0701 900 100</small></td><td>Kla→Kisoro</td><td>3 May</td><td>35</td><td>Tourism</td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-gold" onclick="openCharterQuoteModal('CHR-002')">Send Quote</button><button class="btn btn-sm btn-ghost">Call</button><button class="btn btn-sm btn-red">Decline</button></div></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="table-wrap">
-    <div class="table-header"><span class="table-title">Charter Bookings (Confirmed)</span></div>
-    <table>
-      <thead><tr><th>Ref</th><th>Client</th><th>Route</th><th>Date</th><th>Vehicle</th><th>Driver</th><th>Amount</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>CHR-000</td><td>Makerere Research</td><td>Kla→Kabale</td><td>20 Apr</td><td>UBF 001K</td><td>Paul Ssemakula</td><td>UGX 800,000</td><td><span class="badge green">Completed</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══ ADVANCE BOOKINGS ═══ -->
-<div class="view" id="view-advance-bookings">
-  <div class="view-title">📅 Advance Booking Management</div>
-  <div class="view-sub">Bookings with deposit paid. Confirm payment to issue advance tickets.</div>
-  <div style="margin-bottom:12px"><button class="btn btn-ghost" onclick="showToast('📥 Downloading advance_bookings.csv...','info')">Export CSV</button></div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Booking Ref</th><th>Booking Name</th><th>Route</th><th>Travel Date</th><th>Deposit</th><th>Paying Phone</th><th>Reference Name</th><th>Match</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>RLX-ADV-001</td><td><strong>Agnes Tumusiime</strong></td><td>Kla→Mbarara</td><td>10 May</td><td>UGX 5,000</td><td>0771 100 200</td><td>Agnes Tumusiime</td>
-          <td><span class="badge matched">✅ MATCHED</span></td>
-          <td><button class="btn btn-sm btn-green" onclick="confirmAdvance(this,'Agnes Tumusiime')">Confirm &amp; Issue</button></td>
-        </tr>
-        <tr>
-          <td>RLX-ADV-002</td><td><strong>Moses Kiggundu</strong></td><td>Kla→Gulu</td><td>15 May</td><td>UGX 6,000</td><td>0701 300 400</td><td>M. Kiggundu</td>
-          <td><span class="badge mismatch">⚠️ MISMATCH</span></td>
-          <td><button class="btn btn-sm btn-gold" onclick="openMismatchModal('Moses Kiggundu','M. Kiggundu','RLX-ADV-002','0701 300 400')">Review</button></td>
-        </tr>
-        <tr>
-          <td>RLX-ADV-003</td><td><strong>Patricia Nakabugo</strong></td><td>Kla→Nairobi</td><td>20 May</td><td>UGX 13,000</td><td>0750 500 600</td><td>—</td>
-          <td><span class="badge missing">❌ MISSING</span></td>
-          <td><div style="display:flex;gap:4px"><button class="btn btn-sm btn-ghost" onclick="showToast('📞 Calling...','info')">Call</button><button class="btn btn-sm btn-ghost">Hold</button></div></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ═══ ALL BOOKINGS ═══ -->
-<div class="view" id="view-all-bookings">
-  <div class="view-title">🎫 All Bookings</div>
-  <div class="view-sub">Complete ledger of all bookings across the platform.</div>
-  <div class="table-wrap">
-    <div class="table-header">
-      <span class="table-title">All Bookings</span>
-      <div class="table-actions">
-        <input class="search-input" placeholder="Search name, ref..." oninput="filterTable(this)">
-        <button class="btn btn-ghost btn-sm" onclick="showToast('📥 Downloading bookings.csv...','info')">Export CSV</button>
+  <div id="jobListings">
+    <div style="margin-bottom:12px;display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn btn-go" onclick="showToast('💼 Job posting form — opens inline in production','info')">+ Post New Job</button>
+      <button class="btn btn-gh" onclick="showToast('🌐 Jobs live at /careers','info')">Public Page ↗</button>
+    </div>
+    <div class="job-c">
+      <div class="job-ico">💻</div>
+      <div class="log-b"><div class="job-title">Full-Stack Web Developer</div><div class="job-meta">Kampala · Full-time · UGX 2.5M–3.5M/mo · Posted 20 Apr · <strong style="color:var(--success)">Active</strong> · 3 applications</div></div>
+      <div class="job-acts">
+        <button class="btn btn-sm btn-gh" onclick="switchJobTab('applications',null)">Applications (3)</button>
+        <button class="btn btn-sm btn-gh">Edit</button>
+        <button class="btn btn-sm btn-rd" onclick="pv('close-job',{title:'Full-Stack Web Developer',posted:'20 Apr',applications:'3 active applicants'})">Close</button>
       </div>
     </div>
-    <table>
-      <thead><tr><th>Ref</th><th>Passenger</th><th>Route</th><th>Operator</th><th>Seat</th><th>Amount</th><th>Method</th><th>Status</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr><td>RLX-001291</td><td>Sarah Nakato</td><td>Kla→Mbarara</td><td>Raylane Express</td><td>14A</td><td>UGX 25,000</td><td><span class="badge green">MoMo</span></td><td><span class="badge green">Confirmed</span></td><td><button class="btn btn-sm btn-ghost" onclick="openBookingDetail()">View</button></td></tr>
-        <tr><td>RLX-001292</td><td>James Okello</td><td>Kla→Gulu</td><td>Global Coaches</td><td>22B</td><td>UGX 30,000</td><td><span class="badge blue">Airtel</span></td><td><span class="badge amber">Pending</span></td><td><button class="btn btn-sm btn-ghost" onclick="openBookingDetail()">View</button></td></tr>
-        <tr><td>RLX-001293</td><td>John Doe</td><td>Kla→Mbale</td><td>YY Coaches</td><td>8A</td><td>UGX 22,000</td><td><span class="badge green">MoMo</span></td><td><span class="badge amber">Pending</span></td><td><button class="btn btn-sm btn-ghost" onclick="openBookingDetail()">View</button></td></tr>
-        <tr><td>RLX-001294</td><td>Grace Auma</td><td>Kla→Fort Portal</td><td>Raylane Express</td><td>3B</td><td>UGX 35,000</td><td><span class="badge gold">QR Code</span></td><td><span class="badge amber">Pending</span></td><td><button class="btn btn-sm btn-ghost" onclick="openBookingDetail()">View</button></td></tr>
-      </tbody>
-    </table>
+    <div class="job-c">
+      <div class="job-ico">📊</div>
+      <div class="log-b"><div class="job-title">Operator Success Manager</div><div class="job-meta">Kampala · Full-time · UGX 1.8M–2.4M/mo · Posted 18 Apr · <strong style="color:var(--success)">Active</strong> · 5 applications</div></div>
+      <div class="job-acts">
+        <button class="btn btn-sm btn-gh" onclick="switchJobTab('applications',null)">Applications (5)</button>
+        <button class="btn btn-sm btn-gh">Edit</button>
+        <button class="btn btn-sm btn-rd" onclick="pv('close-job',{title:'Operator Success Manager',posted:'18 Apr',applications:'5 active applicants'})">Close</button>
+      </div>
+    </div>
+    <div class="job-c" style="opacity:.55">
+      <div class="job-ico">📱</div>
+      <div class="log-b"><div class="job-title">Customer Support Agent</div><div class="job-meta">Posted 10 Apr · <strong style="color:var(--danger)">Closed</strong> · Position filled</div></div>
+      <div class="job-acts"><button class="btn btn-sm btn-gh">Reopen</button></div>
+    </div>
+  </div>
+  <div id="jobApplications" style="display:none">
+    <div style="margin-bottom:12px;display:flex;gap:7px;flex-wrap:wrap">
+      <select class="si-input" style="width:auto"><option>All Positions</option><option>Full-Stack Developer</option><option>Operator Success Manager</option></select>
+      <select class="si-input" style="width:auto"><option>All Statuses</option><option>New</option><option>Shortlisted</option><option>Rejected</option></select>
+      <button class="btn btn-gh btn-sm" onclick="showToast('📥 Downloading applications.csv...','info')">Export CSV</button>
+    </div>
+    <div class="app-c"><div class="app-av">👨</div><div><div class="app-name">Brian Ssemanda</div><div class="app-role">Full-Stack Developer · Applied 25 Apr · 4 yrs exp</div></div><div class="app-acts"><span class="badge gr" style="margin-right:4px">New</span><button class="btn btn-sm btn-go" onclick="pv('review-application',{name:'Brian Ssemanda',role:'Full-Stack Developer',exp:'4 years',education:'Makerere BSc CS 2022',skills:'HTML, CSS, JS, Supabase, PostgreSQL',phone:'0771 100 200',email:'brian@example.com'})">Review</button><button class="btn btn-sm btn-rd" onclick="pv('reject-application',{name:'Brian Ssemanda',role:'Full-Stack Developer'})">Reject</button></div></div>
+    <div class="app-c"><div class="app-av">👩</div><div><div class="app-name">Patricia Nakibuuka</div><div class="app-role">Full-Stack Developer · Applied 24 Apr · 3 yrs exp</div></div><div class="app-acts"><span class="badge bl" style="margin-right:4px">Reviewing</span><button class="btn btn-sm btn-gh" onclick="pv('review-application',{name:'Patricia Nakibuuka',role:'Full-Stack Developer',exp:'3 years',education:'Kyambogo BSc IT 2023',skills:'HTML, CSS, JS, React, PostgreSQL',phone:'0701 300 400',email:'patricia@example.com'})">View</button><button class="btn btn-sm btn-gr" onclick="pv('shortlist-application',{name:'Patricia Nakibuuka',role:'Full-Stack Developer'})">Shortlist</button></div></div>
+    <div class="app-c"><div class="app-av">👨</div><div><div class="app-name">Robert Kiggundu</div><div class="app-role">Operator Success Manager · Applied 23 Apr · 5 yrs exp</div></div><div class="app-acts"><span class="badge gd" style="margin-right:4px">Shortlisted</span><button class="btn btn-sm btn-gh" onclick="pv('review-application',{name:'Robert Kiggundu',role:'Operator Success Manager',exp:'5 years logistics',education:'UCU BA Business 2020',skills:'Account Management, Swahili, Excel',phone:'0772 500 600',email:'robert@example.com'})">View</button><button class="btn btn-sm btn-gr" onclick="showToast('📧 Interview invite sent to Robert Kiggundu','success')">Invite</button></div></div>
   </div>
 </div>
 
-<!-- other views simplified -->
-<div class="view" id="view-alerts"><div class="view-title">🔔 Alerts Inbox</div><div class="view-sub">System-generated alerts requiring action.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Alerts panel — all live alert types (insurance expiry, pending payouts, new applications, trip submissions) with quick-action buttons.</div></div>
-<div class="view" id="view-applications"><div class="view-title">📋 Operator Applications</div><div class="view-sub">New bus company applications awaiting review and approval.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Applications table with Preview Docs, Approve, and Reject actions.</div></div>
-<div class="view" id="view-operators"><div class="view-title">🏢 Operators</div><div class="view-sub">All active and suspended operators on the platform.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Operators management table.</div></div>
-<div class="view" id="view-fleet"><div class="view-title">🚌 Raylane Fleet</div><div class="view-sub">Internal fleet management — UBF 001K, 002K, 003K.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Fleet cards with Edit, Dispatch, and Maintenance buttons.</div></div>
-<div class="view" id="view-drivers"><div class="view-title">👤 All Drivers</div><div class="view-sub">All drivers across Raylane and partner operators.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Drivers table with PSV expiry warnings, Add/Edit/Suspend actions.</div></div>
-<div class="view" id="view-documents"><div class="view-title">📁 Document Store</div><div class="view-sub">PSV licences, insurance certificates, driver licences.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Document store with View, Download, and Upload actions.</div></div>
-<div class="view" id="view-payouts"><div class="view-title">💰 Payouts</div><div class="view-sub">Weekly settlement — review and release operator payouts.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Payouts table with MoMo number edit, Review &amp; Release, and Release All.</div></div>
-<div class="view" id="view-financials"><div class="view-title">📈 Financials / P&amp;L</div><div class="view-sub">Balance Sheet, Income Statement, Cash Flow, Shareholders Equity.</div><div style="padding:60px;text-align:center;color:var(--white-60)">QuickBooks-style accordion financial statements with period selector and export.</div></div>
-<div class="view" id="view-expenses"><div class="view-title">🧾 Costs &amp; Expenses</div><div class="view-sub">Full expense register — all categories, all vendors.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Expense table with Add, Edit, Mark Paid, and Export CSV.</div></div>
-<div class="view" id="view-vendors"><div class="view-title">🤝 Vendor Management</div><div class="view-sub">Suppliers, credit limits, and payment terms.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Vendor table with credit utilisation bars and statement generation.</div></div>
-<div class="view" id="view-subscriptions"><div class="view-title">🔄 Subscriptions</div><div class="view-sub">Software and service subscription tracker.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Subscriptions table — Supabase, Vercel, Google Maps, Africa's Talking, DPO Group etc.</div></div>
-<div class="view" id="view-insurance"><div class="view-title">🛡️ Insurance Marketplace</div><div class="view-sub">UAP Old Mutual, Stanbic, CIC — vehicle and third-party insurance.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Insurance tracker, renewal modals, and claims management.</div></div>
-<div class="view" id="view-users"><div class="view-title">👥 Users &amp; Roles</div><div class="view-sub">Admin accounts, roles, and access control.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Users table with Create, Edit, and Suspend actions.</div></div>
-<div class="view" id="view-audit"><div class="view-title">📝 Audit Log</div><div class="view-sub">Chronological record of every admin action.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Audit log table with Export CSV.</div></div>
-<div class="view" id="view-health"><div class="view-title">💚 System Health</div><div class="view-sub">API services, platform metrics, SMS usage.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Health dashboards — DPO, MTN MoMo, Africa's Talking, Supabase, Google Maps.</div></div>
-<div class="view" id="view-settings"><div class="view-title">⚙️ Settings</div><div class="view-sub">Commission rates, booking rules, SMS notifications.</div><div style="padding:60px;text-align:center;color:var(--white-60)">Settings panel with editable commission rates, seat lock duration, cancellation window.</div></div>
+<!-- UGANDA MAP -->
+<div class="view" id="view-uganda-map">
+  <div class="vt">🗺️ Uganda Route Map</div><div class="vs">Interactive map of all routes. Click a destination to view live departures.</div>
+  <div class="map-wrap">
+    <img src="/mnt/user-data/uploads/0a284ba3-411e-49bc-a2a7-a6a2e2221291.png" alt="Uganda Route Map — Raylane Express">
+    <div class="map-overlay"></div>
+    <div class="map-bottom">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;color:var(--warriors-gold)">Active Routes from Kampala</div>
+      <div class="map-legend">
+        <span class="map-pill" style="background:rgba(34,197,94,.15);color:var(--success);border:1px solid rgba(34,197,94,.3)">🟢 Gulu 322km</span>
+        <span class="map-pill" style="background:rgba(255,20,147,.1);color:#ff69b4;border:1px solid rgba(255,20,147,.3)">🩷 Mbarara 267km</span>
+        <span class="map-pill" style="background:rgba(239,68,68,.12);color:var(--danger);border:1px solid rgba(239,68,68,.2)">🔴 Mbale 256km</span>
+        <span class="map-pill" style="background:rgba(0,191,255,.1);color:#00bfff;border:1px solid rgba(0,191,255,.3)">🔵 Jinja 80km</span>
+        <span class="map-pill" style="background:rgba(139,92,246,.1);color:#8B5CF6;border:1px solid rgba(139,92,246,.2)">🟣 Lira 218km</span>
+        <span class="map-pill" style="background:rgba(255,140,0,.1);color:orange;border:1px solid rgba(255,140,0,.3)">🟠 Arua 523km</span>
+        <span class="map-pill" style="background:rgba(255,215,0,.1);color:gold;border:1px solid rgba(255,215,0,.3)">🟡 Kasese 278km</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-top:13px">
+    <div class="sc gr" style="cursor:pointer" onclick="showToast('🚌 4 trips/day to Gulu — from UGX 30,000','info')"><div class="sc-l">Gulu · 322km</div><div class="sc-v" style="font-size:20px">4/day</div><div class="sc-c">from UGX 30,000</div></div>
+    <div class="sc a" style="cursor:pointer" onclick="showToast('🚌 6 trips/day to Mbarara — from UGX 25,000','info')"><div class="sc-l">Mbarara · 267km</div><div class="sc-v" style="font-size:20px">6/day</div><div class="sc-c">from UGX 25,000</div></div>
+    <div class="sc r" style="cursor:pointer" onclick="showToast('🚌 3 trips/day to Mbale — from UGX 22,000','info')"><div class="sc-l">Mbale · 256km</div><div class="sc-v" style="font-size:20px">3/day</div><div class="sc-c">from UGX 22,000</div></div>
+    <div class="sc b" style="cursor:pointer" onclick="showToast('🚌 4 trips/day to Jinja — from UGX 15,000','info')"><div class="sc-l">Jinja · 80km</div><div class="sc-v" style="font-size:20px">4/day</div><div class="sc-c">from UGX 15,000</div></div>
+    <div class="sc p" style="cursor:pointer" onclick="showToast('🚌 2 trips/day to Lira — from UGX 30,000','info')"><div class="sc-l">Lira · 218km</div><div class="sc-v" style="font-size:20px">2/day</div><div class="sc-c">from UGX 30,000</div></div>
+    <div class="sc a" style="cursor:pointer" onclick="showToast('🚌 2 trips/day to Arua — from UGX 35,000','info')"><div class="sc-l">Arua · 523km</div><div class="sc-v" style="font-size:20px">2/day</div><div class="sc-c">from UGX 35,000</div></div>
+  </div>
+</div>
+
+<!-- PARCEL PICKUPS -->
+<div class="view" id="view-parcel-pickups">
+  <div class="vt">🛵 Parcel Pickups</div><div class="vs">Assign riders to customers who selected the Pickup Rider add-on.</div>
+  <div class="tab-bar"><button class="tab-btn active">Needs Rider (4)</button><button class="tab-btn">Pending Payment (2)</button><button class="tab-btn">Assigned (8)</button></div>
+  <div class="tw"><table>
+    <thead><tr><th>Customer</th><th>Phone</th><th>Pickup Address</th><th>Category</th><th>Route</th><th>Payment</th><th>Actions</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mary Nalubega</strong></td><td>0771 100 200</td><td>Plot 12, Ntinda Rd</td><td>Small Parcel</td><td>Kla→Mbarara</td><td><span class="badge gr">Confirmed</span></td>
+        <td><button class="btn btn-sm btn-go" onclick="pv('assign-rider',{customer:'Mary Nalubega',parcel:'PKL-847291',address:'Plot 12, Ntinda Road',route:'Kla→Mbarara',category:'Small Parcel'})">Assign Rider</button></td></tr>
+      <tr><td><strong>Peter Wamala</strong></td><td>0701 300 400</td><td>Kisugu, near Shell</td><td>Envelope</td><td>Kla→Gulu</td><td><span class="badge gr">Confirmed</span></td>
+        <td><button class="btn btn-sm btn-go" onclick="pv('assign-rider',{customer:'Peter Wamala',parcel:'PKL-847292',address:'Kisugu near Shell',route:'Kla→Gulu',category:'Envelope'})">Assign Rider</button></td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- Placeholder views -->
+<div class="view" id="view-alerts"><div class="vt">🔔 Alerts Inbox</div><div class="vs">System alerts requiring action. All actions use preview-before-confirm.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Alert cards — insurance expiry, pending payouts, trip submissions. All with pv() preview-before-confirm.</div></div>
+<div class="view" id="view-operators"><div class="vt">🏢 Operators</div><div class="vs">All operators — suspend uses pv() preview-before-confirm.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Operator management with suspend/unsuspend using preview-before-confirm.</div></div>
+<div class="view" id="view-charter"><div class="vt">✈️ Charter</div><div class="vs">Charter requests and bookings.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Charter inbox — all quote, assign, and decline actions use pv().</div></div>
+<div class="view" id="view-group-bookings"><div class="vt">👥 Group Bookings</div><div class="vs">Group requests and confirmations.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Group booking management with pv() on Send Quote, Confirm, Assign Vehicle.</div></div>
+<div class="view" id="view-advance-bookings"><div class="vt">📅 Advance Bookings</div><div class="vs">Deposit-paid bookings awaiting payment verification.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Advance booking table with matched/mismatch/missing badges and pv().</div></div>
+<div class="view" id="view-all-bookings"><div class="vt">🎫 All Bookings</div><div class="vs">Complete platform booking ledger.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Full bookings table — Cancel &amp; Refund uses pv().</div></div>
+<div class="view" id="view-routes"><div class="vt">🛣️ Route Management</div><div class="vs">CRUD routes — all delete/edit use pv().</div><div style="padding:40px;text-align:center;color:var(--white-60)">Route CRUD with preview-before-confirm on all destructive actions.</div></div>
+<div class="view" id="view-fleet"><div class="vt">🚌 Raylane Fleet</div><div class="vs">UBF 001K, 002K, 003K.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Fleet cards — Edit, Dispatch, Maintenance all use pv().</div></div>
+<div class="view" id="view-drivers"><div class="vt">👤 Drivers</div><div class="vs">Suspend uses pv() preview-before-confirm.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Drivers table with PSV expiry warnings. Suspend shows what access is lost.</div></div>
+<div class="view" id="view-fuel"><div class="vt">⛽ Fuel Log</div><div class="vs">Auto-creates Cost Centre expense records.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Fuel log with upload via device or cloud. Delete uses pv().</div></div>
+<div class="view" id="view-maintenance"><div class="vt">🔧 Maintenance Log</div><div class="vs">Auto-creates Cost Centre expense records.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Maintenance log. Delete and Mark Completed use pv().</div></div>
+<div class="view" id="view-documents"><div class="vt">📁 Documents</div><div class="vs">PSV licences, insurance, driver licences. Upload from device or cloud.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Document store with device/cloud upload, View, Download. Delete uses pv().</div></div>
+<div class="view" id="view-expenses"><div class="vt">🧾 Expenses</div><div class="vs">Full expense register.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Expense table — Add, Edit, Mark Paid, Delete all use pv().</div></div>
+<div class="view" id="view-vendors"><div class="vt">🤝 Vendors</div><div class="vs">Credit management and payment terms.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Vendor management — Delete uses pv() with permanent warning.</div></div>
+<div class="view" id="view-subscriptions"><div class="vt">🔄 Subscriptions</div><div class="vs">Software subscription tracker.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Supabase, Vercel, Google Maps, Africa's Talking, DPO Group etc.</div></div>
+<div class="view" id="view-insurance"><div class="vt">🛡️ Insurance</div><div class="vs">Vehicle insurance and renewal.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Insurance marketplace — Renew and File Claim use pv().</div></div>
+<div class="view" id="view-users"><div class="vt">👥 Users &amp; Roles</div><div class="vs">Admin accounts. Suspend uses pv() — shows what access is lost.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Users table. Suspend shows what the user loses access to and reinstatement note.</div></div>
+<div class="view" id="view-audit"><div class="vt">📝 Audit Log</div><div class="vs">Every admin action logged chronologically.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Full audit trail with Export CSV.</div></div>
+<div class="view" id="view-health"><div class="vt">💚 System Health</div><div class="vs">API services, metrics, SMS usage.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Health dashboards — DPO, MTN MoMo, Africa's Talking, Supabase, Google Maps.</div></div>
+<div class="view" id="view-settings"><div class="vt">⚙️ Settings</div><div class="vs">Commission rates, booking rules, SMS notifications.</div><div style="padding:40px;text-align:center;color:var(--white-60)">Settings — Save actions use pv() to preview changes before applying.</div></div>
 
 </main>
-</div><!-- end app-body -->
-
-<!-- ═══ MODALS ═══ -->
-
-<!-- Mismatch Review Modal -->
-<div class="modal-overlay" id="mismatchModal">
-  <div class="modal wide">
-    <div class="modal-header">
-      <div class="modal-title">⚠️ Name Mismatch — Review Required</div>
-      <button class="modal-close" onclick="closeModal('mismatchModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <p style="font-size:13px;color:var(--white-60);margin-bottom:16px">The name used as the MoMo payment reference does not exactly match the booking name. Compare both names and decide whether to approve, hold, or reject.</p>
-      <div class="names-compare">
-        <div class="name-box booking-name">
-          <div class="name-box-label">📋 Booking Name</div>
-          <div class="name-box-value" id="bookingNameDisplay">—</div>
-          <div style="font-size:10px;color:var(--white-60);margin-top:4px">Name entered at checkout</div>
-        </div>
-        <div class="name-box paying-name">
-          <div class="name-box-label">💳 MoMo Reference Name</div>
-          <div class="name-box-value" id="payingNameDisplay" style="color:var(--warning)">—</div>
-          <div style="font-size:10px;color:var(--white-60);margin-top:4px">Name used during MoMo payment</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Admin Note (optional)</label>
-        <input type="text" class="form-control" placeholder="e.g. Verified by phone call — same person confirmed">
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-        <button class="btn btn-ghost btn-sm" id="mismatchCallBtn">📞 Call Customer</button>
-        <button class="btn btn-ghost btn-sm" id="mismatchWaBtn">💬 WhatsApp</button>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('mismatchModal')">Cancel</button>
-      <button class="btn btn-red" onclick="rejectFromMismatch()">Reject Payment</button>
-      <button class="btn btn-gold" onclick="holdFromMismatch()">Hold 30min</button>
-      <button class="btn btn-green" onclick="confirmFromMismatch()">✅ Approve Anyway</button>
-    </div>
-  </div>
-</div>
-
-<!-- Reject Modal -->
-<div class="modal-overlay" id="rejectModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Reject Payment</div>
-      <button class="modal-close" onclick="closeModal('rejectModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Rejection Reason</label>
-        <select class="form-control">
-          <option>Name does not match and customer unresponsive</option>
-          <option>Wrong amount paid</option>
-          <option>Suspected fraudulent transaction</option>
-          <option>Duplicate payment</option>
-          <option>Trip cancelled</option>
-          <option>Other (specify below)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message to Customer (SMS)</label>
-        <textarea class="form-control" rows="3" placeholder="Your Raylane Express booking ref RLX-XXXXX has been rejected. Reason: ..."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('rejectModal')">Cancel</button>
-      <button class="btn btn-red" onclick="rejectPayment()">Confirm Rejection</button>
-    </div>
-  </div>
-</div>
-
-<!-- Assign Rider Modal -->
-<div class="modal-overlay" id="assignRiderModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">🛵 Assign Pickup Rider</div>
-      <button class="modal-close" onclick="closeModal('assignRiderModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="background:var(--gold-dim);border:1px solid rgba(232,168,0,.2);border-radius:var(--radius);padding:12px;margin-bottom:16px;font-size:13px">
-        Customer: <strong id="riderCustomerName">—</strong> · Parcel: <strong id="riderParcelId">—</strong>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Rider Full Name</label><input type="text" class="form-control" placeholder="e.g. Ssemakula Brian"></div>
-        <div class="form-group"><label class="form-label">Rider Phone</label><input type="tel" class="form-control" placeholder="0771 000 000"></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Motorcycle Plate</label><input type="text" class="form-control" placeholder="e.g. UDJ 123K"></div>
-        <div class="form-group"><label class="form-label">Est. Pickup Time</label><input type="time" class="form-control" value="09:00"></div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('assignRiderModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="assignRider()">Assign &amp; Notify Customer</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Route Modal -->
-<div class="modal-overlay" id="addRouteModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">+ Add Route</div>
-      <button class="modal-close" onclick="closeModal('addRouteModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">From City</label><select class="form-control"><option>Kampala</option><option>Mbarara</option><option>Gulu</option><option>Mbale</option><option>Jinja</option></select></div>
-        <div class="form-group"><label class="form-label">To City</label><select class="form-control"><option>Mbarara</option><option>Kampala</option><option>Gulu</option><option>Mbale</option></select></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Distance (km)</label><input type="number" class="form-control" placeholder="270"></div>
-        <div class="form-group"><label class="form-label">Duration (hours)</label><input type="number" step="0.5" class="form-control" placeholder="3.5"></div>
-      </div>
-      <div class="form-group"><label class="form-label">Base Price (UGX)</label><input type="number" class="form-control" placeholder="25000"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('addRouteModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="addRoute()">Add Route</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Fuel Modal -->
-<div class="modal-overlay" id="addFuelModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">⛽ Log Fuel Entry</div>
-      <button class="modal-close" onclick="closeModal('addFuelModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="background:rgba(11,47,160,.15);border:1px solid rgba(11,47,160,.3);border-radius:var(--radius);padding:10px;font-size:12px;margin-bottom:14px">ℹ️ This entry will also auto-create a Fuel expense record in Cost Centre.</div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Vehicle</label><select class="form-control"><option>UBF 001K</option><option>UBF 002K</option><option>UBF 003K</option></select></div>
-        <div class="form-group"><label class="form-label">Fuel Station</label><input type="text" class="form-control" placeholder="Shell Kampala Road"></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Litres</label><input type="number" class="form-control" id="fuelLitres" placeholder="60" oninput="calcFuel()"></div>
-        <div class="form-group"><label class="form-label">Price per Litre (UGX)</label><input type="number" class="form-control" id="fuelPPL" placeholder="5400" oninput="calcFuel()"></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Mileage (km)</label><input type="number" class="form-control" placeholder="48231"></div>
-        <div class="form-group"><label class="form-label">Driver</label><select class="form-control"><option>Paul Ssemakula</option><option>Ronald Kato</option><option>David Ssebagala</option></select></div>
-      </div>
-      <div style="background:var(--gold-dim);border:1px solid rgba(232,168,0,.2);border-radius:var(--radius);padding:12px;text-align:center">
-        <div style="font-size:11px;color:var(--white-60);margin-bottom:4px">TOTAL COST</div>
-        <div id="fuelTotal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--warriors-gold)">UGX 0</div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('addFuelModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveFuel()">Save &amp; Create Expense</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Maintenance Modal -->
-<div class="modal-overlay" id="addMaintenanceModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">🔧 Log Maintenance</div>
-      <button class="modal-close" onclick="closeModal('addMaintenanceModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="background:rgba(11,47,160,.15);border:1px solid rgba(11,47,160,.3);border-radius:var(--radius);padding:10px;font-size:12px;margin-bottom:14px">ℹ️ This entry will also auto-create a Maintenance expense record in Cost Centre.</div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Vehicle</label><select class="form-control"><option>UBF 001K</option><option>UBF 002K</option><option>UBF 003K</option></select></div>
-        <div class="form-group"><label class="form-label">Status</label><select class="form-control"><option>Completed</option><option>In Progress</option></select></div>
-      </div>
-      <div class="form-group"><label class="form-label">Issue Description</label><input type="text" class="form-control" placeholder="e.g. Tyre replacement — 2 front tyres"></div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Vendor / Garage</label><input type="text" class="form-control" placeholder="Dunlop Uganda"></div>
-        <div class="form-group"><label class="form-label">Cost (UGX)</label><input type="number" class="form-control" placeholder="480000"></div>
-      </div>
-      <div class="form-group"><label class="form-label">Next Service Date</label><input type="date" class="form-control"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('addMaintenanceModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveMaintenance()">Save &amp; Create Expense</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Scenery Modal -->
-<div class="modal-overlay" id="addSceneryModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">🖼️ Upload Scenery</div>
-      <button class="modal-close" onclick="closeModal('addSceneryModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="upload-area" onclick="showToast('📁 File picker would open here in production','info')">
-        <span class="upload-icon">🖼️</span>
-        <div class="upload-text">Click to upload scenery image<br><small>JPG, PNG, WebP · Max 5MB · Min 1920×600px</small></div>
-      </div>
-      <div class="form-group" style="margin-top:14px"><label class="form-label">Scene Title</label><input type="text" class="form-control" placeholder="The Mist of Bwindi Impenetrable Forest"></div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Route Tag</label><select class="form-control"><option>Kampala → Kisoro</option><option>Kampala → Gulu</option><option>Kampala → Mbarara</option><option>Kampala → Fort Portal</option><option>All Routes</option></select></div>
-        <div class="form-group"><label class="form-label">Scene Emoji</label><input type="text" class="form-control" placeholder="🏔️"></div>
-      </div>
-      <div class="form-group"><label class="form-label">Caption</label><input type="text" class="form-control" placeholder="Africa's last mountain gorilla sanctuary"></div>
-      <div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--gold-dim);border-radius:var(--radius);border:1px solid rgba(232,168,0,.2)">
-        <input type="checkbox" id="featureToggle" checked style="width:16px;height:16px;accent-color:var(--warriors-gold)">
-        <label for="featureToggle" style="font-size:13px;font-weight:600;cursor:pointer">⭐ Feature This Week (auto-expires in 7 days, replaces current featured image)</label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('addSceneryModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="saveScenery()">Upload &amp; Feature</button>
-    </div>
-  </div>
-</div>
-
-<!-- Charter Quote Modal -->
-<div class="modal-overlay" id="charterQuoteModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="charterQuoteTitle">Send Charter Quote</div>
-      <button class="modal-close" onclick="closeModal('charterQuoteModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Assign Vehicle</label><select class="form-control"><option>UBF 001K — 67-Seater</option><option>UBF 002K — 67-Seater</option><option>UBF 003K — 67-Seater</option></select></div>
-        <div class="form-group"><label class="form-label">Assign Driver</label><select class="form-control"><option>Paul Ssemakula</option><option>Ronald Kato</option><option>David Ssebagala</option></select></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Charter Fee (UGX)</label><input type="number" class="form-control" placeholder="800000" oninput="updateCharterTotal()"></div>
-        <div class="form-group"><label class="form-label">Return Trip Fee (UGX)</label><input type="number" class="form-control" placeholder="0" oninput="updateCharterTotal()"></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Deposit Required</label><input type="number" class="form-control" placeholder="200000"></div>
-        <div class="form-group"><label class="form-label">Fuel</label><select class="form-control"><option>Included</option><option>Client provides fuel</option></select></div>
-      </div>
-      <div class="form-group"><label class="form-label">Additional Terms / Notes</label><textarea class="form-control" rows="2" placeholder="Driver accommodation included for overnight trips..."></textarea></div>
-      <div style="background:var(--gold-dim);border:1px solid rgba(232,168,0,.2);border-radius:var(--radius);padding:12px;text-align:center">
-        <div style="font-size:11px;color:var(--white-60)">TOTAL CHARTER AMOUNT</div>
-        <div id="charterTotal" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--warriors-gold)">UGX 0</div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('charterQuoteModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="sendCharterQuote()">Send Quote to Client</button>
-    </div>
-  </div>
-</div>
-
-<!-- Group Quote Modal -->
-<div class="modal-overlay" id="groupQuoteModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="groupQuoteTitle">Send Group Quote</div>
-      <button class="modal-close" onclick="closeModal('groupQuoteModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Total Amount (UGX)</label><input type="number" class="form-control" placeholder="1125000"></div>
-        <div class="form-group"><label class="form-label">Deposit Required (UGX)</label><input type="number" class="form-control" placeholder="225000"></div>
-      </div>
-      <div class="form-group"><label class="form-label">Inclusions</label><input type="text" class="form-control" placeholder="e.g. AC coach, bottled water, driver"></div>
-      <div class="form-group"><label class="form-label">Terms &amp; Conditions</label><textarea class="form-control" rows="2" placeholder="Deposit non-refundable. Balance due 48h before departure..."></textarea></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('groupQuoteModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="sendGroupQuote()">Send Quote (SMS + Email)</button>
-    </div>
-  </div>
-</div>
-
-<!-- Assign Vehicle Modal -->
-<div class="modal-overlay" id="assignVehicleModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Assign Vehicle &amp; Driver</div>
-      <button class="modal-close" onclick="closeModal('assignVehicleModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group"><label class="form-label">Vehicle</label><select class="form-control"><option>UBF 001K — 67-Seater</option><option>UBF 002K — 67-Seater</option><option>UBF 003K — 67-Seater</option></select></div>
-      <div class="form-group"><label class="form-label">Driver</label><select class="form-control"><option>Paul Ssemakula</option><option>Ronald Kato</option><option>David Ssebagala</option></select></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('assignVehicleModal')">Cancel</button>
-      <button class="btn btn-gold" onclick="assignVehicle()">Assign &amp; Notify Client</button>
-    </div>
-  </div>
-</div>
-
-<!-- Booking Detail Modal -->
-<div class="modal-overlay" id="bookingDetailModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Booking Detail</div>
-      <button class="modal-close" onclick="closeModal('bookingDetailModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="pc-meta" style="grid-template-columns:repeat(2,1fr)">
-        <div class="pc-meta-item"><div class="pc-meta-label">Reference</div><div class="pc-meta-value">RLX-001291</div></div>
-        <div class="pc-meta-item"><div class="pc-meta-label">Passenger</div><div class="pc-meta-value">Sarah Nakato</div></div>
-        <div class="pc-meta-item"><div class="pc-meta-label">Route</div><div class="pc-meta-value">Kla → Mbarara</div></div>
-        <div class="pc-meta-item"><div class="pc-meta-label">Seat</div><div class="pc-meta-value">14A</div></div>
-        <div class="pc-meta-item"><div class="pc-meta-label">Amount</div><div class="pc-meta-value">UGX 25,000</div></div>
-        <div class="pc-meta-item"><div class="pc-meta-label">Status</div><div class="pc-meta-value"><span class="badge green">Confirmed</span></div></div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('bookingDetailModal')">Close</button>
-      <button class="btn btn-ghost btn-sm" onclick="showToast('📲 Ticket SMS resent!','success')">Resend Ticket SMS</button>
-      <button class="btn btn-red btn-sm" onclick="showToast('💸 Refund initiated — UGX 20,000','info')">Cancel &amp; Refund</button>
-    </div>
-  </div>
-</div>
 
 <script>
-// Clock
+// CLOCK
 function tick(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-UG',{hour12:false})}
 tick();setInterval(tick,1000);
 
-// Navigation
+// SIDEBAR
+const sb=document.getElementById('sidebar');
+const sbo=document.getElementById('sbOverlay');
+function toggleSb(){sb.classList.contains('open')?closeSb():openSb()}
+function openSb(){sb.classList.add('open');sbo.classList.add('open');document.body.style.overflow='hidden'}
+function closeSb(){sb.classList.remove('open');sbo.classList.remove('open');document.body.style.overflow=''}
+const isMob=()=>window.innerWidth<=900;
+document.querySelectorAll('.si').forEach(b=>b.addEventListener('click',()=>{if(isMob())closeSb()}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSb()});
+
+// NAV
 function nav(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.si').forEach(s=>s.classList.remove('active'));
   const v=document.getElementById('view-'+id);
-  const s=document.getElementById('nav-'+id);
+  const s=document.getElementById('n-'+id);
   if(v)v.classList.add('active');
   if(s)s.classList.add('active');
+  if(id==='financials')setTimeout(renderFin,50);
 }
 
-// Toast
-function showToast(msg,type='info'){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),3000);
+// TOAST
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3500)}
+
+// PREVIEW DRAWER
+function closePv(){document.getElementById('pvOverlay').classList.remove('open')}
+function openPv(title,bodyHtml,confirmLabel,confirmClass,onConfirm){
+  document.getElementById('pvTitle').textContent=title;
+  document.getElementById('pvBody').innerHTML=bodyHtml;
+  const btn=document.getElementById('pvConfirm');
+  btn.textContent=confirmLabel;btn.className='btn '+confirmClass;
+  btn.onclick=()=>{onConfirm();closePv()};
+  document.getElementById('pvOverlay').classList.add('open');
+}
+document.getElementById('pvOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('pvOverlay'))closePv()});
+
+// PV shorthand
+function pv(action,d){
+  const row=(k,v,style='')=>`<div class="pv-row"><span class="pv-key">${k}</span><span class="pv-val" style="${style}">${v}</span></div>`;
+  const alert=(t,cls)=>`<div class="pv-alert ${cls}">${t}</div>`;
+  switch(action){
+    case 'approve-trip':
+      openPv('Approve Trip — Preview',
+        alert('✅ Trip goes LIVE on raylaneexpress.com instantly. Operator receives an SMS notification.','green')+
+        row('Operator',d.operator)+row('Route',d.route)+row('Date',d.date)+row('Time',d.time)+
+        row('Vehicle',d.vehicle)+row('Driver',d.driver)+row('Price',d.price)+row('Seats',d.seats)+row('Amenities',d.amenities),
+        '✅ Approve Trip','btn-gr',()=>{
+          showToast('✅ Trip approved — live on platform!','success');
+          const b=Math.max(0,parseInt(document.getElementById('tripBadge').textContent)-1);
+          document.getElementById('tripBadge').textContent=b;
+          document.getElementById('sb-trips').textContent=b;
+          if(b===0)document.getElementById('tripBanner').style.display='none';
+        });break;
+    case 'reject-trip':
+      openPv('Reject Trip',
+        alert('❌ Operator receives SMS with rejection reason. They can resubmit with corrections.','red')+
+        row('Operator',d.operator)+row('Route',d.route)+row('Date',d.date)+
+        '<div class="fg" style="margin-top:10px"><label class="fl">Rejection Reason</label><select class="fc"><option>Vehicle insurance expired</option><option>Driver licence invalid</option><option>Route not approved</option><option>Duplicate submission</option></select></div>',
+        '❌ Reject Trip','btn-rd',()=>showToast('Trip rejected — operator notified','info'));break;
+    case 'confirm-payment':
+      openPv('Confirm Payment — Preview',
+        alert(d.match,'green')+
+        row('Booking Name',d.name)+row('Reference',d.ref)+row('Route',d.route)+row('Seat',d.seat)+
+        row('Amount',d.amount,'color:var(--warriors-gold);font-size:15px;font-weight:800')+
+        row('Method',d.method)+row('Paying Phone',d.phone)+
+        alert('✅ Confirming issues a QR ticket via SMS to the passenger immediately.','green'),
+        '✅ Confirm &amp; Issue Ticket','btn-gr',()=>{
+          showToast('✅ Ticket issued to '+d.name,'success');
+          const b=Math.max(0,parseInt(document.getElementById('payBadge').textContent)-1);
+          document.getElementById('payBadge').textContent=b;
+          document.getElementById('sb-pay').textContent=b;
+        });break;
+    case 'reject-payment':
+      openPv('Reject Payment',
+        alert('❌ Seat lock released. Passenger receives SMS with rejection reason.','red')+
+        row('Passenger',d.name)+row('Reference',d.ref)+
+        '<div class="fg" style="margin-top:10px"><label class="fl">Reason</label><select class="fc"><option>Name mismatch — unresponsive</option><option>Wrong amount paid</option><option>Suspected fraud</option><option>Duplicate payment</option></select></div>',
+        '❌ Reject Payment','btn-rd',()=>showToast('Payment rejected — passenger notified','info'));break;
+    case 'mismatch-payment':
+      openPv('Name Mismatch — Review',
+        `<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+          <div style="background:rgba(11,47,160,.3);border:1px solid rgba(11,47,160,.4);border-radius:var(--radius);padding:10px;text-align:center">
+            <div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--white-60);margin-bottom:3px">BOOKING NAME</div>
+            <div style="font-size:15px;font-weight:700">${d.booking}</div>
+          </div>
+          <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:var(--radius);padding:10px;text-align:center">
+            <div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--white-60);margin-bottom:3px">MOMO REFERENCE</div>
+            <div style="font-size:15px;font-weight:700;color:var(--warning)">${d.reference}</div>
+          </div>
+        </div>`+row('Route',d.route)+row('Amount',d.amount)+row('Phone',d.phone)+
+        `<div style="display:flex;gap:7px;margin-top:10px"><button class="btn btn-gh btn-sm" onclick="showToast('📞 Calling ${d.phone}...','info')">📞 Call</button><button class="btn btn-gh btn-sm">💬 WhatsApp</button></div>`+
+        alert('⚠️ Verify identity before approving. Likely same person (abbreviated or spouse name).','amber'),
+        '✅ Approve Anyway','btn-go',()=>showToast('Payment approved — ticket issued','success'));break;
+    case 'approve-operator':
+      openPv('Approve Operator Application',
+        alert('✅ Dashboard credentials sent to operator via SMS. They can submit their first trip immediately.','green')+
+        row('Company',d.company)+row('Contact',d.contact)+row('TIN',d.tin)+row('PSV Licence',d.psv)+
+        row('Fleet',d.fleet)+row('Plan',d.plan)+row('Commission',d.commission)+row('MoMo',d.momo),
+        '✅ Approve &amp; Send Credentials','btn-gr',()=>showToast('Operator approved — SMS sent to '+d.contact,'success'));break;
+    case 'reject-operator':
+      openPv('Reject Application',
+        alert('❌ Applicant receives SMS. May reapply after resolving the issue.','red')+
+        row('Company',d.company)+
+        '<div class="fg" style="margin-top:10px"><label class="fl">Reason</label><select class="fc"><option>Invalid PSV licence</option><option>TIN not verified</option><option>Insurance not current</option><option>Incomplete documentation</option></select></div>',
+        '❌ Reject Application','btn-rd',()=>showToast('Application rejected — notified','info'));break;
+    case 'release-payout':
+      openPv('Release Payout — Preview',
+        alert('⚠️ This initiates a REAL MTN MoMo B2B transfer. Cannot be undone.','amber')+
+        row('Operator',d.operator)+row('Merchant Code',d.merchant)+row('Gross Revenue',d.gross)+
+        row('Commission',d.commission,'color:var(--danger)')+
+        row('NET PAYOUT',d.net,'color:var(--warriors-gold);font-size:16px;font-weight:800')+
+        row('Transfer Method',d.method),
+        '💰 Release Payout','btn-go',()=>showToast('Payout to '+d.operator+' released — '+d.net,'success'));break;
+    case 'release-all-payouts':
+      openPv('Release All Payouts',
+        alert('⚠️ Initiates MTN MoMo B2B transfers to ALL operators simultaneously. Cannot be undone.','amber')+
+        row('Total Amount',d.total,'color:var(--warriors-gold);font-size:15px;font-weight:800')+
+        row('Recipients',d.count)+row('Method',d.method)+row('Date',d.day),
+        '💰 Release All','btn-go',()=>showToast('All payouts released — '+d.total,'success'));break;
+    case 'delete-scenery':
+      openPv('Delete Scenery Slide',
+        alert('🗑️ Permanently removes this slide from the homepage slideshow. Cannot be undone.','red')+
+        row('Title',d.title)+row('Route',d.route),
+        '🗑️ Delete Permanently','btn-rd',()=>showToast('Scenery slide deleted','info'));break;
+    case 'assign-rider':
+      openPv('Assign Pickup Rider',
+        row('Customer',d.customer)+row('Parcel ID',d.parcel)+row('Address',d.address)+row('Route',d.route)+row('Category',d.category)+
+        `<div style="margin-top:12px">
+          <div class="fg"><label class="fl">Rider Full Name</label><input type="text" class="fc" placeholder="Brian Ssemakula"></div>
+          <div class="fg2">
+            <div class="fg"><label class="fl">Rider Phone</label><input type="tel" class="fc" placeholder="0771 000 000"></div>
+            <div class="fg"><label class="fl">Plate</label><input type="text" class="fc" placeholder="UDJ 123K"></div>
+          </div>
+          <div class="fg"><label class="fl">Est. Pickup Time</label><input type="time" class="fc" value="09:00"></div>
+        </div>`+
+        alert('✅ Customer SMS: "Your Raylane pickup rider [Name] on [Plate] is on the way."','green'),
+        '🛵 Assign &amp; Notify','btn-go',()=>showToast('Rider assigned — SMS sent to '+d.customer,'success'));break;
+    case 'review-application':
+      openPv('Job Application — '+d.name,
+        row('Role',d.role)+row('Experience',d.exp)+row('Education',d.education)+row('Skills',d.skills)+
+        row('Phone','<a href="tel:+256'+d.phone.replace(/\D/g,'')+'" style="color:var(--warriors-gold)">'+d.phone+'</a>')+row('Email',d.email)+
+        `<div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-gr btn-sm" onclick="showToast('📧 Interview invite sent to ${d.name}','success')">Invite to Interview</button><button class="btn btn-gh btn-sm" onclick="showToast('📞 Calling ${d.phone}...','info')">📞 Call</button></div>`,
+        '✅ Shortlist','btn-gr',()=>showToast(d.name+' shortlisted!','success'));break;
+    case 'shortlist-application':
+      openPv('Shortlist Applicant',
+        alert('✅ Moves applicant to shortlist. Interview invite SMS will be sent.','green')+
+        row('Name',d.name)+row('Position',d.role),
+        '✅ Shortlist','btn-gr',()=>showToast(d.name+' shortlisted!','success'));break;
+    case 'reject-application':
+      openPv('Reject Application',
+        alert('❌ Applicant receives a polite rejection SMS. Cannot reapply for this role for 90 days.','red')+
+        row('Name',d.name)+row('Position',d.role),
+        '❌ Reject Applicant','btn-rd',()=>showToast(d.name+' rejected — SMS sent','info'));break;
+    case 'close-job':
+      openPv('Close Job Listing',
+        alert('⚠️ Removes listing from public careers page. Active applications are preserved.','amber')+
+        row('Position',d.title)+row('Posted',d.posted)+row('Active Applications',d.applications),
+        '🔒 Close Listing','btn-rd',()=>showToast('Job listing closed','info'));break;
+  }
 }
 
-// Modal helpers
-function openModal(id){document.getElementById(id).classList.add('open')}
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-
-// Payment actions
-function confirmPayment(btn,name,ref){
-  const card=btn.closest('.payment-card');
-  card.style.opacity='.5';card.style.pointerEvents='none';
-  const doc=document.getElementById('paymentsBadge');
-  const sb=document.getElementById('sb-payments');
-  let c=parseInt(doc.textContent)-1;
-  doc.textContent=c<0?0:c;sb.textContent=c<0?0:c;
-  showToast('✅ Ticket issued to '+name+' — '+ref,'success');
-}
-function holdPayment(btn){showToast('⏸️ Seat held for 30 more minutes','info')}
-
-// Mismatch modal
-function openMismatchModal(bookingName,payingName,ref,phone){
-  document.getElementById('bookingNameDisplay').textContent=bookingName;
-  document.getElementById('payingNameDisplay').textContent=payingName;
-  document.getElementById('mismatchCallBtn').onclick=()=>showToast('📞 Calling '+phone+'...','info');
-  document.getElementById('mismatchWaBtn').href='https://wa.me/256'+phone.replace(/\D/g,'');
-  openModal('mismatchModal');
-}
-function confirmFromMismatch(){closeModal('mismatchModal');showToast('✅ Payment approved — ticket issued','success')}
-function holdFromMismatch(){closeModal('mismatchModal');showToast('⏸️ Payment held for 30 minutes','info')}
-function rejectFromMismatch(){closeModal('mismatchModal');showToast('❌ Payment rejected — customer notified by SMS','info')}
-
-// Reject modal
-function openRejectModal(){openModal('rejectModal')}
-function rejectPayment(){closeModal('rejectModal');showToast('❌ Payment rejected and customer notified','info')}
-
-// Trip approval
-function approveTrip(btn){
-  const row=btn.closest('tr');
-  row.cells[6].innerHTML='<span class="badge green">Live</span>';
-  row.cells[7].innerHTML='<span style="font-size:12px;color:var(--success)">On platform ✓</span>';
-  const doc=document.getElementById('tripsBadge');const sb=document.getElementById('sb-trips');
-  let c=parseInt(doc.textContent)-1;doc.textContent=c<0?0:c;sb.textContent=c<0?0:c;
-  if(c<=0){document.getElementById('tripApprovalBanner').style.display='none'}
-  showToast('✅ Trip approved and now live on the platform!','success');
-}
-
-// Parcel pickup
-function openAssignRiderModal(name,parcelId){
-  document.getElementById('riderCustomerName').textContent=name;
-  document.getElementById('riderParcelId').textContent=parcelId;
-  openModal('assignRiderModal');
-}
-function assignRider(){
-  closeModal('assignRiderModal');
-  showToast('🛵 Rider assigned — SMS sent to customer','success');
-}
-
-function confirmParcelPayment(name,parcelId){
-  showToast('💳 Payment confirmed for '+name+' — '+parcelId+'. Tracking activated.','success');
-}
-
-// Routes
-function openAddRouteModal(){openModal('addRouteModal')}
-function openEditRouteModal(){openModal('addRouteModal')}
-function addRoute(){
-  closeModal('addRouteModal');
-  const el=document.createElement('div');el.className='route-card';
-  el.innerHTML='<div class="route-cities"><div class="route-from-to">New Route</div><div class="route-stats">0 active trips/day</div></div><div class="route-price">UGX 0</div><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost">Edit</button><button class="btn btn-sm btn-red" onclick="deleteRoute(this)">Delete</button></div>';
-  document.getElementById('routesList').appendChild(el);
-  showToast('✅ Route added successfully','success');
-}
-function deleteRoute(btn){if(confirm('Delete this route?')){btn.closest('.route-card').remove();showToast('Route deleted','info')}}
-
-// Fuel
-function openAddFuelModal(){openModal('addFuelModal')}
-function calcFuel(){
-  const l=parseFloat(document.getElementById('fuelLitres').value)||0;
-  const p=parseFloat(document.getElementById('fuelPPL').value)||0;
-  document.getElementById('fuelTotal').textContent='UGX '+(l*p).toLocaleString();
-}
-function saveFuel(){closeModal('addFuelModal');showToast('⛽ Fuel logged and expense auto-created','success')}
-function deleteFuel(btn){if(confirm('Delete this fuel entry?')){btn.closest('.log-entry').remove();showToast('Fuel entry deleted','info')}}
-
-// Maintenance
-function openAddMaintenanceModal(){openModal('addMaintenanceModal')}
-function saveMaintenance(){closeModal('addMaintenanceModal');showToast('🔧 Maintenance logged and expense auto-created','success')}
-function completeMaintenance(btn){
-  const entry=btn.closest('.log-entry');
-  entry.querySelector('.log-actions').innerHTML='<span class="badge green">Completed</span>';
-  showToast('✅ Marked as Completed','success');
-}
-function deleteMaintenance(btn){if(confirm('Delete this entry?')){btn.closest('.log-entry').remove();showToast('Entry deleted','info')}}
-
-// Scenery
-function openAddSceneryModal(){openModal('addSceneryModal')}
-function saveScenery(){closeModal('addSceneryModal');showToast('🖼️ Scenery uploaded and featured — expires in 7 days','success')}
-function featureScenery(btn){showToast('⭐ Scenery set as this week\'s feature','success')}
-function deleteScenery(btn){if(confirm('Delete this scenery?')){btn.closest('.scenery-card').remove();showToast('Scenery deleted','info')}}
-
-// Charter
-function openCharterQuoteModal(ref){document.getElementById('charterQuoteTitle').textContent='Send Quote — '+ref;openModal('charterQuoteModal')}
-function updateCharterTotal(){
-  const inputs=document.querySelectorAll('#charterQuoteModal input[type=number]');
-  let total=0;inputs.forEach(i=>{if(i.placeholder!=='200000')total+=parseFloat(i.value)||0});
-  document.getElementById('charterTotal').textContent='UGX '+total.toLocaleString();
-}
-function sendCharterQuote(){closeModal('charterQuoteModal');showToast('✈️ Charter quote sent to client via SMS and email','success')}
-
-// Group
-function openGroupQuoteModal(ref){document.getElementById('groupQuoteTitle').textContent='Send Quote — '+ref;openModal('groupQuoteModal')}
-function sendGroupQuote(){closeModal('groupQuoteModal');showToast('👥 Group quote sent via SMS and email','success')}
-function confirmGroup(btn){btn.closest('tr').cells[7].innerHTML='<span class="badge green">Confirmed</span>';showToast('✅ Group booking confirmed','success')}
-function openCreateGroupModal(){showToast('➕ Create group booking form — coming soon','info')}
-function openAssignVehicleModal(){openModal('assignVehicleModal')}
-function assignVehicle(){closeModal('assignVehicleModal');showToast('🚌 Vehicle and driver assigned — client notified','success')}
-
-// Advance
-function confirmAdvance(btn,name){
-  btn.closest('tr').cells[8].innerHTML='<span class="badge green">Ticket Issued ✓</span>';
-  showToast('✅ Advance ticket issued to '+name,'success');
-}
-
-// Booking detail
-function openBookingDetail(){openModal('bookingDetailModal')}
-
-// Filter payments by match status
-function filterPayments(type,btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+// PAYMENT FILTER
+function filterPay(type,btn){
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.payment-card').forEach(c=>{
-    c.style.display=(type==='all'||c.dataset.match===type)?'block':'none';
-  });
+  document.querySelectorAll('.pc').forEach(c=>{c.style.display=(type==='all'||c.dataset.match===type)?'block':'none'});
 }
 
-// Filter table
-function filterTable(input){
-  const q=input.value.toLowerCase();
-  input.closest('.table-wrap').querySelectorAll('tbody tr').forEach(r=>{
-    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
-  });
+// JOB TAB SWITCH
+function switchJobTab(tab,btn){
+  document.getElementById('jobListings').style.display=tab==='listings'?'block':'none';
+  document.getElementById('jobApplications').style.display=tab==='applications'?'block':'none';
+  if(btn){btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
 }
 
-// Live activity feed — add new items every 10s
-const activities=[
-  {dot:'green',text:'New booking — Kampala→Jinja, Seat 5C, UGX 15,000',time:'Just now'},
-  {dot:'gold',text:'Parcel PKL-847300 collected by rider — Kamwokya',time:'Just now'},
-  {dot:'blue',text:'Global Coaches submitted trip — Kampala→Arua 06:00',time:'Just now'},
-  {dot:'red',text:'Insurance expiry alert — UBF 003K · 58 days remaining',time:'Just now'},
-];
+// SCENERY SLIDESHOW
+let sli=0;
+function goSl(n){
+  document.getElementById('sl'+sli).classList.remove('active');
+  document.querySelectorAll('.sc-dot')[sli].classList.remove('active');
+  sli=((n%3)+3)%3;
+  document.getElementById('sl'+sli).classList.add('active');
+  document.querySelectorAll('.sc-dot')[sli].classList.add('active');
+}
+function nextSl(){goSl(sli+1)}
+function prevSl(){goSl(sli-1)}
+setInterval(nextSl,5000);
+
+function toggleUploadPanel(){
+  const p=document.getElementById('uploadPanel');
+  p.style.display=p.style.display==='none'?'block':'none';
+  if(p.style.display==='block')p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function handleUpload(input){
+  const f=input.files[0];if(!f)return;
+  const m=document.getElementById('uploadPreviewMsg');
+  m.style.display='block';
+  m.textContent='✅ '+f.name+' ('+Math.round(f.size/1024)+'KB) ready to upload';
+  showToast('✅ File selected: '+f.name,'success');
+}
+function saveScenery(){
+  document.getElementById('uploadPanel').style.display='none';
+  showToast('🖼️ Scenery slide saved and live!','success');
+}
+
+// DRAG & DROP
+document.querySelectorAll('.up-zone').forEach(z=>{
+  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dv')});
+  z.addEventListener('dragleave',()=>z.classList.remove('dv'));
+  z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('dv');const f=e.dataTransfer.files[0];if(f)showToast('✅ Dropped: '+f.name,'success')});
+});
+
+// FINANCIALS
+function renderFin(){
+  const type=document.getElementById('finType').value;
+  const from=document.getElementById('finFrom').value;
+  const to=document.getElementById('finTo').value;
+  const fmtDate=s=>{try{return new Date(s+'T12:00:00').toLocaleDateString('en-UG',{day:'numeric',month:'short',year:'numeric'})}catch(e){return s}};
+  const fl=fmtDate(from),tl=fmtDate(to);
+  document.getElementById('finPeriod').textContent=fl+' – '+tl;
+  const titles={pl:'P&L Statement',bs:'Balance Sheet',cf:'Cash Flow Statement',equity:'Shareholders Equity',vat:'VAT Return (URA)',prov:'Provisional Tax Return (URA)',paye:'PAYE Summary',nssf:'NSSF Contributions Schedule'};
+  document.getElementById('finTitle').textContent=(titles[type]||'Statement')+' · '+fl+' – '+tl;
+  const c=document.getElementById('finContent');
+  const sec=t=>`<div class="fin-sec">${t}</div>`;
+  const row=(l,v,sub=false,expand=false)=>`<div class="fin-row${sub?' fin-sub':''}"${expand?' onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\'"':''} style="cursor:${expand?'pointer':'default'}"><span>${l}${expand?' ▾':''}</span><span>${v}</span></div>`;
+  const sub=rows=>`<div style="display:none;padding:3px 0;background:var(--white-10)">${rows}</div>`;
+  const total=(l,v,cls='')=>`<div class="fin-total ${cls}"><span>${l}</span><span>${v}</span></div>`;
+  if(type==='pl'){
+    c.innerHTML=sec('REVENUE')+
+      row('Booking Commission Revenue',   'UGX 28,400,000',false,true)+
+      sub(row('Raylane Express Fleet','UGX 8,200,000',true)+row('Global Coaches (8%)','UGX 6,100,000',true)+row('YY Coaches (8%)','UGX 5,800,000',true)+row('Link Bus (6%)','UGX 5,400,000',true)+row('Other Operators','UGX 2,900,000',true))+
+      row('SaaS Subscriptions','UGX 7,400,000',false,true)+
+      sub(row('Standard Plan (12)','UGX 2,400,000',true)+row('Professional Plan (10)','UGX 4,500,000',true)+row('Add-on modules','UGX 500,000',true))+
+      row('Insurance Commission','UGX 2,100,000')+
+      row('Parcel Delivery Revenue','UGX 890,000')+
+      total('TOTAL REVENUE','UGX 38,790,000','profit')+
+      sec('OPERATING EXPENSES')+
+      row('Technology &amp; Hosting','UGX 2,890,000',false,true)+
+      sub(row('Supabase Pro ($25)','UGX 91,000',true)+row('Vercel Pro ($20)','UGX 73,000',true)+row('Google Maps ($45)','UGX 164,000',true)+row('Claude API ($120)','UGX 437,000',true)+row("Africa's Talking SMS",'UGX 1,250,000',true)+row('DPO Group (2.5%)','UGX 875,000',true))+
+      row('Operations &amp; Admin','UGX 4,200,000')+
+      row('Fleet Fuel &amp; Maintenance','UGX 1,800,000')+
+      row('Driver Salaries (3 internal)','UGX 1,800,000')+
+      total('TOTAL EXPENSES','UGX 10,690,000','loss')+
+      total('NET PROFIT','UGX 28,100,000','profit')+
+      `<div style="padding:8px 12px;font-size:10px;color:var(--white-60)">Net Margin: 72.4% · VAT Rate: 18% · Period: ${fl} – ${tl} · URA compliant</div>`;
+  } else if(type==='vat'){
+    c.innerHTML=`<div style="padding:12px 14px;background:rgba(232,168,0,.05);border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--warriors-gold)">URA VAT Return — Form VAT 01 · Standard Rated (18%)</div><div style="font-size:10px;color:var(--white-60);margin-top:2px">TIN: 1000123456 · Period: ${fl} – ${tl}</div></div>`+
+      row('Standard Rated Sales (18%)','UGX 38,790,000')+
+      row('Output VAT (18%)','UGX 6,982,200')+
+      row('Input VAT (Claimable)','UGX 520,200')+
+      total('VAT PAYABLE TO URA','UGX 6,462,000','loss')+
+      `<div style="padding:8px 12px;font-size:10px;color:var(--white-60)">Due: 15th of following month · Ref: TIN-1000123456-VAT</div>`;
+  } else if(type==='prov'){
+    c.innerHTML=`<div style="padding:12px 14px;background:rgba(232,168,0,.05);border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--warriors-gold)">Provisional Tax Return (URA Compliant)</div><div style="font-size:10px;color:var(--white-60);margin-top:2px">TIN: 1000123456 · ${fl} – ${tl}</div></div>`+
+      row('Estimated Annual Chargeable Income','UGX 337,200,000')+
+      row('Corporate Tax @ 30%','UGX 101,160,000')+
+      row('Provisional Tax (50% of annual)','UGX 50,580,000')+
+      row('PAYE Credit Applied','UGX 0')+
+      total('PROVISIONAL TAX DUE','UGX 50,580,000','loss')+
+      `<div style="padding:8px 12px;font-size:10px;color:var(--white-60)">Two equal instalments. First instalment: 6 months from accounting period start.</div>`;
+  } else if(type==='paye'){
+    c.innerHTML=`<div style="padding:12px 14px;background:rgba(232,168,0,.05);border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--warriors-gold)">PAYE Summary — Uganda Revenue Authority</div><div style="font-size:10px;color:var(--white-60);margin-top:2px">${fl} – ${tl}</div></div>`+
+      row('Paul Ssemakula · Driver · Gross UGX 600,000','PAYE: UGX 0')+
+      row('Ronald Kato · Driver · Gross UGX 600,000','PAYE: UGX 0')+
+      row('David Ssebagala · Driver · Gross UGX 550,000','PAYE: UGX 0')+
+      row('Admin Staff (avg gross UGX 2,100,000)','PAYE: UGX 84,000')+
+      total('TOTAL PAYE DUE','UGX 84,000','loss')+
+      `<div style="padding:8px 12px;font-size:10px;color:var(--white-60)">Due by 15th of following month. Threshold: UGX 235,000/month (no PAYE below this).</div>`;
+  } else if(type==='nssf'){
+    c.innerHTML=`<div style="padding:12px 14px;background:rgba(232,168,0,.05);border-bottom:1px solid var(--border)"><div style="font-size:11px;font-weight:700;color:var(--warriors-gold)">NSSF Contributions Schedule · ${fl} – ${tl}</div></div>`+
+      row('Paul Ssemakula — Employer (10%)','UGX 60,000')+
+      row('Paul Ssemakula — Employee (5%)','UGX 30,000')+
+      row('Ronald Kato — Employer (10%)','UGX 60,000')+
+      row('Ronald Kato — Employee (5%)','UGX 30,000')+
+      row('Admin Staff — Employer (10%)','UGX 210,000')+
+      row('Admin Staff — Employee (5%)','UGX 105,000')+
+      total('TOTAL NSSF (Employer + Employee)','UGX 495,000')+
+      `<div style="padding:8px 12px;font-size:10px;color:var(--white-60)">Due by 15th of following month. Employer: 10%, Employee: 5% of gross salary.</div>`;
+  } else if(type==='bs'){
+    c.innerHTML=sec('ASSETS')+
+      row('Cash and Cash Equivalents','UGX 48,200,000')+
+      row('Accounts Receivable','UGX 12,400,000')+
+      row('Fleet at Cost less Depreciation','UGX 85,000,000')+
+      total('TOTAL ASSETS','UGX 145,600,000','profit')+
+      sec('LIABILITIES')+
+      row('Accounts Payable','UGX 8,200,000')+
+      row('Deferred Revenue','UGX 4,100,000')+
+      total('TOTAL LIABILITIES','UGX 12,300,000','loss')+
+      sec('EQUITY')+
+      row('Share Capital','UGX 50,000,000')+
+      row('Retained Earnings','UGX 83,300,000')+
+      total('TOTAL EQUITY','UGX 133,300,000','profit');
+  } else if(type==='cf'){
+    c.innerHTML=sec('OPERATING ACTIVITIES')+
+      row('Net Profit','UGX 28,100,000')+
+      row('Add: Depreciation','UGX 2,500,000')+
+      row('Changes in Working Capital','UGX (3,200,000)')+
+      total('Net Cash from Operations','UGX 27,400,000','profit')+
+      sec('INVESTING ACTIVITIES')+
+      row('Vehicle Purchases','UGX 0')+
+      row('Equipment','UGX (450,000)')+
+      total('Net Cash from Investing','UGX (450,000)','loss')+
+      sec('FINANCING ACTIVITIES')+
+      row('Loan Repayments','UGX (1,200,000)')+
+      total('Net Cash from Financing','UGX (1,200,000)','loss')+
+      total('NET INCREASE IN CASH','UGX 25,750,000','profit');
+  } else {
+    c.innerHTML=`<div style="padding:40px;text-align:center;color:var(--white-60)"><div style="font-size:24px;margin-bottom:8px">📊</div>${titles[type]}<br><div style="font-size:11px;margin-top:6px">${fl} – ${tl} · Full data from Supabase in production</div></div>`;
+  }
+}
+setTimeout(renderFin,100);
+
+function exportFin(fmt){
+  const type=document.getElementById('finType').value;
+  const from=document.getElementById('finFrom').value;
+  const to=document.getElementById('finTo').value;
+  if(fmt==='csv'){
+    const csv='Statement,Period From,Period To,Net Revenue,Net Expenses,Net Profit\n'+type+','+from+','+to+',38790000,10690000,28100000';
+    const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='raylane_'+type+'_'+from+'_to_'+to+'.csv';a.click();
+    showToast('📥 CSV downloaded!','success');
+  } else {
+    showToast('📄 Generating PDF — wkhtmltopdf in production','info');
+    setTimeout(()=>showToast('✅ PDF ready — opens in production','success'),1500);
+  }
+}
+
+// LIVE ACTIVITY
+const acts=[{d:'gr',t:'New booking — Kla→Gulu Seat 8B UGX 30,000'},{d:'gd',t:'Parcel PKL-847300 collected — Kamwokya'},{d:'bl',t:'Global Coaches submitted trip — Kla→Arua 06:00'},{d:'rd',t:'Insurance alert — UBF 003K · 58 days remaining'}];
 let ai=0;
 setInterval(()=>{
-  const feed=document.getElementById('activityFeed');
-  if(!feed)return;
-  const a=activities[ai%activities.length];
-  const div=document.createElement('div');div.className='activity-item';
-  div.style.animation='none';div.style.opacity='0';div.style.transition='opacity .5s ease';
-  div.innerHTML=`<div class="activity-dot ${a.dot}"></div><div class="activity-text">${a.text}</div><div class="activity-time">${a.time}</div>`;
-  feed.insertBefore(div,feed.firstChild);
-  setTimeout(()=>div.style.opacity='1',50);
-  if(feed.children.length>12)feed.removeChild(feed.lastChild);
+  const feed=document.getElementById('actFeed');if(!feed)return;
+  const a=acts[ai%acts.length];
+  const div=document.createElement('div');div.className='ai';div.style.opacity='0';div.style.transition='opacity .5s';
+  div.innerHTML=`<div class="ai-d ${a.d}"></div><div class="ai-t">${a.t}</div><div class="ai-tm">Now</div>`;
+  feed.insertBefore(div,feed.firstChild);setTimeout(()=>div.style.opacity='1',50);
+  if(feed.children.length>10)feed.removeChild(feed.lastChild);
   ai++;
 },10000);
-
-// Close modals on overlay click
-document.querySelectorAll('.modal-overlay').forEach(o=>{
-  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(o=>o.classList.remove('open'))});
 </script>
 </body>
 </html>
