@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join as Operator — Raylane Express</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;--gold-dim:rgba(232,168,0,0.12);--white:#fff;--white-80:rgba(255,255,255,0.8);--white-60:rgba(255,255,255,0.6);--white-10:rgba(255,255,255,0.07);--success:#22C55E;--danger:#EF4444;--border:rgba(255,255,255,0.08);--card:rgba(8,26,92,0.5);--radius:10px;--transition:all 0.25s ease}
+:root{--royal-blue:#0B2FA0;--warriors-gold:#E8A800;--deep-navy:#040E35;--navy-mid:#081A5C;--gold-dim:rgba(232,168,0,0.12);--white:#fff;--white-80:rgba(255,255,255,.8);--white-60:rgba(255,255,255,.6);--white-10:rgba(255,255,255,.07);--success:#22C55E;--danger:#EF4444;--border:rgba(255,255,255,.08);--card:rgba(8,26,92,.5);--radius:10px;--transition:all 0.25s ease}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
 .nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:12px;z-index:100;backdrop-filter:blur(16px)}
@@ -20,143 +18,150 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .nav-btn.ghost{background:var(--white-10);border:1px solid var(--border);color:var(--white-80)}
 .nav-btn.gold{background:var(--warriors-gold);color:var(--deep-navy);border:none}
 .nav-btn:hover{opacity:.85}
+/* PAGE */
+.page{padding:90px 1.25rem 100px;max-width:780px;margin:0 auto}
 /* HERO */
-.hero{padding:100px 1.25rem 60px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(11,47,160,.4) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--warriors-gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(40px,10vw,72px);line-height:.92;letter-spacing:-1px;margin-bottom:16px}
+.hero-sec{text-align:center;padding:30px 0 50px;position:relative}
+.hero-sec::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:400px;background:radial-gradient(circle,rgba(11,47,160,.4) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-tag{display:inline-block;background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--warriors-gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(36px,9vw,60px);line-height:.92;letter-spacing:-1px;margin-bottom:14px}
 .hero-title span{color:var(--warriors-gold)}
-.hero-sub{font-size:15px;color:var(--white-60);max-width:480px;margin:0 auto 32px;line-height:1.7}
+.hero-sub{font-size:14px;color:var(--white-60);max-width:460px;margin:0 auto 28px;line-height:1.7}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-hero-gold{padding:16px 28px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-hero-gold:hover{background:#ffd044;transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,168,0,.4)}
-.btn-hero-ghost{padding:16px 24px;background:transparent;color:var(--white-80);border:1px solid var(--border);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:var(--transition);text-decoration:none}
-.btn-hero-ghost:hover{background:var(--white-10);border-color:var(--white-10)}
-/* STATS BAR */
-.stats-bar{background:linear-gradient(135deg,var(--warriors-gold),#D4960A);padding:20px 1.25rem}
-.stats-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:700px;margin:0 auto}
-@media(min-width:600px){.stats-inner{grid-template-columns:repeat(4,1fr)}}
-.stat-item{text-align:center}
-.stat-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,5vw,30px);color:var(--deep-navy);line-height:1;letter-spacing:-.5px}
-.stat-lbl{font-size:10px;font-weight:600;color:rgba(4,14,53,.65);letter-spacing:.5px;margin-top:2px}
+.btn-hero{padding:14px 24px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-hero:hover{background:#ffd044;transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,168,0,.4)}
+.btn-hero.ghost{background:transparent;color:var(--white-80);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px}
+.btn-hero.ghost:hover{background:var(--white-10);box-shadow:none;transform:none}
+/* STATS */
+.stats-bar{background:linear-gradient(135deg,var(--warriors-gold),#D4960A);padding:16px 1.25rem;border-radius:14px;margin-bottom:48px}
+.stats-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:600px){.stats-g{grid-template-columns:repeat(2,1fr)}}
+.stat-it{text-align:center}
+.stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(18px,4vw,26px);color:var(--deep-navy);line-height:1}
+.stat-l{font-size:9px;font-weight:600;color:rgba(4,14,53,.65);letter-spacing:.5px;margin-top:1px}
 /* SECTION */
-section{padding:60px 1.25rem;max-width:900px;margin:0 auto}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:12px}
-.section-label::before{content:'';width:24px;height:2px;background:var(--warriors-gold);border-radius:2px}
-.section-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:.95;margin-bottom:16px;letter-spacing:-.3px}
-/* PLAN CARDS */
-.plans-grid{display:grid;gap:14px;margin-top:28px}
-@media(min-width:600px){.plans-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:900px){.plans-grid{grid-template-columns:repeat(4,1fr)}}
-.plan-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;position:relative;transition:var(--transition)}
-.plan-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.3)}
-.plan-card.popular{border-color:rgba(232,168,0,.4);background:linear-gradient(135deg,rgba(232,168,0,.08),rgba(11,47,160,.3))}
-.popular-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--warriors-gold);color:var(--deep-navy);padding:3px 14px;border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap}
-.plan-name{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white-60);margin-bottom:6px}
-.plan-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(22px,5vw,30px);color:var(--white);line-height:1;margin-bottom:4px}
-.plan-price span{font-size:13px;font-weight:400;color:var(--white-60)}
-.plan-commission{font-size:12px;color:var(--warriors-gold);font-weight:600;margin-bottom:16px}
-.plan-features{list-style:none;display:grid;gap:7px}
-.plan-features li{font-size:12px;color:var(--white-80);display:flex;align-items:flex-start;gap:6px;line-height:1.4}
+.section{margin-bottom:48px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--warriors-gold);border-radius:2px}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(26px,5vw,38px);line-height:.95;margin-bottom:14px;letter-spacing:-.3px}
+/* PLANS */
+.plans-g{display:grid;gap:12px;margin-top:24px}
+@media(min-width:600px){.plans-g{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.plans-g{grid-template-columns:repeat(4,1fr)}}
+.plan-c{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 16px;position:relative;transition:var(--transition)}
+.plan-c:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.plan-c.popular{border-color:rgba(232,168,0,.4);background:linear-gradient(135deg,rgba(232,168,0,.08),rgba(11,47,160,.3))}
+.popular-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--warriors-gold);color:var(--deep-navy);padding:3px 12px;border-radius:100px;font-size:9px;font-weight:700;white-space:nowrap}
+.plan-name{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.plan-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(20px,4vw,26px);color:var(--white);line-height:1;margin-bottom:4px}
+.plan-price span{font-size:11px;font-weight:400;color:var(--white-60)}
+.plan-comm{font-size:11px;color:var(--warriors-gold);font-weight:600;margin-bottom:14px}
+.plan-features{list-style:none;display:grid;gap:6px}
+.plan-features li{font-size:11px;color:var(--white-80);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
 .plan-features li::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0}
-.plan-cta{width:100%;margin-top:18px;padding:12px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:var(--transition)}
+.plan-cta{width:100%;margin-top:16px;padding:10px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:var(--transition)}
 .plan-cta:hover{background:#ffd044}
 .plan-cta.ghost{background:transparent;border:1px solid var(--border);color:var(--white-80)}
 .plan-cta.ghost:hover{background:var(--white-10)}
 /* CALCULATOR */
-.calculator{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:28px}
-.calc-grid{display:grid;gap:16px}
-@media(min-width:600px){.calc-grid{grid-template-columns:1fr 1fr}}
-.calc-group{display:grid;gap:6px}
-.calc-label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60)}
-.calc-input{width:100%;padding:11px 13px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:var(--transition)}
-.calc-input:focus{border-color:var(--royal-blue)}
-.calc-btn{width:100%;margin-top:16px;padding:14px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;cursor:pointer;transition:var(--transition)}
+.calc-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-top:24px}
+.calc-g{display:grid;gap:14px}
+@media(min-width:600px){.calc-g{grid-template-columns:1fr 1fr}}
+.calc-group{display:grid;gap:5px}
+.calc-lbl{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60)}
+.calc-inp{width:100%;padding:10px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:var(--transition)}
+.calc-inp:focus{border-color:var(--royal-blue)}
+.calc-btn{width:100%;margin-top:14px;padding:13px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer;transition:var(--transition)}
 .calc-btn:hover{background:#ffd044;transform:translateY(-1px)}
-.calc-results{display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:20px}
+.calc-results{display:none;margin-top:18px;border-top:1px solid var(--border);padding-top:18px}
 .calc-results.show{display:block}
-.result-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;border-bottom:1px solid var(--border)}
+.result-row{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid var(--border)}
 .result-row:last-child{border-bottom:none}
-.result-row.total{font-weight:700;font-size:16px;color:var(--warriors-gold)}
-.result-row.neg{color:var(--danger)}
+.result-row.total{font-weight:700;font-size:15px;color:var(--warriors-gold)}
 .result-row.annual{color:var(--success);font-weight:600}
-.assumptions{background:var(--white-10);border-radius:var(--radius);padding:14px;margin-top:14px;font-size:11px;color:var(--white-60);line-height:1.8}
+.result-row.neg{color:var(--danger)}
+.assumptions{background:var(--white-10);border-radius:var(--radius);padding:12px;margin-top:12px;font-size:11px;color:var(--white-60);line-height:1.8}
 /* STEP FORM */
-.step-indicators{display:flex;gap:0;margin-bottom:32px}
+/* Step indicators - no sticky CTA on form steps */
+.step-inds{display:flex;gap:0;margin-bottom:28px}
 .step-ind{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.step-ind::after{content:'';position:absolute;top:14px;left:calc(50% + 14px);right:calc(-50% + 14px);height:2px;background:var(--border)}
+.step-ind::after{content:'';position:absolute;top:13px;left:calc(50% + 13px);right:calc(-50% + 13px);height:2px;background:var(--border)}
 .step-ind:last-child::after{display:none}
-.step-circle{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--white-60);background:var(--deep-navy);position:relative;z-index:1;transition:var(--transition)}
+.step-circle{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--white-60);background:var(--deep-navy);position:relative;z-index:1;transition:var(--transition)}
 .step-circle.active{border-color:var(--warriors-gold);color:var(--warriors-gold);background:rgba(232,168,0,.1)}
 .step-circle.done{border-color:var(--success);background:var(--success);color:#fff}
 .step-name{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--white-60);margin-top:5px;text-align:center}
 .step-name.active{color:var(--warriors-gold)}
-/* FORM */
+/* Form steps */
 .form-step{display:none}.form-step.active{display:block}
-.form-group{margin-bottom:15px}
-.form-label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:6px}
-.form-control{width:100%;padding:12px 14px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:var(--transition);-webkit-appearance:none}
-.form-control:focus{border-color:var(--royal-blue);background:rgba(11,47,160,.15);box-shadow:0 0 0 3px rgba(11,47,160,.1)}
-.form-control::placeholder{color:var(--white-60)}
-select.form-control option{background:var(--deep-navy)}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-section-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--warriors-gold);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
-/* CHECKBOXES */
-.vehicle-checks{display:flex;gap:10px;flex-wrap:wrap}
-.vcheck{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--white-10);border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition);font-size:13px;font-weight:600}
-.vcheck input{accent-color:var(--warriors-gold)}
-.vcheck:hover{border-color:var(--white-20)}
-/* PLAN RADIO */
-.plan-radios{display:grid;gap:10px}
-.plan-radio{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white-10);border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition)}
+/* Form */
+.fg{margin-bottom:13px}
+.fl{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:5px}
+.fc{width:100%;padding:11px 13px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:var(--transition);-webkit-appearance:none}
+.fc:focus{border-color:var(--royal-blue);background:rgba(11,47,160,.1)}
+.fc::placeholder{color:var(--white-60)}
+select.fc option{background:var(--deep-navy)}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sec-title-sm{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--warriors-gold);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+/* Plan radios */
+.plan-radios{display:grid;gap:9px}
+.plan-radio{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white-10);border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition)}
 .plan-radio:hover{border-color:var(--white-20)}
 .plan-radio input{accent-color:var(--warriors-gold);width:16px;height:16px}
-.plan-radio-name{font-weight:700;font-size:14px}
+.plan-radio-name{font-weight:700;font-size:13px}
 .plan-radio-detail{font-size:11px;color:var(--white-60)}
+/* Vehicle checks */
+.vcheck-g{display:flex;gap:9px;flex-wrap:wrap}
+.vcheck{display:flex;align-items:center;gap:7px;padding:9px 13px;background:var(--white-10);border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
+.vcheck input{accent-color:var(--warriors-gold)}
 /* UPLOAD */
-.upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:var(--transition);margin-bottom:10px}
-.upload-area:hover{border-color:var(--warriors-gold);background:var(--gold-dim)}
-.upload-icon{font-size:28px;display:block;margin-bottom:6px}
-.upload-text{font-size:12px;color:var(--white-60)}
-/* CONSENT */
-.consent-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
-.consent-item:last-child{border-bottom:none}
-.consent-item input{width:18px;height:18px;flex-shrink:0;margin-top:1px;accent-color:var(--warriors-gold)}
-.consent-text{font-size:13px;color:var(--white-80);line-height:1.5}
-.consent-text a{color:var(--warriors-gold)}
-/* FORM NAVIGATION */
-.form-nav{display:flex;gap:10px;margin-top:24px}
-.btn-prev{padding:13px 20px;background:var(--white-10);border:1px solid var(--border);color:var(--white-80);border-radius:var(--radius);font-weight:600;font-size:14px;cursor:pointer;transition:var(--transition)}
-.btn-prev:hover{background:var(--white-10)}
-.btn-next{flex:1;padding:13px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;cursor:pointer;transition:var(--transition)}
-.btn-next:hover{background:#ffd044;transform:translateY(-1px)}
-/* REVIEW SUMMARY */
-.review-card{background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.review-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:10px}
-.review-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--border)}
+.up-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:var(--transition);margin-bottom:9px;position:relative}
+.up-zone:hover,.up-zone.dv{border-color:var(--warriors-gold);background:var(--gold-dim)}
+.up-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.up-icon{font-size:22px;margin-bottom:5px;display:block}
+.up-txt{font-size:11px;color:var(--white-60)}
+.up-methods{display:flex;gap:6px;margin-top:8px;justify-content:center;flex-wrap:wrap}
+.up-m{padding:4px 11px;background:var(--white-10);border:1px solid var(--border);border-radius:100px;font-size:10px;font-weight:600;color:var(--white-80);cursor:pointer;transition:var(--transition)}
+.up-m:hover{background:var(--white-20)}
+.up-m.cloud{color:var(--info,#3B82F6);border-color:rgba(59,130,246,.3)}
+/* REVIEW */
+.review-c{background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.review-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:8px}
+.review-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
 .review-row:last-child{border-bottom:none}
 .review-key{color:var(--white-60)}
+/* CONSENT */
+.consent-it{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.consent-it:last-child{border-bottom:none}
+.consent-it input{width:17px;height:17px;flex-shrink:0;margin-top:1px;accent-color:var(--warriors-gold)}
+.consent-txt{font-size:12px;color:var(--white-80);line-height:1.5}
+.consent-txt a{color:var(--warriors-gold)}
+/* FORM NAVIGATION */
+.form-nav{display:flex;gap:10px;margin-top:22px}
+.btn-prev{padding:12px 18px;background:var(--white-10);border:1px solid var(--border);color:var(--white-80);border-radius:var(--radius);font-weight:600;font-size:13px;cursor:pointer;transition:var(--transition)}
+.btn-prev:hover{background:var(--white-20)}
+.btn-next{flex:1;padding:12px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;cursor:pointer;transition:var(--transition)}
+.btn-next:hover{background:#ffd044;transform:translateY(-1px)}
 /* SUCCESS */
-.success-screen{text-align:center;padding:40px 20px;display:none}
-.success-icon{font-size:64px;display:block;margin-bottom:16px;animation:bounceIn .5s ease}
+.success-screen{text-align:center;padding:36px 16px;display:none;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.success-icon{font-size:56px;display:block;margin-bottom:14px;animation:bounceIn .5s ease}
 @keyframes bounceIn{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
-.success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;margin-bottom:8px}
-.app-ref{font-family:monospace;font-size:20px;font-weight:700;color:var(--warriors-gold);background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:var(--radius);padding:10px 24px;display:inline-block;letter-spacing:2px;margin:12px 0}
-.next-steps{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:20px}
-.next-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;margin-bottom:8px}
+.app-ref{font-family:monospace;font-size:18px;font-weight:700;color:var(--warriors-gold);background:var(--gold-dim);border:1px solid rgba(232,168,0,.3);border-radius:var(--radius);padding:9px 22px;display:inline-block;letter-spacing:2px;margin:10px 0}
+.next-step{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);text-align:left}
 .next-step:last-child{border-bottom:none}
-.ns-num{width:24px;height:24px;border-radius:50%;background:var(--royal-blue);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;flex-shrink:0}
-.ns-text{font-size:13px;color:var(--white-80);line-height:1.5}
+.ns-num{width:22px;height:22px;border-radius:50%;background:var(--royal-blue);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0}
 /* TOAST */
-.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(8,26,92,.95);border:1px solid var(--border);border-radius:var(--radius);padding:11px 18px;font-size:12px;font-weight:600;z-index:200;opacity:0;transition:all .3s ease;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.success{border-color:rgba(34,197,94,.3)}.toast.info{border-color:rgba(232,168,0,.3)}
-/* MOBILE STICKY */
-.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:12px 1rem;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px)}
+.toast.success{border-color:rgba(34,197,94,.3)}
+/* Mobile sticky — ONLY shown on hero/plans section, HIDDEN during form */
+.mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:12px 1rem;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px);transition:transform .3s ease}
+.mobile-sticky.hidden{transform:translateY(100%)}
+@media(max-width:600px){.fg2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <div class="toast" id="toast"></div>
 
 <!-- NAV -->
@@ -164,330 +169,330 @@ select.form-control option{background:var(--deep-navy)}
   <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
   <div class="nav-right">
     <a href="/pages/operator.html" class="nav-btn ghost">Operator Login</a>
-    <a href="/#apply" class="nav-btn gold">Apply Now</a>
+    <a href="#apply" class="nav-btn gold" id="navApplyBtn" onclick="scrollToApply()">Apply Now</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-tag">🤝 For Bus Operators</div>
-  <h1 class="hero-title">Grow Your Bus Business.<br><span>Join Raylane Express.</span></h1>
-  <p class="hero-sub">Uganda's most powerful bus management platform. Go from application to your first live trip in 48 hours. Zero setup cost on the Starter plan.</p>
-  <div class="hero-btns">
-    <a href="#apply" class="btn-hero-gold" onclick="scrollToApply()">🚀 Apply Now — Free</a>
-    <a href="#calculator" class="btn-hero-ghost" onclick="scrollToCalc()">Calculate My Earnings</a>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">UGX 850M+</div><div class="stat-lbl">Monthly GMV</div></div>
-    <div class="stat-item"><div class="stat-num">150+</div><div class="stat-lbl">Active Operators</div></div>
-    <div class="stat-item"><div class="stat-num">500K+</div><div class="stat-lbl">Bookings Processed</div></div>
-    <div class="stat-item"><div class="stat-num">48 Hours</div><div class="stat-lbl">To Go Live</div></div>
-  </div>
-</div>
-
-<!-- PLANS -->
-<section>
-  <div class="section-label">Pricing</div>
-  <h2 class="section-title">Choose Your Plan</h2>
-  <p style="font-size:14px;color:var(--white-60);line-height:1.7">All plans include: Seat Booking, Parcel Booking, Seat Map Manager, Booking Notifications, Weekly Payout Settlement. Upgrade anytime as your business grows.</p>
-  <div class="plans-grid">
-    <!-- Starter -->
-    <div class="plan-card">
-      <div class="plan-name">Starter</div>
-      <div class="plan-price">Free <span>/month</span></div>
-      <div class="plan-commission">8% commission on bookings</div>
-      <ul class="plan-features">
-        <li>Seat Booking</li>
-        <li>Parcel Booking</li>
-        <li>Seat Map Manager</li>
-        <li>Booking Notifications via SMS</li>
-        <li>Weekly Payout Settlement</li>
-      </ul>
-      <button class="plan-cta ghost" onclick="selectPlanAndApply('starter')">Get Started Free</button>
-    </div>
-    <!-- Standard -->
-    <div class="plan-card">
-      <div class="plan-name">Standard</div>
-      <div class="plan-price">200,000 <span>UGX/mo</span></div>
-      <div class="plan-commission">8% commission on bookings</div>
-      <ul class="plan-features">
-        <li>Everything in Starter</li>
-        <li>Payments Tracking</li>
-        <li>Cost Centre</li>
-        <li>Vendor Management</li>
-        <li>Subscriptions Tracker</li>
-        <li>Invoice Management</li>
-      </ul>
-      <button class="plan-cta ghost" onclick="selectPlanAndApply('standard')">Choose Standard</button>
-    </div>
-    <!-- Professional -->
-    <div class="plan-card popular">
-      <div class="popular-badge">⭐ Most Popular</div>
-      <div class="plan-name">Professional</div>
-      <div class="plan-price">450,000 <span>UGX/mo</span></div>
-      <div class="plan-commission">6% commission — reduced rate</div>
-      <ul class="plan-features">
-        <li>Everything in Standard</li>
-        <li>Driver Management (NID tracking)</li>
-        <li>Fleet Management + compliance alerts</li>
-        <li>Full P&amp;L Financial Statements</li>
-        <li>Fuel Log</li>
-        <li>Insurance Tracker per Vehicle</li>
-        <li>Company Branding &amp; Colours</li>
-      </ul>
-      <button class="plan-cta" onclick="selectPlanAndApply('professional')">Choose Professional</button>
-    </div>
-    <!-- Enterprise -->
-    <div class="plan-card">
-      <div class="plan-name">Enterprise</div>
-      <div class="plan-price">900,000 <span>UGX/mo</span></div>
-      <div class="plan-commission">5% commission — lowest rate</div>
-      <ul class="plan-features">
-        <li>Everything in Professional</li>
-        <li>Staff &amp; HR with payroll</li>
-        <li>Motor Third-Party Insurance Portal</li>
-        <li>Analytics + Load Factors</li>
-        <li>QuickBooks IIF Export</li>
-        <li>API Webhooks</li>
-        <li>Dedicated Account Manager</li>
-      </ul>
-      <button class="plan-cta ghost" onclick="selectPlanAndApply('enterprise')">Choose Enterprise</button>
+<div class="page">
+  <div class="hero-sec">
+    <div class="hero-tag">🤝 For Bus Operators</div>
+    <h1 class="hero-title">Grow Your Bus Business.<br><span>Join Raylane Express.</span></h1>
+    <p class="hero-sub">Uganda's most powerful bus management platform. Go from application to your first live trip in 48 hours. Zero setup cost on the Starter plan.</p>
+    <div class="hero-btns">
+      <a href="#apply" class="btn-hero" onclick="scrollToApply()">🚀 Apply Now — Free</a>
+      <a href="#calculator" class="btn-hero ghost" onclick="scrollToCalc()">Calculate Earnings</a>
     </div>
   </div>
-</section>
 
-<!-- CALCULATOR -->
-<section id="calculator" style="padding-top:0">
-  <div class="section-label">Revenue Calculator</div>
-  <h2 class="section-title">Calculate My Earnings</h2>
-  <div class="calculator">
-    <div class="calc-grid">
-      <div class="calc-group"><label class="calc-label">Number of Vehicles</label><input type="number" class="calc-input" id="calcVehicles" value="3" min="1" max="50"></div>
-      <div class="calc-group"><label class="calc-label">Trips per Vehicle per Day</label><input type="number" class="calc-input" id="calcTrips" value="2" min="1" max="10"></div>
-      <div class="calc-group"><label class="calc-label">Average Seats Sold per Trip</label><input type="number" class="calc-input" id="calcSeats" value="40" min="1" max="67"></div>
-      <div class="calc-group"><label class="calc-label">Average Ticket Price (UGX)</label><input type="number" class="calc-input" id="calcPrice" value="25000" min="5000"></div>
-    </div>
-    <div class="form-group" style="margin-top:14px">
-      <label class="calc-label">Subscription Plan</label>
-      <select class="calc-input" id="calcPlan">
-        <option value="0.08">Starter / Standard — 8% commission</option>
-        <option value="0.06" selected>Professional — 6% commission</option>
-        <option value="0.05">Enterprise — 5% commission</option>
-      </select>
-    </div>
-    <button class="calc-btn" onclick="calculateEarnings()">📊 Calculate My Earnings</button>
-    <div class="calc-results" id="calcResults">
-      <div class="result-row"><span>Monthly Gross Revenue</span><strong id="r-gross">—</strong></div>
-      <div class="result-row neg"><span>Commission Deducted</span><strong id="r-commission">—</strong></div>
-      <div class="result-row total"><span>Monthly Net Earnings</span><strong id="r-net">—</strong></div>
-      <div class="result-row annual"><span>Estimated Annual Earnings</span><strong id="r-annual">—</strong></div>
-      <div class="assumptions" id="r-assumptions"></div>
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-g">
+      <div class="stat-it"><div class="stat-n">UGX 850M+</div><div class="stat-l">Monthly GMV</div></div>
+      <div class="stat-it"><div class="stat-n">150+</div><div class="stat-l">Active Operators</div></div>
+      <div class="stat-it"><div class="stat-n">500K+</div><div class="stat-l">Bookings</div></div>
+      <div class="stat-it"><div class="stat-n">48 Hours</div><div class="stat-l">To Go Live</div></div>
     </div>
   </div>
-</section>
 
-<!-- APPLICATION FORM -->
-<section id="apply">
-  <div class="section-label">Apply Now</div>
-  <h2 class="section-title">Start Your Application</h2>
-  <p style="font-size:14px;color:var(--white-60);margin-bottom:28px;line-height:1.7">Three quick steps. You'll hear from our onboarding team within 24 hours. Your first trip can be live in 48 hours.</p>
-
-  <!-- Step indicators -->
-  <div class="step-indicators">
-    <div class="step-ind"><div class="step-circle active" id="sc1">1</div><div class="step-name active" id="sn1">Business Info</div></div>
-    <div class="step-ind"><div class="step-circle" id="sc2">2</div><div class="step-name" id="sn2">Fleet &amp; Plan</div></div>
-    <div class="step-ind"><div class="step-circle" id="sc3">3</div><div class="step-name" id="sn3">Review &amp; Submit</div></div>
-  </div>
-
-  <div id="applicationForm">
-    <!-- STEP 1 -->
-    <div class="form-step active" id="step1">
-      <div class="form-section-title">🏢 Business Information</div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Company Name <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="companyName" placeholder="Global Coaches Uganda Ltd"></div>
-        <div class="form-group"><label class="form-label">Contact Phone <span style="color:var(--danger)">*</span></label><input type="tel" class="form-control" id="contactPhone" placeholder="0771 000 000"></div>
+  <!-- PLANS -->
+  <div class="section">
+    <div class="sec-label">Pricing</div>
+    <h2 class="sec-title">Choose Your Plan</h2>
+    <p style="font-size:13px;color:var(--white-60);line-height:1.7">All plans include seat booking, parcel booking, seat map manager, booking notifications, and weekly payout settlement.</p>
+    <div class="plans-g">
+      <div class="plan-c">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">Free <span>/month</span></div>
+        <div class="plan-comm">8% commission</div>
+        <ul class="plan-features"><li>Seat Booking</li><li>Parcel Booking</li><li>Seat Map Manager</li><li>Booking Notifications</li><li>Weekly Payout Settlement</li></ul>
+        <button class="plan-cta ghost" onclick="selectPlanAndApply('starter')">Get Started Free</button>
       </div>
-      <div class="form-group"><label class="form-label">Contact Email <span style="color:var(--danger)">*</span></label><input type="email" class="form-control" id="contactEmail" placeholder="operations@globalcoaches.co.ug"></div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">URA TIN <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="uraTin" placeholder="1000123456"></div>
-        <div class="form-group"><label class="form-label">PSV Licence Number <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="psvLicence" placeholder="PSV/2024/001234"></div>
+      <div class="plan-c">
+        <div class="plan-name">Standard</div>
+        <div class="plan-price">200,000 <span>UGX/mo</span></div>
+        <div class="plan-comm">8% commission</div>
+        <ul class="plan-features"><li>Everything in Starter</li><li>Payments Tracking</li><li>Cost Centre</li><li>Vendor Management</li><li>Subscriptions Tracker</li><li>Invoice Management</li></ul>
+        <button class="plan-cta ghost" onclick="selectPlanAndApply('standard')">Choose Standard</button>
       </div>
-      <div class="form-group"><label class="form-label">Physical Address</label><input type="text" class="form-control" placeholder="Plot 45, Kampala Road, Kampala"></div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">How Did You Hear About Us?</label><select class="form-control"><option>Social Media</option><option>Referred by Operator</option><option>Google Search</option><option>Radio/TV</option><option>Newspaper</option><option>Friend/Colleague</option><option>Other</option></select></div>
-        <div class="form-group"><label class="form-label">Referral Code (optional)</label><input type="text" class="form-control" placeholder="e.g. REF-YY001"></div>
+      <div class="plan-c popular">
+        <div class="popular-badge">⭐ Most Popular</div>
+        <div class="plan-name">Professional</div>
+        <div class="plan-price">450,000 <span>UGX/mo</span></div>
+        <div class="plan-comm">6% commission — reduced</div>
+        <ul class="plan-features"><li>Everything in Standard</li><li>Driver Management + NID</li><li>Fleet Management + compliance</li><li>Full P&L Financial Statements</li><li>Fuel Log</li><li>Insurance Tracker</li><li>Company Branding</li></ul>
+        <button class="plan-cta" onclick="selectPlanAndApply('professional')">Choose Professional</button>
       </div>
-      <div class="form-nav">
-        <button class="btn-next" onclick="goStep(2)">Next: Fleet &amp; Plan →</button>
+      <div class="plan-c">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">900,000 <span>UGX/mo</span></div>
+        <div class="plan-comm">5% commission — lowest</div>
+        <ul class="plan-features"><li>Everything in Professional</li><li>Staff &amp; HR + payroll</li><li>Motor Third-Party Insurance</li><li>Analytics + Load Factors</li><li>QuickBooks IIF Export</li><li>API Webhooks</li><li>Dedicated Account Manager</li></ul>
+        <button class="plan-cta ghost" onclick="selectPlanAndApply('enterprise')">Choose Enterprise</button>
       </div>
     </div>
+  </div>
 
-    <!-- STEP 2 -->
-    <div class="form-step" id="step2">
-      <div class="form-section-title">🚌 Fleet Information</div>
-      <div class="form-grid-2">
-        <div class="form-group"><label class="form-label">Number of Vehicles <span style="color:var(--danger)">*</span></label><input type="number" class="form-control" id="numVehicles" placeholder="5" min="1"></div>
-        <div class="form-group"><label class="form-label">Main Routes Operated</label><input type="text" class="form-control" placeholder="e.g. Kampala–Mbarara, Kampala–Gulu"></div>
+  <!-- CALCULATOR -->
+  <div class="section" id="calculator">
+    <div class="sec-label">Revenue Calculator</div>
+    <h2 class="sec-title">Calculate My Earnings</h2>
+    <div class="calc-box">
+      <div class="calc-g">
+        <div class="calc-group"><label class="calc-lbl">Number of Vehicles</label><input type="number" class="calc-inp" id="calcV" value="3" min="1" max="50"></div>
+        <div class="calc-group"><label class="calc-lbl">Trips per Vehicle per Day</label><input type="number" class="calc-inp" id="calcT" value="2" min="1" max="10"></div>
+        <div class="calc-group"><label class="calc-lbl">Average Seats Sold per Trip</label><input type="number" class="calc-inp" id="calcS" value="40" min="1" max="67"></div>
+        <div class="calc-group"><label class="calc-lbl">Average Ticket Price (UGX)</label><input type="number" class="calc-inp" id="calcP" value="25000" min="5000"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Vehicle Types (select all that apply)</label>
-        <div class="vehicle-checks">
-          <label class="vcheck"><input type="checkbox" checked> 🚌 67-Seater Coach</label>
-          <label class="vcheck"><input type="checkbox"> 🚐 14-Seater Minivan</label>
+      <div class="calc-group" style="margin-top:12px"><label class="calc-lbl">Subscription Plan</label>
+        <select class="calc-inp" id="calcPlan">
+          <option value="0.08">Starter / Standard — 8% commission</option>
+          <option value="0.06" selected>Professional — 6% commission</option>
+          <option value="0.05">Enterprise — 5% commission</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calculateEarnings()">📊 Calculate My Earnings</button>
+      <div class="calc-results" id="calcResults">
+        <div class="result-row"><span>Monthly Gross Revenue</span><strong id="r-gross">—</strong></div>
+        <div class="result-row neg"><span>Commission Deducted</span><strong id="r-comm">—</strong></div>
+        <div class="result-row total"><span>Monthly Net Earnings</span><strong id="r-net">—</strong></div>
+        <div class="result-row annual"><span>Estimated Annual Earnings</span><strong id="r-annual">—</strong></div>
+        <div class="assumptions" id="r-assumptions"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION FORM -->
+  <div class="section" id="apply">
+    <div class="sec-label">Apply Now</div>
+    <h2 class="sec-title">Start Your Application</h2>
+    <p style="font-size:13px;color:var(--white-60);margin-bottom:24px;line-height:1.7">Three quick steps. You'll hear from our onboarding team within 24 hours. Your first trip can be live in 48 hours.</p>
+
+    <!-- Step indicators -->
+    <div class="step-inds">
+      <div class="step-ind"><div class="step-circle active" id="sc1">1</div><div class="step-name active" id="sn1">Business Info</div></div>
+      <div class="step-ind"><div class="step-circle" id="sc2">2</div><div class="step-name" id="sn2">Fleet &amp; Plan</div></div>
+      <div class="step-ind"><div class="step-circle" id="sc3">3</div><div class="step-name" id="sn3">Review &amp; Submit</div></div>
+    </div>
+
+    <div id="applicationForm">
+      <!-- ── STEP 1 ── -->
+      <div class="form-step active" id="step1">
+        <div class="sec-title-sm">🏢 Business Information</div>
+        <div class="fg2">
+          <div class="fg"><label class="fl">Company Name <span style="color:var(--danger)">*</span></label><input type="text" class="fc" id="companyName" placeholder="Global Coaches Uganda Ltd"></div>
+          <div class="fg"><label class="fl">Contact Phone <span style="color:var(--danger)">*</span></label><input type="tel" class="fc" id="contactPhone" placeholder="0771 000 000"></div>
+        </div>
+        <div class="fg"><label class="fl">Contact Email <span style="color:var(--danger)">*</span></label><input type="email" class="fc" id="contactEmail" placeholder="operations@globalcoaches.co.ug"></div>
+        <div class="fg2">
+          <div class="fg"><label class="fl">URA TIN <span style="color:var(--danger)">*</span></label><input type="text" class="fc" id="uraTin" placeholder="1000123456"></div>
+          <div class="fg"><label class="fl">PSV Licence Number <span style="color:var(--danger)">*</span></label><input type="text" class="fc" id="psvLicence" placeholder="PSV/2024/001234"></div>
+        </div>
+        <div class="fg"><label class="fl">Physical Address</label><input type="text" class="fc" placeholder="Plot 45, Kampala Road, Kampala"></div>
+        <div class="fg2">
+          <div class="fg"><label class="fl">How Did You Hear About Us?</label><select class="fc"><option>Social Media</option><option>Referred by Operator</option><option>Google Search</option><option>Radio/TV</option><option>Friend/Colleague</option><option>Other</option></select></div>
+          <div class="fg"><label class="fl">Referral Code (optional)</label><input type="text" class="fc" placeholder="REF-YY001"></div>
+        </div>
+        <!-- Step 1 navigation — Next only -->
+        <div class="form-nav">
+          <button class="btn-next" onclick="goStep(2)">Next: Fleet &amp; Plan →</button>
         </div>
       </div>
-      <div class="form-group"><label class="form-label">MTN MoMo Merchant Code for Payouts <span style="color:var(--danger)">*</span></label><input type="text" class="form-control" id="momoCode" placeholder="e.g. GCL-8829012"></div>
 
-      <div class="form-section-title">📋 Select Your Plan</div>
-      <div class="plan-radios">
-        <label class="plan-radio"><input type="radio" name="plan" value="starter"> <div><div class="plan-radio-name">Starter — Free</div><div class="plan-radio-detail">8% commission · Basic seat booking + parcel</div></div></label>
-        <label class="plan-radio"><input type="radio" name="plan" value="standard"> <div><div class="plan-radio-name">Standard — UGX 200,000/month</div><div class="plan-radio-detail">8% commission · Adds payments tracking, cost centre, vendors</div></div></label>
-        <label class="plan-radio" id="planProfessional"><input type="radio" name="plan" value="professional" checked> <div><div class="plan-radio-name">Professional — UGX 450,000/month ⭐</div><div class="plan-radio-detail">6% commission · Fleet, drivers, financials, branding</div></div></label>
-        <label class="plan-radio"><input type="radio" name="plan" value="enterprise"> <div><div class="plan-radio-name">Enterprise — UGX 900,000/month</div><div class="plan-radio-detail">5% commission · Staff/HR, analytics, QuickBooks export, API</div></div></label>
+      <!-- ── STEP 2 ── -->
+      <div class="form-step" id="step2">
+        <div class="sec-title-sm">🚌 Fleet Information</div>
+        <div class="fg2">
+          <div class="fg"><label class="fl">Number of Vehicles <span style="color:var(--danger)">*</span></label><input type="number" class="fc" id="numVehicles" placeholder="5" min="1"></div>
+          <div class="fg"><label class="fl">Main Routes Operated</label><input type="text" class="fc" placeholder="Kampala–Mbarara, Kampala–Gulu"></div>
+        </div>
+        <div class="fg">
+          <label class="fl">Vehicle Types</label>
+          <div class="vcheck-g">
+            <label class="vcheck"><input type="checkbox" checked> 🚌 67-Seater Coach</label>
+            <label class="vcheck"><input type="checkbox"> 🚐 14-Seater Minivan</label>
+          </div>
+        </div>
+        <div class="fg"><label class="fl">MTN MoMo Merchant Code <span style="color:var(--danger)">*</span></label><input type="text" class="fc" id="momoCode" placeholder="GCL-8829012"></div>
+
+        <div class="sec-title-sm">📋 Select Your Plan</div>
+        <div class="plan-radios">
+          <label class="plan-radio"><input type="radio" name="plan" value="starter"> <div><div class="plan-radio-name">Starter — Free</div><div class="plan-radio-detail">8% commission · Seat booking + parcel</div></div></label>
+          <label class="plan-radio"><input type="radio" name="plan" value="standard"> <div><div class="plan-radio-name">Standard — UGX 200,000/month</div><div class="plan-radio-detail">8% commission · Adds payments tracking, cost centre, vendors</div></div></label>
+          <label class="plan-radio" id="planPro"><input type="radio" name="plan" value="professional" checked> <div><div class="plan-radio-name">Professional — UGX 450,000/month ⭐</div><div class="plan-radio-detail">6% commission · Fleet, drivers, financials, branding</div></div></label>
+          <label class="plan-radio"><input type="radio" name="plan" value="enterprise"> <div><div class="plan-radio-name">Enterprise — UGX 900,000/month</div><div class="plan-radio-detail">5% commission · HR, analytics, QuickBooks, API webhooks</div></div></label>
+        </div>
+        <!-- Step 2 navigation — Back + Next -->
+        <div class="form-nav">
+          <button class="btn-prev" onclick="goStep(1)">← Back</button>
+          <button class="btn-next" onclick="goStep(3)">Next: Review &amp; Submit →</button>
+        </div>
       </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(1)">← Back</button>
-        <button class="btn-next" onclick="goStep(3)">Next: Review &amp; Submit →</button>
+
+      <!-- ── STEP 3 ── -->
+      <div class="form-step" id="step3">
+        <div class="sec-title-sm">📋 Review Your Application</div>
+        <div class="review-c">
+          <div class="review-lbl">Business Details</div>
+          <div class="review-row"><span class="review-key">Company</span><span id="rv-company">—</span></div>
+          <div class="review-row"><span class="review-key">Phone</span><span id="rv-phone">—</span></div>
+          <div class="review-row"><span class="review-key">Email</span><span id="rv-email">—</span></div>
+          <div class="review-row"><span class="review-key">URA TIN</span><span id="rv-tin">—</span></div>
+          <div class="review-row"><span class="review-key">PSV Licence</span><span id="rv-psv">—</span></div>
+        </div>
+        <div class="review-c">
+          <div class="review-lbl">Fleet &amp; Plan</div>
+          <div class="review-row"><span class="review-key">Vehicles</span><span id="rv-vehicles">—</span></div>
+          <div class="review-row"><span class="review-key">MoMo Merchant</span><span id="rv-momo">—</span></div>
+          <div class="review-row"><span class="review-key">Selected Plan</span><span id="rv-plan" style="color:var(--warriors-gold);font-weight:700">—</span></div>
+        </div>
+
+        <div class="sec-title-sm">📁 Upload Documents</div>
+        <div class="up-zone">
+          <input type="file" accept=".pdf,.jpg,.png" onchange="handleUpload(this,'Business Registration Certificate')">
+          <span class="up-icon">📜</span><div class="up-txt">Business Registration Certificate<br><small>PDF, JPG or PNG · Max 10MB</small></div>
+          <div class="up-methods">
+            <div class="up-m" onclick="showToast('📱 Opening device file picker...','info')">📱 Device</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Google Drive OAuth — production ready','info')">☁️ Google Drive</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Dropbox OAuth — production ready','info')">☁️ Dropbox</div>
+          </div>
+        </div>
+        <div class="up-zone">
+          <input type="file" accept=".pdf,.jpg,.png" onchange="handleUpload(this,'PSV Operator Licence')">
+          <span class="up-icon">🚌</span><div class="up-txt">PSV Operator Licence<br><small>PDF, JPG or PNG · Max 10MB</small></div>
+          <div class="up-methods">
+            <div class="up-m" onclick="showToast('📱 Opening device file picker...','info')">📱 Device</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Google Drive OAuth — production ready','info')">☁️ Google Drive</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Dropbox OAuth — production ready','info')">☁️ Dropbox</div>
+          </div>
+        </div>
+        <div class="up-zone">
+          <input type="file" accept=".pdf,.jpg,.png" onchange="handleUpload(this,'Fleet Insurance Certificate')">
+          <span class="up-icon">🛡️</span><div class="up-txt">Fleet Insurance Certificate(s)<br><small>PDF, JPG or PNG · Max 10MB</small></div>
+          <div class="up-methods">
+            <div class="up-m" onclick="showToast('📱 Opening device file picker...','info')">📱 Device</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Google Drive OAuth — production ready','info')">☁️ Google Drive</div>
+            <div class="up-m cloud" onclick="showToast('☁️ Dropbox OAuth — production ready','info')">☁️ Dropbox</div>
+          </div>
+        </div>
+
+        <div class="sec-title-sm">✅ Consent &amp; Agreement</div>
+        <div>
+          <div class="consent-it"><input type="checkbox" id="c1"><label for="c1" class="consent-txt">I have read and agree to the <a href="/pages/terms.html">Raylane Express Terms of Service</a> and Operator Agreement</label></div>
+          <div class="consent-it"><input type="checkbox" id="c2"><label for="c2" class="consent-txt">I accept the commission structure: Starter/Standard 8%, Professional 6%, Enterprise 5%</label></div>
+          <div class="consent-it"><input type="checkbox" id="c3"><label for="c3" class="consent-txt">I consent to data processing under <a href="/pages/privacy.html">Raylane Express Privacy Policy</a> and Uganda's Data Protection Act 2019</label></div>
+        </div>
+
+        <div style="margin-top:14px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);padding:13px">
+          <label class="fl">Digital Signature</label>
+          <input type="text" class="fc" placeholder="Type your full name to digitally sign this application">
+        </div>
+
+        <!-- Step 3 navigation — Back + Submit (no "Apply Now Free" here) -->
+        <div class="form-nav">
+          <button class="btn-prev" onclick="goStep(2)">← Back</button>
+          <button class="btn-next" style="background:var(--success)" onclick="submitApplication()">🚀 Submit Application</button>
+        </div>
       </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div class="form-step" id="step3">
-      <div class="form-section-title">📋 Review Your Application</div>
-      <div class="review-card">
-        <div class="review-label">Business Details</div>
-        <div class="review-row"><span class="review-key">Company</span><span id="rv-company">—</span></div>
-        <div class="review-row"><span class="review-key">Phone</span><span id="rv-phone">—</span></div>
-        <div class="review-row"><span class="review-key">Email</span><span id="rv-email">—</span></div>
-        <div class="review-row"><span class="review-key">URA TIN</span><span id="rv-tin">—</span></div>
-        <div class="review-row"><span class="review-key">PSV Licence</span><span id="rv-psv">—</span></div>
+    <!-- SUCCESS SCREEN -->
+    <div class="success-screen" id="successScreen">
+      <span class="success-icon">🎉</span>
+      <div class="success-title">Application Submitted!</div>
+      <p style="color:var(--white-60);margin-bottom:8px">Your application reference:</p>
+      <div class="app-ref" id="appRef">APP-000000</div>
+      <p style="font-size:12px;color:var(--white-60);margin-bottom:20px">Our team will call you within 24 hours.</p>
+      <div style="background:rgba(8,26,92,.5);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:18px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:9px">What Happens Next</div>
+        <div class="next-step"><div class="ns-num">1</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">Onboarding team reviews your PSV licence, TIN, and insurance within 24 hours</div></div>
+        <div class="next-step"><div class="ns-num">2</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">A Raylane team member calls you to verify details</div></div>
+        <div class="next-step"><div class="ns-num">3</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">Dashboard credentials sent to your phone via SMS once approved</div></div>
+        <div class="next-step"><div class="ns-num">4</div><div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.5">Submit your first trip — goes live after admin approval</div></div>
       </div>
-      <div class="review-card">
-        <div class="review-label">Fleet &amp; Plan</div>
-        <div class="review-row"><span class="review-key">Vehicles</span><span id="rv-vehicles">—</span></div>
-        <div class="review-row"><span class="review-key">MoMo Merchant</span><span id="rv-momo">—</span></div>
-        <div class="review-row"><span class="review-key">Selected Plan</span><span id="rv-plan" style="color:var(--warriors-gold);font-weight:700">—</span></div>
-      </div>
-
-      <div class="form-section-title">📁 Upload Documents</div>
-      <div class="upload-area" onclick="showToast('📁 File picker — functional in production','info')"><span class="upload-icon">📜</span><div class="upload-text">Business Registration Certificate<br><small>PDF, JPG or PNG · Max 10MB</small></div></div>
-      <div class="upload-area" onclick="showToast('📁 File picker — functional in production','info')"><span class="upload-icon">🚌</span><div class="upload-text">PSV Operator Licence<br><small>PDF, JPG or PNG · Max 10MB</small></div></div>
-      <div class="upload-area" onclick="showToast('📁 File picker — functional in production','info')"><span class="upload-icon">🛡️</span><div class="upload-text">Fleet Insurance Certificate(s)<br><small>PDF, JPG or PNG · Max 10MB</small></div></div>
-      <div class="upload-area" onclick="showToast('📁 File picker — functional in production','info')"><span class="upload-icon">📷</span><div class="upload-text">Vehicle Photos (exterior + interior)<br><small>JPG or PNG · Max 10MB each</small></div></div>
-
-      <div class="form-section-title">✅ Consent &amp; Agreement</div>
-      <div>
-        <div class="consent-item"><input type="checkbox" id="consent1"><label for="consent1" class="consent-text">I have read and agree to the <a href="/pages/terms.html">Raylane Express Terms of Service</a> and Operator Agreement</label></div>
-        <div class="consent-item"><input type="checkbox" id="consent2"><label for="consent2" class="consent-text">I understand and accept the commission structure: Starter/Standard 8%, Professional 6%, Enterprise 5% of gross booking value</label></div>
-        <div class="consent-item"><input type="checkbox" id="consent3"><label for="consent3" class="consent-text">I consent to Raylane Express processing my business and personal data in accordance with the <a href="/pages/privacy.html">Privacy Policy</a> and Uganda's Data Protection and Privacy Act 2019</label></div>
-      </div>
-
-      <div style="margin-top:16px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);padding:14px">
-        <div class="form-label">Digital Signature Confirmation</div>
-        <input type="text" class="form-control" placeholder="Type your full name to digitally sign this application">
-      </div>
-
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(2)">← Back</button>
-        <button class="btn-next" onclick="submitApplication()">🚀 Submit Application</button>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <a href="https://wa.me/256700000000" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:#25D366;color:#fff;border-radius:var(--radius);font-weight:700;text-decoration:none">💬 WhatsApp Follow-Up</a>
+        <a href="/" style="padding:11px 20px;background:var(--white-10);color:var(--white);border:1px solid var(--border);border-radius:var(--radius);font-weight:600;text-decoration:none">← Back to Home</a>
       </div>
     </div>
   </div>
+</div><!-- end .page -->
 
-  <!-- SUCCESS SCREEN -->
-  <div class="success-screen" id="successScreen">
-    <span class="success-icon">🎉</span>
-    <div class="success-title">Application Submitted!</div>
-    <p style="color:var(--white-60);margin-bottom:10px">Your application reference number:</p>
-    <div class="app-ref" id="appRef">APP-000000</div>
-    <p style="font-size:13px;color:var(--white-60);margin-bottom:24px">Keep this reference number. Our team will call you within 24 hours.</p>
-    <div class="next-steps">
-      <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--warriors-gold);margin-bottom:10px">What Happens Next</div>
-      <div class="next-step"><div class="ns-num">1</div><div class="ns-text"><strong>Document Review</strong> — Our onboarding team reviews your PSV licence, TIN, and insurance within 24 hours</div></div>
-      <div class="next-step"><div class="ns-num">2</div><div class="ns-text"><strong>Onboarding Call</strong> — A Raylane team member calls you to verify details and answer questions</div></div>
-      <div class="next-step"><div class="ns-num">3</div><div class="ns-text"><strong>Credentials via SMS</strong> — Dashboard login sent to your phone number once approved</div></div>
-      <div class="next-step"><div class="ns-num">4</div><div class="ns-text"><strong>First Trip Submission</strong> — Log in, submit your first trip, and it goes live after admin approval</div></div>
-    </div>
-    <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/256700000000" target="_blank" style="padding:12px 20px;background:#25D366;color:#fff;border-radius:var(--radius);font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px">💬 WhatsApp Follow-Up</a>
-      <a href="/" style="padding:12px 20px;background:var(--white-10);color:var(--white);border:1px solid var(--border);border-radius:var(--radius);font-weight:600;text-decoration:none">← Back to Home</a>
-    </div>
-  </div>
-</section>
-
-<div class="mobile-sticky">
-  <a href="#apply" onclick="scrollToApply()" style="display:flex;align-items:center;justify-content:center;width:100%;padding:14px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-decoration:none">🚀 Apply Now — Free</a>
+<!-- MOBILE STICKY — only visible before form steps, hidden during application -->
+<div class="mobile-sticky" id="mobileSticky">
+  <a href="#apply" onclick="scrollToApply()" style="display:flex;align-items:center;justify-content:center;width:100%;padding:13px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;text-decoration:none">🚀 Apply Now — Free</a>
 </div>
 
 <script>
-function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
-function scrollToApply(){document.getElementById('apply').scrollIntoView({behavior:'smooth'})}
+function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3500)}
+function scrollToApply(){document.getElementById('apply').scrollIntoView({behavior:'smooth'});setTimeout(hideStickyIfOnForm,300)}
 function scrollToCalc(){document.getElementById('calculator').scrollIntoView({behavior:'smooth'})}
+
+// Hide mobile sticky when form is active
+let formActive=false;
+function hideStickyIfOnForm(){
+  if(formActive)document.getElementById('mobileSticky').classList.add('hidden');
+  else document.getElementById('mobileSticky').classList.remove('hidden');
+}
+
+// Observe apply section scroll
+const applyObs=new IntersectionObserver(entries=>{
+  const onForm=entries.some(e=>e.isIntersecting&&e.intersectionRatio>0.1);
+  if(onForm&&formActive)document.getElementById('mobileSticky').classList.add('hidden');
+  else if(!formActive)document.getElementById('mobileSticky').classList.remove('hidden');
+},{threshold:0.1});
+const applyEl=document.getElementById('apply');
+if(applyEl)applyObs.observe(applyEl);
 
 // Calculator
 function calculateEarnings(){
-  const v=parseInt(document.getElementById('calcVehicles').value)||1;
-  const t=parseInt(document.getElementById('calcTrips').value)||1;
-  const s=parseInt(document.getElementById('calcSeats').value)||40;
-  const p=parseInt(document.getElementById('calcPrice').value)||25000;
+  const v=parseInt(document.getElementById('calcV').value)||1;
+  const t=parseInt(document.getElementById('calcT').value)||1;
+  const s=parseInt(document.getElementById('calcS').value)||40;
+  const p=parseInt(document.getElementById('calcP').value)||25000;
   const rate=parseFloat(document.getElementById('calcPlan').value)||0.08;
-  const workingDays=26;
-  const gross=v*t*s*p*workingDays;
-  const commission=gross*rate;
-  const net=gross-commission;
-  const annual=net*12;
+  const days=26;
+  const gross=v*t*s*p*days;const comm=gross*rate;const net=gross-comm;const annual=net*12;
   document.getElementById('r-gross').textContent='UGX '+gross.toLocaleString();
-  document.getElementById('r-commission').textContent='- UGX '+Math.round(commission).toLocaleString()+' ('+Math.round(rate*100)+'%)';
+  document.getElementById('r-comm').textContent='- UGX '+Math.round(comm).toLocaleString()+' ('+Math.round(rate*100)+'%)';
   document.getElementById('r-net').textContent='UGX '+Math.round(net).toLocaleString();
   document.getElementById('r-annual').textContent='UGX '+Math.round(annual).toLocaleString();
-  document.getElementById('r-assumptions').innerHTML=`
-    <strong style="color:var(--white)">Calculation assumptions:</strong><br>
-    ${v} vehicle${v>1?'s':''} × ${t} trip${t>1?'s':''}/day × ${s} seats sold/trip × UGX ${p.toLocaleString()}/ticket<br>
-    ${workingDays} working days/month (excludes 4 Sundays and ~2 public holidays)<br>
-    Load factor: ${Math.round((s/55)*100)}% of 55-seat average capacity<br>
-    Commission rate: ${Math.round(rate*100)}% on gross booking value<br>
-    <em>Note: Parcel revenue and charter income not included — these represent additional upside.</em>
-  `;
+  document.getElementById('r-assumptions').innerHTML=`<strong style="color:var(--white)">Assumptions:</strong><br>${v} vehicle${v>1?'s':''} × ${t} trip${t>1?'s':''}/day × ${s} seats/trip × UGX ${p.toLocaleString()}/ticket × ${days} working days/month<br>Commission: ${Math.round(rate*100)}% · Parcel and charter revenue not included (additional upside)`;
   document.getElementById('calcResults').classList.add('show');
-  document.getElementById('calcResults').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 // Step navigation
 function goStep(n){
   if(n===2){
-    const company=document.getElementById('companyName').value.trim();
-    const phone=document.getElementById('contactPhone').value.trim();
-    const email=document.getElementById('contactEmail').value.trim();
-    const tin=document.getElementById('uraTin').value.trim();
-    const psv=document.getElementById('psvLicence').value.trim();
-    if(!company||!phone||!email||!tin||!psv){showToast('⚠️ Please fill in all required fields','info');return}
+    if(!document.getElementById('companyName').value.trim()||!document.getElementById('contactPhone').value.trim()||!document.getElementById('contactEmail').value.trim()||!document.getElementById('uraTin').value.trim()||!document.getElementById('psvLicence').value.trim()){
+      showToast('⚠️ Please fill in all required fields','info');return;
+    }
   }
   if(n===3){
-    const vehicles=document.getElementById('numVehicles').value.trim();
-    const momo=document.getElementById('momoCode').value.trim();
-    if(!vehicles||!momo){showToast('⚠️ Please fill in fleet details and MoMo code','info');return}
+    if(!document.getElementById('numVehicles').value.trim()||!document.getElementById('momoCode').value.trim()){
+      showToast('⚠️ Please fill in fleet details and MoMo code','info');return;
+    }
     // Populate review
     document.getElementById('rv-company').textContent=document.getElementById('companyName').value;
     document.getElementById('rv-phone').textContent=document.getElementById('contactPhone').value;
     document.getElementById('rv-email').textContent=document.getElementById('contactEmail').value;
     document.getElementById('rv-tin').textContent=document.getElementById('uraTin').value;
     document.getElementById('rv-psv').textContent=document.getElementById('psvLicence').value;
-    document.getElementById('rv-vehicles').textContent=vehicles+' vehicle(s)';
-    document.getElementById('rv-momo').textContent=momo;
-    const selectedPlan=document.querySelector('input[name="plan"]:checked');
-    const planNames={starter:'Starter — Free',standard:'Standard — UGX 200,000/mo',professional:'Professional — UGX 450,000/mo ⭐',enterprise:'Enterprise — UGX 900,000/mo'};
-    document.getElementById('rv-plan').textContent=selectedPlan?planNames[selectedPlan.value]||'—':'—';
+    document.getElementById('rv-vehicles').textContent=document.getElementById('numVehicles').value+' vehicle(s)';
+    document.getElementById('rv-momo').textContent=document.getElementById('momoCode').value;
+    const plans={starter:'Starter — Free',standard:'Standard — UGX 200,000/mo',professional:'Professional — UGX 450,000/mo ⭐',enterprise:'Enterprise — UGX 900,000/mo'};
+    const sel=document.querySelector('input[name="plan"]:checked');
+    document.getElementById('rv-plan').textContent=sel?plans[sel.value]||'—':'—';
   }
-  // Update indicators
+  // Mark form as active (steps 2 and 3) — hide sticky CTA
+  formActive=(n>=2);
+  hideStickyIfOnForm();
+  // Update step circles
   for(let i=1;i<=3;i++){
     const sc=document.getElementById('sc'+i);const sn=document.getElementById('sn'+i);
     sc.className='step-circle'+(i<n?' done':i===n?' active':'');
     sn.className='step-name'+(i===n?' active':'');
-    if(i<n)sc.textContent='✓';else sc.textContent=i;
+    sc.textContent=i<n?'✓':i;
     document.getElementById('step'+i).classList.remove('active');
   }
   document.getElementById('step'+n).classList.add('active');
@@ -495,25 +500,37 @@ function goStep(n){
 }
 
 function submitApplication(){
-  const consents=document.querySelectorAll('[id^="consent"]');
-  let allChecked=true;
-  consents.forEach(c=>{if(!c.checked)allChecked=false});
-  if(!allChecked){showToast('⚠️ Please agree to all terms before submitting','info');return}
+  const cs=document.querySelectorAll('[id^="c"]');
+  let ok=true;cs.forEach(c=>{if(!c.checked)ok=false});
+  if(!ok){showToast('⚠️ Please agree to all terms before submitting','info');return}
   const ref='APP-'+Math.floor(Math.random()*900000+100000);
   document.getElementById('appRef').textContent=ref;
   document.getElementById('applicationForm').style.display='none';
   document.getElementById('successScreen').style.display='block';
+  document.getElementById('mobileSticky').classList.add('hidden');
   document.getElementById('apply').scrollIntoView({behavior:'smooth'});
-  showToast('🎉 Application submitted successfully!','success');
+  showToast('🎉 Application submitted!','success');
 }
 
 function selectPlanAndApply(plan){
   scrollToApply();
   setTimeout(()=>{
-    const radio=document.querySelector('input[name="plan"][value="'+plan+'"]');
-    if(radio)radio.checked=true;
-  },500);
+    const r=document.querySelector('input[name="plan"][value="'+plan+'"]');
+    if(r)r.checked=true;
+  },600);
 }
+
+function handleUpload(input,docName){
+  const f=input.files[0];
+  if(f)showToast('✅ '+docName+': '+f.name+' ready to upload','success');
+}
+
+// Drag & drop
+document.querySelectorAll('.up-zone').forEach(z=>{
+  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dv')});
+  z.addEventListener('dragleave',()=>z.classList.remove('dv'));
+  z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('dv');const f=e.dataTransfer.files[0];if(f)showToast('✅ Dropped: '+f.name,'success')});
+});
 </script>
 </body>
 </html>
