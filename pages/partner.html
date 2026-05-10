@@ -159,6 +159,56 @@ select.fc option{background:var(--deep-navy)}
 .mobile-sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:12px 1rem;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px);transition:transform .3s ease}
 .mobile-sticky.hidden{transform:translateY(100%)}
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
+
+/* ── BOTTOM NAVIGATION ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.97);border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:stretch;z-index:100;padding-bottom:max(0px,env(safe-area-inset-bottom));backdrop-filter:blur(16px)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px 10px;text-decoration:none;color:rgba(255,255,255,.5);transition:all .2s ease;gap:3px;border:none;background:0;cursor:pointer}
+.bn-item.active{color:var(--warriors-gold,#E8A800)}
+.bn-item:active{transform:scale(.92)}
+.bn-icon{font-size:20px;line-height:1;display:block}
+.bn-label{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;line-height:1}
+body{padding-bottom:68px}
+@media(min-width:900px){.bottom-nav{display:none}body{padding-bottom:0}}
+/* Nav logo img fix */
+.nav-logo img,.logo-mark img{height:32px;width:auto;border-radius:7px;object-fit:contain;display:block;flex-shrink:0}
+
+/* Logo img mobile fix */
+nav img[alt="Raylane Express"], .nav-logo img, .tb img {
+  height:30px;width:auto;border-radius:7px;object-fit:contain;display:block;flex-shrink:0;
+}
+
+/* ── LOGO IMAGE GLOBAL FIX ── */
+.nav-logo img,
+.tb img[alt="Raylane Express"],
+a img[alt="Raylane Express"] {
+  height: 36px !important;
+  width: auto !important;
+  max-width: 120px !important;
+  object-fit: contain !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  border-radius: 7px;
+  /* prevent broken img box showing */
+  background: transparent;
+}
+/* container alignment */
+.nav-logo, .topbar-logo, .tb > .lm,
+a.nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+}
+
+/* Prevent nav from clipping logo */
+nav, .nav, .tb, .topbar, .top-nav {
+  overflow: visible !important;
+}
+nav img, .nav img, .tb img, .topbar img {
+  overflow: visible;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -166,7 +216,7 @@ select.fc option{background:var(--deep-navy)}
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="/" class="nav-logo"><img src="/assets/logo.png" alt="Raylane Express" style="height:32px;width:auto;border-radius:8px;flex-shrink:0"><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <a href="/" class="nav-logo"><img src="/assets/logo.png" alt="Raylane Express" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=&quot;width:30px;height:30px;background:linear-gradient(135deg,#0B2FA0,#1a4fd8);border-radius:7px;display:grid;place-items:center;font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:12px;color:#E8A800;flex-shrink:0&quot;>RL</span>')" style="height:32px;width:auto;max-width:150px;object-fit:contain;display:block;flex-shrink:0;border-radius:7px"><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
   <div class="nav-right">
     <a href="/pages/operator.html" class="nav-btn ghost">Operator Login</a>
     <a href="#apply" class="nav-btn gold" id="navApplyBtn" onclick="scrollToApply()">Apply Now</a>
@@ -532,5 +582,29 @@ document.querySelectorAll('.up-zone').forEach(z=>{
   z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('dv');const f=e.dataTransfer.files[0];if(f)showToast('✅ Dropped: '+f.name,'success')});
 });
 </script>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <a href="/" class="bn-item" aria-label="Home">
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Home</span>
+  </a>
+  <a href="/pages/book.html" class="bn-item" aria-label="Book">
+    <span class="bn-icon">🎫</span>
+    <span class="bn-label">Book</span>
+  </a>
+  <a href="/pages/parcels.html" class="bn-item" aria-label="Parcel">
+    <span class="bn-icon">📦</span>
+    <span class="bn-label">Parcel</span>
+  </a>
+  <a href="/pages/routes.html" class="bn-item" aria-label="Routes">
+    <span class="bn-icon">🗺️</span>
+    <span class="bn-label">Routes</span>
+  </a>
+  <a href="/pages/about.html" class="bn-item active" aria-label="More">
+    <span class="bn-icon">☰</span>
+    <span class="bn-label">More</span>
+  </a>
+</nav>
 </body>
 </html>
