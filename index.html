@@ -183,7 +183,7 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
   background: var(--deep-navy);
 }
 .hero-bg {
@@ -315,7 +315,7 @@ body {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-xl);
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,168,0,0.05);
   animation: fadeInUp 0.8s ease 0.5s both;
 }
@@ -536,7 +536,7 @@ body {
   height: 44px;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   flex-shrink: 0;
 }
 .ticker-live-badge {
@@ -562,7 +562,7 @@ body {
 }
 .ticker-track-wrap {
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
   height: 100%;
   display: flex;
   align-items: center;
@@ -604,7 +604,7 @@ body {
   padding: 20px 1.25rem;
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow: visible;
 }
 .stats-bar::before {
   content: '';
@@ -726,7 +726,7 @@ section { padding: 60px 1.25rem; position: relative; }
   cursor: pointer;
   transition: var(--transition);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .departure-card::before {
   content: '';
@@ -823,7 +823,7 @@ section { padding: 60px 1.25rem; position: relative; }
   height: 4px;
   background: rgba(255,255,255,0.08);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   margin-top: 6px;
 }
 .dep-fill-progress {
@@ -894,7 +894,7 @@ section { padding: 60px 1.25rem; position: relative; }
   border-radius: var(--radius-lg);
   padding: 24px 20px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: var(--transition);
 }
 .step-card:hover {
@@ -997,7 +997,7 @@ section { padding: 60px 1.25rem; position: relative; }
   padding: 40px 24px;
   text-align: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin: 0 1.25rem;
 }
 .operator-cta::before {
@@ -1276,7 +1276,7 @@ section { padding: 60px 1.25rem; position: relative; }
   background: var(--card-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  overflow: hidden;
+  overflow: visible;
 }
 .faq-q {
   display: flex;
@@ -1302,7 +1302,7 @@ section { padding: 60px 1.25rem; position: relative; }
 .faq-item.open .faq-chevron { transform: rotate(180deg); }
 .faq-a {
   max-height: 0;
-  overflow: hidden;
+  overflow: visible;
   transition: max-height 0.4s ease, padding 0.3s ease;
 }
 .faq-item.open .faq-a { max-height: 300px; }
@@ -1603,7 +1603,68 @@ footer {
 .count-up { display: inline-block; }
 
 /* UTILITY */
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: visible; clip: rect(0,0,0,0); }
+
+/* Logo image fix — mobile friendly */
+.nav-logo img {
+  height: 38px;
+  width: auto;
+  border-radius: 8px;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+}
+/* Fallback if logo fails to load */
+.nav-logo img[src=""], .nav-logo img:not([src]) {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--royal-blue), #1a4fd8);
+  border-radius: 10px;
+}
+
+/* ── BOTTOM NAVIGATION ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.97);border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:stretch;z-index:100;padding-bottom:max(0px,env(safe-area-inset-bottom));backdrop-filter:blur(16px)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px 10px;text-decoration:none;cursor:pointer;border:none;background:0;color:rgba(255,255,255,.5);transition:all .2s ease;gap:3px}
+.bn-item.active{color:var(--warriors-gold)}
+.bn-item:active{transform:scale(.92)}
+.bn-icon{font-size:20px;line-height:1;display:block}
+.bn-label{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;line-height:1}
+/* Make sure bottom nav doesn't cover content */
+body{padding-bottom:68px}
+@media(min-width:900px){.bottom-nav{display:none}body{padding-bottom:0}}
+
+/* ── LOGO IMAGE GLOBAL FIX ── */
+.nav-logo img,
+.tb img[alt="Raylane Express"],
+a img[alt="Raylane Express"] {
+  height: 36px !important;
+  width: auto !important;
+  max-width: 120px !important;
+  object-fit: contain !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  border-radius: 7px;
+  /* prevent broken img box showing */
+  background: transparent;
+}
+/* container alignment */
+.nav-logo, .topbar-logo, .tb > .lm,
+a.nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+}
+
+/* Prevent nav from clipping logo */
+nav, .nav, .tb, .topbar, .top-nav {
+  overflow: visible !important;
+}
+nav img, .nav img, .tb img, .topbar img {
+  overflow: visible;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -1614,10 +1675,9 @@ footer {
 <!-- ═══ NAV ══════════════════════════════════════════════════ -->
 <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
   <a href="/" class="nav-logo" aria-label="Raylane Express Home">
-    <img src="/assets/logo.png" alt="Raylane Express" style="height:38px;width:auto;border-radius:8px;flex-shrink:0">
+    <img src="/assets/logo.png" alt="Raylane Express" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=&quot;width:38px;height:38px;background:linear-gradient(135deg,#0B2FA0,#1a4fd8);border-radius:10px;display:grid;place-items:center;font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:#E8A800;flex-shrink:0&quot;>RL</span>')" style="height:38px;width:auto;max-width:150px;object-fit:contain;display:block;flex-shrink:0;border-radius:7px">
     <div>
       <div class="nav-logo-text">RAYLANE <span>EXPRESS</span></div>
-      <div class="nav-logo-sub">Uganda's Transport Platform</div>
     </div>
   </a>
   <div class="nav-actions">
@@ -2421,7 +2481,7 @@ footer {
   <div class="section-label">Our Routes</div>
   <h2 class="section-title" id="map-heading">We Travel Uganda.<br><span style="color:var(--warriors-gold)">Together.</span></h2>
   <p class="section-desc">7 major routes from Kampala across Uganda. Real-time departures, every day.</p>
-  <div style="margin-top:24px;border-radius:20px;overflow:hidden;position:relative;background:var(--card);border:1px solid var(--border)">
+  <div style="margin-top:24px;border-radius:20px;overflow:visible;position:relative;background:var(--card);border:1px solid var(--border)">
     <img src="/uganda-map.png" 
          alt="Uganda Route Map — Raylane Express routes from Kampala to Gulu, Mbarara, Mbale, Jinja, Lira, Arua, Kasese" 
          style="width:100%;display:block;border-radius:20px;opacity:.95"
@@ -2487,7 +2547,7 @@ footer {
     <h2 class="section-title" id="scenery-heading">Beautiful Places<br>Along Our Routes</h2>
   </div>
   <!-- Slideshow -->
-  <div id="sceneryShow" style="position:relative;overflow:hidden;height:clamp(200px,45vw,360px);background:linear-gradient(135deg,var(--navy-mid),var(--deep-navy))">
+  <div id="sceneryShow" style="position:relative;overflow:visible;height:clamp(200px,45vw,360px);background:linear-gradient(135deg,var(--navy-mid),var(--deep-navy))">
     <!-- Slide 1 -->
     <div class="sc-hp-slide active" id="hsl0" style="position:absolute;inset:0;opacity:1;transition:opacity .9s ease;display:flex;align-items:flex-end;padding:24px">
       <div style="position:absolute;inset:0;font-size:140px;display:flex;align-items:center;justify-content:center;opacity:.2;pointer-events:none">🏔️</div>
@@ -2554,10 +2614,9 @@ footer {
 <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
 <footer>
   <div class="footer-logo-row">
-    <img src="/assets/logo.png" alt="Raylane Express" style="height:38px;width:auto;border-radius:8px;flex-shrink:0">
+    <img src="/assets/logo.png" alt="Raylane Express" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=&quot;width:38px;height:38px;background:linear-gradient(135deg,#0B2FA0,#1a4fd8);border-radius:10px;display:grid;place-items:center;font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:15px;color:#E8A800;flex-shrink:0&quot;>RL</span>')" style="height:38px;width:auto;max-width:150px;object-fit:contain;display:block;flex-shrink:0;border-radius:7px">
     <div>
       <div class="nav-logo-text" style="font-size:18px;">RAYLANE <span>EXPRESS</span></div>
-      <div class="nav-logo-sub">Uganda's Transport Platform</div>
     </div>
   </div>
   <p class="footer-tagline">Uganda's first vertically integrated transport technology platform. Tusimbudde — We travel together.</p>
@@ -2996,5 +3055,29 @@ if ('serviceWorker' in navigator) {
 })();
 
 </script>
+
+<!-- BOTTOM NAVIGATION — mobile only -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="bn-item active" aria-label="Home">
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Home</span>
+  </a>
+  <a href="/pages/book.html" class="bn-item" aria-label="Book a seat">
+    <span class="bn-icon">🎫</span>
+    <span class="bn-label">Book</span>
+  </a>
+  <a href="/pages/parcels.html" class="bn-item" aria-label="Send a parcel">
+    <span class="bn-icon">📦</span>
+    <span class="bn-label">Parcel</span>
+  </a>
+  <a href="/pages/routes.html" class="bn-item" aria-label="Routes">
+    <span class="bn-icon">🗺️</span>
+    <span class="bn-label">Routes</span>
+  </a>
+  <a href="/pages/about.html" class="bn-item" aria-label="More">
+    <span class="bn-icon">☰</span>
+    <span class="bn-label">More</span>
+  </a>
+</nav>
 </body>
 </html>
