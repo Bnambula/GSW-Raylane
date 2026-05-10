@@ -14,7 +14,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(4,14,53,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1rem;gap:10px;z-index:100;backdrop-filter:blur(16px)}
 .nav-logo{display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0}
 .logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--royal-blue),#1a4fd8);border-radius:7px;display:grid;place-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:12px;color:var(--warriors-gold)}
-.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px;display:none}
+.logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px}
 .logo-text span{color:var(--warriors-gold)}
 @media(min-width:480px){.logo-text{display:block}}
 .nav-back{padding:6px 12px;background:var(--white-10);border:1px solid var(--border);border-radius:var(--radius);font-size:12px;font-weight:600;color:var(--white-80);text-decoration:none;transition:var(--transition);flex-shrink:0;margin-left:auto}
@@ -40,7 +40,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .skeleton{background:linear-gradient(90deg,var(--white-10) 25%,var(--white-20) 50%,var(--white-10) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius);height:160px;margin-bottom:12px}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 /* TRIP CARD */
-.trip-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px;transition:var(--transition);cursor:pointer}
+.trip-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:visible;margin-bottom:12px;transition:var(--transition);cursor:pointer}
 .trip-card:hover{border-color:rgba(255,255,255,.15)}
 .trip-card.raylane{border-left:4px solid var(--warriors-gold)}
 .trip-card-header{padding:16px 18px}
@@ -59,7 +59,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .urgency-available{background:rgba(34,197,94,.1);color:var(--success);border:1px solid rgba(34,197,94,.2)}
 .urgency-filling{background:rgba(245,158,11,.1);color:var(--warning);border:1px solid rgba(245,158,11,.2)}
 .urgency-almost{background:rgba(239,68,68,.1);color:var(--danger);border:1px solid rgba(239,68,68,.2)}
-.tc-fill{height:4px;background:var(--white-10);border-radius:4px;margin:8px 0;overflow:hidden}
+.tc-fill{height:4px;background:var(--white-10);border-radius:4px;margin:8px 0;overflow:visible}
 .tc-fill-bar{height:100%;border-radius:4px;transition:width 1s ease}
 .fill-green{background:linear-gradient(90deg,var(--success),#16A34A)}
 .fill-amber{background:linear-gradient(90deg,var(--warning),#D97706)}
@@ -77,7 +77,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .seat-map-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:10px}
 .seat-grid{display:inline-flex;flex-direction:column;gap:4px}
 .seat-row-map{display:flex;gap:4px;align-items:center}
-.seat-aisle{width:12px}
+.seat-aisle{width:14px;flex-shrink:0}
+/* 67-seater Uganda coach specific classes */
+.seat-drvr{width:30px;height:52px;background:#0d1b3e;border:1px solid rgba(59,130,246,.35);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);font-size:8px;font-weight:800;color:#60A5FA;letter-spacing:1px;cursor:default}
+.seat-gde{height:26px;padding:0 10px;background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:5px;display:inline-flex;align-items:center;flex-shrink:0;font-size:7px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.5px;cursor:default;white-space:nowrap}
+.seat-front-lbl{flex:1;text-align:center;font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase}
+.seat-col-hdr{width:26px;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.35);flex-shrink:0}
+.seat-col-hdr-aisle{width:14px;flex-shrink:0}
+.seat-divider{width:100%;border:none;border-top:1px dashed rgba(255,255,255,.12);margin:3px 0}
+.seat-rear-lbl{width:100%;text-align:center;font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;padding:4px 0}
+.seat-rear-cell{width:26px;height:26px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);display:grid;place-items:center;font-size:8px;font-weight:700;color:rgba(255,255,255,.15);flex-shrink:0;cursor:not-allowed}
+/* 67-seater specific cells */
+.seat-drvr{width:30px;height:52px;background:#0d1b3e;border:1px solid rgba(59,130,246,.35);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);font-size:8px;font-weight:800;color:#60A5FA;letter-spacing:1px;cursor:default}
+.seat-gde{width:30px;height:26px;background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:5px;display:grid;place-items:center;flex-shrink:0;font-size:7px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.5px;cursor:default}
+.seat-front-lbl{flex:1;text-align:center;font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.25);text-transform:uppercase}
+.seat-col-hdr{width:26px;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.35);flex-shrink:0}
+.seat-col-hdr-aisle{width:14px;flex-shrink:0}
+.seat-divider{height:1px;background:rgba(255,255,255,.08);margin:2px 0;border:none;border-top:1px dashed rgba(255,255,255,.12)}
+.seat-rear-lbl{font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase;text-align:center;padding:3px 0}
+.seat-rear-cell{width:26px;height:26px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;font-size:8px;font-weight:700;color:rgba(255,255,255,.2);flex-shrink:0;cursor:not-allowed}
 .seat-btn{width:26px;height:26px;border-radius:4px;border:1px solid var(--border);cursor:pointer;font-size:8px;font-weight:700;display:grid;place-items:center;transition:var(--transition);color:var(--white-60)}
 .seat-btn.avail{background:var(--white-10)}.seat-btn.avail:hover{background:rgba(11,47,160,.4);color:var(--white);border-color:rgba(11,47,160,.5)}
 .seat-btn.booked{background:rgba(255,255,255,.04);color:rgba(255,255,255,.15);cursor:not-allowed;border-color:rgba(255,255,255,.04)}
@@ -162,6 +180,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 .toast.success{border-color:rgba(34,197,94,.3)}.toast.info{border-color:rgba(232,168,0,.3)}
 /* MOBILE STICKY */
 .mobile-bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.95);border-top:1px solid var(--border);padding:10px 1rem;padding-bottom:max(10px,env(safe-area-inset-bottom));z-index:50;backdrop-filter:blur(16px)}
+
+/* ── BOTTOM NAVIGATION ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(4,14,53,.97);border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:stretch;z-index:100;padding-bottom:max(0px,env(safe-area-inset-bottom));backdrop-filter:blur(16px)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px 10px;text-decoration:none;cursor:pointer;border:none;background:0;color:rgba(255,255,255,.5);transition:all .2s ease;gap:3px;position:relative}
+.bn-item.active{color:var(--warriors-gold)}
+.bn-item:active{transform:scale(.92)}
+.bn-icon{font-size:20px;line-height:1;display:block}
+.bn-label{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;line-height:1}
+.bn-dot{position:absolute;top:6px;right:calc(50% - 14px);width:7px;height:7px;background:var(--danger);border-radius:50%;border:1.5px solid rgba(4,14,53,.97)}
+/* Push main content up to avoid bottom nav overlap */
+main{padding-bottom:80px!important}
+/* Hide old mobile bottom bar when bottom nav is present */
+#mobileBottom{bottom:68px!important}
+
+/* Logo img mobile fix */
+nav img[alt="Raylane Express"], .nav-logo img, .tb img {
+  height:30px;width:auto;border-radius:7px;object-fit:contain;display:block;flex-shrink:0;
+}
+
+/* ── LOGO IMAGE GLOBAL FIX ── */
+.nav-logo img,
+.tb img[alt="Raylane Express"],
+a img[alt="Raylane Express"] {
+  height: 36px !important;
+  width: auto !important;
+  max-width: 120px !important;
+  object-fit: contain !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  border-radius: 7px;
+  /* prevent broken img box showing */
+  background: transparent;
+}
+/* container alignment */
+.nav-logo, .topbar-logo, .tb > .lm,
+a.nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  flex-shrink: 0 !important;
+}
+
+/* Prevent nav from clipping logo */
+nav, .nav, .tb, .topbar, .top-nav {
+  overflow: visible !important;
+}
+nav img, .nav img, .tb img, .topbar img {
+  overflow: visible;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -170,7 +239,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="/" class="nav-logo"><div class="logo-mark">RL</div><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
+  <a href="/" class="nav-logo"><img src="/assets/logo.png" alt="Raylane Express" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=&quot;width:30px;height:30px;background:linear-gradient(135deg,#0B2FA0,#1a4fd8);border-radius:7px;display:grid;place-items:center;font-family:Barlow Condensed,sans-serif;font-weight:900;font-size:12px;color:#E8A800;flex-shrink:0&quot;>RL</span>')" style="height:30px;width:auto;max-width:150px;object-fit:contain;display:block;flex-shrink:0;border-radius:7px"><div class="logo-text">RAYLANE <span>EXPRESS</span></div></a>
   <a href="/" class="nav-back">← Home</a>
 </nav>
 
@@ -222,12 +291,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--deep-navy);color:var(--wh
 
   <!-- NO RESULTS -->
   <div class="no-results" id="noResults" style="display:none">
-    <span class="no-results-icon">🚌</span>
+    <span class="no-results-icon">🔍</span>
     <div class="no-results-title">No Trips Found</div>
-    <p style="color:var(--white-60);margin-bottom:20px;font-size:14px">No trips available for this route and date. Try a different date or join the waitlist.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button onclick="openWaitlistModal()" style="padding:12px 20px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;cursor:pointer">Join Waitlist</button>
-      <button onclick="document.getElementById('srDate').focus()" style="padding:12px 20px;background:var(--white-10);color:var(--white);border:1px solid var(--border);border-radius:var(--radius);font-weight:600;cursor:pointer">Change Date</button>
+    <p style="color:var(--white-60);margin-bottom:16px;font-size:13px" id="noResultsMsg">No trips available for this route and date.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px">
+      <button onclick="document.getElementById('srDate').focus()" style="padding:10px 18px;background:var(--warriors-gold);color:var(--deep-navy);border:none;border-radius:var(--radius);font-weight:700;cursor:pointer;font-size:13px">📅 Try Different Date</button>
+      <button onclick="openWaitlistModal()" style="padding:10px 18px;background:var(--white-10);color:var(--white);border:1px solid var(--border);border-radius:var(--radius);font-weight:600;cursor:pointer;font-size:13px">🔔 Join Waitlist</button>
+    </div>
+    <!-- Suggested routes -->
+    <div id="suggestedRoutes" style="text-align:left;max-width:480px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white-60);margin-bottom:10px;text-align:center">Popular Routes You Can Try</div>
+      <div style="display:grid;gap:8px" id="suggestGrid"></div>
     </div>
   </div>
 </main>
@@ -398,18 +472,53 @@ let ST={from:'kampala',to:'mbarara',date:'',pax:1,selectedTrip:null,selectedSeat
 
 // Trips data
 const TRIPS=[
+  // ── KAMPALA → MBARARA ──
   {id:'t1',operator:'Raylane Express',raylane:true,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'06:00',arr:'09:30',dur:'3h 30m',vehicle:'67-Seater',price:25000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:42,urgency:'filling'},
-  {id:'t2',operator:'Global Coaches',raylane:false,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'08:00',arr:'11:30',dur:'3h 30m',vehicle:'67-Seater',price:22000,amenities:['❄️ AC'],seats:67,booked:18,urgency:'available'},
-  {id:'t3',operator:'YY Coaches',raylane:false,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'14:00',arr:'17:30',dur:'3h 30m',vehicle:'67-Seater',price:20000,amenities:['❄️ AC','🔌 USB'],seats:67,booked:62,urgency:'almost'},
-  {id:'t4',operator:'Raylane Express',raylane:true,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'18:00',arr:'21:30',dur:'3h 30m',vehicle:'14-Seater',price:28000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:8,urgency:'available'},
-  {id:'t5',operator:'Global Coaches',raylane:false,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'06:30',arr:'11:30',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC'],seats:67,booked:48,urgency:'filling'},
-  {id:'t6',operator:'Link Bus',raylane:false,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'14:00',arr:'19:00',dur:'5h',vehicle:'67-Seater',price:28000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:22,urgency:'available'},
-  {id:'t7',operator:'YY Coaches',raylane:false,route:'Kampala → Mbale',from:'kampala',to:'mbale',dep:'07:30',arr:'11:30',dur:'4h',vehicle:'67-Seater',price:22000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:61,urgency:'almost'},
-  {id:'t8',operator:'Raylane Express',raylane:true,route:'Kampala → Fort Portal',from:'kampala',to:'fort-portal',dep:'08:00',arr:'12:30',dur:'4h 30m',vehicle:'67-Seater',price:35000,amenities:['❄️ AC','🔌 USB'],seats:67,booked:35,urgency:'filling'},
-  {id:'t9',operator:'Link Bus',raylane:false,route:'Kampala → Nairobi',from:'kampala',to:'nairobi',dep:'20:00',arr:'08:00+1',dur:'12h',vehicle:'67-Seater',price:65000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:22,urgency:'available'},
-  {id:'t10',operator:'Fast Coaches',raylane:false,route:'Kampala → Jinja',from:'kampala',to:'jinja',dep:'07:00',arr:'09:00',dur:'2h',vehicle:'67-Seater',price:15000,amenities:['❄️ AC'],seats:67,booked:30,urgency:'available'},
-  {id:'t11',operator:'Raylane Express',raylane:true,route:'Mbarara → Kampala',from:'mbarara',to:'kampala',dep:'05:00',arr:'08:30',dur:'3h 30m',vehicle:'67-Seater',price:25000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:45,urgency:'filling'},
-  {id:'t12',operator:'Global Coaches',raylane:false,route:'Gulu → Kampala',from:'gulu',to:'kampala',dep:'05:30',arr:'10:30',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC'],seats:67,booked:20,urgency:'available'},
+  {id:'t2',operator:'Global Coaches',raylane:false,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'07:30',arr:'11:00',dur:'3h 30m',vehicle:'67-Seater',price:22000,amenities:['❄️ AC'],seats:67,booked:18,urgency:'available'},
+  {id:'t3',operator:'Raylane Express',raylane:true,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'09:00',arr:'12:30',dur:'3h 30m',vehicle:'14-Seater',price:30000,amenities:['❄️ AC','📶 WiFi','🔌 USB','🧊 Water'],seats:14,booked:6,urgency:'available'},
+  {id:'t4',operator:'YY Coaches',raylane:false,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'14:00',arr:'17:30',dur:'3h 30m',vehicle:'67-Seater',price:20000,amenities:['❄️ AC','🔌 USB'],seats:67,booked:62,urgency:'almost'},
+  {id:'t5',operator:'Link Bus',raylane:false,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'16:00',arr:'19:30',dur:'3h 30m',vehicle:'67-Seater',price:22000,amenities:['❄️ AC'],seats:67,booked:25,urgency:'available'},
+  {id:'t5b',operator:'Raylane Express',raylane:true,route:'Kampala → Mbarara',from:'kampala',to:'mbarara',dep:'18:00',arr:'21:30',dur:'3h 30m',vehicle:'14-Seater',price:32000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:3,urgency:'available'},
+  // ── KAMPALA → GULU ──
+  {id:'t6',operator:'Raylane Express',raylane:true,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'06:00',arr:'11:00',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:48,urgency:'filling'},
+  {id:'t7',operator:'Global Coaches',raylane:false,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'06:30',arr:'11:30',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC'],seats:67,booked:55,urgency:'filling'},
+  {id:'t8',operator:'Raylane Express',raylane:true,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'08:00',arr:'13:00',dur:'5h',vehicle:'14-Seater',price:38000,amenities:['❄️ AC','📶 WiFi','🔌 USB','🧊 Water'],seats:14,booked:4,urgency:'available'},
+  {id:'t9',operator:'Link Bus',raylane:false,route:'Kampala → Gulu',from:'kampala',to:'gulu',dep:'14:00',arr:'19:00',dur:'5h',vehicle:'67-Seater',price:28000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:22,urgency:'available'},
+  // ── KAMPALA → MBALE ──
+  {id:'t10',operator:'Raylane Express',raylane:true,route:'Kampala → Mbale',from:'kampala',to:'mbale',dep:'07:00',arr:'11:00',dur:'4h',vehicle:'67-Seater',price:22000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:38,urgency:'filling'},
+  {id:'t11',operator:'YY Coaches',raylane:false,route:'Kampala → Mbale',from:'kampala',to:'mbale',dep:'07:30',arr:'11:30',dur:'4h',vehicle:'67-Seater',price:22000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:61,urgency:'almost'},
+  {id:'t11b',operator:'Raylane Express',raylane:true,route:'Kampala → Mbale',from:'kampala',to:'mbale',dep:'09:00',arr:'13:00',dur:'4h',vehicle:'14-Seater',price:28000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:7,urgency:'filling'},
+  {id:'t12',operator:'Fast Coaches',raylane:false,route:'Kampala → Mbale',from:'kampala',to:'mbale',dep:'14:00',arr:'18:00',dur:'4h',vehicle:'67-Seater',price:20000,amenities:['❄️ AC'],seats:67,booked:20,urgency:'available'},
+  // ── KAMPALA → FORT PORTAL ──
+  {id:'t13',operator:'Raylane Express',raylane:true,route:'Kampala → Fort Portal',from:'kampala',to:'fort-portal',dep:'07:00',arr:'11:30',dur:'4h 30m',vehicle:'67-Seater',price:35000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:35,urgency:'filling'},
+  {id:'t14',operator:'Raylane Express',raylane:true,route:'Kampala → Fort Portal',from:'kampala',to:'fort-portal',dep:'09:00',arr:'13:30',dur:'4h 30m',vehicle:'14-Seater',price:42000,amenities:['❄️ AC','📶 WiFi','🔌 USB','🧊 Water'],seats:14,booked:2,urgency:'available'},
+  {id:'t15',operator:'Link Bus',raylane:false,route:'Kampala → Fort Portal',from:'kampala',to:'fort-portal',dep:'14:00',arr:'18:30',dur:'4h 30m',vehicle:'67-Seater',price:32000,amenities:['❄️ AC'],seats:67,booked:28,urgency:'available'},
+  // ── KAMPALA → JINJA ──
+  {id:'t16',operator:'Raylane Express',raylane:true,route:'Kampala → Jinja',from:'kampala',to:'jinja',dep:'07:00',arr:'09:00',dur:'2h',vehicle:'14-Seater',price:18000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:5,urgency:'available'},
+  {id:'t17',operator:'Fast Coaches',raylane:false,route:'Kampala → Jinja',from:'kampala',to:'jinja',dep:'07:00',arr:'09:00',dur:'2h',vehicle:'67-Seater',price:15000,amenities:['❄️ AC'],seats:67,booked:30,urgency:'available'},
+  {id:'t18',operator:'Raylane Express',raylane:true,route:'Kampala → Jinja',from:'kampala',to:'jinja',dep:'10:00',arr:'12:00',dur:'2h',vehicle:'14-Seater',price:18000,amenities:['❄️ AC','📶 WiFi'],seats:14,booked:9,urgency:'filling'},
+  {id:'t19',operator:'YY Coaches',raylane:false,route:'Kampala → Jinja',from:'kampala',to:'jinja',dep:'14:00',arr:'16:00',dur:'2h',vehicle:'67-Seater',price:15000,amenities:['❄️ AC'],seats:67,booked:12,urgency:'available'},
+  // ── KAMPALA → LIRA ──
+  {id:'t20',operator:'Raylane Express',raylane:true,route:'Kampala → Lira',from:'kampala',to:'lira',dep:'06:00',arr:'10:30',dur:'4h 30m',vehicle:'67-Seater',price:30000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:44,urgency:'filling'},
+  {id:'t21',operator:'Link Bus',raylane:false,route:'Kampala → Lira',from:'kampala',to:'lira',dep:'07:00',arr:'11:30',dur:'4h 30m',vehicle:'67-Seater',price:28000,amenities:['❄️ AC'],seats:67,booked:20,urgency:'available'},
+  {id:'t22',operator:'Raylane Express',raylane:true,route:'Kampala → Lira',from:'kampala',to:'lira',dep:'08:00',arr:'12:30',dur:'4h 30m',vehicle:'14-Seater',price:36000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:3,urgency:'available'},
+  // ── KAMPALA → ARUA ──
+  {id:'t23',operator:'Raylane Express',raylane:true,route:'Kampala → Arua',from:'kampala',to:'arua',dep:'06:00',arr:'14:30',dur:'8h 30m',vehicle:'67-Seater',price:35000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:50,urgency:'filling'},
+  {id:'t24',operator:'Global Coaches',raylane:false,route:'Kampala → Arua',from:'kampala',to:'arua',dep:'07:00',arr:'15:30',dur:'8h 30m',vehicle:'67-Seater',price:35000,amenities:['❄️ AC'],seats:67,booked:30,urgency:'available'},
+  // ── KAMPALA → KASESE ──
+  {id:'t25',operator:'Raylane Express',raylane:true,route:'Kampala → Kasese',from:'kampala',to:'kasese',dep:'07:00',arr:'12:30',dur:'5h 30m',vehicle:'67-Seater',price:28000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:33,urgency:'available'},
+  {id:'t26',operator:'Raylane Express',raylane:true,route:'Kampala → Kasese',from:'kampala',to:'kasese',dep:'09:00',arr:'14:30',dur:'5h 30m',vehicle:'14-Seater',price:35000,amenities:['❄️ AC','📶 WiFi','🔌 USB','🧊 Water'],seats:14,booked:5,urgency:'available'},
+  // ── KAMPALA → NAIROBI ──
+  {id:'t27',operator:'Link Bus',raylane:false,route:'Kampala → Nairobi',from:'kampala',to:'nairobi',dep:'19:00',arr:'07:00+1',dur:'12h',vehicle:'67-Seater',price:65000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:40,urgency:'filling'},
+  {id:'t28',operator:'Raylane Express',raylane:true,route:'Kampala → Nairobi',from:'kampala',to:'nairobi',dep:'20:00',arr:'08:00+1',dur:'12h',vehicle:'67-Seater',price:68000,amenities:['❄️ AC','📶 WiFi','🔌 USB','🧊 Water'],seats:67,booked:22,urgency:'available'},
+  // ── RETURNS ──
+  {id:'t29',operator:'Raylane Express',raylane:true,route:'Mbarara → Kampala',from:'mbarara',to:'kampala',dep:'05:00',arr:'08:30',dur:'3h 30m',vehicle:'67-Seater',price:25000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:45,urgency:'filling'},
+  {id:'t30',operator:'Raylane Express',raylane:true,route:'Mbarara → Kampala',from:'mbarara',to:'kampala',dep:'06:30',arr:'10:00',dur:'3h 30m',vehicle:'14-Seater',price:30000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:14,booked:4,urgency:'available'},
+  {id:'t31',operator:'Global Coaches',raylane:false,route:'Gulu → Kampala',from:'gulu',to:'kampala',dep:'05:30',arr:'10:30',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC'],seats:67,booked:20,urgency:'available'},
+  {id:'t32',operator:'Raylane Express',raylane:true,route:'Gulu → Kampala',from:'gulu',to:'kampala',dep:'06:00',arr:'11:00',dur:'5h',vehicle:'67-Seater',price:30000,amenities:['❄️ AC','📶 WiFi','🔌 USB'],seats:67,booked:38,urgency:'filling'},
+  {id:'t33',operator:'Raylane Express',raylane:true,route:'Mbale → Kampala',from:'mbale',to:'kampala',dep:'06:00',arr:'10:00',dur:'4h',vehicle:'67-Seater',price:22000,amenities:['❄️ AC','📶 WiFi'],seats:67,booked:28,urgency:'available'},
+  {id:'t34',operator:'Raylane Express',raylane:true,route:'Jinja → Kampala',from:'jinja',to:'kampala',dep:'07:00',arr:'09:00',dur:'2h',vehicle:'14-Seater',price:18000,amenities:['❄️ AC','📶 WiFi'],seats:14,booked:6,urgency:'filling'},
+  {id:'t35',operator:'YY Coaches',raylane:false,route:'Jinja → Kampala',from:'jinja',to:'kampala',dep:'08:00',arr:'10:00',dur:'2h',vehicle:'67-Seater',price:15000,amenities:['❄️ AC'],seats:67,booked:22,urgency:'available'},
 ];
 
 function showToast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3000)}
@@ -433,7 +542,7 @@ function closeModal(id){document.getElementById(id).classList.remove('open')}
   setTimeout(()=>runSearch(),900);
 })();
 
-function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1).replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()):s}
+function cap(s){if(!s)return s;return s.replace(/-/g,' ').split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' ')}
 
 function updateUrl(){
   ST.from=document.getElementById('srFrom').value;
@@ -463,7 +572,37 @@ function renderResults(){
   document.getElementById('resultsMeta').textContent=trips.length+' trip'+(trips.length!==1?'s':'')+' available · '+formatDate(dateStr);
   document.title='Book '+routeName+' — Raylane Express';
   const list=document.getElementById('resultsList');
-  if(trips.length===0){list.style.display='none';document.getElementById('noResults').style.display='block';return}
+  if(trips.length===0){
+    list.style.display='none';
+    const noEl=document.getElementById('noResults');
+    noEl.style.display='block';
+    // Build suggestions
+    const msg=document.getElementById('noResultsMsg');
+    if(msg)msg.textContent='No trips found for '+routeName+' on '+formatDate(dateStr)+'. Here are some popular alternatives:';
+    const grid=document.getElementById('suggestGrid');
+    if(grid){
+      const popular=['kampala-mbarara','kampala-gulu','kampala-jinja','kampala-mbale','kampala-fort-portal','kampala-lira'];
+      const currentKey=from+'-'+to;
+      grid.innerHTML='';
+      popular.filter(r=>r!==currentKey).slice(0,4).forEach(r=>{
+        const [f2,t2]=r.split('-');
+        const sample=TRIPS.find(x=>x.from===f2&&x.to===t2);
+        if(!sample)return;
+        const btn=document.createElement('div');
+        btn.style.cssText='display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .2s';
+        btn.innerHTML='<div><div style="font-weight:700;font-size:13px">'+cap(f2)+' → '+cap(t2)+'</div><div style="font-size:10px;color:rgba(255,255,255,.5)">from UGX '+sample.price.toLocaleString()+' · '+sample.dep+'</div></div><div style="background:var(--warriors-gold);color:#040E35;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700">View →</div>';
+        btn.onclick=()=>{
+          document.getElementById('srFrom').value=f2;
+          document.getElementById('srTo').value=t2;
+          runSearch();
+        };
+        btn.onmouseover=()=>btn.style.borderColor='rgba(232,168,0,.4)';
+        btn.onmouseout=()=>btn.style.borderColor='rgba(255,255,255,.08)';
+        grid.appendChild(btn);
+      });
+    }
+    return;
+  }
   list.innerHTML='';list.style.display='block';
   trips.forEach(t=>{list.appendChild(buildTripCard(t))});
 }
@@ -542,27 +681,176 @@ function buildSeatMap(tripId){
   if(!el||el.children.length>0)return;
   const booked=bookedPatterns[tripId]||[];
   const t=TRIPS.find(x=>x.id===tripId);if(!t)return;
-  const rows=t.vehicle==='14-Seater'?4:12;
-  const cols=t.vehicle==='14-Seater'?3:5;
-  // Driver row
-  const dRow=document.createElement('div');dRow.className='seat-row-map';
-  const d=document.createElement('div');d.className='seat-btn driver';d.textContent='D';dRow.appendChild(d);
-  el.appendChild(dRow);
-  for(let r=0;r<rows;r++){
-    const row=document.createElement('div');row.className='seat-row-map';
-    for(let c=0;c<cols;c++){
-      if(cols===5&&c===2){const a=document.createElement('div');a.className='seat-aisle';row.appendChild(a)}
-      const seatNum=r*cols+c+1;
-      const s=document.createElement('div');
-      const isBooked=booked.includes(seatNum);
-      s.className='seat-btn '+(isBooked?'booked':'avail');
-      s.textContent=seatNum;
-      if(!isBooked){
-        s.onclick=()=>toggleSeat(s,seatNum,tripId,t.price);
-      }
-      row.appendChild(s);
+  const is14=t.vehicle==='14-Seater';
+
+  // ── HELPERS ──────────────────────────────────────────────
+  const seatEl=(n,bkd)=>{
+    const s=document.createElement('div');
+    s.className='seat-btn '+(bkd?'booked':'avail');
+    s.textContent=n;
+    s.title='Seat '+n;
+    if(!bkd)s.onclick=()=>toggleSeat(s,n,tripId,t.price);
+    return s;
+  };
+  const aisleEl=(w='10px')=>{
+    const a=document.createElement('div');
+    a.className='seat-aisle';
+    a.style.cssText='width:'+w+';flex-shrink:0';
+    return a;
+  };
+  const driverEl=()=>{
+    const d=document.createElement('div');
+    d.style.cssText='width:26px;height:26px;border-radius:5px;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.35);display:grid;place-items:center;font-size:8px;font-weight:800;color:#60A5FA;flex-shrink:0;letter-spacing:-.5px';
+    d.textContent='DRV';
+    d.title='Driver';
+    return d;
+  };
+  const rowEl=()=>{const r=document.createElement('div');r.className='seat-row-map';return r;};
+
+  // ── HEADER ────────────────────────────────────────────────
+  const hdr=document.createElement('div');
+  hdr.style.cssText='font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:7px;display:flex;align-items:center;gap:8px';
+  hdr.innerHTML=(is14?'🚐 14-Seater Minivan':'🚌 67-Seater Coach')+
+    ' <span style="background:rgba(34,197,94,.15);color:#22C55E;border:1px solid rgba(34,197,94,.3);border-radius:100px;padding:2px 8px;font-size:9px">'+(t.seats-t.booked)+' seats left</span>';
+  el.parentNode.insertBefore(hdr,el);
+
+  // ── LEGEND ────────────────────────────────────────────────
+  const leg=document.createElement('div');
+  leg.style.cssText='display:flex;gap:12px;margin-bottom:8px;font-size:10px;color:rgba(255,255,255,.5);align-items:center;flex-wrap:wrap';
+  const mkLeg=(bg,border,lbl)=>'<div style="display:flex;align-items:center;gap:4px"><div style="width:13px;height:13px;background:'+bg+';border:1px solid '+border+';border-radius:3px"></div>'+lbl+'</div>';
+  leg.innerHTML=
+    mkLeg('rgba(255,255,255,.07)','rgba(255,255,255,.18)','Available')+
+    mkLeg('var(--warriors-gold,#E8A800)','#E8A800','Selected')+
+    mkLeg('rgba(255,255,255,.04)','rgba(255,255,255,.06)','Taken')+
+    mkLeg('rgba(59,130,246,.2)','rgba(59,130,246,.35)','Driver');
+  el.parentNode.insertBefore(leg,el);
+
+  // ── DIRECTION ─────────────────────────────────────────────
+  const dir=document.createElement('div');
+  dir.style.cssText='display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.3);margin-bottom:6px;padding:0 2px';
+  dir.innerHTML='<span>&#x1F697; FRONT</span><span>BACK &#x1F6AA;</span>';
+  el.parentNode.insertBefore(dir,el);
+
+  // ══════════════════════════════════════════════════════════
+  //  14-SEATER MINIVAN LAYOUT
+  //  ┌──────────────────────┐
+  //  │  DRV │ aisle │  1  2 │  ← front row: driver + 2 passengers
+  //  │────────────────────── │
+  //  │  3  4 │ aisle │  5   │  ← row 1
+  //  │  6  7 │ aisle │  8   │  ← row 2
+  //  │  9 10 │ aisle │ 11   │  ← row 3
+  //  │ 12 13 │ aisle │ 14   │  ← row 4
+  //  └──────────────────────┘
+  //  Total: 2 front + 4×3 body = 14 seats
+  // ══════════════════════════════════════════════════════════
+  if(is14){
+    // Front row: [DRV] [aisle] [seat1] [seat2]
+    const fr=rowEl();
+    fr.appendChild(driverEl());
+    fr.appendChild(aisleEl('10px'));
+    [1,2].forEach(n=>fr.appendChild(seatEl(n,booked.includes(n))));
+    el.appendChild(fr);
+
+    // Body rows 1–4: [seatA] [seatB] [aisle] [seatC]
+    // Seats 3–14, three per row
+    for(let r=0;r<4;r++){
+      const row=rowEl();
+      const base=3+(r*3);   // 3,6,9,12
+      row.appendChild(seatEl(base,   booked.includes(base)));
+      row.appendChild(seatEl(base+1, booked.includes(base+1)));
+      row.appendChild(aisleEl('10px'));
+      row.appendChild(seatEl(base+2, booked.includes(base+2)));
+      el.appendChild(row);
     }
-    el.appendChild(row);
+
+  // ══════════════════════════════════════════════════════════════════
+  //  67-SEATER UGANDA COACH — EXACT LAYOUT
+  //
+  //  Row 0:  [Seat 1 front-left] [  FRONT (label)  ] [DRVR vertical]
+  //  Row 1:  [GDE  conductor box]
+  //  Col hdr: A  B  ░░  C  D  E
+  //  Dashed divider
+  //  12 body rows (seats 2–55 in A–E order):
+  //    Row:  A  B  ░░  C  D  E   → 5 seats per row
+  //    Seq:  2  3  ░░  4  5  6   (row 1)
+  //          7  8  ░░  9 10 11   (row 2)  ...
+  //         51 52  ░░ 53 54 55   (row 12)
+  //  Rear row label: ── REAR ROW ──
+  //  6 grey non-clickable seats across the back
+  // ══════════════════════════════════════════════════════════════════
+  } else {
+    // ── helper: make a labelled box cell ────────────────────
+    const boxCell=(cls,text,title='')=>{
+      const d=document.createElement('div');
+      d.className=cls;d.textContent=text;if(title)d.title=title;return d;
+    };
+
+    // ── ROW 0: Seat 1 · FRONT label · DRVR ──────────────────
+    const row0=rowEl();
+    // Seat 1 (front-left, clickable)
+    row0.appendChild(seatEl(1, booked.includes(1)));
+    // FRONT centred label
+    const frontLbl=document.createElement('div');
+    frontLbl.className='seat-front-lbl';frontLbl.textContent='FRONT';
+    row0.appendChild(frontLbl);
+    // DRVR box (dark navy, vertical text, front-right)
+    row0.appendChild(boxCell('seat-drvr','DRVR','Driver'));
+    el.appendChild(row0);
+
+    // ── ROW 1: GDE conductor ────────────────────────────────
+    const row1=rowEl();
+    row1.appendChild(boxCell('seat-gde','GDE','Conductor / Guide'));
+    el.appendChild(row1);
+
+    // ── COLUMN HEADER ROW: A · B · aisle · C · D · E ────────
+    const colHdr=rowEl();
+    ['A','B'].forEach(c=>{const h=document.createElement('div');h.className='seat-col-hdr';h.textContent=c;colHdr.appendChild(h);});
+    const hdrAisle=document.createElement('div');hdrAisle.className='seat-col-hdr-aisle';colHdr.appendChild(hdrAisle);
+    ['C','D','E'].forEach(c=>{const h=document.createElement('div');h.className='seat-col-hdr';h.textContent=c;colHdr.appendChild(h);});
+    el.appendChild(colHdr);
+
+    // ── DASHED DIVIDER ───────────────────────────────────────
+    const divider=document.createElement('div');
+    divider.className='seat-divider';
+    el.appendChild(divider);
+
+    // ── 12 BODY ROWS — seats 2 to 55 ─────────────────────────
+    // Seat numbering: 2,3,4,5,6 → 7,8,9,10,11 → ... → 51,52,53,54,55
+    // Columns: A=col0, B=col1, [aisle], C=col2, D=col3, E=col4
+    for(let r=0;r<11;r++){
+      const row=rowEl();
+      const base=2+(r*5); // 2,7,12,17,22,27,32,37,42,47,52 — cap at 55
+      // Col A, B
+      [0,1].forEach(i=>{
+        const n=base+i;
+        if(n<=55)row.appendChild(seatEl(n, booked.includes(n)));
+      });
+      // Aisle
+      row.appendChild(aisleEl('14px'));
+      // Col C, D, E
+      [2,3,4].forEach(i=>{
+        const n=base+i;
+        if(n<=55)row.appendChild(seatEl(n, booked.includes(n)));
+      });
+      el.appendChild(row);
+    }
+
+    // ── REAR ROW LABEL ────────────────────────────────────────
+    const rearLbl=document.createElement('div');
+    rearLbl.className='seat-rear-lbl';
+    rearLbl.innerHTML='<span style="display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.25)"><span style="flex:1;height:1px;background:rgba(255,255,255,.1);display:block;width:30px"></span>REAR ROW<span style="flex:1;height:1px;background:rgba(255,255,255,.1);display:block;width:30px"></span></span>';
+    el.appendChild(rearLbl);
+
+    // ── 6 REAR SEATS — grey, non-clickable ────────────────────
+    const rearRow=rowEl();
+    rearRow.style.cssText='justify-content:center;gap:5px;padding:2px 0';
+    for(let i=0;i<6;i++){
+      const cell=document.createElement('div');
+      cell.className='seat-rear-cell';
+      cell.title='Rear seat — not bookable online';
+      rearRow.appendChild(cell);
+    }
+    el.appendChild(rearRow);
   }
 }
 
@@ -651,5 +939,29 @@ function joinWaitlist(){
   showToast('✅ Waitlist joined — RLX-MATCH-'+Math.floor(Math.random()*90000+10000),'success');
 }
 </script>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="bn-item" aria-label="Home">
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Home</span>
+  </a>
+  <a href="/pages/book.html" class="bn-item active" aria-label="Book a seat">
+    <span class="bn-icon">🎫</span>
+    <span class="bn-label">Book</span>
+  </a>
+  <a href="/pages/parcels.html" class="bn-item" aria-label="Send a parcel">
+    <span class="bn-icon">📦</span>
+    <span class="bn-label">Parcel</span>
+  </a>
+  <a href="/pages/routes.html" class="bn-item" aria-label="View routes">
+    <span class="bn-icon">🗺️</span>
+    <span class="bn-label">Routes</span>
+  </a>
+  <a href="/pages/about.html" class="bn-item" aria-label="More options">
+    <span class="bn-icon">☰</span>
+    <span class="bn-label">More</span>
+  </a>
+</nav>
 </body>
 </html>
